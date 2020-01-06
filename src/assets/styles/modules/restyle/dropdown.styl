@@ -1,0 +1,95 @@
+@import "../../config.styl"
+
+.rs-drop-down
+    color white
+
+    button
+        background-color: #202440;
+        width: 100%;
+        position: relative;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        line-height: 18px;
+        cursor: pointer;
+        border none
+        border-radius: 3px;
+        span
+            font-size $font-size
+        span:nth-child(1)
+            / .ltr &
+                padding-right 20px
+            / .rtl &
+                padding-left 20px
+
+    &.small button
+        padding: 4px 8px;
+        span
+            font-size $font-size-sm
+        span:nth-child(1)
+            / .ltr &
+                padding-right 16px
+            / .rtl &
+                padding-left 16px
+    &.x-small button
+        padding: 3px 6px;
+        span
+            font-size $font-size-xs
+        span:nth-child(1)
+            / .ltr &
+                padding-right 12px
+            / .rtl &
+                padding-left 12px
+    &.xx-small
+        button
+            padding 2px 4px
+            span
+                font-size $font-size-xxs
+            span:nth-child(1)
+                / .ltr &
+                    padding-right 8px
+                / .rtl &
+                    padding-left 8px
+
+
+        .rs-drop-down--list-parent
+            ul
+                left 0
+                right 0
+                background-color: #202440;
+                z-index 10
+                li
+                    padding: 2px 4px;
+                    font-size $font-size-xxs
+                    font-weight 100
+                    cursor pointer
+                    &:hover
+                        background-color #1e88e5
+
+
+    &--button-toggle-icon
+        display inherit
+        line-height 0
+        width 8px
+        height 8px
+        fill white
+        color white
+        -webkit-transition: all .3s
+        -moz-transition: all .3s
+        -ms-transition: all .3s
+        -o-transition: all .3s
+        transition: all .3s
+
+        svg
+            line-height 100%
+
+        &.close
+            -webkit-transform: rotateX(180deg)
+            -moz-transform: rotateX(180deg)
+            -ms-transform: rotateX(180deg)
+            -o-transform: rotateX(180deg)
+            transform: rotateX(180deg)
+            -webkit-transition: all .3s
+            -moz-transition: all .3s
+            -ms-transition: all .3s
+            -o-transition: all .3s
+            transition: all .3s

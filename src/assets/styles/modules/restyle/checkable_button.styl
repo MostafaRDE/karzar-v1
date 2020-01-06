@@ -1,0 +1,48 @@
+@import "../../config.styl"
+
+.rs-checkable-button
+    background-color: #202440;
+    width: 100%;
+    position: relative;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    line-height: 18px;
+    cursor: pointer;
+    border none
+    &.active
+        background-color: #e8a816;
+    span
+        font-size $font-size
+    span:nth-child(1)
+        / .ltr &
+            padding-right 20px
+        / .rtl &
+            padding-left 20px
+
+    &.small
+        padding: 4px 8px;
+        span
+            font-size $font-size-sm
+        span:nth-child(1)
+            / .ltr &
+                padding-right 16px
+            / .rtl &
+                padding-left 16px
+    &.x-small
+        padding: 3px 6px;
+        span
+            font-size $font-size-xs
+        span:nth-child(1)
+            / .ltr &
+                padding-right 12px
+            / .rtl &
+                padding-left 12px
+    &.xx-small
+        padding 2px 4px
+        span
+            font-size $font-size-xxs
+        span:nth-child(1)
+            / .ltr &
+                padding-right 8px
+            / .rtl &
+                padding-left 8px

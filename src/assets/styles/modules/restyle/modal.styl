@@ -1,0 +1,21 @@
+.modal-parent
+    position fixed
+    bottom 0
+    left 0
+    right 0
+    top 0
+    z-index 9999
+    background-color #000000cc
+    .modal
+        position absolute
+        top 50%
+        left 50%
+        transform translateY(-50%) translateX(-50%)
+        background-color #222
+
+@media screen and (min-width: 831px)
+    .modal
+        width 800px
+@media screen and (max-width: 830px)
+    .modal
+        width calc(100% - 30px)

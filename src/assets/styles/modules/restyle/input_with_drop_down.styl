@@ -1,0 +1,66 @@
+@import "../../config.styl"
+
+.rs-input-with-drop-down--parent
+    display flex
+    align-items center
+    background-color #1C1C1C
+    div
+        display flex
+        align-items center
+        height 100%
+        white-space nowrap
+        > span:nth-child(2)
+            position absolute
+            width 0
+            height 0
+            border-bottom 42px solid #1C1C1C
+            -webkit-transition border-color .2s ease-in-out
+            -moz-transition border-color .2s ease-in-out
+            transition border-color .2s ease-in-out
+            / .ltr &
+                right -15px
+                border-right 15px solid transparent
+            / .rtl &
+                left -15px
+                border-left 15px solid transparent
+    .rs-input-with-drop-down
+        display inline-flex
+        width 100%
+        background-color: #000
+        transition all .15s
+        input
+            display flex
+            flex-grow 1
+            width 100%
+            color #fff
+            background none
+            border none
+            padding 0
+
+        span
+            display flex
+            flex-grow 0
+            font-weight 700
+            &.rs-input-with-drop-down--password
+                flex-basis 22px
+            / .theme--dark &
+                color #9e9e9e
+        &:focus
+            border-color rgb(61, 107, 196)
+            transition all .15s
+
+    &.small
+        .rs-input-with-drop-down
+            padding 8px 12px !important
+            input, span
+                font-size 12px
+    &.x-small
+        .rs-input-with-drop-down
+            padding 6px 8px !important
+            input, span
+                font-size 11px
+    &.xx-small
+        .rs-input-with-drop-down
+            padding 4px 6px !important
+            input, span
+                font-size 10px

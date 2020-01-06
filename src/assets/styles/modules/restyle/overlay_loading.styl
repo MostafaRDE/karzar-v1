@@ -1,0 +1,46 @@
+@keyframes animation-rs-overlay-loading--default
+    0%
+        transform scale(0)
+    35%
+        transform scale(1.1)
+    100%
+        transform scale(1)
+@keyframes animation-rs-overlay-loading--default-item
+    0%
+        opacity 1
+    100%
+        opacity 0
+
+.rs-overlay-loading--default
+    width: 20px;
+    height: 20px;
+    position: relative;
+    animation-name: animation-rs-overlay-loading--default;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+.rs-overlay-loading--default-item
+    opacity 0
+    animation-name: animation-rs-overlay-loading--default-item;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: 10px 10px;
+
+    > div
+        position: absolute;
+        border-radius: 20%;
+        top: 0.9375px;
+        left: 9.0625px;
+        width: 1px;
+        height: 4.375px;
+        background-color: white;
+    / .ltr &
+        for i in 12..0
+            &:nth-child({i})
+                transform rotate(unit(i * 30, 'deg'))
+                animation-delay unit(i / 10, 's')
+    / .rtl &
+        for i in 12..0
+            &:nth-child({i})
+                transform rotate(unit(i * -30, 'deg'))
+                animation-delay unit(i / 10, 's')

@@ -1,0 +1,262 @@
+{
+	"app": {
+		"name": "Gametour"
+	},
+	"currencies": {
+		"dollar": "Dollar",
+		"euro": "Euro",
+		"krone": "Krone"
+	},
+	"currencies_short": {},
+	"glossaries": {
+		"account": "Account",
+		"account_charging": "Account Charging",
+		"after_the_request_you_will_be_paid_between_1_and_24_hours": "After the request, you will be paid between 1 and 24 hours",
+		"amount": "Amount",
+		"and_in_the_last_step_send_a_screenshot_of_your_payment": "And in the last step, send a screenshot of your payment",
+		"average": "Average",
+		"balance": "Balance",
+		"base_information": "Base Information",
+		"blog": "Blog",
+		"cancel": "Cancel",
+		"change": "Change",
+		"change_password": "Change Password",
+		"character_name": "Character Name",
+		"code": "Code",
+		"code_with_colons": "Code:",
+		"confirm": "Confirm",
+		"contact_us": "Contact Us",
+		"current_password": "Current password",
+		"date": "Date",
+		"deposit": "Deposit",
+		"email": "Email",
+		"email_address": "Email Address",
+		"enter_the_tournament": "Enter the Tournament",
+		"enter_your_country_for_withdrawal_from_your_currency_account": "Enter your country for withdrawal from your currency account",
+		"enter_your_country_to_recharge_your_currency_account": "Enter your country to recharge your currency account",
+		"error_code": "Error code",
+		"error_code_with_colons": "Error code:",
+		"exchange": "Exchange",
+		"favorites": "Favorites",
+		"fee": "Fee",
+		"filled": "Filled",
+		"funds": "Funds",
+		"games_played": "Games Played",
+		"group_booking": "Group Booking",
+		"hide_other_pairs": "Hide Other Pairs",
+		"home": "Home",
+		"increase": "Increase",
+		"info": "Info",
+		"is_equal_to": "Is equal to",
+		"live_preview": "Live Preview",
+		"log_in": "Log In",
+		"login": "Login",
+		"logout": "Logout",
+		"map": "Map",
+		"market": "Market",
+		"more": "More",
+		"more_information": "More Information",
+		"my_24h_order_history": "My 24h order history",
+		"name": "Name",
+		"new_password": "New password",
+		"open_orders": "Open orders",
+		"orders": "Orders",
+		"pair": "Pair",
+		"password": "Password",
+		"players_list": "Players List",
+		"price": "Price",
+		"ready_for_a_great_battle": "Ready for a great battle?",
+		"receiver_name": "Receiver Name",
+		"refer_code": "Referral id",
+		"refer_code_optional": "Referral id (Optional)",
+		"register": "Register",
+		"resend_verification_email": "Resend activation link",
+		"reset_password": "Reset Password",
+		"retype_new_password": "Retype new password",
+		"retype_password": "Retype password",
+		"reward": "Reward",
+		"running_tournaments": "Running tournaments",
+		"search": "Search",
+		"search_with_dots": "Search...",
+		"select_file": "Select File",
+		"shop": "Shop",
+		"side": "Side",
+		"soon": "Soon",
+		"status": "Status",
+		"stop-limit": "Stop-Limit",
+		"submit": "Submit",
+		"team": "Team",
+		"tickets": "Tickets",
+		"total": "Total",
+		"tournaments": "Tournaments",
+		"trade": "Trade",
+		"trade_history": "Trade History",
+		"transactions": "Transactions",
+		"trigger_conditions": "Trigger Conditions",
+		"tutorials": "Tutorials",
+		"type": "Type",
+		"update": "Update",
+		"volume": "Volume",
+		"volume_coin_box": "Volume",
+		"watch": "Watch",
+		"whatsapp_number": "Whatsapp Number",
+		"withdraw": "Withdraw",
+		"withdraw_from_account": "Withdraw from account",
+		"withdrawal": "Withdrawal",
+		"your_amount": "Your amount",
+		"your_balance": "Your Balance",
+		"your_bonus_of_this_game": "Your bonus of this game",
+		"your_games": "Your Games",
+		"your_message": "Your Message",
+		"your_name": "Your Name"
+	},
+	"messages": {
+		"err_empty_required_filed": "",
+		"errors": {
+			"log_in_failed": "Log In failed.",
+			"registration_failed": "Registration failed.",
+			"reset_password_failed": "Reset Password failed.",
+			"send_reset_password_link_to_failed": "Failed to send reset password link."
+		},
+		"no_orders": "No orders",
+		"no_orders_registered_in_the_last_24_hours": "No orders registered in the last 24 hours",
+		"please_check_that_you_are_visiting": "Please check that you are visiting",
+		"rules": {
+			"confirm_password": "Those password didn't match. Try again.",
+			"email": "Email is wrong.",
+			"min": {
+				"number": "The input number must be equal or bigger than {min}",
+				"string": "The input characters must be equal to or greater than {min}"
+			},
+			"password": "The password must contain uppercase and lowercase letters and numbers. (A-Z a-z 0-9)",
+			"required": "The input field is required."
+		},
+		"successes": {
+			"log_in_successful": "Log In successful.",
+			"registration_successful": "Registration successful.",
+			"reset_password_successful": "Reset Password successful.",
+			"send_reset_password_link_to_sent": "Password reset link sent."
+		}
+	},
+	"pages": {
+		"home": {
+			"main": {
+				"title": "Home Page",
+				"reservation_panel": {
+					"pubg_users_modal": {
+						"title": "You can find your place at the start of the tournament here"
+					}
+				}
+			}
+		},
+		"authentication": {
+			"account_validation_expire": {
+				"content": {
+					"message": "Your account activation token has expired."
+				},
+				"header": "Account verification",
+				"title": "Your account activation token has expired"
+			},
+			"account_validation_ok": {
+				"content": {
+					"message": "Your account has been approved."
+				},
+				"header": "Account verification",
+				"title": "Your account has been approved"
+			},
+			"login": {
+				"title": "Login"
+			},
+			"login_with_google_authenticator": {
+				"header": "Enter your Google Authenticator code",
+				"title": "Enter your Google Authenticator code"
+			},
+			"password_change": {
+				"header": "Reset Password",
+				"title": "Reset Password"
+			},
+			"password_changed": {
+				"content": {
+					"message": "Password changed successfully"
+				},
+				"header": "Reset Password",
+				"title": "Reset Password"
+			},
+			"password_reset_link_sent": {
+				"header": "Password reset link sent",
+				"title": "Password reset link sent"
+			},
+			"register": {
+				"content": {
+					"accepting_text_term_of_use": "I confirm that I have read, accepted and agreed to all Terms of Use, I am of legal age and I am not US person.",
+					"the_site_s_term_of_use": "{site_name}'s Term of Use"
+				},
+				"header": "Create a free account",
+				"title": "Register"
+			},
+			"reset_password": {
+				"content": {
+					"withdrawal_warning": "For security purposes, no withdrawals are permitted for 24 hours after modification of security methods."
+				},
+				"header": "Reset Password",
+				"title": "Reset Password"
+			},
+			"reset_password_error_ip": {
+				"content": {
+					"message": "Your IP is invalid to change the password."
+				},
+				"header": "Reset Password Error",
+				"title": "Reset Password Error"
+			},
+			"reset_password_token_expire": {
+				"content": {
+					"message": "The password change token has expired."
+				},
+				"header": "Reset Password Error",
+				"title": "Reset Password Error"
+			},
+			"send_reset_password_link_to": {
+				"content": {
+					"send_reset_password_link": "Send reset password link"
+				},
+				"header": "Send reset password link to",
+				"title": "Send reset password link to"
+			},
+			"verify_email_address": {
+				"content": {
+					"active_account_first": "Please verify your account, first.",
+					"created_email_and_sent_verifier_email": "your account in {site_name} is registered; shortly, you will receive an email containing verification link."
+				},
+				"header": "Account verification",
+				"title": "Account verification"
+			}
+		},
+		"trade": {
+			"open_orders": {
+				"hide_other_pairs": "Hide Other Pairs"
+			},
+			"trade_box": {
+				"login_to_buy_coin": "Login to buy {coin_name}",
+				"login_to_sell_coin": "Login to buy {coin_name}"
+			}
+		}
+	},
+	"questions": {
+		"already_registered": "Already registered?",
+		"forgot_password": "Forgot Password?",
+		"not_on_the_site_yet": "Not on {site_name} yet?"
+	},
+	"reasons": {
+		"transactions": {
+			"account_charging": "Account charging",
+			"join_to_tournament": "Join to tournament",
+			"withdraw_from_account": "Withdraw from account"
+		}
+	},
+	"statuses": {
+		"awaiting_review": "Awaiting review",
+		"failed": "Failed",
+		"reject": "Reject",
+		"success": "Success"
+	}
+}

@@ -1,0 +1,55 @@
+.theme--{$theme}
+    .application-background-color
+        background-color $application-background-color
+        transition(all .2s)
+    .application-text-color
+        color $application-text-color
+        transition(all .2s)
+    .border
+        border-color $border-color
+        transition(all .2s)
+        &-bottom
+            border-bottom-color $border-color
+            transition(all .2s)
+        &-left
+            border-left-color $border-color
+            transition(all .2s)
+        &-right
+            border-right-color $border-color
+            transition(all .2s)
+        &-top
+            border-top-color $border-color
+            transition(all .2s)
+
+.border
+    / .theme--{$theme} .ltr .rtl &
+        border-left-color $border-color
+        border-right-color initial
+        transition(all .2s)
+    &-end
+        / .theme--{$theme} .ltr &
+            border-right-color $border-color
+            transition(all .2s)
+        / .theme--{$theme} .rtl .ltr &
+            border-left-color initial
+            border-right-color $border-color
+            transition(all .2s)
+        / .theme--{$theme} .rtl &
+            border-left-color $border-color
+            transition(all .2s)
+
+    &-start
+        / .theme--{$theme} .ltr &
+            border-left-color $border-color
+            transition(all .2s)
+        / .theme--{$theme} .rtl .ltr &
+            border-left $border-color
+            border-right-color initial
+            transition(all .2s)
+        / .theme--{$theme} .rtl &
+            border-right-color $border-color
+            transition(all .2s)
+        / .theme--{$theme} .ltr .rtl &
+            border-left-color initial
+            border-right-color $border-color
+            transition(all .2s)

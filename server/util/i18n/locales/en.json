@@ -1,0 +1,43 @@
+{
+  "messages": {
+    "err_empty_required_filed": "لطفا فیلد های اجباری را وارد نمایید",
+    "err_email_filed": "لطفا ایمیل را به صورت صحیح وارد نمایید",
+    "rate_limit_login": "تعداد در خواست های شما بیشتر از حد مجاز میباشد لطفا 5 دقیقه دیگر تلاش کنید ",
+    "err_email_or_password_invalid": "ایمیل یا رمز عبور صحیح نمیباشد",
+    "err_exist_user": "شما با این ایمیل از قبل ثبت نام کرده اید لطفا از قسمت ورود به حساب اقدام کنید",
+    "email_or_mobile_not_approve": "حساب کاربری شما تایید نشده لطفا ابتدا ایمیل خود را تایید کنید",
+    "invalid_token_forget_password": "شناسه وارد شده معتبر نمیباشد",
+    "expired_token_forget_password": "شناسه منقضی شده",
+    "invalid_username": "حساب کاربری وارد شده معتبر نمیباشد",
+    "name_is_fa": "نام شما باید به صورت فارسی وارد شود",
+    "family_is_fa": "نام خانوادگی شما باید به صورت فارسی وارد شود",
+    "father_name_is_fa": "نام پدر باید به صورت فارسی وارد شود",
+    "invalid_mobile_phone": "شماره همراه شما به درستی وارد نشده است",
+    "exist_mobile": "شماره همراه وارد شده از قبل موجود میباشد",
+    "invalid_national_code": "کد ملی وارد شده صحیح نمیباشد",
+    "exist_national_code": "کد ملی از قبل موجود میباشد",
+    "invalid_phone": "شماره ثابت را به صورت صحیح وارد نمایید",
+    "exist_atm_number": "شماره کارت وارد شده از قبل موجود میباشد",
+    "required_file_upload": "لطفا یک فایل را ارسال نمایید",
+    "no_orders": "هیچ سفارشی ثبت نشده است",
+    "no_orders_registered_in_the_last_24_hours": "در ۲۴ ساعت گذشته هیچ سفارشی ثبت نشده است",
+    "not_allow_trade" : "کوین %s اجازه trade ندارد",
+    "lot_size_amount_trade" : "مقدار اعشار وارد شده مجاز نمیباشد",
+    "price_filter_amount_trade" : "مقدار نهایی نباید کمتر از %s باشد",
+    "insufficient_inventory" : "موجودی کافی نمیباشد",
+    "wallet_subtract_for_order_number" : "کم شده برای معامله %s",
+    "order_new_price_empty" : "قیمت را وارد نمایید",
+    "order_type_not_valid" : "نوع وارد شده صحیح نمیباشد",
+    "order_side_not_valid" : "سفارش وارد شده صحیح نمیباشد",
+    "trade_symbol_not_found" : "سیمبل %s یافت نشد",
+    "insert_atm_limit": "تعداد کارت های شما بیشتر از حد مجاز میباشد در صورت نیاز از طریق پشتیبانی اقدام به ثبت کارت نمایید",
+    "user_not_exist": "کاربر یافت نشد",
+    "you_have_not_access_to_this_section": "You have not access to this section"
+  },
+  "emails": {
+    "email_validate": {
+      "subject": "تایید ایمیل",
+      "new_password": "رمز جدید"
+    }
+  }
+}

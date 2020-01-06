@@ -1,0 +1,22 @@
+.rs-button-icon
+    display inline-block
+    margin 5px
+    line-height 1
+    border-radius 4px
+    border solid 1px
+    border-color transparent
+    opacity .8
+    &:hover
+        border-color #777
+        opacity 1 !important
+    &:active
+        border-color #666
+        opacity 1 !important
+    span
+        display inline-block
+        padding 7px 8px
+        line-height 1
+    / .ltr & + &
+        margin-left 0
+    / .rtl & + &
+        margin-right 0

@@ -1,0 +1,151 @@
+[lang="af"]
+    font-family IRANSans !important
+[lang="en"]
+    font-family "Open Sans", "Helvetica Neue", Arial, sans-serif !important
+body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,
+button, input
+    line-height $lineHeight
+    font-size $font-size
+
+    / [lang="af"] &
+        font-family IRANSans !important
+    / [lang="en"] &
+        font-family "Open Sans", "Helvetica Neue", Arial, sans-serif !important
+
+    / [lang="en"] [lang="af"] &
+        font-family IRANSans !important
+    / [lang="af"] [lang="en"] &
+        font-family "Open Sans", "Helvetica Neue", Arial, sans-serif !important
+
+    &[lang="af"]
+        font-family IRANSans !important
+    &[lang="en"]
+        font-family "Open Sans", "Helvetica Neue", Arial, sans-serif !important
+
+body
+    / [lang="af"] &
+        line-height $lineHeight
+    / [lang="en"] &
+        line-height $lineHeight
+h1
+    / [lang="af"] &
+        font-size 2.75em
+        font-weight 900
+    / [lang="en"] &
+        font-size 2.75em
+        font-weight 900
+h2
+    / [lang="af"] &
+        font-size 2.25em
+        font-weight 900
+    / [lang="en"] &
+        font-size 2.25em
+        font-weight 900
+h3
+    / [lang="af"] &
+        font-size 1.9em
+        font-weight 900
+    / [lang="en"] &
+        font-size 1.9em
+        font-weight 900
+h4
+    / [lang="af"] &
+        font-size 1.6em
+        font-weight 900
+    / [lang="en"] &
+        font-size 1.6em
+        font-weight 900
+h5
+    / [lang="af"] &
+        font-size 1.3em
+        font-weight 900
+    / [lang="en"] &
+        font-size 1.3em
+        font-weight 900
+h6
+    / [lang="af"] &
+        font-size 1em
+        font-weight 900
+    / [lang="en"] &
+        font-size 1em
+        font-weight 900
+
+a, .linkable
+    cursor pointer
+    transition all .15s
+    -webkit-transition all .15s
+    -moz-transition all .15s
+    -ms-transition all .15s
+    -o-transition all .15s
+    [fill]
+        transition all .15s
+        -webkit-transition all .15s
+        -moz-transition all .15s
+        -ms-transition all .15s
+        -o-transition all .15s
+a:hover, .linkable:hover
+    transition all .15s
+    -webkit-transition all .15s
+    -moz-transition all .15s
+    -ms-transition all .15s
+    -o-transition all .15s
+    [fill]
+        transition all .15s
+        -webkit-transition all .15s
+        -moz-transition all .15s
+        -ms-transition all .15s
+        -o-transition all .15s
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    opacity: 1; /* Firefox */
+}
+
+
+.border
+    border solid 1px
+    &-bottom
+        border-bottom solid 1px
+    &-left
+        border-left solid 1px
+    &-right
+        border-right solid 1px
+    &-top
+        border-top solid 1px
+    &-end
+        / .ltr &
+            border-right solid 1px
+        / .rtl .ltr > &
+            border-left initial
+            border-right solid 1px
+        / .rtl &
+            border-left solid 1px
+        / .ltr .rtl > &
+            border-left solid 1px
+            border-right initial
+    &-start
+        / .ltr &
+            border-left solid 1px
+        / .rtl .ltr > &
+            border-left solid 1px
+            border-right initial
+        / .rtl &
+            border-right solid 1px
+        / .ltr .rtl > &
+            border-left initial
+            border-right solid 1px
+
+@media screen and (min-width:1400px)
+    .container
+        width 1200px !important

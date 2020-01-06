@@ -1,0 +1,49 @@
+@import "../../config.styl"
+
+.tabs
+    .tabs-top .tabs-tab
+        padding-bottom 12px
+        padding-top 10px
+        display block
+        -webkit-transition: all .15s
+        -moz-transition: all .15s
+        -ms-transition: all .15s
+        -o-transition: all .15s
+        transition: all .15s
+
+    .tabs-tab
+        padding-left 20px
+        padding-right 20px
+        white-space nowrap
+        cursor: pointer
+        img
+            width 14px
+        &:not(disabled):not(.active)
+            opacity: 0.6
+        &:hover
+            opacity 1 !important
+        &.active:not(disabled)
+            padding-bottom 10px
+            border-bottom solid 2px #6e1dbf
+            -webkit-transition: all .15s
+            -moz-transition: all .15s
+            -ms-transition: all .15s
+            -o-transition: all .15s
+            transition: all .15s
+
+.small .tabs li span
+    padding-bottom 9px !important
+    padding-top 8px !important
+    span
+        font-size $font-size-sm
+.x-small .tabs li span
+    padding-bottom 6px !important
+    padding-top 6px !important
+    span
+        font-size $font-size-xs
+.xx-small .tabs li span
+    padding-bottom 3px !important
+    padding-top 4px !important
+    span
+        font-size $font-size-xxs
+

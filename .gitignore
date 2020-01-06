@@ -1,0 +1,8 @@
+/node_modules/
+/.idea/
+/dist/
+/sessions/
+cookie-file.txt
+package-lock.json
+sessions/
+yarn.lock

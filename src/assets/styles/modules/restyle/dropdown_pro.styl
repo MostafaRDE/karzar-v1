@@ -1,0 +1,99 @@
+@import "../../config.styl"
+
+.rs-drop-down-pro
+    color white
+
+    &--icon
+        / .ltr &
+            padding-right 20px
+        / .rtl &
+            padding-left 20px
+
+    button
+        background-color #161519
+        width 100%
+        position relative
+        padding 8px 10px
+        box-sizing border-box
+        line-height 18px
+        cursor pointer
+        span
+            font-size $font-size
+        > span:first-child
+            width 100%
+
+    .rs-drop-down-pro--list-parent
+        ul
+            position absolute
+            width 100%
+            background-color #161519
+            left 0
+            right 0
+            z-index 10
+            overflow hidden
+            li
+                padding 8px 10px
+                font-weight 100
+                cursor pointer
+                &:first-child
+                    border-top none
+                &:hover:not(.rs-drop-down-pro--search)
+                    background-color #302e34
+
+    &--button-toggle-icon
+        display inherit
+        line-height 0
+        width 8px
+        height 8px
+        fill white
+        color white
+        -webkit-transition: all .3s
+        -moz-transition: all .3s
+        -ms-transition: all .3s
+        -o-transition: all .3s
+        transition: all .3s
+
+        svg
+            line-height 100%
+
+        &.close
+            -webkit-transform: rotateX(180deg)
+            -moz-transform: rotateX(180deg)
+            -ms-transform: rotateX(180deg)
+            -o-transform: rotateX(180deg)
+            transform: rotateX(180deg)
+            -webkit-transition: all .3s
+            -moz-transition: all .3s
+            -ms-transition: all .3s
+            -o-transition: all .3s
+            transition: all .3s
+
+    &.small
+        button
+            padding 8px 12px
+            span
+                font-size $font-size-sm
+        .rs-drop-down-pro--list-parent
+            li
+                padding 8px 12px
+                input, span
+                    font-size $font-size-sm
+
+    &.x-small
+        button
+            padding 6px 8px
+            span
+                font-size $font-size-xs
+        .rs-drop-down-pro--list-parent
+            li
+                padding 6px 8px
+                input, span
+                    font-size $font-size-xs
+        .rs-drop-down-pro--icon img
+            width 20px
+            height 14px
+            min-width 20px
+            min-height 14px
+            transform scale(1)
+            border-radius 3px
+            transition opacity 0.15s ease 0s, transform 0.15s ease 0s

@@ -1,0 +1,258 @@
+{
+	"app": {
+		"name": "گیم تور"
+	},
+	"currencies": {
+		"dollar": "دلار",
+		"euro": "یورو",
+		"krone": "کرون"
+	},
+	"currencies_short": {},
+	"glossaries": {
+		"account": "حساب",
+		"account_charging": "شارژ حساب",
+		"after_the_request_you_will_be_paid_between_1_and_24_hours": "بعد از درخواست بین 1 تا 24 ساعت کاری با شما تسویه انجام می شود",
+		"amount": "حجم",
+		"and_in_the_last_step_send_a_screenshot_of_your_payment": "و در آخرین مرحله اسکرین شات از پرداخت خود را ارسال کنید",
+		"average": "میانگین",
+		"balance": "موجودی",
+		"base_information": "اطلاعات پایه",
+		"blog": "بلاگ",
+		"cancel": "لغو",
+		"change": "تغییر",
+		"change_password": "تغییر گذرواژه",
+		"character_name": "نام کاراکتر",
+		"code": "کد",
+		"code_with_colons": "کد:",
+		"confirm": "تایید",
+		"contact_us": "تماس با ما",
+		"current_password": "گذرواژه فعلی",
+		"date": "تاریخ",
+		"deposit": "واریز",
+		"email": "ایمیل",
+		"email_address": "آدرس ایمیل",
+		"enter_the_tournament": "ورود به تورنومنت",
+		"enter_your_country_for_withdrawal_from_your_currency_account": "برای برداشت از حساب واحد پول کشور خود را وارد کنید",
+		"enter_your_country_to_recharge_your_currency_account": "برای شارژ حساب واحد پول کشور خود را وارد کنید",
+		"error_code": "کد خطا",
+		"error_code_with_colons": "کد خطا:",
+		"exchange": "ترید",
+		"favorites": "موردعلاقه",
+		"fee": "هزینه",
+		"filled": "پر شده",
+		"funds": "ارز ها",
+		"games_played": "بازی های انجام شده",
+		"group_booking": "رزرو گروهی",
+		"hide_other_pairs": "جفت های دیگر را مخفی کن",
+		"home": "خانه",
+		"increase": "افزایش",
+		"info": "اطلاعات",
+		"is_equal_to": "برابر است با",
+		"live_preview": "پخش زنده",
+		"log_in": "ورود",
+		"login": "ورود",
+		"logout": "خروج",
+		"map": "مپ",
+		"market": "مارکت",
+		"more": "بیشتر",
+		"more_information": "اطلاعات بیشتر",
+		"my_24h_order_history": "تاریخچه سفارشات ۲۴ ساعت گذشته",
+		"name": "نام",
+		"new_password": "گذرواژه جدید",
+		"open_orders": "سفارشات باز",
+		"orders": "سفارشات",
+		"pair": "جفت",
+		"password": "گذرواژه",
+		"players_list": "لیست بازیکنان",
+		"price": "قیمت",
+		"ready_for_a_great_battle": "برای یک نبرد عالی آماده ای؟",
+		"receiver_name": "نام دریافت کننده",
+		"refer_code": "کد معرف",
+		"refer_code_optional": "کد معرف (اختیاری)",
+		"register": "ثبت نام",
+		"resend_verification_email": "ارسال مجدد لینک فعال سازی",
+		"reset_password": "بازیابی گذرواژه",
+		"retype_new_password": "تکرار گذرواژه جدید",
+		"retype_password": "تکرار گذرواژه",
+		"reward": "جایزه",
+		"running_tournaments": "تورنومنت های در حال اجرا",
+		"search": "جستجو",
+		"search_with_dots": "جستجو...",
+		"select_file": "انتخاب فایل",
+		"shop": "فروشگاه",
+		"side": "جهت",
+		"soon": "بزودی",
+		"status": "وضعیت",
+		"stop-limit": "Stop-Limit",
+		"submit": "ارسال",
+		"team": "تیم",
+		"tickets": "تیکت ها",
+		"total": "مجموع",
+		"tournaments": "تورنومنت ها",
+		"trade": "ترید",
+		"trade_history": "تاریخچه معامله",
+		"transactions": "تراکنش ها",
+		"trigger_conditions": "شرایط نگهدارنده",
+		"tutorials": "آموزش ها",
+		"type": "نوع",
+		"update": "بروزرسانی",
+		"volume": "ارزش",
+		"volume_coin_box": "حجم",
+		"watch": "تماشا",
+		"whatsapp_number": "شماره واتس آپ",
+		"withdraw": "برداشت",
+		"withdraw_from_account": "برداشت از حساب",
+		"withdrawal": "برداشت",
+		"your_amount": "مقدار شما",
+		"your_balance": "موجودی شما",
+		"your_bonus_of_this_game": "جایزه شما از این بازی",
+		"your_games": "بازی های شما",
+		"your_message": "پیام شما",
+		"your_name": "نام شما"
+	},
+	"messages": {
+		"err_empty_required_filed": "فیلد های اجباری را پر کنید",
+		"errors": {
+			"log_in_failed": "ورود با شکست مواجه شد.مجدد امتحان کنید",
+			"registration_failed": "ثبت نام با شکست مواجه شد.مجدد امتحان کنید",
+			"reset_password_failed": "تغییر گذرواژه با شکست مواجه شد.مجدد امتحان کنید"
+		},
+		"no_orders": "هیچ سفارشی ثبت نشده است",
+		"no_orders_registered_in_the_last_24_hours": "در ۲۴ ساعت گذشته هیچ سفارشی ثبت نشده است",
+		"please_check_that_you_are_visiting": "لطفا بررسی کنید که آدرس مرورگراتان ,آدرس زیر باشد",
+		"rules": {
+			"confirm_password": "تکرار گذرواژه مطابقت ندارد",
+			"email": "ایمیل وروی اشتباه است.",
+			"min": {
+				"number": "عدد ورودی باید بزرگتر مساوی با {number} باشد.",
+				"string": "حداقل تعداد حروف باید {count} حرف باشد."
+			},
+			"password": "گذرواژه باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
+			"required": "فیلد ورودی اجباری می باشد."
+		},
+		"successes": {
+			"log_in_successful": "ورود با موفقیت انجام شد.",
+			"registration_successful": "ثبت نام با موفقیت انجام شد.",
+			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد."
+		}
+	},
+	"pages": {
+		"home": {
+			"main": {
+				"title": "خرید بیت کوین | فروش بیت کوین | صرافی ارز دیجیتال | صرافی بیترانکس",
+				"reservation_panel": {
+					"pubg_users_modal": {
+						"title": "می توانید جایگاه خود در شروع تورنمنت را در اینجا مشاهده کنید"
+					}
+				}
+			}
+		},
+		"authentication": {
+			"account_validation_expire": {
+				"content": {
+					"message": "Your account activation token has expired."
+				},
+				"header": "Account verification",
+				"title": "Your account activation token has expired"
+			},
+			"account_validation_ok": {
+				"content": {
+					"message": "Your account has been approved."
+				},
+				"header": "Account verification",
+				"title": "Your account has been approved"
+			},
+			"login": {
+				"title": "ورود | بیترانکس"
+			},
+			"login_with_google_authenticator": {
+				"header": "کد احراز هویت گوگل خود را وارد کنید",
+				"title": "کد احراز هویت گوگل خود را وارد کنید"
+			},
+			"password_change": {
+				"header": "تغییر گذرواژه",
+				"title": "تغییر گذرواژه"
+			},
+			"password_changed": {
+				"content": {
+					"message": "گذرواژه با موفقیت تغییر یافت."
+				},
+				"header": "تغییر گذرواژه",
+				"title": "تغییر گذرواژه"
+			},
+			"password_reset_link_sent": {
+				"header": "لینک تغییر گذرواژه ارسال شد",
+				"title": "لینک تغییر گذرواژه ارسال شد"
+			},
+			"register": {
+				"content": {
+					"accepting_text_term_of_use": "تأیید می کنم که من همه شرایط استفاده را خوانده ام، پذیرفته ام و من در سن قانونی هستم.",
+					"the_site_s_term_of_use": "شرایط استفاده از {site_name}"
+				},
+				"header": "ثبت نام",
+				"title": "ثبت نام | بیترانکس"
+			},
+			"reset_password": {
+				"content": {
+					"withdrawal_warning": "برای اهداف امنیتی ، هیچ برداشتی به مدت 24 ساعت پس از اصلاح گذرواژه مجاز نیست."
+				},
+				"header": "بازیابی گذرواژه",
+				"title": "بازیابی گذرواژه | بیترانکس"
+			},
+			"reset_password_error_ip": {
+				"content": {
+					"message": "آی پی شما برای تغییر گذرواژه نامعتبر است."
+				},
+				"header": "خطا در تغییر گذرواژه",
+				"title": "خطا در تغییر گذرواژه | بیترانکس"
+			},
+			"reset_password_token_expire": {
+				"content": {
+					"message": "توکن تغییر گذراوژه منقضی شده است."
+				},
+				"header": "خطا در تغییر گذرواژه",
+				"title": "خطا در تغییر گذرواژه | بیترانکس"
+			},
+			"send_reset_password_link_to": {
+				"content": {
+					"send_reset_password_link": "ارسال لینک تغییر گذرواژه"
+				},
+				"header": "ارسال لینک تغییر گذرواژه به",
+				"title": "ارسال لینک تغییر گذرواژه به | بیترانکس"
+			},
+			"verify_email_address": {
+				"content": {
+					"active_account_first": "لطفا ابتدا حساب خود را فعال نمایید.",
+					"created_email_and_sent_verifier_email": "حساب شما در {site_name} ساخته و یک پیام حاوی لینک فعال سازی به ایمیل شما ارسال شد."
+				},
+				"header": "فعال سازی حساب کاربری",
+				"title": "فعال سازی حساب کاربری | بیترانکس"
+			}
+		},
+		"trade": {
+			"trade_box": {
+				"login_to_buy_coin": "ورود برای خرید {coin_name}",
+				"login_to_sell_coin": "ورود برای فروش {coin_name}"
+			}
+		}
+	},
+	"questions": {
+		"already_registered": "قبلا ثبت نام کرده اید؟",
+		"forgot_password": "گذرواژه خود را فراموش کرده اید؟",
+		"not_on_the_site_yet": "هنوز در {site_name} عضو نشده اید؟"
+	},
+	"reasons": {
+		"transactions": {
+			"account_charging": "شارژ حساب",
+			"join_to_tournament": "عضویت در تورنومنت",
+			"withdraw_from_account": "برداشت از حساب"
+		}
+	},
+	"statuses": {
+		"awaiting_review": "منتظر بررسی",
+		"failed": "ناموفق",
+		"reject": "رد شده",
+		"success": "موفق"
+	},
+	"emails": "emails"
+}

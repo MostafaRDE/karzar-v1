@@ -1,0 +1,87 @@
+@import "../../config.styl"
+
+.rs-image-slider
+
+    &.fullscreen
+        position absolute
+        bottom 0
+        left 0
+        right 0
+        top 0
+        height 100vh
+    &.background-mode .rs-image-slider--viewport--viewer img
+        z-index -100
+
+    &--viewport
+        position relative
+        display flex
+        justify-content center
+        align-items center
+        height 100%
+        overflow hidden
+
+        &--viewer
+            display flex
+            justify-content center
+            align-items center
+            width 100%
+            height 100vh
+            img, > span
+                position absolute
+
+    &--pagination
+        position absolute
+        display block
+        z-index 1000
+        width 43px
+        height 26px
+        top 100%
+        transform matrix(1, 0, 0, 1, -21, -196)
+        left 50%
+        span
+            position absolute
+            width 5px
+            height 26px
+            cursor pointer
+            background-color transparent !important
+            -webkit-transform-origin 50% 100%
+            transform-origin 50% 100%
+            / .ltr &
+                -webkit-transform skew(20deg)
+                -moz-transform skew(20deg)
+                transform skew(20deg)
+            / .rtl &
+                -webkit-transform skew(-20deg)
+                -moz-transform skew(-20deg)
+                transform skew(-20deg)
+            &:after
+                content ''
+                position absolute
+                bottom 0
+                width 100%
+                height 100%
+                -webkit-transform scaleY(.7)
+                transform scaleY(.7)
+                -webkit-transform-origin 50% 100%
+                transform-origin 50% 100%
+                background-color #fff
+                -webkit-transition .35s
+                transition .35s
+                / .ltr &
+                    left 0
+                / .rtl &
+                    left 0
+            &.selected:after
+                -webkit-transform scaleY(1)
+                transform scaleY(1)
+
+@media all and (orientation:landscape)
+    .rs-image-slider
+        &--viewport--viewer img
+            width 100%
+
+@media all and (orientation:portrait)
+    .rs-image-slider
+        &.fullscreen
+            .rs-image-slider--viewport--viewer img
+                height 100vh

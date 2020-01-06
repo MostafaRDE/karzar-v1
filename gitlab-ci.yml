@@ -1,0 +1,44 @@
+build site:
+  image: node:10
+  stage: build
+  only:
+    - master
+  script:
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+
+deploy:
+  environment:
+    name: production
+    url: http://domain.example/
+  image: ubuntu
+  stage: deploy
+  variables:
+    PROJECT_ON_SERVER: "/path/to/your/public/folder"
+  only:
+    - master
+  script:
+    - apt-get update -yqq
+    ##
+    ## Install ssh-agent if not already installed, it is required by Docker.
+    ## (change apt-get to yum if you use an RPM-based image)
+    ##
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+    ## Install resync to create mirror between runner and host.
+    - apt-get install -y rsync
+
+    ##
+    ## Run ssh-agent (inside the build environment)
+    ##
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H $SERVER >> ~/.ssh/known_hosts
+    - rsync -rav --delete dist/ $USER@$SERVER:$PROJECT_ON_SERVER

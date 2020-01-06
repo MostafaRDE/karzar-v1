@@ -1,0 +1,17 @@
+.rs-carousel-slider
+    &--viewport
+        display flex
+        justify-content space-between
+        a
+            overflow hidden
+            span
+                transition .5s ease all
+                &:nth-child(2)
+                    transform translateY(100%)
+            &:hover
+                span
+                    transition .5s ease all
+                    &:nth-child(1)
+                        transform translateY(-100%)
+                    &:nth-child(2)
+                        transform translateY(0)

@@ -1,0 +1,78 @@
+@import "../../config.styl"
+
+button.btn
+  letter-spacing .06em
+  text-transform uppercase
+  position relative
+  display inline-block
+  vertical-align middle
+  width auto
+  margin 0
+  font-family inherit
+  font-size 13px
+  line-height 2em
+  font-weight 700
+  border-radius 0
+  outline 0
+  box-sizing border-box
+  -webkit-transition all .2s ease-in-out
+  -moz-transition all .2s ease-in-out
+  transition all .2s ease-in-out
+  padding 13px 44px
+  cursor pointer
+  border 1px solid transparent
+  &.small
+    line-height 11px
+    font-weight 700
+    padding 5px 11px
+  &.x-small
+    line-height 11px
+    font-weight 700
+    padding 3px 8px
+  &.glow
+    -webkit-transition .5s cubic-bezier(.22,.61,.36,1)
+    -moz-transition .5s cubic-bezier(.22,.61,.36,1)
+    transition .5s cubic-bezier(.22,.61,.36,1)
+    &:hover
+      -webkit-filter drop-shadow(3px 3px 20px rgba(255,14,31,.7))
+      filter drop-shadow(3px 3px 20px rgba(255,14,31,.7))
+  &.solid-btn-shadow
+    box-shadow 0 3px 3px 0 rgba(1,1,1,.55)
+  &.solid
+    color #fff
+    background-color #ff0e1f
+
+    .btn-trapeze-end-side, .btn-trapeze-start-side
+      position absolute
+      top -1px
+      width 0
+      height 0
+      -webkit-transition border-color .2s ease-in-out
+      -moz-transition border-color .2s ease-in-out
+      transition border-color .2s ease-in-out
+
+    .btn-trapeze-bottom
+      border-bottom 50px solid #ff0e1f
+
+    .btn-trapeze-top
+      border-top 51px solid #ff0e1f
+
+    .btn-trapeze-end-side
+      / .ltr &
+        right -16px
+        border-right 15px solid transparent
+      / .rtl &
+        left -16px
+        border-left 15px solid transparent
+
+    .btn-trapeze-start-side
+      / .ltr &
+        left -16px
+        border-left 15px solid transparent
+      / .rtl &
+        right -16px
+        border-right 15px solid transparent
+
+  &.transparent
+    color #fff
+    background-color transparent
