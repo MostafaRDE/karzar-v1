@@ -1,4 +1,3 @@
-
 const Actions = require('./Actions');
 
 module.exports = {

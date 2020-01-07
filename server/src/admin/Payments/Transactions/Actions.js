@@ -4,7 +4,7 @@ class TransactionsAction {
     index() {
         return new Promise((resolve, reject) => {
             let model = new TransactionModel();
-            model.fetch_all('*').then(async data => {
+            model.fetch_all_custom('SELECT * FROM transactions INNER JOIN users ON (transactions.user_id = users.id)').then(async data => {
                 resolve(data)
             }).catch(reject)
         })
