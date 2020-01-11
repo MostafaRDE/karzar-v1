@@ -18,6 +18,7 @@
     "exist_national_code": "کد ملی از قبل موجود میباشد",
     "invalid_phone": "شماره ثابت را به صورت صحیح وارد نمایید",
     "exist_atm_number": "شماره کارت وارد شده از قبل موجود میباشد",
+    "invalid_atm_card": "شماره کارت بانک وارد شده صحیح نمیباشد",
     "required_file_upload": "لطفا یک فایل را ارسال نمایید",
     "no_orders": "هیچ سفارشی ثبت نشده است",
     "no_orders_registered_in_the_last_24_hours": "در ۲۴ ساعت گذشته هیچ سفارشی ثبت نشده است",
@@ -38,6 +39,9 @@
     "email_validate": {
       "subject": "تایید ایمیل",
       "new_password": "رمز جدید"
+    },
+    "login_to_account" : {
+      "subject" : "ورود به حساب کاربری"
     }
   }
 }
