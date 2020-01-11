@@ -41,6 +41,7 @@ module.exports = {
     login(request, response) {
         let username = request.body.username || undefined;
         let password = request.body.password || undefined;
+        let googleCodeAuthenticator = request.body.g_code || undefined;
 
         if (!username || !password) {
             return res.status(400).json({status: false, msg: 'فیلد های الزامی را وارد نمایید'})
@@ -53,6 +54,7 @@ module.exports = {
             .login({
                 username,
                 password,
+                googleCodeAuthenticator,
                 ip: request.connection.remoteAddress,
                 user_agent: {os, browser, version, platform, isMobile, isDesktop}
             })

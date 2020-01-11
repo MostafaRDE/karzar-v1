@@ -1,5 +1,6 @@
-var crypto = require('crypto');
-var validator = require('validator');
+let crypto = require('crypto');
+let validator = require('validator');
+const speakeasy = require('speakeasy');
 
 function microtime(getAsFloat = false) {
     let s, now;
@@ -12,7 +13,7 @@ function microtime(getAsFloat = false) {
     }
 
     // Getting microtime as a float is easy
-    if(getAsFloat) {
+    if (getAsFloat) {
         return now;
     }
 
@@ -22,12 +23,24 @@ function microtime(getAsFloat = false) {
     return s;
 }
 
+function generateSecretForGoogleAuthenticator(length = 10) {
+    return speakeasy.generateSecret({length});
+}
+function verifyGoogleCodeAuthenticator(code, secret, encoding = 'base32', window = 6) {
+    return speakeasy.totp.verify({
+        secret: secret[encoding],
+        encoding,
+        window,
+        token: code,
+    });
+}
+
 function authorize(permission, userData) {
     return userData.role === 'SUPER_ADMIN' || userData.permissions.includes(permission)
 }
 
 function parser(str) {
-    var args = [].slice.call(arguments, 1),
+    let args = [].slice.call(arguments, 1),
         i = 0;
 
     if (str) {
@@ -61,7 +74,7 @@ function randomStr(howMany, chars) {
     let len = Math.min(256, chars.length);
     let d = 256 / len;
 
-    for (var i = 0; i < howMany; i++) {
+    for (let i = 0; i < howMany; i++) {
         value[i] = chars[Math.floor(rnd[i] / d)]
     }
 
@@ -69,7 +82,7 @@ function randomStr(howMany, chars) {
 }
 
 function just_persian(str) {
-    var p = /^[\u0600-\u06FF\s]+$/;
+    let p = /^[\u0600-\u06FF\s]+$/;
     return p.test(str);
 
 }
@@ -90,9 +103,9 @@ function NationalCode(input) {
         || input.toString() === '8888888888'
         || input.toString() === '9999999999')
         return false;
-    var check = parseInt(input[9]);
-    var sum = 0;
-    var i;
+    let check = parseInt(input[9]);
+    let sum = 0;
+    let i;
     for (i = 0; i < 9; ++i) {
         sum += parseInt(input[i]) * (10 - i);
     }
@@ -111,8 +124,8 @@ function normalize_param(p) {
 }
 
 function fixed_digit(number, fixed) {
-    var split = number.toString().split('.');
-    var response = split[0];
+    let split = number.toString().split('.');
+    let response = split[0];
 
     if (fixed > 0) {
         if (split[1] && split[1].length > 0) {
@@ -132,6 +145,8 @@ module.exports = {
     microtime,
     authorize,
     parser,
+    generateSecretForGoogleAuthenticator,
+    verifyGoogleCodeAuthenticator,
     sleep,
     readHTMLFile,
     randomStr,

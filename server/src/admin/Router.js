@@ -6,8 +6,19 @@ const Storage = require('./../../util/multer/image-identity-storage');
 // <editor-fold desc="Admin routes">
 const Controller = require('./Controller');
 
-router.post('/add' , Controller.add);
 router.post('/login' , Controller.login);
+
+constAdminController = require('./Admins/Controller');
+
+router.get('/permissions', adminMiddleware.check_jwt, constAdminController.permissions);
+router.get('/admins', adminMiddleware.check_jwt, constAdminController.index);
+router.post('/admins', adminMiddleware.check_jwt, constAdminController.store);
+router.put('/admins/:id', adminMiddleware.check_jwt, constAdminController.update);
+router.put('/admins/:id/2fa', adminMiddleware.check_jwt, constAdminController.update2fa);
+router.put('/admins/:id/password', adminMiddleware.check_jwt, constAdminController.updatePassword);
+router.put('/admins/:id/permissions', adminMiddleware.check_jwt, constAdminController.updatePermissions);
+router.delete('/admins/:id/block', adminMiddleware.check_jwt, constAdminController.block);
+router.put('/admins/:id/unblock', adminMiddleware.check_jwt, constAdminController.unblock);
 // </editor-fold>
 
 // <editor-fold desc="Users">

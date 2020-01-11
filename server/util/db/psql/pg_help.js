@@ -309,6 +309,24 @@ class pg_help {
                 .catch(reject)
         });
     }
+
+    syncPivot(pivotKeyColumnName, pivotValueColumnName, pivotKeyColumnValue, pivotValueColumnValues) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this.delete([pivotKeyColumnName], [pivotKeyColumnValue]);
+
+                for (let i = 0; i < pivotValueColumnValues.length; i++) {
+                    console.log([pivotKeyColumnName, pivotValueColumnName], [pivotKeyColumnValue, pivotValueColumnValues[i]])
+                    await this.insertSync([pivotKeyColumnName, pivotValueColumnName], [pivotKeyColumnValue, pivotValueColumnValues[i]], 'permission_id, user_id');
+                }
+
+                resolve(true)
+            } catch (e) {
+                console.log(e)
+                reject(e)
+            }
+        });
+    }
 }
 
 class pg_methods {

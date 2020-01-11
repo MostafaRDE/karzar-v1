@@ -20,23 +20,10 @@ class PermissionModel extends pg_helper {
     }
 }
 
-class RoleModel extends pg_helper {
+class PermissionUserPivot extends pg_helper {
     constructor() {
-        super('admin.roles')
+        super('admin.permission_user');
     }
 }
 
-
-class PermissionRolePivot extends pg_helper {
-    constructor() {
-        super('admin.permission_role')
-    }
-}
-
-class RoleUserPivot extends pg_helper {
-    constructor() {
-        super('admin.role_user')
-    }
-}
-
-module.exports = {AdminModel, PermissionModel, RoleModel, PermissionRolePivot, RoleUserPivot};
+module.exports = {AdminModel, PermissionModel, PermissionUserPivot};

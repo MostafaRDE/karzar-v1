@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
-const moment = require("moment");
 const jwt = require("../../util/jwt/index");
-const {AdminModel, PermissionRolePivot} = require("../../Models/AdminModel");
+const {AdminModel} = require("../../Models/AdminModel");
 const {AdminHistoryLogin} = require("./Mongo");
+const {verifyGoogleCodeAuthenticator} = require('../../util/helper/functions');
 
 class AdminActions extends AdminModel {
 
@@ -20,7 +20,7 @@ class AdminActions extends AdminModel {
         return new Promise(async (resolve, reject) => {
             try {
                 // check exist
-                let find = await this.fetch_one('id', ['username', 'email'], [username, password], 'OR');
+                let find = await this.fetch_one('id', ['username', 'email'], [username, email], 'OR');
                 if (!find) {
                     bcrypt.genSalt(10, (err, salt) => {
                         bcrypt.hash(password, salt, async (err, pass_hash) => {
@@ -40,51 +40,56 @@ class AdminActions extends AdminModel {
         });
     }
 
-    login({username, password , ip , user_agent}) {
+    login({username, password, googleCodeAuthenticator, ip, user_agent}) {
         return new Promise(async (resolve, reject) => {
             let _this = this;
             let check = await this.fetch_one('*', ['username', 'email'], [username, username], "OR");
             if (check) {
                 bcrypt.compare(password, check.password, async function (err, check_hash) {
                     if (check_hash) {
+                        if (verifyGoogleCodeAuthenticator(googleCodeAuthenticator, JSON.parse(check.secret))) {
 
-                        // check ip
-                        if (check.is_check_ip) {
-                            if (Array.isArray(check.ips)) {
-                                if (!check.ips.includes(ip)) {
-                                    return resolve({ status : false , msg : __("admin").ip_not_allow });
+                            // check ip
+                            if (check.is_check_ip) {
+                                if (Array.isArray(check.ips)) {
+                                    if (!check.ips.includes(ip)) {
+                                        return resolve({status: false, msg: __("admin").ip_not_allow});
+                                    }
+                                } else {
+                                    return resolve({status: false, msg: __("admin").ip_not_allow});
                                 }
-                            } else {
-                                return resolve({ status : false , msg : __("admin").ip_not_allow });
                             }
-                        }
 
-                        // generates permissions
-                        let permissions = [];
-                        if (check.role !== 'SUPPER_ADMIN') {
-                            permissions = await _this.getPermissions(check.id);
-                            if (permissions.hasOwnProperty('result'))
-                                permissions = permissions.result;
-                            else
-                                permissions = [];
-                        }
-
-                        // todo : create access token
-                        let access_token = jwt.create({
-                            payload: {
-                                id: check.id,
-                                name: check.name,
-                                username: check.username,
-                                email: check.email,
-                                role: check.role,
-                                permissions,
+                            // generates permissions
+                            let permissions = [];
+                            if (check.role !== 'SUPPER_ADMIN') {
+                                permissions = await _this.getPermissions(check.id);
+                                if (permissions.hasOwnProperty('result'))
+                                    permissions = permissions.result;
+                                else
+                                    permissions = [];
                             }
-                        });
 
-                        // todo : add_log_admin
-                        await new AdminHistoryLogin({admin_id : check.id , ip , user_agent}).save();
+                            // todo : create access token
+                            let access_token = jwt.create({
+                                payload: {
+                                    id: check.id,
+                                    name: check.name,
+                                    username: check.username,
+                                    email: check.email,
+                                    role: check.role,
+                                    permissions,
+                                }
+                            });
 
-                        return resolve({status: true, access_token});
+                            // todo : add_log_admin
+                            await new AdminHistoryLogin({admin_id: check.id, ip, user_agent}).save();
+
+                            return resolve({status: true, access_token});
+
+                        } else {
+                            return resolve({status: false, msg: 'کد احراز گوگل صحیح نمی باشد'});
+                        }
                     } else {
                     }
                     return resolve({status: false, msg: 'رمز عبور یا نام کاربری صحیح نمیباشد'});

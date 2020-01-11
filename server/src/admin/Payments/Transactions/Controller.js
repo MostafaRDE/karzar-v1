@@ -51,7 +51,7 @@ module.exports = {
     updateStatus(request, response) {
         let actions = new Actions();
 
-        actions.update(
+        actions.updateStatus(
             request.params.id,
             request.body.status,
             request.body.status_description
