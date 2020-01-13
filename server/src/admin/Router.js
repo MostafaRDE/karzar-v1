@@ -19,6 +19,13 @@ router.put('/admins/:id/password', adminMiddleware.check_jwt, constAdminControll
 router.put('/admins/:id/permissions', adminMiddleware.check_jwt, constAdminController.updatePermissions);
 router.delete('/admins/:id/block', adminMiddleware.check_jwt, constAdminController.block);
 router.put('/admins/:id/unblock', adminMiddleware.check_jwt, constAdminController.unblock);
+
+// <editor-fold desc="Admin routes">
+
+router.put('/profile/change-password', adminMiddleware.check_jwt, constAdminController.profileUpdatePassword);
+
+// </editor-fold>
+
 // </editor-fold>
 
 // <editor-fold desc="Users">
@@ -62,6 +69,7 @@ router.get('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournaments
 router.post('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournamentsController.store);
 router.get('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.show);
 router.put('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.update);
+router.put('/games/pubg/tournaments/:id/set-winner-team', adminMiddleware.check_jwt, PubgTournamentsController.setWinnerTeam);
 router.get('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, PubgTournamentsController.players);
 router.put('/games/pubg/tournaments/:id/players/:player_id/add-room-details', adminMiddleware.check_jwt, PubgTournamentsController.addAuthenticationRoomToGroupPlayers);
 router.put('/games/pubg/tournaments/:id/players/:player_id/remove-room-details', adminMiddleware.check_jwt, PubgTournamentsController.removeAuthenticationRoomToGroupPlayers);
@@ -90,6 +98,16 @@ const PaymentsWalletsController = require('./Payments/Wallets/Controller');
 router.get('/payments/wallets', adminMiddleware.check_jwt, PaymentsWalletsController.index);
 router.get('/payments/wallets/:id', adminMiddleware.check_jwt, PaymentsWalletsController.show);
 router.put('/payments/wallets/:id', adminMiddleware.check_jwt, PaymentsWalletsController.update);
+
+// </editor-fold>
+
+// <editor-fold desc="Tutorials">
+
+const TutorialsController = require('./Tutorials/Controller');
+router.get('/tutorials', adminMiddleware.check_jwt, TutorialsController.index);
+router.post('/tutorials', adminMiddleware.check_jwt, Storage.array('image'), TutorialsController.store);
+router.put('/tutorials/:id', adminMiddleware.check_jwt, Storage.array('image'), TutorialsController.update);
+router.delete('/tutorials/:id', adminMiddleware.check_jwt, TutorialsController.destroy);
 
 // </editor-fold>
 

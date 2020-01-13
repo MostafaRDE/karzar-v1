@@ -132,6 +132,31 @@ class AdminActions {
             })
         })
     }
+
+    profileUpdatePassword(userId, currentPassword, newPassword) {
+        return new Promise(async (resolve, reject) => {
+            let model = new AdminModel();
+            let check = await model.fetch_one('*', ['id'], [userId], "OR");
+            bcrypt.compare(currentPassword, check.password, async function (err, check_hash) {
+                if (check_hash) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newPassword, salt, async (err, pass_hash) => {
+                            model.update(['password'], [pass_hash], ['id'], [userId]).then(res => {
+                                resolve({status: true})
+                            }).catch(error => {
+                                reject({status: false})
+                            })
+                        });
+                    });
+                } else {
+                    reject({
+                        status: false,
+                        msg: 'گذرواژه فعلی خود را اشتباه وارد کرده اید'
+                    })
+                }
+            })
+        })
+    }
 }
 
 module.exports = AdminActions;

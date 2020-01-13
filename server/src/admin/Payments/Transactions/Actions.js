@@ -1,4 +1,4 @@
-const {TransactionModel} = require('../../../../Models/TransactionModel.js');
+const {TotalAmountModel, TransactionModel} = require("../../../../Models/PaymentModel")
 
 class TransactionsAction {
     index() {
@@ -45,8 +45,22 @@ class TransactionsAction {
     updateStatus(id, status, statusDescription) {
         return new Promise((resolve, reject) => {
             let model = new TransactionModel();
-            model.update(['status', 'status_description'], [status, statusDescription], ['id'], [id]).then(data => {
-                resolve({status: true})
+            model.update(['status', 'status_description'], [status, statusDescription], ['id'], [id], 'id, amount, gateway_id').then(async data => {
+                try {
+                    if (status === 1) {
+                        let totalAmountModel = new TotalAmountModel();
+                        let totalAmount = await totalAmountModel.fetch_one('*', ['gateway_id'], [data.gateway_id]);
+                        totalAmountModel.update(['amount'], [(totalAmount.amount + parseFloat(data.amount)).toFixed(2)], ['gateway_id'], [data.gateway_id]).then(response => {
+                            resolve({status: true})
+                        }).catch(error => {
+                            reject({status: false})
+                        })
+                    } else {
+                        resolve({status: true})
+                    }
+                } catch (e) {
+                    reject(e)
+                }
             }).catch(error => {
                 reject(error)
             })

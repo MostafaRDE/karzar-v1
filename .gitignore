@@ -6,3 +6,4 @@ cookie-file.txt
 package-lock.json
 sessions/
 yarn.lock
+/uploads/

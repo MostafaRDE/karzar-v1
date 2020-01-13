@@ -32,7 +32,10 @@ class SliderActions {
 
                 resolve(response)
             }).catch(err => {
-                reject(err)
+                reject({
+                    status: false,
+                    msg: __('mwssages').internal_server_error
+                })
             })
         })
     }

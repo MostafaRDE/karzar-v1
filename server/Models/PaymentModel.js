@@ -14,4 +14,4 @@ class TransactionModel extends pg_helper {
     }
 }
 
-module.exports = {TotalAmountModel, TransactionModel, WalletTransactionModel};
+module.exports = {TotalAmountModel, TransactionModel};

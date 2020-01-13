@@ -21,7 +21,7 @@
                 <span v-for="(item, index) of source"
                       :class="{'selected' : selected === index}"
                       :style="`${$route.params.lang === 'en' ? 'left' : 'right'}: ${index * 19}px`"
-                      @click="selected = index"></span>
+                      @click="model = index"></span>
             </div>
         </div>
     </div>

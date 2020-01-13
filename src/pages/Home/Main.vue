@@ -411,27 +411,27 @@
 
             carouselSlider: [
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-1.png',
+                    image: '/public/images/samples/icons/counter-strike.png',
                     to: '#',
                 },
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-2.png',
+                    image: '/public/images/samples/icons/leage-of-legend.png',
                     to: '#',
                 },
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-3.png',
+                    image: '/public/images/samples/icons/pubg.png',
                     to: '#',
                 },
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-4.png',
+                    image: '/public/images/samples/icons/supercell.png',
                     to: '#',
                 },
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-5.png',
+                    image: '/public/images/samples/icons/travian.png',
                     to: '#',
                 },
                 {
-                    image: '/public/images/samples/carousel-slider/h1-client-img-6.png',
+                    image: '/public/images/samples/icons/zula.png',
                     to: '#',
                 },
             ],
@@ -459,13 +459,14 @@
 
             // Load Main Sliders
             getMainSliderItems().then(response => {
-                response.data.result.forEach(slide => {
+                console.log(response.data.result)
+                response.data.result.reverse().forEach(slide => {
                     vm.imagesSlider.push({
                         image: slide.media.id,
                         imageStatic: false,
-                        title: 'Title',
+                        title: slide.title,
                         button: {
-                            label: 'Link',
+                            label: slide.link_text,
                             to: slide.link,
                         },
                     })
@@ -507,9 +508,9 @@
 
     /* Home page styles */
     #page--home
-        &--image-slider
-            .page--home--image-slider--title
-                font-family Rubik !important
+        /*&--image-slider*/
+        /*    .page--home--image-slider--title*/
+        /*        font-family Rubik !important*/
         &--tournament-reservation
             &--panel
                 &--data

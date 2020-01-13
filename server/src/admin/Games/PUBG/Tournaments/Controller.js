@@ -54,6 +54,15 @@ module.exports = {
         ).then(res => response.json(res)).catch(err => response.send(err))
     },
 
+    setWinnerTeam(request, response) {
+        let actions = new Actions();
+
+        actions.setWinnerTeam(
+            request.params.id,
+            request.body.group_number
+        ).then(res => response.json(res)).catch(err => response.send(err))
+    },
+
     players(request, response) {
         let actions = new Actions();
 

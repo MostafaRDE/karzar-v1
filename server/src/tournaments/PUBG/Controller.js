@@ -6,7 +6,7 @@ module.exports = {
         actions.index(request.query.lang || null, request.query.page, request.query.size).then(data => {
             response.send(data)
         }).catch(error => {
-            response.status(422).send(error)
+            response.status(500).send(error)
         })
     },
 
@@ -15,7 +15,7 @@ module.exports = {
         actions.last(request.query.lang).then(data => {
             response.send(data)
         }).catch(error => {
-            response.status(422).send(error)
+            response.status(500).send(error)
         })
     },
 
@@ -24,7 +24,7 @@ module.exports = {
         actions.players(request.query.lang, request.params.id).then(data => {
             response.send(data)
         }).catch(error => {
-            response.status(422).send(error)
+            response.status(500).send(error)
         })
     },
 
@@ -42,20 +42,20 @@ module.exports = {
                     actions.enter(request.query.lang, request.params.id, request.user.id, characterNames[0]).then(data => {
                         response.send(data)
                     }).catch(error => {
-                        response.status(422).send(error)
+                        response.status(500).send(error)
                     })
                 } else {
                     actions.enterMultiPlayer(request.query.lang, request.params.id, request.user.id, characterNames).then(data => {
                         response.send(data)
                     }).catch(error => {
-                        response.status(422).send(error)
+                        response.status(500).send(error)
                     })
                 }
             } else {
-                response.status(422).send({status: false})
+                response.status(500).send({status: false})
             }
         } else {
-            response.status(422).send({status: false})
+            response.status(500).send({status: false})
         }
     },
 
@@ -64,7 +64,7 @@ module.exports = {
         actions.myTournaments(request.query.lang, request.user.id, request.query.page, request.query.size).then(data => {
             response.send(data)
         }).catch(error => {
-            response.status(422).send(error)
+            response.status(500).send(error)
         })
     },
 };

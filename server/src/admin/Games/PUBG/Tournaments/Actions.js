@@ -1,4 +1,4 @@
-const {PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel} = require('./../../../../../Models/PubgModel');
+const {PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel} = require('./../../../../../Models/PubgModel');
 const mediaGetFile = require('../../../../../util/media').getFile;
 const getTranslates = require('../../../../../util/glossary').getTranslates;
 const translate = require('../../../../../util/glossary').translate;
@@ -137,6 +137,20 @@ class PubgTournamentsActions {
                     reject(e)
                 }
             }).catch(reject);
+        });
+    }
+
+    setWinnerTeam(id, groupNumber) {
+        return new Promise(async (resolve, reject) => {
+            let pubgTournamentWinnerModel = new PubgTournamentWinnerModel();
+
+            pubgTournamentWinnerModel.insertSync(
+                ['tournament_id', 'group_number'],
+                [id, groupNumber], 'tournament_id, group_number').then(async data => {
+                resolve({status: true})
+            }).catch(error => {
+                reject({status: false})
+            });
         });
     }
 

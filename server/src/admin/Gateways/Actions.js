@@ -1,3 +1,4 @@
+const {TotalAmountModel} = require("../../../Models/PaymentModel");
 let {GatewayModel} = require('../../../Models/GatewayModel');
 const mediaGetFile = require('../../../util/media').getFile;
 const {microtime} = require('./../../../util/helper/functions');
@@ -25,7 +26,7 @@ class GatewaysActions {
     store(name, key1, key2, mediaId) {
         return new Promise(async (resolve, reject) => {
             let gatewayModel = new GatewayModel();
-
+            let totalAmountModel = new TotalAmountModel();
             try {
                 const translateKey1 = `gateway_key_1_${microtime()}`;
                 const translateKey2 = `gateway_key_2_${microtime()}`;
@@ -36,7 +37,8 @@ class GatewaysActions {
                     values.push(mediaId);
                 }
 
-                await gatewayModel.insertSync(keys, values);
+                let gateway = await gatewayModel.insertSync(keys, values);
+                await totalAmountModel.insertSync(['account_name', 'gateway_id'], [name, gateway.id]);
 
                 let languages = Object.keys(key1);
                 for (let i = 0; i < languages.length; i++)

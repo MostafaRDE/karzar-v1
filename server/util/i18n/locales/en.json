@@ -33,7 +33,16 @@
     "trade_symbol_not_found" : "سیمبل %s یافت نشد",
     "insert_atm_limit": "تعداد کارت های شما بیشتر از حد مجاز میباشد در صورت نیاز از طریق پشتیبانی اقدام به ثبت کارت نمایید",
     "user_not_exist": "کاربر یافت نشد",
-    "you_have_not_access_to_this_section": "You have not access to this section"
+    "you_have_not_access_to_this_section": "You have not access to this section",
+    "internal_server_error": "Internal server error",
+    "not_enough_amount": "Not enough amount",
+    "tournament_capacity_is_filled": "Tournament capacity is filled",
+    "you_are_already_a_member_of_the_tournament": "You are already a member of the tournament",
+    "the_number_of_players_represented_by_you_is_higher_than_the_capacity_of_the_tournament_group": "The number of players represented by you is higher than the capacity of the tournament group",
+    "introduced_players_are_already_registered": "Introduced players are already registered",
+    "there_is_a_disturbance_in_the_player_registration_process_unfortunately_some_players_are_not_registered_please_notify_via_ticket": "There is a disturbance in the player registration process. Unfortunately some players are not registered. Please notify via ticket",
+    "there_was_an_error_registering_players_and_the_registration_failed_please_notify_via_ticket": "There was an error registering players and the registration failed. Please notify via ticket.",
+    "there_is_no_photo_of_these_dimensions": "There is no photo of these dimensions"
   },
   "emails": {
     "email_validate": {

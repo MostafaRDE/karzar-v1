@@ -5,21 +5,21 @@ module.exports = {
     getFile(request, response) {
         let actions = new Actions();
         if (request.query.id)
-            actions.getFile(request.query.id).then(res => {
+            actions.getFile(request.query.id, request.query.thumb).then(res => {
                 response.send(res)
             }).catch(err => {
-                response.send(err)
+                response.status(500).send(err)
             })
     },
 
     getFileReally(request, response) {
         let actions = new Actions();
         if (request.query.id)
-            actions.getFile(request.query.id).then(res => {
+            actions.getFile(request.query.id, request.query.thumb).then(res => {
                 response.setHeader('Content-Type', res.mimetype);
                 response.download(res.url);
             }).catch(err => {
-                response.send(err)
+                response.status(500).send(err)
             })
     },
 
@@ -32,8 +32,7 @@ module.exports = {
             actions.upload(request.file).then(res => {
                 return response.send('completed')
             }).catch(err => {
-                console.log(err)
-                return response.send('failed')
+                return response.status(500).send('failed')
             })
         });
     }

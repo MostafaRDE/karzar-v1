@@ -111,4 +111,12 @@ module.exports = {
             response.send(error)
         })
     },
+
+    profileUpdatePassword(request, response) {
+        new Actions().profileUpdatePassword(request.user_data.id, request.body.current_password, request.body.new_password).then(res => {
+            response.json(res)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
 };
