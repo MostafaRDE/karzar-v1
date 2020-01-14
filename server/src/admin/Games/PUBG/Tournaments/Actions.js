@@ -11,15 +11,15 @@ class PubgTournamentsActions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            let query = 'SELECT pubg.tournaments.id, pubg.tournaments.glossary_key_title as tournaments_glossary_key_title, pubg.tournaments.glossary_key_description as tournaments_glossary_key_description, pubg.tournaments.capacity, pubg.tournaments.start_date, pubg.tournaments.reward_value, pubg.tournaments.fee, pubg.tournaments.status, pubg.tournaments.youtube_link, pubg.tournaments.group_capacity, pubg.tournaments.username, pubg.tournaments.password, pubg.tournaments.map_id, pubg.maps.glossary_key_name as maps_glossary_key_name, pubg.maps.image_media_id as maps_image_media_id FROM pubg.tournaments ';
-            let leftJoinQuery = ' LEFT JOIN pubg.maps ON (pubg.tournaments.map_id = pubg.maps.id) ';
+            let query = 'SELECT * FROM pubg.v_tournaments ';
+            let leftJoinQuery = ' ';
             let searchQuery = '';
-            let orderQuery = ' ORDER BY pubg.tournaments.id DESC ';
+            let orderQuery = ' ORDER BY pubg.v_tournaments.id DESC';
             if (search) {
                 let fee = '';
                 if (!isNaN(search))
-                    fee = ` OR pubg.tournaments.fee = '${search}' `;
-                searchQuery = ` WHERE pubg.tournaments.reward_value ILIKE '%${search}%' OR pubg.tournaments.youtube_link ILIKE '%${search}%' ${fee} `
+                    fee = ` OR pubg.v_tournaments.fee = '${search}' `;
+                searchQuery = ` WHERE pubg.v_tournaments.reward_value ILIKE '%${search}%' OR pubg.v_tournaments.youtube_link ILIKE '%${search}%' ${fee} `
             }
 
             pubgTournamentModel.fetch_all_custom(`${query} ${leftJoinQuery} ${searchQuery} ${orderQuery}`, page, size).then(async data => {
@@ -103,25 +103,38 @@ class PubgTournamentsActions {
             let pubgMapModel = new PubgMapModel();
             let pubgTournamentModel = new PubgTournamentModel();
             pubgTournamentModel.fetch_one('*', ['id'], [id]).then(async data => {
-                let map = await pubgMapModel.fetch_one('*', ['id'], [data.map_id]);
-                map['image'] = await mediaGetFile(map.image_media_id);
-                data.title = lang === null ? await getTranslates(data.glossary_key_title) : await translate(data.glossary_key_title, lang);
-                data.description = lang === null ? await getTranslates(data.glossary_key_description) : await translate(data.glossary_key_description, lang);
-                data.map = map;
-                resolve(data)
+                try {
+                    let map = await pubgMapModel.fetch_one('*', ['id'], [data.map_id]);
+                    map['image'] = await mediaGetFile(map.image_media_id);
+                    data.title = lang === null ? await getTranslates(data.glossary_key_title) : await translate(data.glossary_key_title, lang);
+                    data.description = lang === null ? await getTranslates(data.glossary_key_description) : await translate(data.glossary_key_description, lang);
+                    data.map = map;
+                    resolve(data)
+                } catch (e) {
+                    console.log(e);
+                    resolve(data)
+                }
             }).catch(reject)
         })
     }
 
-    update(id, titles, descriptions, capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity = 4, lang = null) {
+    update(lang, id, titles, descriptions, capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity = 4, username, password) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
             let tournament = await this.show(id);
-
+            console.log(capacity)
+            console.log(startDate)
+            console.log(rewardValue)
+            console.log(fee)
+            console.log(status)
+            console.log(youtubeLink)
+            console.log(mapId)
+            console.log(groupCapacity)
+            console.log(username, password)
             pubgTournamentModel.update(
-                ['capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity'],
-                [capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity],
+                ['capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity', 'username', 'password'],
+                [capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity, username, password],
                 ['id'], [id]).then(async data => {
                 try {
                     const languagesTitles = Object.keys(titles);
@@ -144,13 +157,25 @@ class PubgTournamentsActions {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentWinnerModel = new PubgTournamentWinnerModel();
 
-            pubgTournamentWinnerModel.insertSync(
-                ['tournament_id', 'group_number'],
-                [id, groupNumber], 'tournament_id, group_number').then(async data => {
-                resolve({status: true})
-            }).catch(error => {
-                reject({status: false})
-            });
+            pubgTournamentWinnerModel.fetch_one('*', ['tournament_id'], [id]).then(data => {
+                if (!data) {
+                    pubgTournamentWinnerModel.insertSync(
+                        ['tournament_id', 'group_number'],
+                        [id, groupNumber], 'tournament_id, group_number').then(async data => {
+                        resolve({status: true})
+                    }).catch(error => {
+                        reject({status: false})
+                    });
+                } else {
+                    pubgTournamentWinnerModel.update(
+                        ['group_number'],
+                        [groupNumber], ['tournament_id'], [id], undefined, 'tournament_id, group_number').then(async data => {
+                        resolve({status: true})
+                    }).catch(error => {
+                        reject({status: false})
+                    });
+                }
+            })
         });
     }
 

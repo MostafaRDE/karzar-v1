@@ -42,6 +42,17 @@ class TransactionsAction {
         });
     }
 
+    updateAmount(id, amount) {
+        return new Promise(async (resolve, reject) => {
+            let model = new TransactionModel();
+            model.update(['amount'], [amount], ['id'], [id]).then(data => {
+                resolve({status: true})
+            }).catch(error => {
+                reject(error)
+            })
+        });
+    }
+
     updateStatus(id, status, statusDescription) {
         return new Promise((resolve, reject) => {
             let model = new TransactionModel();

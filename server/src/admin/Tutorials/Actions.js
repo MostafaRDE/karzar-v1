@@ -1,18 +1,52 @@
 const {TutorialsModel} = require('../../../Models/TutorialsModel');
+const mediaGetFile = require('../../../util/media').getFile;
+const {microtime} = require('./../../../util/helper/functions');
+const getTranslates = require('../../../util/glossary').getTranslates;
+const translate = require('../../../util/glossary').translate;
+const translateStore = require('../../../util/glossary').store;
+const translateUpdate = require('../../../util/glossary').update;
 
 class Actions {
     index(page, size) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
-            tutorialsModel.fetch_all('*', undefined, undefined, undefined, undefined, page, size, 'id DESC').then(resolve).catch(reject);
+            tutorialsModel.fetch_all('*', undefined, undefined, undefined, undefined, page, size, 'id DESC').then(async data => {
+
+                for (let i = 0; i < data.total; i++) {
+                    data.result[i].title = await getTranslates(data.result[i].glossary_key_title);
+                    data.result[i].text = await getTranslates(data.result[i].glossary_key_text);
+                    data.result[i].image = await mediaGetFile(data.result[i].image_media_id);
+                }
+
+                resolve(data)
+
+            }).catch(reject);
         })
     }
 
     store(title, text, youtubeLink, imageId) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
-            tutorialsModel.insertSync(['title', 'text', 'youtube_link', 'image_media_id'], [title, text, youtubeLink, imageId]).then(response => {
-                resolve({status: true})
+            const translateKeyTitle = `tutorials_title_${microtime()}`;
+            const translateKeyText = `tutorials_text_${microtime()}`;
+            tutorialsModel.insertSync(['glossary_key_title', 'glossary_key_text', 'youtube_link', 'image_media_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId]).then(async response => {
+
+                try {
+                    let languages = Object.keys(title);
+                    for (let i = 0; i < languages.length; i++) {
+                        await translateStore(translateKeyTitle, title[languages[i]], languages[i])
+                    }
+
+                    languages = Object.keys(text);
+                    for (let i = 0; i < languages.length; i++) {
+                        await translateStore(translateKeyText, text[languages[i]], languages[i])
+                    }
+
+                    resolve({status: true})
+                } catch (e) {
+                    reject({status: false})
+                }
+
             }).catch(error => {
                 reject({status: false})
             })
@@ -22,14 +56,26 @@ class Actions {
     update(id, title, text, youtubeLink, imageId) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
-            let keys = ['title', 'text', 'youtube_link'],
-                values = [title, text, youtubeLink];
+            let keys = ['youtube_link'],
+                values = [youtubeLink];
             if (imageId) {
                 keys.push('image_media_id');
                 values.push(imageId);
             }
-            tutorialsModel.update(keys, values, ['id'], [id]).then(response => {
-                resolve({status: true})
+            tutorialsModel.update(keys, values, ['id'], [id],undefined, 'id, glossary_key_title, glossary_key_text').then(async data => {
+
+                try {
+                    let languages = Object.keys(title);
+                    for (let i = 0; i < languages.length; i++)
+                        await translateUpdate(data.glossary_key_title, title[languages[i]], languages[i]);
+                    languages = Object.keys(text);
+                    for (let i = 0; i < languages.length; i++)
+                        await translateUpdate(data.glossary_key_text, text[languages[i]], languages[i]);
+
+                    resolve({status: true})
+                } catch (e) {
+                    reject({status: false})
+                }
             }).catch(error => {
                 reject({status: false})
             })

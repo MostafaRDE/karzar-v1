@@ -39,6 +39,7 @@ module.exports = {
         let actions = new Actions();
 
         actions.update(
+            request.query.lang || null,
             request.params.id,
             request.body.title,
             request.body.description,
@@ -50,7 +51,8 @@ module.exports = {
             request.body.youtubeLink,
             request.body.mapId,
             request.body.groupCapacity,
-            request.query.lang || null
+            request.body.username,
+            request.body.password
         ).then(res => response.json(res)).catch(err => response.send(err))
     },
 

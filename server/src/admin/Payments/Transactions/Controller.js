@@ -48,6 +48,15 @@ module.exports = {
         ).then(res => response.json(res)).catch(err => response.send(err))
     },
 
+    updateAmount(request, response) {
+        let actions = new Actions();
+
+        actions.updateAmount(
+            request.params.id,
+            request.body.amount
+        ).then(res => response.json(res)).catch(err => response.send(err))
+    },
+
     updateStatus(request, response) {
         let actions = new Actions();
 

@@ -91,6 +91,7 @@ router.get('/payments/transactions', adminMiddleware.check_jwt, PaymentsTransact
 router.post('/payments/transactions', adminMiddleware.check_jwt, PaymentsTransactionsController.store);
 router.get('/payments/transactions/:id', adminMiddleware.check_jwt, PaymentsTransactionsController.show);
 router.put('/payments/transactions/:id', adminMiddleware.check_jwt, PaymentsTransactionsController.update);
+router.put('/payments/transactions/:id/amount', adminMiddleware.check_jwt, PaymentsTransactionsController.updateAmount);
 router.put('/payments/transactions/:id/status', adminMiddleware.check_jwt, PaymentsTransactionsController.updateStatus);
 
 // Wallets

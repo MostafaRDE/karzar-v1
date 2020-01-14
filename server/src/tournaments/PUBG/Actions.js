@@ -9,11 +9,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            let query = 'SELECT pubg.tournaments.id, pubg.tournaments.glossary_key_title as tournaments_glossary_key_title, pubg.tournaments.glossary_key_description as tournaments_glossary_key_description, pubg.tournaments.capacity, pubg.tournaments.start_date, pubg.tournaments.reward_value, pubg.tournaments.fee, pubg.tournaments.status, pubg.tournaments.youtube_link, pubg.tournaments.group_capacity, pubg.tournaments.username, pubg.tournaments.password, pubg.tournaments.map_id, pubg.maps.glossary_key_name as maps_glossary_key_name, pubg.maps.image_media_id as maps_image_media_id FROM pubg.tournaments ';
-            let leftJoinQuery = ' LEFT JOIN pubg.maps ON (pubg.tournaments.map_id = pubg.maps.id) ';
-            let orderQuery = ' ORDER BY pubg.tournaments.id DESC';
-
-            pubgTournamentModel.fetch_all_custom(`${query} ${leftJoinQuery} ${orderQuery}`, page, size).then(async data => {
+            pubgTournamentModel.fetch_all_custom(`SELECT * FROM pubg.v_tournaments`, page, size).then(async data => {
                 let result = [];
 
                 for (let i = 0; i < data.result.length; i++) {
@@ -75,7 +71,7 @@ class Actions {
     players(lang, id) {
         return new Promise((resolve, reject) => {
             let model = new PubgTournamentPlayerModel();
-            model.fetch_all_custom(`SELECT * FROM pubg.tournament_players WHERE tournament_id = ${id} ORDER BY id ASC`)
+            model.fetch_all_custom(`SELECT * FROM pubg.tournament_players WHERE tournament_id = ${id} ORDER BY group_number, character_name`)
                 .then(resolve)
                 .catch(error => {
                     reject({
@@ -106,19 +102,19 @@ class Actions {
                             })
                         } else {
                             walletTransactionModel.insertSync(
-                                ['amount', 'type', 'wallet_id', 'for'],
+                                ['amount', 'type', 'wallet_id', 'in_order_to'],
                                 [tour.fee, 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
                             ).then(data => {
                                 let walletTransactionId = data.id;
                                 walletModel.update(['amount'], [(wallet.amount - tour.fee).toFixed(2)], ['id'], [wallet.id]).then(response => {
 
                                     // In below calculate group player and other options of new player of the tournament
-                                    pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_players_registered_count').then(data => {
+                                    pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_players_registered_count WHERE tournament_id = '${id}'`).then(data => {
                                         let playersRegisteredCount = data.result[0].players_count;
 
                                         if (playersRegisteredCount) {
                                             if (tour.capacity > playersRegisteredCount) {
-                                                pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_groups_count ORDER BY count, group_number').then(data => {
+                                                pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_groups_count WHERE tournament_id = '${id}' ORDER BY count, group_number`).then(data => {
                                                     // Removing max groups from list because we want to add new user to tournament and it need group with empty capacity
                                                     // get max count of group numbers
                                                     let maxCount = Math.max.apply(Math, data.result.map(group => group.count));
@@ -268,7 +264,7 @@ class Actions {
                                 } else {
                                     // Set transaction wallet
                                     walletTransactionModel.insertSync(
-                                        ['amount', 'type', 'wallet_id', 'for'],
+                                        ['amount', 'type', 'wallet_id', 'in_order_to'],
                                         [(tour.fee * characterNames.length), 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
                                     ).then(data => {
                                         let walletTransactionId = data.id;

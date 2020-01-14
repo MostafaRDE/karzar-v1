@@ -17,8 +17,8 @@ module.exports = {
             image = request.files[0],
             imageDescription = request.body.image_description,
             youtubeLink = request.body.youtube_link,
-            title = request.body.title,
-            text = request.body.text;
+            title = JSON.parse(request.body.title || '{}'),
+            text = JSON.parse(request.body.text || '{}');
         storage.array('file')(request, response, function (err) {
             if (err)
                 response.status(500).end("Something went wrong:(");
@@ -35,8 +35,8 @@ module.exports = {
             image = request.files[0],
             imageDescription = request.body.image_description,
             youtubeLink = request.body.youtube_link,
-            title = request.body.title,
-            text = request.body.text;
+            title = JSON.parse(request.body.title || '{}'),
+            text = JSON.parse(request.body.text || '{}');
         if (image) {
             storage.array('file')(request, response, function (err) {
                 if (err)
