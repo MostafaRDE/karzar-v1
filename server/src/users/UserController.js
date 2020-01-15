@@ -282,4 +282,16 @@ module.exports = {
             res.status(422).send(error)
         })
     },
+
+    updatePassword(req, res) {
+        UserActions.updatePassword(
+            req.body.current_password,
+            req.body.new_password,
+            req.user.id
+        ).then(response => {
+            res.json(response)
+        }).catch(error => {
+            res.status(500).send(error)
+        })
+    },
 };

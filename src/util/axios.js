@@ -11,9 +11,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // axios.defaults.headers.common['App-api-key'] = `Bearer ${process.env.SERVER_API_KEY}`;
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-
 let config = {
-    // baseURL: process.env.baseURL || process.env.apiUrl || ""
+    baseURL: process.env.SERVER_URL
     // timeout: 60 * 1000, // Timeout
     // withCredentials: true, // Check cross-site Access-Control
     // origin: '*, *',

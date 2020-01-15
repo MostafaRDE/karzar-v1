@@ -13,6 +13,8 @@ export function createStore() {
             // Direction variable for set direction design
             dir: 'ltr',
 
+            lang: 'en',
+
             // Theme variable for set theme design
             theme: 'dark',
             user_auth: false

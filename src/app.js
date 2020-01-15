@@ -24,7 +24,7 @@ import titleMixin from "./util/title";
 Vue.mixin(titleMixin);
 
 // Loading global styles
-//import './assets/styles/index.styl';
+import './assets/styles/index.styl';
 
 export function createApp() {
     const store = createStore();

@@ -6,7 +6,7 @@ class SliderActions {
     getSliderItems(key, lang = 'en') {
         return new Promise((resolve, reject) => {
             let slider = new SliderModel();
-            slider.fetch_all_custom(`SELECT slider_items.id, slider_items.link, slider_items.glossary_key_link_text, slider_items.glossary_key_title, slider_items.glossary_key_description, slider_items.media_id FROM sliders INNER JOIN slider_items ON(sliders.id = slider_items.slider_id) WHERE sliders.name = '${key}'`).then(async data => {
+            slider.fetch_all_custom(`SELECT slider_items.id, slider_items.link, slider_items.glossary_key_link_text, slider_items.glossary_key_title, slider_items.glossary_key_description, slider_items.media_id FROM sliders INNER JOIN slider_items ON(sliders.id = slider_items.slider_id) WHERE sliders.name = '${key}' ORDER BY position`).then(async data => {
                 let response = {
                     result: [],
                     total: data.total,

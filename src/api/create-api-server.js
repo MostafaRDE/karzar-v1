@@ -1,5 +1,5 @@
 const axios = require('axios');
-const host_url = "http://0.0.0.0:8080/api/v1/";
+const host_url = process.env.SERVER_URL;
 
 export function createApi() {
     axios.defaults.baseURL = host_url;

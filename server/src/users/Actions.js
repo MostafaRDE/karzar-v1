@@ -322,6 +322,24 @@ class Actions {
         });
     }
 
+    static updatePassword(currentPassword, newPassword, userId) {
+        return new Promise(async (resolve, reject) => {
+            let model = new UserModel();
+            let check = await model.fetch_one('*', ['id'], [userId], "OR");
+            bcrypt.compare(currentPassword, check.password, async function (err, check_hash) {
+                if (check_hash) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newPassword, salt, async (err, pass_hash) => {
+                            model.update(['password'], [pass_hash], ['id'], [userId]).then(data => {
+                                resolve({status: true})
+                            }).catch(reject)
+                        });
+                    })
+                }
+            });
+        });
+    }
+
     /**
      *
      * @param keys

@@ -5,6 +5,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const glob = require('glob-all');
 const { VueLoaderPlugin } = require('vue-loader');
+const Dotenv = require('dotenv-webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -97,10 +98,18 @@ module.exports = {
                         extensions: ['html', 'vue', 'js', 'styl'],
                     },
                 ],
+                whitelist: ['h-60', 'h-40'],
+                whitelistPatterns: [/^theme--dark/],
             }),
+            new Dotenv({
+                path: './.env.production',
+            })
         ]
         : [
             new VueLoaderPlugin(),
             new FriendlyErrorsPlugin(),
+            new Dotenv({
+                path: '.env.development',
+            })
         ]
 };

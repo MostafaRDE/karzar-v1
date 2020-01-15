@@ -5,18 +5,21 @@
                 <home-navigation v-model="isActiveMainSideMenu"/>
             </home-header>
 
-            <rs-image-slider id="page--home--image-slider" backgroundMode fullscreen :source="imagesSlider" v-model="selected">
+            <div>
+                <rs-overlay-loading v-if="!imagesSlider.length" :width="40"/>
+            </div>
+            <rs-image-slider v-if="imagesSlider.length" id="page--home--image-slider" backgroundMode fullscreen :source="imagesSlider" v-model="selected">
 
                 <div v-if="imagesSlider.length > 0" slot="content" class="d-flex flex-direction-column justify-content-center align-items-center">
 
-                    <span class="z-index-1 font-weight-700 text-center text-white text-uppercase page--home--image-slider--title">{{ imagesSlider[selected].title }}</span>
+                    <span class="z-index-1 font-weight-700 text-center text-white text-uppercase page--home--image-slider--title" :style="{fontFamily: $route.params.lang === 'en' ? 'Rubik !important' : ''}">{{ imagesSlider[selected].title }}</span>
                     <rs-button glow solid solidShadow trapezeBoth @click.native="$router.push(imagesSlider[selected].button.to)">{{ imagesSlider[selected].button.label }}</rs-button>
 
                 </div>
 
             </rs-image-slider>
 
-            <div class="d-flex justify-content-center align-items-center overflow-hidden"
+            <div class="d-flex justify-content-center align-items-center overflow-hidden ltr"
                  style="box-shadow: 0 5px 10px 0 #0000005a; height: 145px; background: center center url('../../../public/images/public/gradient-primary-radial.jpg')">
 
                 <rs-carousel-slider :items="carouselSlider">
@@ -217,7 +220,7 @@
                             <span class="px-5 linkable">4</span>
                             <span class="px-5 d-inline-flex align-items-center">
                                 <icon-arrow-right-type-1 v-if="$store.state.dir === 'ltr'" fill="#fff" size="12px"/>
-                                <icon-arrow-left-type-1 v-if="$store.state.dir === 'rtl'" fill="#fff" size="12px"/>
+                                <icon-arrow-left-type-1 v-else fill="#fff" size="12px"/>
                             </span>
                         </div>
                     </div>
@@ -249,9 +252,7 @@
 
                     <span class="font-size-xs mt-10">{{ tutorial.date }}</span>
 
-                    <transition name="fade">
-                        <p v-if="tutorial.hover" class="mt-20">{{ tutorial.text }}</p>
-                    </transition>
+                    <p class="mt-20">{{ tutorial.text }}</p>
 
                 </post-mode>
             </div>
@@ -459,8 +460,7 @@
 
             // Load Main Sliders
             getMainSliderItems().then(response => {
-                console.log(response.data.result)
-                response.data.result.reverse().forEach(slide => {
+                response.data.result.forEach(slide => {
                     vm.imagesSlider.push({
                         image: slide.media.id,
                         imageStatic: false,
@@ -519,6 +519,7 @@
                     padding-right 0 !important
                     &--description
                         span
+                            font-size 18px
                             &:nth-child(1)
                                 opacity 0.8
                             &:nth-child(2)
@@ -560,20 +561,11 @@
                     &--data
                         .content > div:nth-child(1)
                             box-shadow -4px 2px 9px 0 #000
-                        &--description
-                            span
-                                font-size 18px
 
     @media screen and (min-width: 1200px)
         #page--home
             &--image-slider
                 .page--home--image-slider--title
                     font-size 80px
-            &--tournament-reservation
-                &--panel
-                    &--data
-                        &--description
-                            span
-                                font-size 22px
 
 </style>
