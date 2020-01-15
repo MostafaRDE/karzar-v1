@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'test') {
 
 const pool = new Pool({
     user: process.env.PG_USER,
-    host: process.env.PG_HOST,
+    host: process.env.NODE_ENV === 'production' ? process.env.PG_HOST_PRODUCTION :  process.env.PG_HOST_DEVELOPMENT,
     database: process.env.PG_DB,
     password: process.env.PG_PASS,
 });
