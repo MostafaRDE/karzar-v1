@@ -8,7 +8,6 @@ module.exports = (app) => {
     app.use(ApiUrl + 'tutorials' , require('./src/tutorials/Router'));
     app.use(ApiUrl + 'uploads' , require('./src/uploads/Router'));
     app.get('/robots.txt', (req, res) => {
-        res.setHeader('content-type', 'text/plain');
-        res.send('Disallow: *\nNoindex: *\n')
+        res.sendFile('./robots.txt')
     });
 };
