@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.use(ApiUrl + 'tournaments' , require('./src/tournaments/Router'));
     app.use(ApiUrl + 'tutorials' , require('./src/tutorials/Router'));
     app.use(ApiUrl + 'uploads' , require('./src/uploads/Router'));
-    app.get('/robots.txt', (req, res) => {
+    app.get('/robots.txt', (req, res, next) => {
         let options = {
             root: path.join(__dirname, 'public'),
             dotfiles: 'deny',
