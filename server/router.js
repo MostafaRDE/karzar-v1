@@ -1,3 +1,5 @@
+const path = require('path');
+
 const ApiUrl = "/api/v1/";
 
 module.exports = (app) => {
