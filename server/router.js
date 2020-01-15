@@ -8,6 +8,22 @@ module.exports = (app) => {
     app.use(ApiUrl + 'tutorials' , require('./src/tutorials/Router'));
     app.use(ApiUrl + 'uploads' , require('./src/uploads/Router'));
     app.get('/robots.txt', (req, res) => {
-        res.download('./robots.txt')
+        let options = {
+            root: path.join(__dirname, 'public'),
+            dotfiles: 'deny',
+            headers: {
+                'x-timestamp': Date.now(),
+                'x-sent': true,
+                'Content-Type': 'text/plain',
+            }
+        };
+
+        res.sendFile('robots.txt', options, function (err) {
+            if (err) {
+                next(err)
+            } else {
+                console.log('Sent:', 'robots.txt')
+            }
+        })
     });
 };
