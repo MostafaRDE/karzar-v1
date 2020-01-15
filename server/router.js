@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.use(ApiUrl + 'uploads' , require('./src/uploads/Router'));
     app.get('/robots.txt', (req, res, next) => {
         let options = {
-            root: path.join(__dirname, 'public'),
+            root: path.join(__dirname, '../public'),
             dotfiles: 'deny',
             headers: {
                 'x-timestamp': Date.now(),
