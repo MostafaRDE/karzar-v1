@@ -8,6 +8,6 @@ module.exports = (app) => {
     app.use(ApiUrl + 'tutorials' , require('./src/tutorials/Router'));
     app.use(ApiUrl + 'uploads' , require('./src/uploads/Router'));
     app.get('/robots.txt', (req, res) => {
-        res.sendFile('./robots.txt')
+        res.sendFile('../robots.txt')
     });
 };
