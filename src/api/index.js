@@ -91,3 +91,17 @@ export function change_password_by_token(token, password) {
 // </editor-fold>
 
 // </editor-fold>
+
+export function lastTournament() {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        axios.get(`tournaments/pubg/last?lang=${lang}`).then(resolve).catch(reject)
+    })
+}
+
+export function lastTournamentPlayers(id) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        axios.get(`tournaments/pubg/${id}/players?lang=${lang}`).then(resolve).catch(reject)
+    })
+}

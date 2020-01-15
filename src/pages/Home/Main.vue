@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="row mt-30" id="page--home--tournament-reservation">
-                    <div class="col d-flex flex-direction-column align-items-center">
+                    <div v-if="lastTournament" class="col d-flex flex-direction-column align-items-center">
 
                         {{ /* Start tournament timer */ }}
                         <div class="row">
@@ -76,7 +76,7 @@
                                     <rs-section class="mb-0 px-10 pe-lg-0 z-index-1 d-flex align-items-center" id="page--home--tournament-reservation--panel--banner">
 
                                         <div class="flex-grow-0 my-10 ms-lg--30 d-flex align-items-center">
-                                            <img src="../../../public/images/samples/img-tournament-sample.png"
+                                            <img :src="`/api/v1/uploads?id=${lastTournament.map.image.id}&thumb=256`"
                                                  alt="" class="w-100"/>
                                         </div>
 
@@ -100,19 +100,19 @@
                                                             {{ /* Map */ }}
                                                             <div class="d-flex justify-content-space-between">
                                                                 <span>{{ $t('glossaries.map') }}:</span>&nbsp;
-                                                                <span lang="en">Ancher</span>
+                                                                <span lang="en">{{ lastTournament.map.name }}</span>
                                                             </div>
 
                                                             {{ /* Input */ }}
                                                             <div class="d-flex justify-content-space-between">
                                                                 <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                                <span lang="en">5$</span>
+                                                                <span lang="en">{{ lastTournament.fee }}$</span>
                                                             </div>
 
                                                             {{ /* Reward */ }}
                                                             <div class="d-flex justify-content-space-between">
                                                                 <span>{{ $t('glossaries.reward') }}:</span>&nbsp;
-                                                                <span lang="en">200$</span>
+                                                                <span lang="en">{{ lastTournament.reward_value }}</span>
                                                             </div>
 
                                                         </div>
@@ -152,7 +152,7 @@
                                         <div class="overflow-x-overlay overflow-y-hidden border-top">
                                             <div class="flex-grow-1 d-flex w-fit-content ms-auto">
                                                 <rs-button transparent class="text-white px-80 text-nowrap">{{ $t('glossaries.group_booking') }}</rs-button>
-                                                <rs-button solid trapezeStart glow class="text-nowrap">5$ {{ $t('glossaries.enter_the_tournament') }}</rs-button>
+                                                <rs-button solid trapezeStart glow class="text-nowrap">{{ lastTournament.fee }}$ {{ $t('glossaries.enter_the_tournament') }}</rs-button>
                                             </div>
                                         </div>
                                     </rs-section>
@@ -332,7 +332,7 @@
 
 <script>
     import i18n from '../../i18n'
-    import {getMainSliderItems} from '../../api'
+    import {getMainSliderItems, lastTournament, lastTournamentPlayers} from '../../api'
 
     export default {
         name: "Home",
@@ -351,6 +351,9 @@
             width: 0,
 
             selected: 0,
+
+            lastTournament: null,
+            lastTournamentPlayers: [],
 
             tournaments: [
                 {
@@ -457,6 +460,27 @@
             window.addEventListener('resize', function () {
                 vm.handleResize()
             });
+
+            lastTournament()
+                .then(response => {
+                    this.lastTournament = response.data;
+                    lastTournamentPlayers(response.data.id)
+                        .then(response => {
+                            this.lastTournamentPlayers = response.data.result
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+
+                        })
+                })
+                .catch(error => {
+
+                })
+                .finally(() => {
+
+                });
 
             // Load Main Sliders
             getMainSliderItems().then(response => {
