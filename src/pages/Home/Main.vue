@@ -257,7 +257,6 @@
                 </post-mode>
             </div>
         </div>
-
         <div class="container-fluid px-0 mt-80" :style="{background: 'url(/public/images/samples/h1-background-img-1.jpg) center center no-repeat', boxShadow: '0 5px 10px 0 rgba(0, 0, 0, 0.35)'}">
             <div class="row">
 
@@ -281,6 +280,7 @@
                 </div>
 
             </div>
+            <rs-progressbar-circular></rs-progressbar-circular>
         </div>
 
         <div class="container mb-80 mt-100">
