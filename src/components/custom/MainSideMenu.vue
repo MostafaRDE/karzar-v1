@@ -17,7 +17,7 @@
             </div>
 
             <div class="text-center">
-                <p :style="{fontSize: '16px'}">© Copyright EdgeThemes</p>
+                <p :style="{fontSize: '16px'}">© Copyright Gametour</p>
             </div>
         </div>
 

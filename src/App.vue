@@ -53,9 +53,8 @@
                     }
                 }
                 else {
-                    localStorage.setItem('bg_audio_status_playing', 'PLAY');
-                    audio.play();
-                    this.audioStatus = 'PLAY';
+                    localStorage.setItem('bg_audio_status_playing', 'PAUSE');
+                    this.audioStatus = 'PAUSE';
                 }
             },
             toggleAudio() {

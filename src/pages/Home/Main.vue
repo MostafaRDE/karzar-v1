@@ -160,11 +160,11 @@
                     <p class="mt-30" :style="{fontSize: '16px'}">Proin gravida nibh vel velit auctor aliquet. Aenean velit sollicitudin, lorem quis bibendum auctor, nisi elit ipsum consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
 
                     <span class="d-block mt-30 text-white">
-                        <span class="me-10 d-inline-flex"><i class="fa fa-location-arrow"></i></span>Auguststraße 245, 10117 Berlin
+                        <span class="me-10 d-inline-flex"><i class="fa fa-location-arrow"></i></span>Auguststraße 225, 10543 Berlin
                     </span>
 
                     <span class="d-block mt-30 text-white">
-                        <span class="me-10 d-inline-flex"><i class="fa fa-envelope"></i></span>office@aggro.com
+                        <span class="me-10 d-inline-flex"><i class="fa fa-envelope"></i></span>info@gametour.co
                     </span>
                 </div>
 
