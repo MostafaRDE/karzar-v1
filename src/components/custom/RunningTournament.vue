@@ -144,11 +144,13 @@
                             <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
                         </div>
                         <div class="row py-10" style="background: #ffffff0f">
-                            <div class="col-3 mb-0 position-relative" v-for="player of team">
-                                <img :src="player.image || '/public/images/public/pubg-default-profile.svg'" alt=""
-                                     class="w-100"/>
-                                <span class="position-absolute font-size-xxs"
-                                      style="padding: 0 4px; background: #0005; bottom: 1px; left: 11px; right: 11px;">{{ player.name }}</span>
+                            <div class="col-3 mb-0" v-for="player of team">
+                                <div class="overflow-hidden position-relative" :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
+                                    <img :src="player.image ? `/api/v1/uploads?id=${player.image}&thumb=64` : '/public/images/public/pubg-default-profile.svg'" alt=""
+                                         class="w-100"/>
+                                    <span class="position-absolute font-size-xxs"
+                                          style="padding: 0 4px; background: #000B; bottom: 1px; left: 1px; right: 1px;">{{ player.name }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
