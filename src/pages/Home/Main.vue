@@ -231,6 +231,7 @@
                     youtubeLink: '',
                     youtubeWatchStatus: 'LIVE',
                     map: {
+                        id: 46,
                         name: 'pubg shrean',
                         image: '/public/images/samples/img-tournament-sample.png',
                     },
