@@ -1,6 +1,6 @@
 <template>
     <!-- Main divider -->
-    <div :class="[dir]" id="system">
+    <div class="overflow-hidden" :class="[dir]" id="system">
 
         <div>
             <audio src="/public/musics/pubg-theme-song-2scratch-trap-remix.mp3" loop hidden preload="metadata" ref="bgAudio"></audio>

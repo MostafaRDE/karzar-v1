@@ -19,6 +19,15 @@ module.exports = {
         })
     },
 
+    runningTournaments(request, response) {
+        const actions = new Actions();
+        actions.runningTournaments(request.query.lang, request.isAuthenticated()).then(data => {
+            response.send(data)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
+
     players(request, response) {
         const actions = new Actions();
         actions.players(request.query.lang, request.params.id).then(data => {

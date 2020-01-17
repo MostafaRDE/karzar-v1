@@ -99,7 +99,14 @@ export function lastTournament() {
     })
 }
 
-export function lastTournamentPlayers(id) {
+export function runningTournaments() {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        axios.get(`tournaments/pubg/running?lang=${lang}`).then(resolve).catch(reject)
+    })
+}
+
+export function tournamentPlayers(id) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         axios.get(`tournaments/pubg/${id}/players?lang=${lang}`).then(resolve).catch(reject)

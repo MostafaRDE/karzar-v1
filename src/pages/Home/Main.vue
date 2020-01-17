@@ -52,141 +52,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-30" id="page--home--tournament-reservation">
-                    <div v-if="lastTournament" class="col d-flex flex-direction-column align-items-center">
-
-                        {{ /* Start tournament timer */ }}
-                        <div class="row">
-                            <div class="col mb-0 justify-content-center d-flex">
-                                <div class="timer w-fit-content position-relative d-flex align-items-center">
-                                    <span class="bottom-trapeze-sides trapeze-start-side"></span>
-                                    <span lang="en" class="ltr" style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em">8 : 12 : 23 : 46</span>
-                                    <span class="bottom-trapeze-sides trapeze-end-side"></span>
-                                </div>
-                            </div>
-                        </div>
-                        {{ /* End tournament timer */ }}
-
-                        {{ /* Start tournament reservation panel */ }}
-                        <div class="row" id="page--home--tournament-reservation--panel">
-                            <div class="col mb-0">
-                                <div class="row w-100 h-100 d-flex justify-content-flex-end">
-
-                                    {{ /* Start banner */ }}
-                                    <rs-section class="mb-0 px-10 pe-lg-0 z-index-1 d-flex align-items-center" id="page--home--tournament-reservation--panel--banner">
-
-                                        <div class="flex-grow-0 my-10 ms-lg--30 d-flex align-items-center">
-                                            <img :src="`/api/v1/uploads?id=${lastTournament.map.image.id}&thumb=256`"
-                                                 alt="" class="w-100"/>
-                                        </div>
-
-                                    </rs-section>
-                                    {{ /* End banner */ }}
-
-                                    <rs-section class="col-xl mb-0 flex-grow-1 d-flex flex-direction-column" id="page--home--tournament-reservation--panel--data">
-
-                                        {{ /* Start tournament data */ }}
-                                        <div class="flex-grow-1 d-flex py-20">
-
-                                            <div class="row">
-
-                                                {{ /* Start tournament details */ }}
-                                                <div class="col-lg-6 mb-0">
-                                                    <div class="flex-grow-1 d-flex align-items-center justify-content-space-around" :class="{'border-end': width >= 1024}">
-
-                                                        {{ /* Start tournament round data */ }}
-                                                        <div class="flex-grow-1 h-100 d-flex flex-direction-column justify-content-space-around px-lg-10 px-xl-20" :style="{maxWidth: '200px'}" id="page--home--tournament-reservation--panel--data--description">
-
-                                                            {{ /* Map */ }}
-                                                            <div class="d-flex justify-content-space-between">
-                                                                <span>{{ $t('glossaries.map') }}:</span>&nbsp;
-                                                                <span lang="en">{{ lastTournament.map.name }}</span>
-                                                            </div>
-
-                                                            {{ /* Input */ }}
-                                                            <div class="d-flex justify-content-space-between">
-                                                                <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                                <span lang="en">{{ lastTournament.fee }}$</span>
-                                                            </div>
-
-                                                            {{ /* Reward */ }}
-                                                            <div class="d-flex justify-content-space-between">
-                                                                <span>{{ $t('glossaries.reward') }}:</span>&nbsp;
-                                                                <span lang="en">{{ lastTournament.reward_value }}</span>
-                                                            </div>
-
-                                                        </div>
-
-                                                        {{ /* Start count gamers data */ }}
-                                                        <div lang="en" class="ltr d-flex justify-content-center align-items-center ms-10 me-0 me-lg-20 me-xl-40" style="width: 100px; min-width: 65px; height: 100px; background: url('../../../public/images/samples/filler-circle.png') center center no-repeat; background-size: contain">
-                                                            <span>87 / 100</span>
-                                                        </div>
-                                                        {{ /* End count gamers data */ }}
-
-                                                    </div>
-                                                </div>
-                                                {{ /* End tournament details */ }}
-
-                                                {{ /* Separator line */ }}
-                                                <hr class="d-block d-lg-none w-100 mx-10 mt-20 opacity-1"/>
-
-                                                {{ /* Start getting user registration data */ }}
-                                                <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
-                                                    <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
-                                                        <div>
-                                                            <rs-input type="text" :label="$t('glossaries.character_name')" />
-                                                        </div>
-                                                        <div class="mt-20">
-                                                            <span class="d-inline-flex" @click="modals.pubgTournamentUsers.visibility = true">
-                                                                <icon-multiple-users fill="#BBBBBB" width="35px"/>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{ /* End getting user registration data */ }}
-                                            </div>
-
-                                        </div>
-                                        {{ /* End tournament data */ }}
-
-                                        <div class="overflow-x-overlay overflow-y-hidden border-top">
-                                            <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                                <rs-button transparent class="text-white px-80 text-nowrap">{{ $t('glossaries.group_booking') }}</rs-button>
-                                                <rs-button solid trapezeStart glow class="text-nowrap">{{ lastTournament.fee }}$ {{ $t('glossaries.enter_the_tournament') }}</rs-button>
-                                            </div>
-                                        </div>
-                                    </rs-section>
-                                </div>
-                            </div>
-                        </div>
-
-                        <rs-modal :styleModal="modals.pubgTournamentUsers.stylesModal" v-model="modals.pubgTournamentUsers.visibility">
-                            <div class="py-10 text-center">
-                                <span>{{ $t('pages.home.main.reservation_panel.pubg_users_modal.title') }}</span>
-                            </div>
-                            <hr class="mx-100 opacity-2"/>
-                            <div class="row mt-20 px-10">
-                                <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
-                                    <div class="team-title d-flex">
-                                        <div class="d-flex">
-                                            <span class="font-size-xs text-nowrap" style="padding: 2px 20px 1px 8px; background: #ffffff0f">{{ `${$t('glossaries.team')} ${index + 1}` }}</span>
-                                        </div>
-                                        <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
-                                    </div>
-                                    <div class="row py-10" style="background: #ffffff0f">
-                                        <div class="col-3 mb-0 position-relative" v-for="player of team">
-                                            <img :src="player.image || '/public/images/public/pubg-default-profile.svg'" alt="" class="w-100"/>
-                                            <span class="position-absolute font-size-xxs" style="padding: 0 4px; background: #0005; bottom: 1px; left: 11px; right: 11px;">{{ player.name }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div></div>
-                        </rs-modal>
-                        {{ /* End tournament reservation panel */ }}
-
-                    </div>
-                </div>
+                <running-tournament v-for="(runningTournament, index) of runningTournaments" :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"/>
 
             </div>
         </div>
@@ -280,7 +146,7 @@
                 </div>
 
             </div>
-            <rs-progressbar-circular></rs-progressbar-circular>
+
         </div>
 
         <div class="container mb-80 mt-100">
@@ -332,7 +198,7 @@
 
 <script>
     import i18n from '../../i18n'
-    import {getMainSliderItems, lastTournament, lastTournamentPlayers} from '../../api'
+    import {getMainSliderItems, runningTournaments} from '../../api'
 
     export default {
         name: "Home",
@@ -352,8 +218,8 @@
 
             selected: 0,
 
-            lastTournament: null,
-            lastTournamentPlayers: [],
+            runningTournaments: [],
+            tournamentPlayers: [],
 
             tournaments: [
                 {
@@ -376,40 +242,6 @@
             ],
 
             isActiveMainSideMenu: false,
-            modals: {
-                pubgTournamentUsers: {
-                    visibility: false,
-                    stylesModal: {
-                        backgroundImage: 'linear-gradient(315deg, #292c2d 0%, #46545F 70%, #556978 100%)'
-                    },
-                    teams: [
-                        [
-                            {image: null, name: 'dsd'},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                        ],
-                        [
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                        ],
-                        [
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                        ],
-                        [
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                            {image: null, name: ''},
-                        ],
-                    ],
-                },
-            },
 
             imagesSlider: [],
 
@@ -461,27 +293,6 @@
                 vm.handleResize()
             });
 
-            lastTournament()
-                .then(response => {
-                    this.lastTournament = response.data;
-                    lastTournamentPlayers(response.data.id)
-                        .then(response => {
-                            this.lastTournamentPlayers = response.data.result
-                        })
-                        .catch(error => {
-
-                        })
-                        .finally(() => {
-
-                        })
-                })
-                .catch(error => {
-
-                })
-                .finally(() => {
-
-                });
-
             // Load Main Sliders
             getMainSliderItems().then(response => {
                 response.data.result.forEach(slide => {
@@ -496,8 +307,20 @@
                     })
                 })
             }).catch(error => {
-                console.log(error)
-            })
+
+            });
+
+            // Load Tournaments
+            runningTournaments()
+                .then(response => {
+                    this.runningTournaments = response.data.result;
+                })
+                .catch(error => {
+
+                })
+                .finally(() => {
+
+                });
         }
     }
 </script>
@@ -530,26 +353,6 @@
             padding: 19px 25px;
             height: 160px;
 
-    /* Home page styles */
-    #page--home
-        /*&--image-slider*/
-        /*    .page--home--image-slider--title*/
-        /*        font-family Rubik !important*/
-        &--tournament-reservation
-            &--panel
-                &--data
-                    width calc(100% - 280px)
-                    padding-left 0 !important
-                    padding-right 0 !important
-                    &--description
-                        span
-                            font-size 18px
-                            &:nth-child(1)
-                                opacity 0.8
-                            &:nth-child(2)
-                                color white
-                                font-weight 900
-
     @media screen and (max-width: 679px)
         #page--home
             &--image-slider
@@ -574,17 +377,6 @@
             &--image-slider
                 .page--home--image-slider--title
                     font-size 60px
-            &--tournament-reservation
-                &--panel
-                    &--banner
-                        width 250px
-                        flex-grow 0 !important
-                        img
-                            max-width 280px
-                            border 3px solid #707070
-                    &--data
-                        .content > div:nth-child(1)
-                            box-shadow -4px 2px 9px 0 #000
 
     @media screen and (min-width: 1200px)
         #page--home

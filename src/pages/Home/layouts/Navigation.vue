@@ -19,7 +19,7 @@
                 {{ /* End search part */ }}
 
                 {{ /* Start first menu */ }}
-                <div class="position-relative h-100 pe-20 ps-40 pe-lg-40 ps-lg-70 main--navbar--menu">
+                <div class="position-relative h-100 pe-20 ps-40 pe-lg-20 ps-lg-30 main--navbar--menu">
 
                     {{ /* First polygon menu */ }}
                     <div class="main--navbar--menu-polygon" id="main--navbar--first-menu-polygon"></div>
@@ -65,7 +65,7 @@
             <div class="d-flex justify-content-space-between flex-grow-1">
 
                 {{ /* Start second menu */ }}
-                <div class="position-relative h-100 ps-20 pe-40 ps-lg-40 pe-lg-70 main--navbar--menu">
+                <div class="position-relative h-100 ps-20 pe-40 ps-lg-20 pe-lg-30 main--navbar--menu">
 
                     {{ /* Second polygon menu */ }}
                     <div class="main--navbar--menu-polygon" id="main--navbar--second-menu-polygon"></div>

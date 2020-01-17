@@ -30,7 +30,7 @@ class Actions {
             }).catch(error => {
                 reject({
                     status: false,
-                    msg: __('mwssages').internal_server_error
+                    msg: __('messages').internal_server_error
                 })
             })
         })
@@ -62,7 +62,34 @@ class Actions {
             }).catch(error => {
                 reject({
                     status: false,
-                    msg: __('mwssages').internal_server_error
+                    msg: __('messages').internal_server_error
+                })
+            })
+        })
+    }
+
+    runningTournaments(lang, isLogged = false) {
+        return new Promise((resolve, reject) => {
+            let pubgTournamentModel = new PubgTournamentModel();
+
+            let table = `v_tournaments${isLogged ? '' : '_without_authentication'}`;
+            let query = `SELECT * FROM pubg.${table} ORDER BY ${table}.id DESC`;
+
+            pubgTournamentModel.fetch_all_custom(query, 1, 1).then(async data => {
+                for (let i = 0; i < data.result.length; i++) {
+                    data.result[i].map = {};
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
+
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+                }
+
+                resolve(data)
+            }).catch(error => {
+                reject({
+                    status: false,
+                    msg: __('messages').internal_server_error
                 })
             })
         })
@@ -76,7 +103,7 @@ class Actions {
                 .catch(error => {
                     reject({
                         status: false,
-                        msg: __('mwssages').internal_server_error
+                        msg: __('messages').internal_server_error
                     })
                 })
         })
