@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-center align-items-center overflow-hidden ltr"
                  style="box-shadow: 0 5px 10px 0 #0000005a; height: 145px; background: center center url('../../../public/images/public/gradient-primary-radial.jpg')">
 
-                <rs-carousel-slider class="overflow-x-scroll" :items="carouselSlider">
+                <rs-carousel-slider class="overflow-x-overlay" :items="carouselSlider">
                     <a slot="item-adapter"
                          slot-scope="{item}"
                          class="position-relative d-flex">
