@@ -2,7 +2,7 @@
     <div class="row py-20">
 
         <div class="col-md-2 m-0 d-flex justify-content-center">
-            <img :src="data.map.media_id" alt="" style="max-width: 100%" />
+            <img :src="`/api/v1/uploads?id=${data.map.media_id}&thumb=1024`" alt="" style="max-width: 100%" />
         </div>
 
         <div class="col-xs-6 col-md-5 mt-20 mt-md-0 m-0 d-flex flex-direction-column justify-content-space-between align-items-flex-start">

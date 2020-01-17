@@ -136,7 +136,8 @@
                             <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
                         </div>
                         <div class="row py-10" style="background: #ffffff0f">
-                            <div class="col-3 mb-0 position-relative" v-for="player of team">
+                            <rs-overlay-loading/>
+                            <div v-if="false" class="col-3 mb-0 position-relative" v-for="player of team">
                                 <img :src="player.image || '/public/images/public/pubg-default-profile.svg'" alt=""
                                      class="w-100"/>
                                 <span class="position-absolute font-size-xxs"
