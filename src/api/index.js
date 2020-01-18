@@ -11,6 +11,13 @@ export function getPrices() {
     })
 }
 
+export function getBalance() {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        axios.get('/users/balance').then(resolve).catch(reject)
+    })
+}
+
 // <editor-fold desc="Slider apis">
 export function getMainSliderItems() {
     // Create request as "Promise" and returned it
@@ -110,5 +117,14 @@ export function tournamentPlayers(id) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         axios.get(`tournaments/pubg/${id}/players?lang=${lang}`).then(resolve).catch(reject)
+    })
+}
+
+export function enterToTheTournament(id, character_names) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let data = {character_name: character_names};
+
+        axios.post(`tournaments/pubg/${id}/enter?lang=${lang}`, data).then(resolve).catch(reject)
     })
 }

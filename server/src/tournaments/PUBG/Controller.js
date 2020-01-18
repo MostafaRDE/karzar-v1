@@ -21,7 +21,7 @@ module.exports = {
 
     runningTournaments(request, response) {
         const actions = new Actions();
-        actions.runningTournaments(request.query.lang, request.isAuthenticated()).then(data => {
+        actions.runningTournaments(request.query.lang, request.isAuthenticated(), request.user ? request.user.id : undefined).then(data => {
             response.send(data)
         }).catch(error => {
             response.status(500).send(error)

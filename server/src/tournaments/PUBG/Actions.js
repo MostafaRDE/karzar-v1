@@ -68,7 +68,7 @@ class Actions {
         })
     }
 
-    runningTournaments(lang, isLogged = false) {
+    runningTournaments(lang, isLogged = false, userId) {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
@@ -77,6 +77,9 @@ class Actions {
 
             pubgTournamentModel.fetch_all_custom(query, 1, 1).then(async data => {
                 for (let i = 0; i < data.result.length; i++) {
+                    if (isLogged && data.result[i].players)
+                        data.result[i].is_joined = data.result[i].players.split(',').includes(`${userId}`);
+
                     data.result[i].map = {};
                     data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
                     data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
@@ -116,125 +119,151 @@ class Actions {
             let walletModel = new WalletModel();
             let walletTransactionModel = new WalletTransactionsModel();
             try {
-                pubgTournamentPlayerModel.fetch_one('*', ['character_name', 'tournament_id'], [characterName, id]).then(async response => {
+                pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_tournament_players WHERE tournament_id = '${id}'`).then(dt => {
 
-                    if (!response) {
-                        let tour = await pubgTournamentModel.fetch_one('*', ['id'], [id]);
-                        let wallet = await walletModel.fetch_one('*', ['user_id'], [userId]);
-
-                        if (wallet.amount < tour.fee) {
+                    if (dt.total > 0) {
+                        if (dt.result[0].players.split(',').includes(`${userId}`)) {
                             reject({
                                 status: false,
-                                msg: __('messages').not_enough_amount
-                            })
-                        } else {
-                            walletTransactionModel.insertSync(
-                                ['amount', 'type', 'wallet_id', 'in_order_to'],
-                                [tour.fee, 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
-                            ).then(data => {
-                                let walletTransactionId = data.id;
-                                walletModel.update(['amount'], [(wallet.amount - tour.fee).toFixed(2)], ['id'], [wallet.id]).then(response => {
+                                msg: __('messages').you_are_already_joined_the_tournament
+                            });
+                            return;
+                        }
+                    }
 
-                                    // In below calculate group player and other options of new player of the tournament
-                                    pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_players_registered_count WHERE tournament_id = '${id}'`).then(data => {
-                                        let playersRegisteredCount = data.result[0].players_count;
+                    pubgTournamentPlayerModel.fetch_one('*', ['character_name', 'tournament_id'], [characterName, id]).then(async response => {
 
-                                        if (playersRegisteredCount) {
-                                            if (tour.capacity > playersRegisteredCount) {
-                                                pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_groups_count WHERE tournament_id = '${id}' ORDER BY count, group_number`).then(data => {
-                                                    // Removing max groups from list because we want to add new user to tournament and it need group with empty capacity
-                                                    // get max count of group numbers
-                                                    let maxCount = Math.max.apply(Math, data.result.map(group => group.count));
-                                                    // get max group number created to now
-                                                    let groupNumber = Math.max.apply(Math, data.result.map(group => group.group_number));
+                        if (!response) {
+                            let tour = await pubgTournamentModel.fetch_one('*', ['id'], [id]);
+                            let wallet = await walletModel.fetch_one('*', ['user_id'], [userId]);
 
-                                                    // If group numbers has fill group then
-                                                    if (maxCount === tour.group_capacity) {
-                                                        // Get index of max fill group
-                                                        let index = data.result.findIndex(group => group.count == maxCount);
-                                                        // Remove max groups from array of data
-                                                        data.result.splice(
-                                                            index,
-                                                            data.result.length - index
-                                                        );
+                            if (wallet.amount < tour.fee) {
+                                reject({
+                                    status: false,
+                                    msg: __('messages').not_enough_amount
+                                })
+                            } else {
+                                walletTransactionModel.insertSync(
+                                    ['amount', 'type', 'wallet_id', 'in_order_to'],
+                                    [tour.fee, 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
+                                ).then(data => {
+                                    let walletTransactionId = data.id;
+                                    walletModel.update(['amount'], [(wallet.amount - tour.fee).toFixed(2)], ['id'], [wallet.id]).then(response => {
 
-                                                        // If data has groups with capacity then
-                                                        if (data.result.length > 0) {
-                                                            // get max group and group number for add new user to it
-                                                            maxCount = Math.max.apply(Math, data.result.map(group => group.count));
+                                        // In below calculate group player and other options of new player of the tournament
+                                        pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_players_registered_count WHERE tournament_id = '${id}'`).then(data => {
+                                            let playersRegisteredCount = undefined;
+                                            if (data.total)
+                                                playersRegisteredCount = data.result[0].players_count;
+
+                                            if (playersRegisteredCount) {
+                                                if (tour.capacity > playersRegisteredCount) {
+                                                    pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_groups_count WHERE tournament_id = '${id}' ORDER BY count, group_number`).then(data => {
+                                                        // Removing max groups from list because we want to add new user to tournament and it need group with empty capacity
+                                                        // get max count of group numbers
+                                                        let maxCount = Math.max.apply(Math, data.result.map(group => group.count));
+                                                        // get max group number created to now
+                                                        let groupNumber = Math.max.apply(Math, data.result.map(group => group.group_number));
+
+                                                        // If group numbers has fill group then
+                                                        if (maxCount === tour.group_capacity) {
+                                                            // Get index of max fill group
+                                                            let index = data.result.findIndex(group => group.count == maxCount);
+                                                            // Remove max groups from array of data
+                                                            data.result.splice(
+                                                                index,
+                                                                data.result.length - index
+                                                            );
+
+                                                            // If data has groups with capacity then
+                                                            if (data.result.length > 0) {
+                                                                // get max group and group number for add new user to it
+                                                                maxCount = Math.max.apply(Math, data.result.map(group => group.count));
+                                                                groupNumber = data.result.find(group => group.count == maxCount).group_number;
+                                                            }
+                                                            // Else max group number increasing one step to create new group
+                                                            else {
+                                                                groupNumber++;
+                                                            }
+                                                        } else {
                                                             groupNumber = data.result.find(group => group.count == maxCount).group_number;
                                                         }
-                                                        // Else max group number increasing one step to create new group
-                                                        else {
-                                                            groupNumber++;
-                                                        }
-                                                    } else {
-                                                        groupNumber = data.result.find(group => group.count == maxCount).group_number;
-                                                    }
 
-                                                    pubgTournamentPlayerModel.insertSync(
-                                                        ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
-                                                        [characterName, groupNumber, walletTransactionId, id, userId]
-                                                    ).then(response => {
-                                                        resolve({status: true})
+                                                        pubgTournamentPlayerModel.insertSync(
+                                                            ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
+                                                            [characterName, groupNumber, walletTransactionId, id, userId]
+                                                        ).then(response => {
+                                                            resolve({status: true})
+                                                        }).catch(e => {
+                                                            reject({
+                                                                status: false,
+                                                                msg: __('messages').internal_server_error
+                                                            })
+                                                        });
+
                                                     }).catch(e => {
                                                         reject({
                                                             status: false,
                                                             msg: __('messages').internal_server_error
                                                         })
                                                     });
-
+                                                } else {
+                                                    reject({status: true, msg: __('messages').tournament_capacity_is_filled})
+                                                }
+                                            } else {
+                                                // Add first user(player) in the tournament
+                                                pubgTournamentPlayerModel.insertSync(
+                                                    ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
+                                                    [characterName, 1, walletTransactionId, id, userId]
+                                                ).then(response => {
+                                                    resolve({status: true})
                                                 }).catch(e => {
                                                     reject({
                                                         status: false,
                                                         msg: __('messages').internal_server_error
                                                     })
                                                 });
-                                            } else {
-                                                reject({status: true, msg: __('messages').tournament_capacity_is_filled})
                                             }
-                                        } else {
-                                            // Add first user(player) in the tournament
-                                            pubgTournamentPlayerModel.insertSync(
-                                                ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
-                                                [characterName, 1, walletTransactionId, id, userId]
-                                            ).then(response => {
-                                                resolve({status: true})
-                                            }).catch(e => {
-                                                reject({
-                                                    status: false,
-                                                    msg: __('messages').internal_server_error
-                                                })
-                                            });
-                                        }
+                                        }).catch(e => {
+                                            reject({
+                                                status: false,
+                                                msg: __('messages').internal_server_error
+                                            })
+                                        });
+
                                     }).catch(e => {
                                         reject({
                                             status: false,
                                             msg: __('messages').internal_server_error
                                         })
                                     });
-
                                 }).catch(e => {
                                     reject({
                                         status: false,
                                         msg: __('messages').internal_server_error
                                     })
                                 });
-                            }).catch(e => {
-                                reject({
-                                    status: false,
-                                    msg: __('messages').internal_server_error
-                                })
-                            });
+                            }
+                        } else {
+                            reject({
+                                status: false,
+                                msg: __('messages').you_are_already_a_member_of_the_tournament
+                            })
                         }
-                    } else {
+
+                    }).catch(error => {
                         reject({
                             status: false,
-                            msg: __('messages').you_are_already_a_member_of_the_tournament
+                            msg: __('messages').internal_server_error
                         })
-                    }
+                    });
 
-                }).catch(reject);
+                }).catch(error => {
+                    reject({
+                        status: false,
+                        msg: __('messages').internal_server_error
+                    })
+                });
             } catch (e) {
                 reject({
                     status: false,

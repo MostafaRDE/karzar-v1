@@ -1,4 +1,5 @@
 const {UserModel} = require('../../Models/UserModel');
+const {WalletModel} = require('../../Models/WalletModel');
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const mailer = require("../../util/mails");
@@ -367,7 +368,13 @@ class Actions {
             await userModel.delete([{name: 'id', type: '>', sample: '%s'}], [0]);
             resolve();
         });
+    }
 
+    static getBalance(userId) {
+        return new Promise(async (resolve, reject) => {
+            let walletModel = new WalletModel();
+            walletModel.fetch_one('amount', ['user_id'], [userId]).then(resolve).catch(reject)
+        });
     }
 }
 

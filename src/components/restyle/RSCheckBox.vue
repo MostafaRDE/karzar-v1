@@ -38,7 +38,7 @@
             },
             value: {
                 default: false,
-                type: Boolean,
+                type: [Boolean, String],
                 required: false
             },
         },

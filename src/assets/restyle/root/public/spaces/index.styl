@@ -194,15 +194,6 @@ for i in 0..30
     $md['.px-md-' + $key] = $xxs['.px-xxs-' + $key]
     $lg['.px-lg-' + $key] = $xxs['.px-xxs-' + $key]
     $xl['.px-xl-' + $key] = $xxs['.px-xxs-' + $key]
-    $xxs['.px--xxs-' + $key] = {
-        padding-left:  unit($key * -1, 'px') !important,
-        padding-right:  unit($key * -1, 'px') !important
-    }
-    $xs['.px--xs-' + $key] = $xxs['.px--xxs-' + $key]
-    $sm['.px--sm-' + $key] = $xxs['.px--xxs-' + $key]
-    $md['.px--md-' + $key] = $xxs['.px--xxs-' + $key]
-    $lg['.px--lg-' + $key] = $xxs['.px--xxs-' + $key]
-    $xl['.px--xl-' + $key] = $xxs['.px--xxs-' + $key]
 
     .my-{$key}
         margin-bottom  unit($key, 'px') !important
@@ -244,15 +235,6 @@ for i in 0..30
     $md['.py-md-' + $key] = $xxs['.py-xxs-' + $key]
     $lg['.py-lg-' + $key] = $xxs['.py-xxs-' + $key]
     $xl['.py-xl-' + $key] = $xxs['.py-xxs-' + $key]
-    $xxs['.py--xxs-' + $key] = {
-        padding-bottom:  unit($key * -1, 'px') !important,
-        padding-top:  unit($key * -1, 'px') !important
-    }
-    $xs['.py--xs-' + $key] = $xxs['.py--xxs-' + $key]
-    $sm['.py--sm-' + $key] = $xxs['.py--xxs-' + $key]
-    $md['.py--md-' + $key] = $xxs['.py--xxs-' + $key]
-    $lg['.py--lg-' + $key] = $xxs['.py--xxs-' + $key]
-    $xl['.py--xl-' + $key] = $xxs['.py--xxs-' + $key]
 
     for value in (b bottom) (l left) (r right) (t top)
         .m{value}-{$key}
@@ -273,9 +255,6 @@ for i in 0..30
             $xxs['.mb--xxs-' + $key] = {
                 margin-bottom:  unit($key * -1, 'px') !important
             }
-            $xxs['.pb--xxs-' + $key] = {
-                padding-bottom:  unit($key * -1, 'px') !important
-            }
         if value[1] == 'left'
             $xxs['.ml-xxs-' + $key] = {
                 margin-left:  unit($key, 'px') !important
@@ -285,9 +264,6 @@ for i in 0..30
             }
             $xxs['.ml--xxs-' + $key] = {
                 margin-left:  unit($key * -1, 'px') !important
-            }
-            $xxs['.pl--xxs-' + $key] = {
-                padding-left:  unit($key * -1, 'px') !important
             }
         if value[1] == 'right'
             $xxs['.mr-xxs-' + $key] = {
@@ -299,9 +275,6 @@ for i in 0..30
             $xxs['.mr--xxs-' + $key] = {
                 margin-right:  unit($key * -1, 'px') !important
             }
-            $xxs['.pr--xxs-' + $key] = {
-                padding-right:  unit($key * -1, 'px') !important
-            }
         if value[1] == 'top'
             $xxs['.mt-xxs-' + $key] = {
                 margin-top:  unit($key, 'px') !important
@@ -311,9 +284,6 @@ for i in 0..30
             }
             $xxs['.mt--xxs-' + $key] = {
                 margin-top:  unit($key * -1, 'px') !important
-            }
-            $xxs['.pt--xxs-' + $key] = {
-                padding-top:  unit($key * -1, 'px') !important
             }
         key = value[0]
         $xs['.m' + key + '-xs-' + $key] = $xxs['.m' + key + '-xxs-' + $key]

@@ -67,7 +67,7 @@
                 <div class="overflow-x-overlay border-bottom overflow-y-hidden">
                     <div class="d-flex w-fit-content">
                         <rs-button class="px-20 me-15 text-nowrap" solid glow reverseTrapezeEnd>{{ $t('glossaries.games_played') }}</rs-button>
-                        <rs-button v-if="$store.state.user_auth" class="px-20 text-nowrap" transparent reverseTrapezeEnd trapezeStart>{{ $t('glossaries.yours_games') }}</rs-button>
+                        <rs-button v-if="$store.state.user_auth" class="px-20 text-nowrap" transparent glow reverseTrapezeEnd trapezeStart>{{ $t('glossaries.your_games') }}</rs-button>
                     </div>
                 </div>
 

@@ -27,7 +27,7 @@
                     {{ /* Start social networks */ }}
                     <div class="d-flex justify-content-center align-items-center" id="main--navbar--social-links">
                         <div class="ms-25">
-                            <span class="font-size-sm">{{ about }}</span>
+                            <span class="font-size-sm">{{ `${$t('glossaries.your_balance')}: ${moneyFormatFast($store.state.balance, 2)}$` }}</span>
                         </div>
                     </div>
                     {{ /* End social networks */ }}
@@ -333,7 +333,6 @@
 
         data() {
             return {
-                about: 'Your Balance: 50.00$',
                 logoUrl: '/public/images/public/logos/logo.svg',
 
                 stickyHeader: false,

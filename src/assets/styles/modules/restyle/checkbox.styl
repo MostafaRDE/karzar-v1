@@ -1,104 +1,125 @@
 @import "../../config.styl"
 
 .rs-check-box-label
-  display: flex
-  span:nth-child(2)
-    color darken(white, 20)
+    display: flex
+
+    span:nth-child(2)
+        color darken(white, 20)
+
 .rs-check-box
-  display: flex;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  color: white;
-  background-color: rgb(54, 59, 90);
-  position: relative;
-  border-radius: 3px;
-  cursor pointer
-  / .ltr &
-    margin-right 1em
-  / .rtl &
-    margin-left 1em
-  .rs-check-box-tick-parent
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
     display: flex;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    z-index: 3;
-    border-radius: 50%;
-    img
-      z-index: 2;
-      position: relative;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      pointer-events: none;
-      width: 60%;
-      transform: scale(0);
-      outline: none;
-      transition: transform 200ms ease 0s;
-  &:after
-    content: "";
-    z-index: 1;
-    opacity: 0;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: rgba(51, 56, 86, 0.4) 0px 2px 5px 0px;
-    background-image: radial-gradient(farthest-side at 30% 0px, rgb(61, 107, 196) 0%, rgb(51, 56, 86) 168%);
-    border-radius: 3px;
-    transition: opacity 200ms ease 0s;
-    outline: none;
+    color: white;
+    background-color: #ffffff35;
+    border solid 1px #707070
+    position: relative;
+    border-radius: 7px;
+    cursor pointer
+    overflow hidden
+
+    / .ltr &
+        margin-right 1em
+
+    / .rtl &
+        margin-left 1em
+
+    .rs-check-box-tick-parent
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        z-index: 3;
+        border-radius: 50%;
+
+        img
+            z-index: 2;
+            position: relative;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            pointer-events: none;
+            width: 60%;
+            transform: scale(0);
+            outline: none;
+            transition: transform 200ms ease 0s;
+
+    &:after
+        content: "";
+        z-index: 1;
+        opacity: 0;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-shadow: rgba(51, 56, 86, 0.4) 0px 2px 5px 0px;
+        background: #FF0E1F;
+        transition: opacity 200ms ease 0s;
+        outline: none;
+
 .rs-check-box-label.small
-  span:nth-child(2)
-    font-size $font-size-sm
-    line-height 17px
-  .rs-check-box
-    width: 17px;
-    height: 17px;
-    / .ltr &
-      margin-right .75em
-    / .rtl &
-      margin-left .75em
+    span:nth-child(2)
+        font-size $font-size-sm
+        line-height 17px
+
+    .rs-check-box
+        width: 17px;
+        height: 17px;
+
+        / .ltr &
+            margin-right .75em
+
+        / .rtl &
+            margin-left .75em
+
 .rs-check-box-label.x-small
-  span:nth-child(2)
-    font-size $font-size-xs
-    line-height 15px
-  .rs-check-box
-    width: 15px;
-    height: 15px;
-    / .ltr &
-      margin-right .5em
-    / .rtl &
-      margin-left .5em
+    span:nth-child(2)
+        font-size $font-size-xs
+        line-height 15px
+
+    .rs-check-box
+        width: 15px;
+        height: 15px;
+
+        / .ltr &
+            margin-right .5em
+
+        / .rtl &
+            margin-left .5em
+
 .rs-check-box-label.xx-small
-  span:nth-child(2)
-    font-size $font-size-xxs
-    line-height 13px
-  .rs-check-box
-    width: 13px;
-    height: 13px;
-    / .ltr &
-      margin-right .35em
-    / .rtl &
-      margin-left .35em
+    span:nth-child(2)
+        font-size $font-size-xxs
+        line-height 13px
+
+    .rs-check-box
+        width: 13px;
+        height: 13px;
+
+        / .ltr &
+            margin-right .35em
+
+        / .rtl &
+            margin-left .35em
 
 .rs-check-box.active
-  .rs-check-box-tick-parent img
-    transform: scale(1);
-  &:after
-    opacity: 1;
+    .rs-check-box-tick-parent img
+        transform: scale(1);
+
+    &:after
+        opacity: 1;

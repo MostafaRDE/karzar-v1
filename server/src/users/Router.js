@@ -21,6 +21,7 @@ router.post('/get/me' , UsersMiddleware.check_login_user , User.get_user);
 router.put('/update-profile' , UsersMiddleware.check_login_user , User.updateProfile);
 router.put('/update-password' , UsersMiddleware.check_login_user , User.updatePassword);
 router.get('/email-validate/:token', User.check_and_validate_email);
+router.get('/balance', UsersMiddleware.check_login_user, User.getBalance);
 
 /* FORGET PASSWORD */
 router.post('/forget/find', User.fetchUserForForgetPassword);

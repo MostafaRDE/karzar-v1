@@ -37,6 +37,7 @@
 		"internal_server_error": "Internal server error",
 		"not_enough_amount": "Not enough amount",
 		"tournament_capacity_is_filled": "Tournament capacity is filled",
+		"you_are_already_joined_the_tournament": "You are already joined the tournament",
 		"you_are_already_a_member_of_the_tournament": "You are already a member of the tournament",
 		"the_number_of_players_represented_by_you_is_higher_than_the_capacity_of_the_tournament_group": "The number of players represented by you is higher than the capacity of the tournament group",
 		"introduced_players_are_already_registered": "Introduced players are already registered",

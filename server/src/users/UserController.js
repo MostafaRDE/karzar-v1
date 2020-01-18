@@ -294,4 +294,12 @@ module.exports = {
             res.status(500).send(error)
         })
     },
+
+    getBalance(req, res) {
+        UserActions.getBalance(req.user.id).then(response => {
+            res.json(response)
+        }).catch(error => {
+            res.status(500).send(error)
+        })
+    },
 };

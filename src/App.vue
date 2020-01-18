@@ -94,7 +94,9 @@
         mounted() {
             this.updateDetailsOfThemeParts(this.theme);
 
-            this.loadBgAudioConfig()
+            this.loadBgAudioConfig();
+
+            this.$store.dispatch('getBalance')
         },
     }
 </script>

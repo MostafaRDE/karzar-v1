@@ -20,7 +20,7 @@
                 <div class="col mb-0">
                     <div class="row w-100 h-100 d-flex justify-content-flex-end">
 
-                        {{ /* Start banner */ }}
+                        {{ /* Start map image */ }}
                         <rs-section :class="[width < 1024 ? 'col-xl' : '']"
                                     class="mb-0 px-10 pe-lg-0 z-index-1 d-flex justify-content-flex-end align-items-center running-tournament--panel--banner">
 
@@ -30,13 +30,13 @@
                             </div>
 
                         </rs-section>
-                        {{ /* End banner */ }}
+                        {{ /* End map image */ }}
 
                         <rs-section
                                 class="col-xl mb-0 flex-grow-1 d-flex flex-direction-column running-tournament--panel--data">
 
-                            {{ /* Start tournament data */ }}
-                            <div class="flex-grow-1 d-flex py-20">
+                            {{ /* Start tournament single data */ }}
+                            <div v-if="reservationType === 'SINGLE'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'GROUP'}">
 
                                 <div class="row">
 
@@ -71,7 +71,7 @@
 
                                             {{ /* Start count gamers data */ }}
                                             <rs-progressbar-circular fontSize="12px"
-                                                                     :progress="model.players_count"
+                                                                     :progress="model.players_count || 0"
                                                                      :max="model.capacity"
                                                                      size="100"
                                                                      strokeColorEmpty="#ff0e1f33"
@@ -90,13 +90,19 @@
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
                                             <div>
-                                                <rs-input type="text" :label="$t('glossaries.character_name')"/>
+                                                <rs-input type="text" :label="$t('glossaries.character_name')"
+                                                          v-model="fields.player1"/>
                                             </div>
-                                            <div class="mt-20">
-                                                <span class="d-inline-flex"
+                                            <div class="mt-20 d-flex align-items-center">
+                                                <span class="d-inline-flex cursor-pointer"
                                                       @click="showPlayersModal">
                                                     <icon-multiple-users fill="#BBBBBB" width="35px"/>
                                                 </span>
+                                                <div v-if="$store.state.user_auth && tournament.username"
+                                                     class="ms-30 d-inline-flex flex-direction-column">
+                                                    <span>{{ $t('glossaries.username') }}: {{ tournament.username }}</span>
+                                                    <span>{{ $t('glossaries.password') }}: {{ tournament.password }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,15 +110,71 @@
                                 </div>
 
                             </div>
-                            {{ /* End tournament data */ }}
+                            {{ /* End tournament single data */ }}
+
+                            {{ /* Start tournament multiple form */ }}
+                            <div v-if="reservationType === 'GROUP'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'SINGLE'}">
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
+                                            <div class="d-flex align-items-center">
+                                                <rs-check-box value="true"/>
+                                                <rs-input type="text"
+                                                          class="flex-grow-1"
+                                                          :label="$t('glossaries.character_name')"
+                                                          v-model="fields.player1"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
+                                            <div class="d-flex align-items-center">
+                                                <rs-check-box v-model="actives.player2"/>
+                                                <rs-input type="text"
+                                                          class="flex-grow-1"
+                                                          :label="$t('glossaries.character_name')"
+                                                          :disabled="!actives.player2"
+                                                          v-model="fields.player2"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-0 mt-10">
+                                            <div class="d-flex align-items-center">
+                                                <rs-check-box v-model="actives.player3"/>
+                                                <rs-input type="text"
+                                                          class="flex-grow-1"
+                                                          :label="$t('glossaries.character_name')"
+                                                          :disabled="!actives.player3"
+                                                          v-model="fields.player3"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-0 mt-10">
+                                            <div class="d-flex align-items-center">
+                                                <rs-check-box v-model="actives.player4"/>
+                                                <rs-input type="text"
+                                                          class="flex-grow-1"
+                                                          :label="$t('glossaries.character_name')"
+                                                          :disabled="!actives.player4"
+                                                          v-model="fields.player4"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {{ /* End tournament multiple form */ }}
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                    <rs-button transparent class="text-white px-80 text-nowrap">{{
-                                        $t('glossaries.group_booking') }}
+                                    <rs-button transparent glow
+                                               class="text-nowrap"
+                                               @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
+                                        {{ $t('glossaries.' + (reservationType === 'SINGLE' && tournament.group_capacity > 1 ? 'team_join' : 'information')) }}
                                     </rs-button>
-                                    <rs-button solid trapezeStart glow class="text-nowrap">{{ model.fee }}$ {{
-                                        $t('glossaries.enter_the_tournament') }}
+                                    <rs-button v-if="tournament.group_capacity > 1"
+                                               :loading="joining"
+                                               solid
+                                               glow
+                                               trapezeStart
+                                               class="text-white px-80 text-nowrap"
+                                               @click.native="storePlayers">
+                                        {{ model.is_joined ? '' : `${model.fee * usersCount}$ ` }}{{ $t(`glossaries.${model.is_joined ? 'tournaments' : 'join_now'}`) }}
                                     </rs-button>
                                 </div>
                             </div>
@@ -134,7 +196,11 @@
                     <rs-overlay-loading/>
                 </div>
 
-                <div v-if="!loadingPlayers" class="row mt-20 px-10">
+                <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40">
+                    <span>{{ $t('glossaries.no_players_found') }}</span>
+                </div>
+
+                <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10">
                     <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
                         <div class="team-title d-flex">
                             <div class="d-flex">
@@ -145,8 +211,10 @@
                         </div>
                         <div class="row py-10" style="background: #ffffff0f">
                             <div class="col-3 mb-0" v-for="player of team">
-                                <div class="overflow-hidden position-relative" :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                                    <img :src="player.image ? `/api/v1/uploads?id=${player.image}&thumb=64` : '/public/images/public/pubg-default-profile.svg'" alt=""
+                                <div class="overflow-hidden position-relative"
+                                     :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
+                                    <img :src="player.image ? `/api/v1/uploads?id=${player.image}&thumb=64` : '/public/images/public/pubg-default-profile.svg'"
+                                         alt=""
                                          class="w-100"/>
                                     <span class="position-absolute font-size-xxs"
                                           style="padding: 0 4px; background: #000B; bottom: 1px; left: 1px; right: 1px;">{{ player.name }}</span>
@@ -155,7 +223,6 @@
                         </div>
                     </div>
                 </div>
-                <div></div>
             </rs-modal>
             {{ /* End tournament reservation panel */ }}
 
@@ -165,7 +232,8 @@
 
 <script>
     import moment from 'moment'
-    import {tournamentPlayers} from "../../api";
+    import {enterToTheTournament, tournamentPlayers} from "../../api";
+    import i18n from '../../i18n'
 
     export default {
         name: "RunningTournament",
@@ -188,6 +256,8 @@
 
             timer: '',
 
+            reservationType: 'SINGLE', // SINGLE | GROUP
+
             loadingPlayers: false,
             players: [],
 
@@ -200,6 +270,20 @@
                     teams: [],
                 },
             },
+
+
+            joining: false,
+            actives: {
+                player2: false,
+                player3: false,
+                player4: false,
+            },
+            fields: {
+                player1: '',
+                player2: '',
+                player3: '',
+                player4: '',
+            }
         }),
 
         computed: {
@@ -211,6 +295,16 @@
                     this.$emit('change', tournament)
                 }
             },
+            usersCount() {
+                let count = 1;
+                if (this.actives.player2)
+                    count ++;
+                if (this.actives.player3)
+                    count ++;
+                if (this.actives.player4)
+                    count ++;
+                return count;
+            }
         },
 
         methods: {
@@ -250,6 +344,80 @@
                     .finally(() => {
                         this.loadingPlayers = false;
                     })
+            },
+
+            storePlayers() {
+                if (!this.$store.state.user_auth) {
+                    this.$router.push({name: 'login', params: {lang: this.$route.params.lang}});
+                    return;
+                }
+
+                if (this.model.is_joined) {
+                    this.$router.push({name: 'dashboardTournaments', params: {lang: this.$route.params.lang}});
+                    return;
+                }
+
+                if (this.joining)
+                    return;
+
+                // Check selected players if exists or not
+                let errors = 0,
+                    characterNames = '';
+
+                if (this.fields.player1.trim() === '')
+                    errors++;
+                else
+                    characterNames += this.fields.player1.trim();
+
+                if (this.actives.player2)
+                    if (this.fields.player2.trim() === '')
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player2.trim()}`;
+
+                if (this.actives.player3)
+                    if (this.fields.player3.trim() === '')
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player3.trim()}`;
+
+                if (this.actives.player4)
+                    if (this.fields.player4.trim() === '')
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player4.trim()}`;
+
+                if (errors > 0) {
+                    this.$toast.error({
+                        title: '',
+                        message: i18n.t(`glossaries.please_enter_the_name_of_your_character${this.reservationType === 'SINGLE' ? '' : 's'}`),
+                    });
+                } else {
+                    let price = this.model.fee * characterNames.split(',').length;
+
+                    if (this.$store.state.balance >= price) {
+                        this.joining = true;
+
+                        enterToTheTournament(this.tournament.id, characterNames)
+                            .then(response => {
+                                this.$toast.success({
+                                    title: '',
+                                    message: ''
+                                })
+                            })
+                            .catch(error => {
+                                this.$toast.error({
+                                    title: '',
+                                    message: error.response.data.msg,
+                                })
+                            })
+                            .finally(() => {
+                                this.joining = false
+                            })
+                    } else {
+
+                    }
+                }
             }
         },
 
