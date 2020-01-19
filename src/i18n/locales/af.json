@@ -50,6 +50,7 @@
 		"information": "اطلاعات",
 		"is_equal_to": "برابر است با",
 		"join_now": "الان عضو شو",
+		"join_to_tournament": "عضویت در تورنومنت",
 		"live_preview": "پخش زنده",
 		"log_in": "ورود",
 		"login": "ورود",
@@ -80,6 +81,7 @@
 		"retype_new_password": "تکرار گذرواژه جدید",
 		"retype_password": "تکرار گذرواژه",
 		"reward": "جایزه",
+		"running": "در حال اجرا",
 		"running_tournaments": "تورنومنت های در حال اجرا",
 		"search": "جستجو",
 		"search_with_dots": "جستجو...",
@@ -94,6 +96,7 @@
 		"team_join": "رزرو گروهی",
 		"tickets": "تیکت ها",
 		"total": "مجموع",
+		"tournament_players": "بازیکنان تورنومنت",
 		"tournaments": "تورنومنت ها",
 		"trade": "ترید",
 		"trade_history": "تاریخچه معامله",
@@ -106,6 +109,7 @@
 		"volume": "ارزش",
 		"volume_coin_box": "حجم",
 		"watch": "تماشا",
+		"watch_now": "الان می بینم",
 		"whatsapp_number": "شماره واتس آپ",
 		"withdraw": "برداشت",
 		"withdraw_from_account": "برداشت از حساب",
@@ -141,7 +145,8 @@
 		"successes": {
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
-			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد."
+			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد.",
+			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد"
 		}
 	},
 	"pages": {

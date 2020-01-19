@@ -42,7 +42,7 @@
 
         <main-side-menu v-model="isActiveMainSideMenu"/>
 
-        <div class="container-fluid py-60" style="background: url('../../../public/images/public/bg-tournament-timer.png') center center">
+        <div v-if="(!loadingRunningTournaments && runningTournaments.length) || loadingRunningTournaments" class="container-fluid py-60" style="background: url('../../../public/images/public/bg-tournament-timer.png') center center">
             <div class="container">
 
                 <div class="row text-white">
@@ -52,8 +52,11 @@
                     </div>
                 </div>
 
-                <running-tournament v-for="(runningTournament, index) of runningTournaments" :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"/>
+                <running-tournament v-if="!loadingRunningTournaments && runningTournaments.length" v-for="(runningTournament, index) of runningTournaments" :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament" @refresh="getRunningTournaments"/>
 
+                <div class="pt-60 pb-30" v-if="loadingRunningTournaments">
+                    <rs-overlay-loading width="50"/>
+                </div>
             </div>
         </div>
 
@@ -218,6 +221,7 @@
 
             selected: 0,
 
+            loadingRunningTournaments: false,
             runningTournaments: [],
             tournamentPlayers: [],
 
@@ -282,6 +286,23 @@
         methods: {
             handleResize() {
                 this.width = window.innerWidth
+            },
+            getRunningTournaments() {
+                if (!this.loadingRunningTournaments) {
+                    this.loadingRunningTournaments = true;
+
+                    // Load Tournaments
+                    runningTournaments()
+                        .then(response => {
+                            this.runningTournaments = response.data.result;
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+                            this.loadingRunningTournaments = false;
+                        });
+                }
             }
         },
 
@@ -310,17 +331,7 @@
 
             });
 
-            // Load Tournaments
-            runningTournaments()
-                .then(response => {
-                    this.runningTournaments = response.data.result;
-                })
-                .catch(error => {
-
-                })
-                .finally(() => {
-
-                });
+            this.getRunningTournaments();
         }
     }
 </script>

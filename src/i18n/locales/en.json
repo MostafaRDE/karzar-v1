@@ -50,6 +50,7 @@
 		"information": "Information",
 		"is_equal_to": "Is equal to",
 		"join_now": "Join Now",
+		"join_to_tournament": "Join to Tournament",
 		"live_preview": "Live Preview",
 		"log_in": "Log In",
 		"login": "Login",
@@ -80,6 +81,7 @@
 		"retype_new_password": "Retype new password",
 		"retype_password": "Retype password",
 		"reward": "Reward",
+		"running": "Running",
 		"running_tournaments": "Running tournaments",
 		"search": "Search",
 		"search_with_dots": "Search...",
@@ -94,6 +96,7 @@
 		"team_join": "Team Join",
 		"tickets": "Tickets",
 		"total": "Total",
+		"tournament_players": "Tournament Players",
 		"tournaments": "Tournaments",
 		"trade": "Trade",
 		"trade_history": "Trade History",
@@ -106,6 +109,7 @@
 		"volume": "Volume",
 		"volume_coin_box": "Volume",
 		"watch": "Watch",
+		"watch_now": "Watch Now",
 		"whatsapp_number": "Whatsapp Number",
 		"withdraw": "Withdraw",
 		"withdraw_from_account": "Withdraw from account",
@@ -143,7 +147,8 @@
 			"log_in_successful": "Log In successful.",
 			"registration_successful": "Registration successful.",
 			"reset_password_successful": "Reset Password successful.",
-			"send_reset_password_link_to_sent": "Password reset link sent."
+			"send_reset_password_link_to_sent": "Password reset link sent.",
+			"successfully_joined_to_the_tournament": "Successfully joined to the tournament"
 		}
 	},
 	"pages": {

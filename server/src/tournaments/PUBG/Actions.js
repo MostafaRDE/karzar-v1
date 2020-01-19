@@ -72,13 +72,28 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            let table = `v_tournaments${isLogged ? '' : '_without_authentication'}`;
-            let query = `SELECT * FROM pubg.${table} ORDER BY ${table}.id DESC`;
-
-            pubgTournamentModel.fetch_all_custom(query, 1, 1).then(async data => {
+            pubgTournamentModel.fetch_all_custom('SELECT * FROM pubg.v_tournaments WHERE start_date > now() ORDER BY v_tournaments.id DESC', 1, 1).then(async data => {
                 for (let i = 0; i < data.result.length; i++) {
-                    if (isLogged && data.result[i].players)
+                    if (isLogged && data.result[i].players) {
                         data.result[i].is_joined = data.result[i].players.split(',').includes(`${userId}`);
+                        if (data.result[i].is_joined) {
+                            let authInfo = await pubgTournamentModel.fetch_one('username, password', ['id'], [data.result[i].id]);
+                            if (authInfo) {
+                                data.result[i].username = authInfo.username;
+                                data.result[i].password = authInfo.password;
+                            } else {
+                                data.result[i].username = null;
+                                data.result[i].password = null;
+                            }
+                        } else {
+                            data.result[i].username = null;
+                            data.result[i].password = null;
+                        }
+                    } else {
+                        data.result[i].is_joined = false;
+                        data.result[i].username = null;
+                        data.result[i].password = null;
+                    }
 
                     data.result[i].map = {};
                     data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
@@ -90,6 +105,7 @@ class Actions {
 
                 resolve(data)
             }).catch(error => {
+                console.log(error)
                 reject({
                     status: false,
                     msg: __('messages').internal_server_error
@@ -307,7 +323,9 @@ class Actions {
 
                         // In below calculate capacity for registering
                         pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_players_registered_count').then(data => {
-                            let playersRegisteredCount = data.result[0].players_count;
+                            let playersRegisteredCount = undefined;
+                            if (data.total)
+                                playersRegisteredCount = data.result[0].players_count;
 
                             if (!playersRegisteredCount || tour.capacity - characterNames.length >= playersRegisteredCount) {
 

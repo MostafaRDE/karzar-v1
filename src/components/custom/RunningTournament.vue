@@ -89,8 +89,15 @@
                                     {{ /* Start getting user registration data */ }}
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
+                                            <div v-if="$store.state.user_auth && model.is_joined && tournament.username"
+                                                 class="d-inline-flex flex-direction-column">
+                                                <span>{{ $t('glossaries.username') }}: {{ tournament.username }}</span>
+                                                <span>{{ $t('glossaries.password') }}: {{ tournament.password }}</span>
+                                            </div>
                                             <div>
-                                                <rs-input type="text" :label="$t('glossaries.character_name')"
+                                                <rs-input v-if="!model.is_joined"
+                                                          type="text"
+                                                          :label="$t('glossaries.character_name')"
                                                           v-model="fields.player1"/>
                                             </div>
                                             <div class="mt-20 d-flex align-items-center">
@@ -98,11 +105,6 @@
                                                       @click="showPlayersModal">
                                                     <icon-multiple-users fill="#BBBBBB" width="35px"/>
                                                 </span>
-                                                <div v-if="$store.state.user_auth && tournament.username"
-                                                     class="ms-30 d-inline-flex flex-direction-column">
-                                                    <span>{{ $t('glossaries.username') }}: {{ tournament.username }}</span>
-                                                    <span>{{ $t('glossaries.password') }}: {{ tournament.password }}</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -160,9 +162,24 @@
                                 </div>
                             {{ /* End tournament multiple form */ }}
 
+                            {{ /* Start tournament multiple form */ }}
+                            <div v-if="reservationType === 'GROUP'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'SINGLE'}">
+
+                                    <div class="row">
+                                        <div class="col-lg-12 m-0">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <span>{{ $t('glossaries.running') }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {{ /* End tournament multiple form */ }}
+
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                    <rs-button transparent glow
+                                    <rs-button v-if="!model.is_joined"
+                                               transparent glow
                                                class="text-nowrap"
                                                @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
                                         {{ $t('glossaries.' + (reservationType === 'SINGLE' && tournament.group_capacity > 1 ? 'team_join' : 'information')) }}
@@ -174,7 +191,7 @@
                                                trapezeStart
                                                class="text-white px-80 text-nowrap"
                                                @click.native="storePlayers">
-                                        {{ model.is_joined ? '' : `${model.fee * usersCount}$ ` }}{{ $t(`glossaries.${model.is_joined ? 'tournaments' : 'join_now'}`) }}
+                                        {{ primaryTextButton }}
                                     </rs-button>
                                 </div>
                             </div>
@@ -255,6 +272,7 @@
             width: 0,
 
             timer: '',
+            isRunning: false,
 
             reservationType: 'SINGLE', // SINGLE | GROUP
 
@@ -304,6 +322,17 @@
                 if (this.actives.player4)
                     count ++;
                 return count;
+            },
+            primaryTextButton() {
+                let text = '';
+                if (!this.isRunning) {
+                    if (!this.model.is_joined)
+                        text += `${this.model.fee * this.usersCount}$ `;
+                    text += i18n.t(`glossaries.${this.model.is_joined ? 'tournaments' : 'join_now'}`)
+                } else {
+                    text += i18n.t(`glossaries.watch_now`)
+                }
+                return text;
             }
         },
 
@@ -315,7 +344,9 @@
             resetTimer() {
                 let now = moment(new Date());
                 let duration = moment.duration(now.diff(new moment(this.model.start_date)));
-                this.timer = `${Math.abs(duration.days())} : ${Math.abs(duration.hours()).toString().padStart(2, '0')} : ${Math.abs(duration.minutes()).toString().padStart(2, '0')} : ${Math.abs(duration.seconds()).toString().padStart(2, '0')}`
+
+                this.timer = `${Math.abs(duration.days())} : ${Math.abs(duration.hours()).toString().padStart(2, '0')} : ${Math.abs(duration.minutes()).toString().padStart(2, '0')} : ${Math.abs(duration.seconds()).toString().padStart(2, '0')}`;
+                this.isRunning = this.model.is_joined && duration.asMilliseconds() > 0
             },
 
             showPlayersModal() {
@@ -339,7 +370,10 @@
                         });
                     })
                     .catch(error => {
-
+                        this.$toast.error({
+                            title: i18n.t('glossaries.tournament_players'),
+                            message: error.response.data.msg,
+                        })
                     })
                     .finally(() => {
                         this.loadingPlayers = false;
@@ -389,7 +423,7 @@
 
                 if (errors > 0) {
                     this.$toast.error({
-                        title: '',
+                        title: i18n.t('glossaries.join_to_tournament'),
                         message: i18n.t(`glossaries.please_enter_the_name_of_your_character${this.reservationType === 'SINGLE' ? '' : 's'}`),
                     });
                 } else {
@@ -401,13 +435,17 @@
                         enterToTheTournament(this.tournament.id, characterNames)
                             .then(response => {
                                 this.$toast.success({
-                                    title: '',
-                                    message: ''
-                                })
+                                    title: i18n.t('glossaries.join_to_tournament'),
+                                    message: i18n.t('messages.successes.successfully_joined_to_the_tournament')
+                                });
+
+                                this.reservationType = 'SINGLE';
+                                this.$store.dispatch('getBalance');
+                                this.$emit('refresh', true)
                             })
                             .catch(error => {
                                 this.$toast.error({
-                                    title: '',
+                                    title: i18n.t('glossaries.join_to_tournament'),
                                     message: error.response.data.msg,
                                 })
                             })
