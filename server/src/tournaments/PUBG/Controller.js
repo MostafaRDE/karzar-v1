@@ -10,6 +10,15 @@ module.exports = {
         })
     },
 
+    played(request, response) {
+        const actions = new Actions();
+        actions.played(request.query.lang || null, request.query.page, request.query.size).then(data => {
+            response.send(data)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
+
     last(request, response) {
         const actions = new Actions();
         actions.last(request.query.lang).then(data => {

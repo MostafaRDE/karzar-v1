@@ -63,6 +63,7 @@
 		"name": "Name",
 		"new_password": "New password",
 		"no_players_found": "No players found",
+		"not_found": "Not Found",
 		"open_orders": "Open orders",
 		"orders": "Orders",
 		"pair": "Pair",

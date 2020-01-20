@@ -130,6 +130,7 @@ export default function getPaths(store) {
                 // <editor-fold desc="Parent of dashboard-pages">
                 {
                     path: 'dashboard/',
+                    meta: {auth: true},
                     component: () => import('../pages/Dashboard.vue'),
 
                     // <-- Dashboard-pages -->

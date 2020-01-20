@@ -36,6 +36,37 @@ class Actions {
         })
     }
 
+    played(lang, page = undefined, size = undefined) {
+        return new Promise((resolve, reject) => {
+            let pubgTournamentModel = new PubgTournamentModel();
+
+            pubgTournamentModel.fetch_all_custom(`SELECT * FROM pubg.v_tournaments WHERE finished_at is not null ORDER BY finished_at DESC`, page, size).then(async data => {
+                let result = [];
+
+                for (let i = 0; i < data.result.length; i++) {
+                    data.result[i].map = {};
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
+
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+
+                    result.push(data.result[i])
+                }
+                resolve({
+                    status: true,
+                    result,
+                    total: data.total,
+                })
+            }).catch(error => {
+                reject({
+                    status: false,
+                    msg: __('messages').internal_server_error
+                })
+            })
+        })
+    }
+
     last(lang) {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
@@ -72,7 +103,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            pubgTournamentModel.fetch_all_custom('SELECT * FROM pubg.v_tournaments WHERE start_date > now() ORDER BY v_tournaments.id DESC', 1, 1).then(async data => {
+            pubgTournamentModel.fetch_all_custom('SELECT * FROM pubg.v_tournaments WHERE finished_at is null ORDER BY v_tournaments.id DESC', 1, 1).then(async data => {
                 for (let i = 0; i < data.result.length; i++) {
                     if (isLogged && data.result[i].players) {
                         data.result[i].is_joined = data.result[i].players.split(',').includes(`${userId}`);
@@ -431,7 +462,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            pubgTournamentModel.fetch_all_custom(`SELECT pubg.tournaments.id, pubg.tournaments.glossary_key_title as tournaments_glossary_key_title, pubg.tournaments.glossary_key_description as tournaments_glossary_key_description, pubg.tournaments.capacity, pubg.tournaments.start_date, pubg.tournaments.reward_value, pubg.tournaments.fee, pubg.tournaments.status, pubg.tournaments.youtube_link, pubg.tournaments.group_capacity, pubg.tournaments.username, pubg.tournaments.password, pubg.tournaments.map_id, pubg.maps.glossary_key_name as maps_glossary_key_name, pubg.maps.image_media_id as maps_image_media_id FROM pubg.tournaments LEFT JOIN pubg.maps ON (pubg.tournaments.map_id = pubg.maps.id) INNER JOIN pubg.tournament_players ON (pubg.tournaments.id = pubg.tournament_players.tournament_id) WHERE tournament_players.user_id = ${userId} ORDER BY pubg.tournaments.id DESC`, page, size).then(async data => {
+            pubgTournamentModel.fetch_all_custom('SELECT * FROM pubg.v_tournaments ORDER BY id DESC', page, size).then(async data => {
                 let result = [];
 
                 for (let i = 0; i < data.result.length; i++) {

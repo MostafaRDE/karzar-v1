@@ -8,7 +8,9 @@
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
                         <span class="bottom-trapeze-sides trapeze-start-side"></span>
                         <span lang="en" class="ltr text-white"
-                              style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">{{ timer }}</span>
+                              style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">
+                            {{ isRunning ? $t('glossaries.running') : timer }}
+                        </span>
                         <span class="bottom-trapeze-sides trapeze-end-side"></span>
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                                              :class="{'border-end': width >= 1024}">
 
                                             {{ /* Start tournament round data */ }}
-                                            <div class="flex-grow-1 h-100 d-flex flex-direction-column justify-content-space-around px-lg-10 px-xl-20 running-tournament--panel--data--description"
+                                            <div class="flex-grow-1 h-100 d-flex flex-direction-column justify-content-space-around px-lg-10 px-xl-20 running-tournament--panel--data--description me-20"
                                                  :style="{maxWidth: '200px'}">
 
                                                 {{ /* Map */ }}
@@ -89,13 +91,13 @@
                                     {{ /* Start getting user registration data */ }}
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
-                                            <div v-if="$store.state.user_auth && model.is_joined && tournament.username"
+                                            <div v-if="$store.state.user_auth && model.is_joined && !isRunning && tournament.username"
                                                  class="d-inline-flex flex-direction-column">
                                                 <span>{{ $t('glossaries.username') }}: {{ tournament.username }}</span>
                                                 <span>{{ $t('glossaries.password') }}: {{ tournament.password }}</span>
                                             </div>
                                             <div>
-                                                <rs-input v-if="!model.is_joined"
+                                                <rs-input v-if="!model.is_joined && !isRunning"
                                                           type="text"
                                                           :label="$t('glossaries.character_name')"
                                                           v-model="fields.player1"/>
@@ -162,23 +164,9 @@
                                 </div>
                             {{ /* End tournament multiple form */ }}
 
-                            {{ /* Start tournament multiple form */ }}
-                            <div v-if="reservationType === 'GROUP'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'SINGLE'}">
-
-                                    <div class="row">
-                                        <div class="col-lg-12 m-0">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span>{{ $t('glossaries.running') }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            {{ /* End tournament multiple form */ }}
-
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                    <rs-button v-if="!model.is_joined"
+                                    <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
                                                @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
@@ -273,6 +261,7 @@
 
             timer: '',
             isRunning: false,
+            isRunningTextVisibility: false,
 
             reservationType: 'SINGLE', // SINGLE | GROUP
 
@@ -342,11 +331,15 @@
             },
 
             resetTimer() {
-                let now = moment(new Date());
-                let duration = moment.duration(now.diff(new moment(this.model.start_date)));
+                if (this.isRunning) {
+                    this.isRunningTextVisibility = !this.isRunningTextVisibility
+                } else {
+                    let now = moment(new Date());
+                    let duration = moment.duration(now.diff(new moment(this.model.start_date)));
 
-                this.timer = `${Math.abs(duration.days())} : ${Math.abs(duration.hours()).toString().padStart(2, '0')} : ${Math.abs(duration.minutes()).toString().padStart(2, '0')} : ${Math.abs(duration.seconds()).toString().padStart(2, '0')}`;
-                this.isRunning = this.model.is_joined && duration.asMilliseconds() > 0
+                    this.timer = `${Math.abs(duration.days())} : ${Math.abs(duration.hours()).toString().padStart(2, '0')} : ${Math.abs(duration.minutes()).toString().padStart(2, '0')} : ${Math.abs(duration.seconds()).toString().padStart(2, '0')}`;
+                    this.isRunning = this.model.is_joined && duration.asMilliseconds() >= 0;
+                }
             },
 
             showPlayersModal() {
@@ -381,6 +374,11 @@
             },
 
             storePlayers() {
+                if (this.isRunning) {
+                    window.open(this.model.youtube_link, '_blank');
+                    return;
+                }
+
                 if (!this.$store.state.user_auth) {
                     this.$router.push({name: 'login', params: {lang: this.$route.params.lang}});
                     return;

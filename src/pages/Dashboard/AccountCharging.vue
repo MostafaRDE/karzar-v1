@@ -17,7 +17,7 @@
                           :placeholder="$t('glossaries.is_equal_to')"
                           :label="$t('currencies.dollar')"
                           labelIcon="/public/images/public/currencies/ic-dollar.svg"
-                          :value="`${(parseFloat(inputAmount) * parseFloat(pricesToDollar[selectedCurrency])).toFixed(2)}`"/>
+                          :value="`${(parseFloat(inputAmount) / parseFloat(pricesToDollar[selectedCurrency])).toFixed(2)}`"/>
 
                 <rs-drop-down-pro class="mt-30" :source="accounts" v-model="selectedAccount">
                     <template slot-scope="{data}" slot="item-adapter">

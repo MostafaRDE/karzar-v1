@@ -64,6 +64,7 @@
     "validator": "^11.0.0",
     "vue": "^2.6.10",
     "vue-i18n": "^8.11.2",
+    "vue-jalali-moment": "^1.0.0",
     "vue-router": "^3.0.6",
     "vue-server-renderer": "^2.6.10",
     "vue2-scrollbar": "^0.0.3",

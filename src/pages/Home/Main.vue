@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-center align-items-center overflow-hidden ltr"
                  style="box-shadow: 0 5px 10px 0 #0000005a; height: 145px; background: center center url('../../../public/images/public/gradient-primary-radial.jpg')">
 
-                <rs-carousel-slider class="overflow-x-overlay" :items="carouselSlider">
+                <rs-carousel-slider :items="carouselSlider">
                     <a slot="item-adapter"
                          slot-scope="{item}"
                          class="position-relative d-flex">
@@ -69,30 +69,45 @@
 
                 <div class="overflow-x-overlay border-bottom overflow-y-hidden">
                     <div class="d-flex w-fit-content">
-                        <rs-button class="px-20 me-15 text-nowrap" solid glow reverseTrapezeEnd>{{ $t('glossaries.games_played') }}</rs-button>
-                        <rs-button v-if="$store.state.user_auth" class="px-20 text-nowrap" transparent glow reverseTrapezeEnd trapezeStart>{{ $t('glossaries.your_games') }}</rs-button>
+                        <rs-button class="px-20 me-15 text-nowrap"
+                                   :transparent="selectedTournamentTab === 'ME'"
+                                   :solid="selectedTournamentTab === 'PUBLIC'"
+                                   glow
+                                   :reverseTrapezeEnd="selectedTournamentTab === 'PUBLIC'"
+                                   @click.native="updateTournamentsSelected('PUBLIC')">
+                            {{ $t('glossaries.games_played') }}
+                        </rs-button>
+                        <rs-button v-if="$store.state.user_auth"
+                                   class="px-20 text-nowrap"
+                                   :transparent="selectedTournamentTab === 'PUBLIC'"
+                                   :solid="selectedTournamentTab === 'ME'"
+                                   glow
+                                   :trapezeStart="selectedTournamentTab === 'ME'"
+                                   :reverseTrapezeEnd="selectedTournamentTab === 'ME'"
+                                   @click.native="updateTournamentsSelected('ME')">
+                            {{ $t('glossaries.your_games') }}
+                        </rs-button>
                     </div>
                 </div>
 
                 <div class="d-flex flex-direction-column px-20">
 
-                    <tournament-item v-for="(item, index) of tournaments"
+                    <tournament-item v-if="tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
+                                     v-for="(item, index) of tournaments"
                                      :key="`tournament-${index}`"
                                      class="row py-20"
-                                     :class="{'border-bottom': index < 2}" :data="item"/>
+                                     :class="{'border-bottom': index < tournaments.length - 1}"/>
 
-                    <div class="row pagination mt-20">
-                        <div class="col text-white d-flex justify-content-center">
-                            <span class="px-5 linkable">1</span>
-                            <span class="px-5 linkable">2</span>
-                            <span class="px-5 linkable">3</span>
-                            <span class="px-5 linkable">4</span>
-                            <span class="px-5 d-inline-flex align-items-center">
-                                <icon-arrow-right-type-1 v-if="$store.state.dir === 'ltr'" fill="#fff" size="12px"/>
-                                <icon-arrow-left-type-1 v-else fill="#fff" size="12px"/>
-                            </span>
-                        </div>
+                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments" class="py-50">
+                        <rs-overlay-loading width="28"/>
                     </div>
+
+                    <div v-if="!tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)" class="py-50 text-center">
+                        <span>{{ $t('glossaries.not_found') }}</span>
+                    </div>
+
+                    <rs-pagination v-if="selectedTournamentTab === 'PUBLIC' && tournaments.length" class="my-20" v-model="gamesPlayedCurrentPage" :count="gamesPlayedTotalPages" @change="updateListByPagination('PUBLIC')"/>
+                    <rs-pagination v-if="selectedTournamentTab === 'ME' && tournaments.length" class="my-20" v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages" @change="updateListByPagination('ME')"/>
 
                 </div>
 
@@ -100,7 +115,7 @@
         </div>
 
         <div class="container-fluid px-0 py-50">
-            <h2 class="text-center text-white">{{ $t('glossaries.tutorials') }}ا</h2>
+            <h2 class="text-center text-white">{{ $t('glossaries.tutorials') }}</h2>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
 
@@ -201,7 +216,7 @@
 
 <script>
     import i18n from '../../i18n'
-    import {getMainSliderItems, runningTournaments} from '../../api'
+    import {gamesPlayed, getMainSliderItems, myTournaments, runningTournaments} from '../../api'
 
     export default {
         name: "Home",
@@ -217,33 +232,29 @@
         },
 
         data: () => ({
+            itemsPerPage: 4,
+
             width: 0,
 
             selected: 0,
 
+            selectedTournamentTab: 'PUBLIC', // PUBLIC | ME
+
             loadingRunningTournaments: false,
             runningTournaments: [],
-            tournamentPlayers: [],
 
-            tournaments: [
-                {
-                    id: 1,
-                    title: 'نبرد اساطیر',
-                    time: '12 November 2019 : 21:00 (TEH)',
-                    team: 4,
-                    reward: '200$',
-                    youtubeLink: '',
-                    youtubeWatchStatus: 'LIVE',
-                    map: {
-                        media_id: 46,
-                        name: 'pubg shrean',
-                    },
-                    tags: [
-                        {title: 'pubg mobile'},
-                        {title: 'map shreain'},
-                    ],
-                },
-            ],
+            loadingGamesPlayed: false,
+            gamesPlayed: [],
+            gamesPlayedCurrentPage: 1,
+            gamesPlayedTotalPages: 0,
+
+            loadingMyTournaments: false,
+            myTournaments: [],
+            myTournamentsCurrentPage: 1,
+            myTournamentsTotalPages: 0,
+
+            // Filtered tournaments
+            tournaments: [],
 
             isActiveMainSideMenu: false,
 
@@ -291,7 +302,7 @@
                 if (!this.loadingRunningTournaments) {
                     this.loadingRunningTournaments = true;
 
-                    // Load Tournaments
+                    // Loading Tournaments
                     runningTournaments()
                         .then(response => {
                             this.runningTournaments = response.data.result;
@@ -302,6 +313,72 @@
                         .finally(() => {
                             this.loadingRunningTournaments = false;
                         });
+                }
+            },
+
+            getGamesPlayed() {
+                if (!this.loadingGamesPlayed) {
+                    this.loadingGamesPlayed = true;
+
+                    // Loading Games Played
+                    gamesPlayed(this.gamesPlayedCurrentPage, this.itemsPerPage)
+                        .then(response => {
+                            let totalPages = response.data.total / this.itemsPerPage;
+                            this.gamesPlayedTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
+                            this.gamesPLayed = response.data.result;
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+                            this.loadingGamesPlayed = false;
+                        });
+                }
+            },
+
+            getMyTournaments() {
+                if (!this.loadingMyTournaments) {
+                    this.loadingMyTournaments = true;
+
+                    // Loading Games Played
+                    myTournaments(this.myTournamentsCurrentPage, this.itemsPerPage)
+                        .then(response => {
+                            let totalPages = response.data.total / this.itemsPerPage;
+                            this.myTournamentsTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
+                            this.myTournaments = response.data.result;
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+                            this.loadingMyTournaments = false;
+                        });
+                }
+            },
+
+            updateListByPagination(type) {
+                switch (type) {
+                    case 'PUBLIC':
+                        this.getGamesPlayed();
+                        break;
+
+                    case 'ME':
+                        this.getMyTournaments();
+                        break;
+                }
+            },
+
+            updateTournamentsSelected(type) {
+                switch (type) {
+                    case 'PUBLIC':
+                        this.tournaments = this.gamesPlayed;
+                        this.selectedTournamentTab = 'PUBLIC';
+                        break;
+
+                    case 'ME':
+                        this.tournaments = this.myTournaments;
+                        this.selectedTournamentTab = 'ME';
+                        break;
                 }
             }
         },
@@ -332,6 +409,9 @@
             });
 
             this.getRunningTournaments();
+            this.getGamesPlayed();
+            if (this.$store.state.user_auth)
+                this.getMyTournaments();
         }
     }
 </script>

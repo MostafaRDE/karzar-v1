@@ -21,7 +21,7 @@
                 <div class="mb-0 h-100 flex-grow-1 pe-20 py-20 ps-20" :class="[width >= 1350 ? 'col-sm-10' : 'col-12']" style="min-height: calc(100vh - 90px)">
                     <dashboard-content class="w-100 position-relative">
                         <transition name="fade">
-                            <router-view class="position-absolute top-0 left-0 right-0" style="background-color: #0009"/>
+                            <router-view class="position-absolute top-0 left-0 right-0" style="background-color: #000C"/>
                         </transition>
                     </dashboard-content>
                 </div>

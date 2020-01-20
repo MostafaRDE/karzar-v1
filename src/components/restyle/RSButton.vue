@@ -11,9 +11,6 @@
         <span v-if="trapezeBoth || reverseTrapezeBoth || trapezeEnd || reverseTrapezeEnd"
               class="btn-trapeze-end-side"
               :class="{'btn-trapeze-top': trapezeBoth || trapezeEnd, 'btn-trapeze-bottom': reverseTrapezeBoth || reverseTrapezeEnd}"></span>
-        <span v-if="trapezeBoth || reverseTrapezeBoth || trapezeEnd || reverseTrapezeEnd"
-              class="btn-trapeze-end-side"
-              :class="{'btn-trapeze-top': trapezeBoth || trapezeEnd, 'btn-trapeze-bottom': reverseTrapezeBoth || reverseTrapezeEnd}"></span>
     </button>
 </template>
 

@@ -1,91 +1,59 @@
 <template>
     <div class="py-20 px-40">
-        <my-tournament-item v-for="(tournament, index) of tournaments"
-                            :key="`tournaments-${index}`"
-                            :data="tournament"
-                            :class="{'border-bottom': index < tournaments.length - 1}" />
+        <my-tournament-item v-if="tournaments.length && !loading"
+                            v-for="(item, index) of tournaments"
+                            :key="`tournament-${index}`"
+                            :class="{'border-bottom': index < tournaments.length - 1}"
+                            :data="item"/>
 
-        <div class="row pagination mt-20">
-            <div class="col text-white d-flex justify-content-center">
-                <span class="px-5 linkable">1</span>
-                <span class="px-5 linkable">2</span>
-                <span class="px-5 linkable">3</span>
-                <span class="px-5 linkable">4</span>
-                <span class="px-5 d-inline-flex align-items-center">
-                                <icon-arrow-right-type-1 v-if="$store.state.dir === 'ltr'" fill="#fff" size="12px"/>
-                                <icon-arrow-left-type-1 v-if="$store.state.dir === 'rtl'" fill="#fff" size="12px"/>
-                            </span>
-            </div>
+        <div v-if="loading" class="py-50">
+            <rs-overlay-loading width="28"/>
         </div>
+
+        <rs-pagination v-if="tournaments.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
     </div>
 </template>
 
 <script>
+    const {itemsPerPage, myTournaments} = require("../../api");
     export default {
-        name: "Main",
-
-        components: {
-            'icon-arrow-left-type-1': () => import('../../components/icons/IconArrowLeftType1.vue'),
-            'icon-arrow-right-type-1': () => import('../../components/icons/IconArrowRightType1.vue'),
-        },
+        name: "Tournaments",
 
         data: () => ({
-            tournaments: [
-                {
-                    id: 1,
-                    title: 'نبرد اساطیر',
-                    time: '12 November 2019 : 21:00 (TEH)',
-                    team: 4,
-                    reward: '200$',
-                    yourReward: 0,
-                    youtubeLink: '',
-                    youtubeWatchStatus: 'LIVE',
-                    map: {
-                        name: 'pubg shrean',
-                        image: '/public/images/samples/img-tournament-sample.png',
-                    },
-                    tags: [
-                        {title: 'pubg mobile'},
-                        {title: 'map shreain'},
-                    ],
-                },
-                {
-                    id: 1,
-                    title: 'نبرد اساطیر',
-                    time: '12 November 2019 : 21:00 (TEH)',
-                    team: 4,
-                    reward: '200$',
-                    yourReward: 0,
-                    youtubeLink: '',
-                    youtubeWatchStatus: 'LIVE',
-                    map: {
-                        name: 'pubg shrean',
-                        image: '/public/images/samples/img-tournament-sample.png',
-                    },
-                    tags: [
-                        {title: 'pubg mobile'},
-                        {title: 'map shreain'},
-                    ],
-                },
-                {
-                    id: 1,
-                    title: 'نبرد اساطیر',
-                    time: '12 November 2019 : 21:00 (TEH)',
-                    team: 4,
-                    reward: '200$',
-                    yourReward: 0,
-                    youtubeLink: '',
-                    youtubeWatchStatus: 'LIVE',
-                    map: {
-                        name: 'pubg shrean',
-                        image: '/public/images/samples/img-tournament-sample.png',
-                    },
-                    tags: [
-                        {title: 'pubg mobile'},
-                        {title: 'map shreain'},
-                    ],
-                },
-            ],
-        })
+            itemsPerPage,
+            currentPage: 1,
+            totalPages: 0,
+            loading: false,
+            tournaments: [],
+        }),
+
+        methods: {
+            updateListByPagination() {
+                this.getMyTournaments()
+            },
+            getMyTournaments() {
+                if (!this.loading) {
+                    this.loading = true;
+
+                    // Loading Games Played
+                    myTournaments(this.currentPage, this.itemsPerPage)
+                        .then(response => {
+                            let totalPages = response.data.total / this.itemsPerPage;
+                            this.totalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
+                            this.tournaments = response.data.result;
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+                            this.loading = false;
+                        });
+                }
+            },
+        },
+
+        mounted() {
+            this.getMyTournaments();
+        }
     }
 </script>

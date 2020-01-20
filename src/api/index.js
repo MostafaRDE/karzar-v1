@@ -2,7 +2,9 @@ import {createApi} from "create-api";
 
 const {axios} = createApi();
 
-const lang = require('../i18n').default.locale;
+const lang = () => require('../i18n').default.locale;
+
+export const itemsPerPage = 10;
 
 export function getPrices() {
     // Create request as "Promise" and returned it
@@ -22,7 +24,7 @@ export function getBalance() {
 export function getMainSliderItems() {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.get(`sliders/slider-items/HomeMain?lang=${lang}`).then(resolve).catch(reject)
+        axios.get(`sliders/slider-items/HomeMain?lang=${lang()}`).then(resolve).catch(reject)
     })
 }
 // </editor-fold>
@@ -38,7 +40,7 @@ export function login(email, password) {
 
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.post(`users/login?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.post(`users/login?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 
@@ -51,7 +53,7 @@ export function register(email, password, whatsapp_number, refer_code) {
 
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.post(`users/register?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.post(`users/register?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 
@@ -66,7 +68,7 @@ export function get_devices_user(username) {
 
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.post(`users/forget/find?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.post(`users/forget/find?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 // SendRequestForRequest api
@@ -78,7 +80,7 @@ export function send_request_for_forgot(token) {
 
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.post(`users/forget/send?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.post(`users/forget/send?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 // ChangePasswordByToken api
@@ -91,7 +93,7 @@ export function change_password_by_token(token, password) {
 
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.put(`users/password/change?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.put(`users/password/change?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 
@@ -99,24 +101,19 @@ export function change_password_by_token(token, password) {
 
 // </editor-fold>
 
-export function lastTournament() {
-    // Create request as "Promise" and returned it
-    return new Promise((resolve, reject) => {
-        axios.get(`tournaments/pubg/last?lang=${lang}`).then(resolve).catch(reject)
-    })
-}
+// <editor-fold desc="Tournaments">
 
 export function runningTournaments() {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.get(`tournaments/pubg/running?lang=${lang}`).then(resolve).catch(reject)
+        axios.get(`tournaments/pubg/running?lang=${lang()}`).then(resolve).catch(reject)
     })
 }
 
 export function tournamentPlayers(id) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.get(`tournaments/pubg/${id}/players?lang=${lang}`).then(resolve).catch(reject)
+        axios.get(`tournaments/pubg/${id}/players?lang=${lang()}`).then(resolve).catch(reject)
     })
 }
 
@@ -125,6 +122,28 @@ export function enterToTheTournament(id, character_names) {
     return new Promise((resolve, reject) => {
         let data = {character_name: character_names};
 
-        axios.post(`tournaments/pubg/${id}/enter?lang=${lang}`, data).then(resolve).catch(reject)
+        axios.post(`tournaments/pubg/${id}/enter?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
+
+export function gamesPlayed(page = null, size = itemsPerPage) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        if (page)
+            url += `&page=${page}&size=${size}`;
+        axios.get(`tournaments/pubg/played?lang=${url}`).then(resolve).catch(reject)
+    })
+}
+
+export function myTournaments(page = null, size = itemsPerPage) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        if (page)
+            url += `&page=${page}&size=${size}`;
+        axios.get(`tournaments/pubg/my-tours?${url}`).then(resolve).catch(reject)
+    })
+}
+
+// </editor-fold>

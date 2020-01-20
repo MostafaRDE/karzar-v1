@@ -144,4 +144,15 @@
                 bottom: 0;
                 left: -4px;
                 border-bottom: 5px solid #000;
+
+    @media screen and (max-width 599px)
+        .main-footer-menu ul
+            display flex
+            flex-direction column
+            li
+                padding 0
+                text-align center
+                a
+                    display block
+                    padding 20px;
 </style>

@@ -214,8 +214,8 @@
 
                 {{ /* Start search part */ }}
                 <div class="h-100 d-flex align-items-center">
-                    <a href="javascript:void(0)" class="d-inline-flex">
-                        <icon-search fill="#fff" size="25px"/>
+                    <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase font-weight-900">
+                        {{ $route.params.lang === 'en' ? 'af' : 'en' }}
                     </a>
                 </div>
                 {{ /* End search part */ }}
@@ -265,8 +265,8 @@
 
                     {{ /* Start search part */ }}
                     <div class="h-100 d-flex align-items-center">
-                        <a href="javascript:void(0)" class="d-inline-flex">
-                            <icon-search fill="#fff" size="25px"/>
+                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase font-weight-900">
+                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
                         </a>
                     </div>
                     {{ /* End search part */ }}
@@ -649,7 +649,7 @@
 
                 a
                     display block
-                    height 42px
+                    height 56px
 
                     img
                         height 100%

@@ -52,7 +52,7 @@
             },
             width: {
                 default: -1,
-                type: Number,
+                type:[Number, String],
                 required: false
             }
         },

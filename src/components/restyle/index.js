@@ -20,6 +20,7 @@ Vue.component('rs-input-with-drop-down', () => import('./RSInputWithDropDown.vue
 Vue.component('rs-list', () => import('./RSList.vue'));
 Vue.component('rs-modal', () => import('./RSModal.vue'));
 Vue.component('rs-overlay-loading', () => import('./RSOverlayLoading.vue'));
+Vue.component('rs-pagination', () => import('./RSPagination.vue'));
 Vue.component('rs-progressbar-circular', () => import('./RSProgressbarCircular.vue'));
 Vue.component('rs-radio-button', () => import('./RSRadioButton.vue'));
 Vue.component('rs-section', () => import('./RSSection.vue'));
