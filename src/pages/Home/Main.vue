@@ -8,12 +8,18 @@
             <div>
                 <rs-overlay-loading v-if="!imagesSlider.length" :width="40"/>
             </div>
-            <rs-image-slider v-if="imagesSlider.length" id="page--home--image-slider" backgroundMode fullscreen :source="imagesSlider" v-model="selected">
+            <rs-image-slider v-if="imagesSlider.length" id="page--home--image-slider" backgroundMode fullscreen
+                             :source="imagesSlider" v-model="selected">
 
-                <div v-if="imagesSlider.length > 0" slot="content" class="d-flex flex-direction-column justify-content-center align-items-center">
+                <div v-if="imagesSlider.length > 0" slot="content"
+                     class="d-flex flex-direction-column justify-content-center align-items-center">
 
-                    <span class="z-index-1 font-weight-700 text-center text-white text-uppercase page--home--image-slider--title" :style="{fontFamily: $route.params.lang === 'en' ? 'Rubik !important' : ''}">{{ imagesSlider[selected].title }}</span>
-                    <rs-button glow solid solidShadow trapezeBoth @click.native="$router.push(imagesSlider[selected].button.to)">{{ imagesSlider[selected].button.label }}</rs-button>
+                    <span class="z-index-1 font-weight-700 text-center text-white text-uppercase page--home--image-slider--title"
+                          :style="{fontFamily: $route.params.lang === 'en' ? 'Rubik !important' : ''}">{{ imagesSlider[selected].title }}</span>
+                    <rs-button glow solid solidShadow trapezeBoth
+                               @click.native="$router.push(imagesSlider[selected].button.to)">{{
+                        imagesSlider[selected].button.label }}
+                    </rs-button>
 
                 </div>
 
@@ -24,14 +30,14 @@
 
                 <rs-carousel-slider :items="carouselSlider">
                     <a slot="item-adapter"
-                         slot-scope="{item}"
-                         class="position-relative d-flex">
+                       slot-scope="{item}"
+                       class="position-relative d-flex">
 
                         <span>
-                            <img :src="item.image" alt="" />
+                            <img :src="item.image" alt=""/>
                         </span>
                         <span class="position-absolute">
-                            <img :src="item.image" alt="" />
+                            <img :src="item.image" alt=""/>
                         </span>
 
                     </a>
@@ -42,7 +48,9 @@
 
         <main-side-menu v-model="isActiveMainSideMenu"/>
 
-        <div v-if="(!loadingRunningTournaments && runningTournaments.length) || loadingRunningTournaments" class="container-fluid py-60" style="background: url('../../../public/images/public/bg-tournament-timer.png') center center">
+        <div v-if="(!loadingRunningTournaments && runningTournaments.length) || loadingRunningTournaments"
+             class="container-fluid py-60"
+             style="background: url('../../../public/images/public/bg-tournament-timer.png') center center">
             <div class="container">
 
                 <div class="row text-white">
@@ -52,7 +60,10 @@
                     </div>
                 </div>
 
-                <running-tournament v-if="!loadingRunningTournaments && runningTournaments.length" v-for="(runningTournament, index) of runningTournaments" :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament" @refresh="getRunningTournaments"/>
+                <running-tournament v-if="!loadingRunningTournaments && runningTournaments.length"
+                                    v-for="(runningTournament, index) of runningTournaments"
+                                    :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
+                                    @refresh="getRunningTournaments"/>
 
                 <div class="pt-60 pb-30" v-if="loadingRunningTournaments">
                     <rs-overlay-loading width="50"/>
@@ -92,22 +103,29 @@
 
                 <div class="d-flex flex-direction-column px-20">
 
-                    <tournament-item v-if="tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
-                                     v-for="(item, index) of tournaments"
-                                     :key="`tournament-${index}`"
-                                     class="row py-20"
-                                     :class="{'border-bottom': index < tournaments.length - 1}"/>
+                    <tournament-item
+                            v-if="tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
+                            v-for="(item, index) of tournaments"
+                            :key="`tournament-${index}`"
+                            class="row py-20"
+                            :class="{'border-bottom': index < tournaments.length - 1}"/>
 
-                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments" class="py-50">
+                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments"
+                         class="py-50">
                         <rs-overlay-loading width="28"/>
                     </div>
 
-                    <div v-if="!tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)" class="py-50 text-center">
+                    <div v-if="!tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
+                         class="py-50 text-center">
                         <span>{{ $t('glossaries.not_found') }}</span>
                     </div>
 
-                    <rs-pagination v-if="selectedTournamentTab === 'PUBLIC' && tournaments.length" class="my-20" v-model="gamesPlayedCurrentPage" :count="gamesPlayedTotalPages" @change="updateListByPagination('PUBLIC')"/>
-                    <rs-pagination v-if="selectedTournamentTab === 'ME' && tournaments.length" class="my-20" v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages" @change="updateListByPagination('ME')"/>
+                    <rs-pagination v-if="selectedTournamentTab === 'PUBLIC' && tournaments.length" class="my-20"
+                                   v-model="gamesPlayedCurrentPage" :count="gamesPlayedTotalPages"
+                                   @change="updateListByPagination('PUBLIC')"/>
+                    <rs-pagination v-if="selectedTournamentTab === 'ME' && tournaments.length" class="my-20"
+                                   v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages"
+                                   @change="updateListByPagination('ME')"/>
 
                 </div>
 
@@ -125,23 +143,26 @@
                            :background="tutorial.backgroundImage"
                            class="pt-100 col-sm-4 mb-0 d-flex flex-direction-column"
                            :style="{minHeight: `${width / 4.8}px`}"
+                           :href="tutorial.youtubeLink"
+                           target="_blank"
                            @mouseover.native="tutorial.hover = true"
                            @mouseleave.native="tutorial.hover = false">
 
-                    <span class="tag">{{ tutorial.tag }}</span>
+                    <span class="tag text-white">{{ tutorial.tag }}</span>
 
-                    <title-box-animated class="text-white mt-10" :active="tutorial.hover">
-                        <router-link to="#" class="font-size-xl font-weight-900">{{ tutorial.title }}</router-link>
+                    <title-box-animated class="text-white mt-10" :active="tutorial.hover" @click.native="">
+                        <a :href="tutorial.youtubeLink" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
                     </title-box-animated>
 
-                    <span class="font-size-xs mt-10">{{ tutorial.date }}</span>
+                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date }}</span>
 
-                    <p class="mt-20">{{ tutorial.text }}</p>
+                    <p class="mt-20 text-white">{{ tutorial.text }}</p>
 
                 </post-mode>
             </div>
         </div>
-        <div class="container-fluid px-0 mt-80" :style="{background: 'url(/public/images/samples/h1-background-img-1.jpg) center center no-repeat', boxShadow: '0 5px 10px 0 rgba(0, 0, 0, 0.35)'}">
+        <div class="container-fluid px-0 mt-80"
+             :style="{background: 'url(/public/images/samples/h1-background-img-1.jpg) center center no-repeat', boxShadow: '0 5px 10px 0 rgba(0, 0, 0, 0.35)'}">
             <div class="row">
 
                 <div class="col-md-6 mb-0 d-none d-md-flex justify-content-center">
@@ -175,7 +196,9 @@
 
                     <title-span class="mt-20"/>
 
-                    <p class="mt-30" :style="{fontSize: '16px'}">Proin gravida nibh vel velit auctor aliquet. Aenean velit sollicitudin, lorem quis bibendum auctor, nisi elit ipsum consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
+                    <p class="mt-30" :style="{fontSize: '16px'}">Proin gravida nibh vel velit auctor aliquet. Aenean
+                        velit sollicitudin, lorem quis bibendum auctor, nisi elit ipsum consequat ipsum, nec sagittis
+                        sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
 
                     <span class="d-block mt-30 text-white">
                         <span class="me-10 d-inline-flex"><i class="fa fa-location-arrow"></i></span>Auguststraße 225, 10543 Berlin
@@ -187,21 +210,26 @@
                 </div>
 
                 <div class="col-md-6">
-                    <rs-form>
+                    <rs-form :submit="sendContactMessage">
                         <div>
-                            <input type="text" placeholder="Your Name" class="contact-input"/>
+                            <input type="text" placeholder="*Your Name" class="contact-input"
+                                   v-model="contactFields.name" required/>
                         </div>
 
                         <div>
-                            <input type="email" placeholder="Email Address" class="contact-input"/>
+                            <input type="email" placeholder="*Email Address" class="contact-input"
+                                   v-model="contactFields.email" required/>
                         </div>
 
                         <div>
-                            <textarea placeholder="Your Message..." class="contact-input"></textarea>
+                            <textarea placeholder="*Your Message..." class="contact-input"
+                                      v-model="contactFields.content" required></textarea>
                         </div>
 
                         <div class="mt-10">
-                            <rs-button class="text-uppercase w-100" solid glow>{{ $t('glossaries.submit') }}</rs-button>
+                            <rs-button :loading="sendingContactMessage" class="text-uppercase w-100" solid glow>{{
+                                $t('glossaries.submit') }}
+                            </rs-button>
                         </div>
                     </rs-form>
                 </div>
@@ -216,7 +244,14 @@
 
 <script>
     import i18n from '../../i18n'
-    import {gamesPlayed, getMainSliderItems, myTournaments, runningTournaments} from '../../api'
+    import {
+        games_played,
+        getMainSliderItems,
+        myTournaments,
+        runningTournaments,
+        sendContactMessage,
+        tutorials
+    } from '../../api'
 
     export default {
         name: "Home",
@@ -287,17 +322,22 @@
                 },
             ],
 
-            tutorials: [
-                {title: 'White Keep Assault', hover: false, date: 'June 4, 2018', tag: 'sports', text: 'Maecenas tempus, tellus eget condimentum rhoncus, sem quam ...', backgroundImage: '/public/images/samples/blog-2-img-3.jpg'},
-                {title: 'Dota 2 Tournament', hover: false, date: 'June 4, 2018', tag: 'sports', text: 'Maecenas tempus, tellus eget condimentum rhoncus, sem quam ...', backgroundImage: '/public/images/samples/blog-2-img-2.jpg'},
-                {title: 'Winners on Esl Pro', hover: false, date: 'June 4, 2018', tag: 'sports', text: 'Maecenas tempus, tellus eget condimentum rhoncus, sem quam ...', backgroundImage: '/public/images/samples/blog-2-img-1.jpg'},
-            ]
+            loadingTutorials: false,
+            tutorials: [],
+
+            sendingContactMessage: false,
+            contactFields: {
+                name: '',
+                email: '',
+                content: '',
+            },
         }),
 
         methods: {
             handleResize() {
                 this.width = window.innerWidth
             },
+
             getRunningTournaments() {
                 if (!this.loadingRunningTournaments) {
                     this.loadingRunningTournaments = true;
@@ -321,11 +361,11 @@
                     this.loadingGamesPlayed = true;
 
                     // Loading Games Played
-                    gamesPlayed(this.gamesPlayedCurrentPage, this.itemsPerPage)
+                    games_played(this.gamesPlayedCurrentPage, this.itemsPerPage)
                         .then(response => {
                             let totalPages = response.data.total / this.itemsPerPage;
                             this.gamesPlayedTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
-                            this.gamesPLayed = response.data.result;
+                            this.gamesPlayed = response.data.result;
                         })
                         .catch(error => {
 
@@ -380,7 +420,54 @@
                         this.selectedTournamentTab = 'ME';
                         break;
                 }
-            }
+            },
+
+            sendContactMessage() {
+                if (!this.sendingContactMessage) {
+                    this.sendingContactMessage = true;
+                    sendContactMessage(this.contactFields.name, this.contactFields.email, this.contactFields.content)
+                        .then(response => {
+                            this.contactFields = {name: '', email: '', content: ''};
+                            this.$toast.success({
+                                title: '',
+                                message: '',
+                            })
+                        })
+                        .catch(error => {
+                            this.$toast.error({
+                                title: '',
+                                message: error.response.data.msg,
+                            })
+                        })
+                        .finally(() => {
+                            this.sendingContactMessage = false;
+                        })
+                }
+            },
+
+            getTutorials() {
+                if (!this.loadingTutorials) {
+                    this.loadingTutorials = true;
+                    tutorials(1, 3)
+                        .then(response => {
+                            this.tutorials = response.data.result.map(tutorial => ({
+                                title: tutorial.title,
+                                hover: false,
+                                date: tutorial.created_at,
+                                tag: 'sports',
+                                text: tutorial.text,
+                                youtubeLink: tutorial.youtube_link,
+                                backgroundImage: `/api/v1/uploads?id=${tutorial.image_media_id}`
+                            }))
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                        .finally(() => {
+                            this.loadingTutorials = false;
+                        })
+                }
+            },
         },
 
         mounted() {
@@ -412,6 +499,8 @@
             this.getGamesPlayed();
             if (this.$store.state.user_auth)
                 this.getMyTournaments();
+
+            this.getTutorials();
         }
     }
 </script>
@@ -422,12 +511,12 @@
         width: 100%;
         margin: 0 0 10px;
         padding: 16px 25px;
-        font-family: Rubik,sans-serif;
+        font-family: Rubik, sans-serif;
         font-size: 17px;
         line-height: 20px;
         font-weight: inherit;
         color: #fff;
-        background-color: rgba(255,255,255,.05);
+        background-color: rgba(255, 255, 255, .05);
         border: 1px solid transparent;
         border-radius: 0;
         outline: 0;
@@ -437,8 +526,10 @@
         -webkit-transition: border-color .2s ease-in-out;
         -moz-transition: border-color .2s ease-in-out;
         transition: border-color .2s ease-in-out;
+
         &:focus
             border-color: transparent transparent #ff0e1f;
+
         / textarea&
             display: block;
             padding: 19px 25px;

@@ -126,7 +126,7 @@ export function enterToTheTournament(id, character_names) {
     })
 }
 
-export function gamesPlayed(page = null, size = itemsPerPage) {
+export function games_played(page = null, size = itemsPerPage) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let url = `lang=${lang()}`;
@@ -147,3 +147,22 @@ export function myTournaments(page = null, size = itemsPerPage) {
 }
 
 // </editor-fold>
+
+export function tutorials(page, size = itemsPerPage) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        if (page)
+            url += `&page=${page}&size=${size}`;
+        axios.get(`tutorials?${url}`).then(resolve).catch(reject)
+    })
+}
+
+export function sendContactMessage(name, email, message) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        let data = {name, email, message};
+        axios.post(`public/contact?${url}`, data).then(resolve).catch(reject)
+    })
+}
