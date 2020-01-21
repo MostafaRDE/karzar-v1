@@ -6,6 +6,11 @@ import {beforeEachCreator} from "./middleware.js"
 Vue.use(Router);
 
 export function createRouter(store, i18n) {
+    const routerPush = Router.prototype.push;
+    Router.prototype.push = function push(location) {
+        return routerPush.call(this, location).catch(error=> error)
+    };
+
     const router = new Router({
         mode: 'history',
         linkActiveClass: "active",
