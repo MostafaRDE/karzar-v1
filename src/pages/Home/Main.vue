@@ -110,10 +110,10 @@
                             class="row py-20"
                             :class="{'border-bottom': index < tournaments.length - 1}"/>
 
-                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments"
-                         class="py-50">
-                        <rs-overlay-loading width="28"/>
-                    </div>
+<!--                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments"-->
+<!--                         class="py-50">-->
+<!--                        <rs-overlay-loading width="28"/>-->
+<!--                    </div>-->
 
                     <div v-if="!tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
                          class="py-50 text-center">
@@ -380,7 +380,7 @@
                 if (!this.loadingMyTournaments) {
                     this.loadingMyTournaments = true;
 
-                    // Loading Games Played
+                    // Loading My Tournaments
                     myTournaments(this.myTournamentsCurrentPage, this.itemsPerPage)
                         .then(response => {
                             let totalPages = response.data.total / this.itemsPerPage;
