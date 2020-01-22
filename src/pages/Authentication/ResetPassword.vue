@@ -6,7 +6,15 @@
         <div class="w-90 mx-auto z-index-1" style="max-width: 500px">
 
             {{ /* Main reset-password content panel */ }}
-            <div class="p-20 text-center" style="background: #0009">
+            <div class="p-20 text-center position-relative" style="background: #0009">
+
+                <div class="position-absolute">
+                    <span @click="$router.go(-1)"
+                          class="text-white d-flex cursor-pointer"
+                          :style="{transform: $store.state.dir === 'rtl' ? 'scaleX(-1)' : 'scaleX(1)'}">
+                        <icon-arrow-left/>
+                    </span>
+                </div>
 
                 {{ /* Header */ }}
                 <h1 class="font-weight-100 mb-20">{{ $t('pages.authentication.reset_password.header') }}</h1>
@@ -69,6 +77,10 @@
         name: "ResetPassword",
 
         title: () => i18n.t('pages.authentication.reset_password.title'),
+
+        components: {
+            'icon-arrow-left': () => import('../../components/icons/IconArrowLeft.vue')
+        },
 
         data: () => ({
             // Load site name translate

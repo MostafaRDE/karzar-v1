@@ -1,3 +1,4 @@
+const {GatewayModel} = require("../../../Models/GatewayModel");
 const {TransactionModel} = require("../../../Models/PaymentModel");
 const {WalletModel} = require("../../../Models/WalletModel");
 
@@ -5,7 +6,16 @@ class Actions {
     index(userId, page, size) {
         return new Promise((resolve, reject) => {
             let model = new TransactionModel();
-            model.fetch_all('*', ['user_id'], [userId], undefined, undefined, page, size, 'id').then(resolve).catch(reject)
+            model.fetch_all('*', ['user_id'], [userId], undefined, undefined, page, size, 'id').then(async data => {
+                let gatewayModel = new GatewayModel();
+                try {
+                    for (let i = 0; i < data.result.length; i++)
+                        data.result[i].gateway = await gatewayModel.fetch_one('*', ['id'], [data.result[i].gateway_id]);
+                } catch (e) {
+                    reject(e)
+                }
+                resolve(data)
+            }).catch(reject)
         })
     }
 

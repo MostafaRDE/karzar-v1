@@ -146,6 +146,16 @@ export function myTournaments(page = null, size = itemsPerPage) {
     })
 }
 
+export function myTransactions(page = null, size = itemsPerPage) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        if (page)
+            url += `&page=${page}&size=${size}`;
+        axios.get(`payments/transactions?${url}`).then(resolve).catch(reject)
+    })
+}
+
 // </editor-fold>
 
 export function tutorials(page, size = itemsPerPage) {

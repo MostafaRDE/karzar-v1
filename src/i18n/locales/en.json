@@ -270,6 +270,7 @@
 	"statuses": {
 		"awaiting_review": "Awaiting review",
 		"failed": "Failed",
+		"pending": "Pending",
 		"reject": "Reject",
 		"success": "Success"
 	}

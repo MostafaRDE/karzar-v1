@@ -1,26 +1,22 @@
 <template>
     <div class="py-20 px-40">
-        <transaction v-for="(transaction, index) of transactions"
+        <transaction v-if="transactions.length && !loading"
+                     v-for="(item, index) of transactions"
                      :key="`transaction-${index}`"
-                     :data="transaction"
-                     :class="{'border-bottom': index < transactions.length - 1}"/>
+                     :class="{'border-bottom': index < transactions.length - 1}"
+                     :data="item"/>
 
-        <div class="row pagination mt-20">
-            <div class="col text-white d-flex justify-content-center">
-                <span class="px-5 linkable">1</span>
-                <span class="px-5 linkable">2</span>
-                <span class="px-5 linkable">3</span>
-                <span class="px-5 linkable">4</span>
-                <span class="px-5 d-inline-flex align-items-center">
-                    <icon-arrow-right-type-1 v-if="$store.state.dir === 'ltr'" fill="#fff" size="12px"/>
-                    <icon-arrow-left-type-1 v-if="$store.state.dir === 'rtl'" fill="#fff" size="12px"/>
-                </span>
-            </div>
+        <div v-if="loading" class="py-50">
+            <rs-overlay-loading width="28"/>
         </div>
+
+        <rs-pagination v-if="transactions.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
     </div>
 </template>
 
 <script>
+    import {itemsPerPage, myTransactions} from "../../api";
+
     export default {
         name: "Transactions",
 
@@ -30,26 +26,49 @@
         },
 
         data: () => ({
-            transactions: [
-                {
-                    amount: 20,
-                    typeShift: 'INCREASE', // INCREASE | DECREASE | ABSOLUTE
-                    time: '12 November 2019 : 21:00 (TEH)', // TIME WITH TIMEZONE
-                    gateway: 'PAYPAL', // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
-                    status: 'AWAITING_REVIEW', // AWAITING_REVIEW | SUCCESS | FAILED
-                    reason: 'account_charging', // account_charging | join_to_tournament | withdraw
-                    reasonReject: '', // Reason for rejected action
-                },
-                {
-                    amount: 5,
-                    typeShift: 'DECREASE', // INCREASE | DECREASE | ABSOLUTE
-                    time: '12 November 2019 : 21:00 (TEH)', // TIME WITH TIMEZONE
-                    gateway: 'BITCOIN', // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
-                    status: 'SUCCESS', // AWAITING_REVIEW | SUCCESS | FAILED
-                    reason: 'join_to_tournament', // account_charging | join_to_tournament | withdraw
-                    reasonReject: '', // Reason for rejected action
-                },
-            ]
-        })
+            itemsPerPage,
+            currentPage: 1,
+            totalPages: 0,
+            loading: false,
+            transactions: []
+        }),
+
+        methods: {
+            updateListByPagination() {
+                this.getMyTransactions()
+            },
+            getMyTransactions() {
+                if (!this.loading) {
+                    this.loading = true;
+
+                    // Loading Games Played
+                    myTransactions(this.currentPage, this.itemsPerPage)
+                        .then(response => {
+                            let totalPages = response.data.total / this.itemsPerPage;
+                            this.totalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
+                            this.transactions = response.data.result.map(item => ({
+                                amount: item.amount,
+                                typeShift: item.type, // INPUT | OUTPUT | ABSOLUTE
+                                time: item.created_at, // TIME WITH TIMEZONE
+                                gateway: item.gateway.name, // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
+                                gateway_logo_id: item.gateway.image_media_id, // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
+                                status: this.status_convertCodeToKey(item.status), // AWAITING_REVIEW | SUCCESS | FAILED
+                                reason: item.in_order_to, // account_charging | join_to_tournament | withdraw
+                                reasonReject: item.status_description, // Reason for rejected action
+                            }));
+                        })
+                        .catch(error => {
+
+                        })
+                        .finally(() => {
+                            this.loading = false;
+                        });
+                }
+            },
+        },
+
+        mounted() {
+            this.getMyTransactions();
+        }
     }
 </script>

@@ -265,6 +265,7 @@
 	"statuses": {
 		"awaiting_review": "منتظر بررسی",
 		"failed": "ناموفق",
+		"pending": "در انتظار",
 		"reject": "رد شده",
 		"success": "موفق"
 	},

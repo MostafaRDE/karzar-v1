@@ -6,7 +6,15 @@
         <div class="w-90 mx-auto z-index-1" style="max-width: 500px">
 
             {{ /* Main register content panel */ }}
-            <div class="p-20 text-start" style="background: #0009">
+            <div class="p-20 text-start position-relative" style="background: #0009">
+
+                <div class="position-absolute">
+                    <span @click="$router.go(-1)"
+                          class="text-white d-flex cursor-pointer"
+                          :style="{transform: $store.state.dir === 'rtl' ? 'scaleX(-1)' : 'scaleX(1)'}">
+                        <icon-arrow-left/>
+                    </span>
+                </div>
 
                 {{ /* Header */ }}
                 <h1 class="font-weight-100 text-center w-100 mb-30">{{ $t('pages.authentication.register.header')
@@ -134,6 +142,10 @@
 
         // Title of page
         title: () => i18n.t('pages.authentication.register.title'),
+
+        components: {
+            'icon-arrow-left': () => import('../../components/icons/IconArrowLeft.vue')
+        },
 
         data: () => ({
             // Load site name translate
