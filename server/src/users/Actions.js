@@ -20,7 +20,7 @@ class Actions {
     loginToAccount(email, password) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
-            userModel.fetch_one('id , email , password , email_verified_at , whatsapp_number', ['email'], [email])
+            userModel.fetch_one('id , email , name , password , email_verified_at , whatsapp_number', ['email'], [email])
                 .then(data => {
                     if (data) {
                         bcrypt.compare(password, data.password, function (err, check) {

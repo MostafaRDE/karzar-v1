@@ -75,15 +75,15 @@
                     <span class="text-danger">{{ getInputError('whatsappNumber') }}</span>
 
                     {{ /* Refer-code input */ }}
-                    <rs-input type="number"
-                              class="mt-20"
-                              inputClass="font-size-md"
-                              :label="$t('glossaries.refer_code_optional')"
-                              name="refer_code"
-                              v-model="fields.referCode"
-                              :rules="fields.rules.referCode"/>
-                    {{ /* Refer-code form error */ }}
-                    <span class="text-danger">{{ getInputError('refer_code') }}</span>
+<!--                    <rs-input type="number"-->
+<!--                              class="mt-20"-->
+<!--                              inputClass="font-size-md"-->
+<!--                              :label="$t('glossaries.refer_code_optional')"-->
+<!--                              name="refer_code"-->
+<!--                              v-model="fields.referCode"-->
+<!--                              :rules="fields.rules.referCode"/>-->
+<!--                    {{ /* Refer-code form error */ }}-->
+<!--                    <span class="text-danger">{{ getInputError('refer_code') }}</span>-->
 
                     {{ /* "Term of Use" check-box button accepting */ }}
                     <div class="mb-15 mt-10">

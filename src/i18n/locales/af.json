@@ -22,10 +22,14 @@
 		"change": "تغییر",
 		"change_password": "تغییر گذرواژه",
 		"character_name": "نام کاراکتر",
+		"charging_via": "شارژ از طریق",
 		"code": "کد",
 		"code_with_colons": "کد:",
 		"confirm": "تایید",
 		"contact_us": "تماس با ما",
+		"copied": "کپی شد",
+		"copy": "کپی",
+		"copy_failed": "کپی شکست خورد",
 		"current_password": "گذرواژه فعلی",
 		"date": "تاریخ",
 		"deposit": "واریز",
@@ -144,6 +148,7 @@
 			"required": "فیلد ورودی اجباری می باشد."
 		},
 		"successes": {
+			"account_charging_request_successful": "درخواست شارژ حساب با موفقیت ثبت شد",
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
 			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد.",

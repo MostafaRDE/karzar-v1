@@ -22,10 +22,14 @@
 		"change": "Change",
 		"change_password": "Change Password",
 		"character_name": "Character Name",
+		"charging_via": "Charging via",
 		"code": "Code",
 		"code_with_colons": "Code:",
 		"confirm": "Confirm",
 		"contact_us": "Contact Us",
+		"copied": "Copied",
+		"copy": "Copy",
+		"copy_failed": "Copy failed",
 		"current_password": "Current password",
 		"date": "Date",
 		"deposit": "Deposit",
@@ -145,6 +149,7 @@
 			"required": "The input field is required."
 		},
 		"successes": {
+			"account_charging_request_successful": "Account charging request successful",
 			"log_in_successful": "Log In successful.",
 			"registration_successful": "Registration successful.",
 			"reset_password_successful": "Reset Password successful.",

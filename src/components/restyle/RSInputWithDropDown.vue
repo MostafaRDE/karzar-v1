@@ -42,6 +42,7 @@
                 <input :class="[inputClass, {'text-disabled' : disabled}]"
                        :disabled="disabled"
                        :type="!showPassword ? type : 'text'"
+                       :min="min"
                        :placeholder="placeholder" v-model="model" :maxlength="maxlength"/>
 
                 <span class="line-height-1-0 border-exchange-start ps-5" v-if="type !== 'password'">{{ mark }}</span>
@@ -95,6 +96,11 @@
             maxlength: {
                 default: null,
                 type: Number,
+                required: false
+            },
+            min: {
+                default: null,
+                type: [Number, String],
                 required: false
             },
             name: {
@@ -157,7 +163,7 @@
                 this.showSourceList = false
             },
             updateSelectedKey(key) {
-                this.selectedSourceKey = key;
+                this.$emit('updateSelectedSourceKey', key);
                 this.hideSourceList()
             }
         }

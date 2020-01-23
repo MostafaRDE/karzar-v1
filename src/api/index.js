@@ -20,6 +20,13 @@ export function getBalance() {
     })
 }
 
+export function getProfile() {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        axios.get('/users/get/me').then(resolve).catch(reject)
+    })
+}
+
 // <editor-fold desc="Slider apis">
 export function getMainSliderItems() {
     // Create request as "Promise" and returned it
@@ -153,6 +160,28 @@ export function myTransactions(page = null, size = itemsPerPage) {
         if (page)
             url += `&page=${page}&size=${size}`;
         axios.get(`payments/transactions?${url}`).then(resolve).catch(reject)
+    })
+}
+
+export function gateways() {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        axios.get(`payments/gateways?${url}`).then(resolve).catch(reject)
+    })
+}
+
+export function addTransaction(amount, gateway_id, in_order_to, type, file = null) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let url = `lang=${lang()}`;
+        let formData = new FormData();
+        formData.append('amount', amount);
+        formData.append('gateway_id', gateway_id);
+        formData.append('in_order_to', in_order_to);
+        formData.append('type', type);
+        formData.append('file', file);
+        axios.post(`payments/transactions?${url}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(resolve).catch(reject)
     })
 }
 

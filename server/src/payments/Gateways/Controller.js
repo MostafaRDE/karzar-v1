@@ -1,12 +1,12 @@
 const Actions = require('./Actions');
 
 module.exports = {
-    index(request, response) {
+    index(req, res) {
         let actions = new Actions();
-        actions.index(request.query.lang, request.user.id, request.query.page, request.query.size).then(res => {
-            response.json(res)
+        actions.index(req.query.lang).then(response => {
+            res.json(response)
         }).catch(error => {
-            response.status(500).send({
+            res.status(500).send({
                 status: false,
                 msg: __('messages').internal_server_error
             })

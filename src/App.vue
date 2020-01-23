@@ -1,6 +1,6 @@
 <template>
     <!-- Main divider -->
-    <div class="overflow-hidden" :class="[dir]" id="system">
+    <div class="overflow-hidden" :class="[$store.state.dir]" id="system">
 
         <div>
             <audio src="/public/musics/pubg-theme-song-2scratch-trap-remix.mp3" loop hidden preload="metadata" ref="bgAudio"></audio>
@@ -11,6 +11,19 @@
         </div>
 
         <transition name="fade">
+            <div v-if="!isFirstLoaded"
+                 class="position-absolute bottom-0 left-0 right-0 top-0 d-flex flex-direction-column justify-content-center align-items-center application-background-color ">
+                <img src="/public/images/public/logos/logo.svg" alt="" style="width: 140px;"/>
+                <div class="mt-30">
+                    <rs-button v-if="canNotLoadFirstData" color="indigo" class="small" @click.native="startLoadingFirstData">{{ $t('glossaries.try_again')
+                        }}
+                    </rs-button>
+                    <rs-overlay-loading v-else/>
+                </div>
+            </div>
+        </transition>
+
+        <transition name="fade">
             <router-view/>
         </transition>
 
@@ -18,16 +31,25 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {getProfile} from "./api"
 
     export default {
         name: "App",
 
         data: () => ({
             audioStatus: process.browser ? localStorage.getItem('bg_audio_status_playing') : 'PLAY',
+            canNotLoadFirstData: false,
+            isFirstLoaded: false,
         }),
 
-        computed: mapState(['dir', 'theme']),
+        computed: {
+            isNeedToFirstLoad() {
+                return this.$route.matched.some(record => record.meta.auth === true)
+            },
+            theme() {
+                return this.$store.state.theme
+            }
+        },
 
         watch: {
             theme(newTheme) {
@@ -88,15 +110,46 @@
                         document.body.style.color = '#222742';
                         break;
                 }
-            }
+            },
+
+            firstLoadData() {
+                return new Promise((resolve, reject) => {
+                    if (this.$store.state.user_auth) {
+                        let result = 0, total = 2;
+                        this.$store.dispatch('getBalance').then(res => {
+                            result++;
+                            if (result >= total)
+                                resolve(true)
+                        }).catch(error => {
+                            reject(error)
+                        });
+                        this.$store.dispatch('getProfile').then(res => {
+                            result++;
+                            if (result >= total)
+                                resolve(true)
+                        }).catch(error => {
+                            reject(error)
+                        });
+                    } else {
+                        resolve(true)
+                    }
+                })
+            },
+
+            startLoadingFirstData() {
+                this.canNotLoadFirstData = false;
+                this.firstLoadData().then(res => {
+                    this.isFirstLoaded = true;
+                    this.loadBgAudioConfig();
+                }).catch(error => {
+                    this.canNotLoadFirstData = true;
+                })
+            },
         },
 
         mounted() {
             this.updateDetailsOfThemeParts(this.theme);
-
-            this.loadBgAudioConfig();
-
-            this.$store.dispatch('getBalance')
+            this.startLoadingFirstData();
         },
     }
 </script>

@@ -162,7 +162,7 @@
                         });
 
                         // Goto verify email page
-                        window.location.replace(`/${this.$route.params.lang}/dashboard`);
+                        window.location.replace(`/${this.$route.params.lang}/dashboard/tournaments`);
                     })
                     // Else if api is failed
                     .catch(error => {

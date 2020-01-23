@@ -7,8 +7,8 @@
             </div>
 
             <div class="flex-grow-1 d-flex flex-direction-column justify-content-space-around">
-                <span>MostafaRDE</span>
-                <span>mostafa.rostamdokht@gmail.com</span>
+                <span>{{ $store.state.profile.name }}</span>
+                <span>{{ $store.state.profile.email }}</span>
             </div>
 
             <div class="d-flex align-items-center">

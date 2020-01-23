@@ -35,7 +35,7 @@ class SliderActions {
                 console.log(`Get slider items ( KEY = '${key}' ) => `, err);
                 reject({
                     status: false,
-                    msg: __('mwssages').internal_server_error
+                    msg: __('messages').internal_server_error
                 })
             })
         })

@@ -249,20 +249,16 @@
                         to: {name: 'home', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        label: i18n.t('glossaries.account'),
-                        to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}},
-                    },
-                    {
                         label: i18n.t('glossaries.tutorials'),
-                        to: '/b',
+                        to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                     },
                     {
                         label: i18n.t('glossaries.blog'),
-                        to: '/c',
+                        to: 'https://www.blog.gametour.co',
                     },
                     {
                         label: i18n.t('glossaries.shop'),
-                        to: '/d',
+                        to: {name: 'shop', params: {lang: this.$route.params.lang}},
                     },
                 ],
             }

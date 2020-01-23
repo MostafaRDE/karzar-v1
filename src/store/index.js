@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import modules from './modules'
-import {getBalance} from "../api";
+import {getBalance, getProfile} from "../api";
 
 Vue.use(Vuex);
 
@@ -21,7 +21,10 @@ export function createStore() {
 
             // Theme variable for set theme design
             theme: 'dark',
-            user_auth: false
+            user_auth: false,
+
+            loadingProfile: false,
+            profile: null,
 
         }),
 
@@ -39,6 +42,10 @@ export function createStore() {
 
             setBalance(state, balance) {
                 state.balance = balance
+            },
+
+            setProfile(state, profile) {
+                state.profile = profile
             },
 
         },
@@ -63,6 +70,28 @@ export function createStore() {
                             });
                     } else {
                         resolve(balance);
+                    }
+                });
+            },
+            getProfile({commit, state}) {
+                return new Promise((resolve, reject) => {
+                    let profile = 0;
+                    if (state.user_auth) {
+                        state.loadingProfile = true;
+                        getProfile()
+                            .then(response => {
+                                commit('setProfile', response.data);
+                                profile = response.data;
+                                resolve(response.data);
+                            })
+                            .catch(error => {
+                                reject(error)
+                            })
+                            .finally(() => {
+                                state.loadingProfile = false;
+                            });
+                    } else {
+                        resolve(profile);
                     }
                 });
             }
