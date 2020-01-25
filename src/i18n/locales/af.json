@@ -1,4 +1,9 @@
 {
+	"public": {
+		"about_home": "گیم تور وب سایتی برای اجرای تورنومنت بازی های آنلاین چند نفره می باشد که به صورت حرفه ای فعالیت می کند. تمامی مسابقات اجرا شده در وب سایت کاملا روشن و به صورت پخش زنده می باشد تا به بازیکن این اعتماد رو بدهیم که هیچ تقلبی در کار نخواهد بود. در صورت داشتن ایده در مورد تورنومنت بازی ها و همچنین نظرات خود، از طریق فرم زیر با ما در میان بگذارید.",
+		"about_sidebar": "گیم تور وب سایتی برای اجرای تورنومنت بازی های آنلاین چند نفره",
+		"copyright_gametour": "کپی رایت گیم تور"
+	},
 	"app": {
 		"name": "گیم تور"
 	},
@@ -9,6 +14,7 @@
 	},
 	"currencies_short": {},
 	"glossaries": {
+		"about": "درباره",
 		"account": "حساب",
 		"account_charging": "شارژ حساب",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "بعد از درخواست بین 1 تا 24 ساعت کاری با شما تسویه انجام می شود",
@@ -38,6 +44,7 @@
 		"enter_the_tournament": "ورود به تورنومنت",
 		"enter_your_country_for_withdrawal_from_your_currency_account": "برای برداشت از حساب واحد پول کشور خود را وارد کنید",
 		"enter_your_country_to_recharge_your_currency_account": "برای شارژ حساب واحد پول کشور خود را وارد کنید",
+		"enter_your_id": "آیدی خود را وارد کنید",
 		"error_code": "کد خطا",
 		"error_code_with_colons": "کد خطا:",
 		"exchange": "ترید",
@@ -103,6 +110,7 @@
 		"total": "مجموع",
 		"tournament_players": "بازیکنان تورنومنت",
 		"tournaments": "تورنومنت ها",
+		"tournaments_executor": "مجری تورنومنت ها",
 		"trade": "ترید",
 		"trade_history": "تاریخچه معامله",
 		"transactions": "تراکنش ها",
@@ -125,18 +133,22 @@
 		"your_bonus_of_this_game": "جایزه شما از این بازی",
 		"your_games": "بازی های شما",
 		"your_message": "پیام شما",
-		"your_name": "نام شما"
+		"your_name": "نام شما",
+		"youtube_channel": "کانال یوتیوب"
 	},
 	"messages": {
 		"err_empty_required_filed": "فیلد های اجباری را پر کنید",
 		"errors": {
 			"log_in_failed": "ورود با شکست مواجه شد.مجدد امتحان کنید",
 			"registration_failed": "ثبت نام با شکست مواجه شد.مجدد امتحان کنید",
-			"reset_password_failed": "تغییر گذرواژه با شکست مواجه شد.مجدد امتحان کنید"
+			"reset_password_failed": "تغییر گذرواژه با شکست مواجه شد.مجدد امتحان کنید",
+			"transaction_amount_must_be_over_2_dollar": "مبلغ تراکنش باید برابر یا بیش از ۵ دلار باشد",
+			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد"
 		},
 		"no_orders": "هیچ سفارشی ثبت نشده است",
 		"no_orders_registered_in_the_last_24_hours": "در ۲۴ ساعت گذشته هیچ سفارشی ثبت نشده است",
 		"please_check_that_you_are_visiting": "لطفا بررسی کنید که آدرس مرورگراتان ,آدرس زیر باشد",
+		"please_select_your_transaction_image_from_the_Select_File_section": "لطفا تصویر تراکنش خود را از بخش \"انتخاب فایل\" انتخاب کنید",
 		"rules": {
 			"confirm_password": "تکرار گذرواژه مطابقت ندارد",
 			"email": "ایمیل وروی اشتباه است.",
@@ -154,6 +166,9 @@
 			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد.",
 			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد"
 		}
+	},
+	"names": {
+		"edrees_sharifi": "ادریس شریفی"
 	},
 	"pages": {
 		"home": {

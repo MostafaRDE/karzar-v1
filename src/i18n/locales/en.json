@@ -1,4 +1,9 @@
 {
+	"public": {
+		"about_home": "Game Tour is a professional multi-player online games tournament website. All matches on the website are fully live and broadcast to give the player the confidence that there will be no fakes. If you have any ideas for the tournament and your comments, let us know by following the form below.",
+		"about_sidebar": "Game Tour is a professional multi-player online games tournament website",
+		"copyright_gametour": "Copyright Gametour"
+	},
 	"app": {
 		"name": "Gametour"
 	},
@@ -9,6 +14,7 @@
 	},
 	"currencies_short": {},
 	"glossaries": {
+		"about": "About",
 		"account": "Account",
 		"account_charging": "Account Charging",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "After the request, you will be paid between 1 and 24 hours",
@@ -38,6 +44,7 @@
 		"enter_the_tournament": "Enter the Tournament",
 		"enter_your_country_for_withdrawal_from_your_currency_account": "Enter your country for withdrawal from your currency account",
 		"enter_your_country_to_recharge_your_currency_account": "Enter your country to recharge your currency account",
+		"enter_your_id": "Enter your id",
 		"error_code": "Error code",
 		"error_code_with_colons": "Error code:",
 		"exchange": "Exchange",
@@ -103,6 +110,7 @@
 		"total": "Total",
 		"tournament_players": "Tournament Players",
 		"tournaments": "Tournaments",
+		"tournaments_executor": "Tournaments Executor",
 		"trade": "Trade",
 		"trade_history": "Trade History",
 		"transactions": "Transactions",
@@ -125,7 +133,8 @@
 		"your_bonus_of_this_game": "Your bonus of this game",
 		"your_games": "Your Games",
 		"your_message": "Your Message",
-		"your_name": "Your Name"
+		"your_name": "Your Name",
+		"youtube_channel": "Youtube Channel"
 	},
 	"messages": {
 		"err_empty_required_filed": "",
@@ -133,11 +142,14 @@
 			"log_in_failed": "Log In failed.",
 			"registration_failed": "Registration failed.",
 			"reset_password_failed": "Reset Password failed.",
-			"send_reset_password_link_to_failed": "Failed to send reset password link."
+			"send_reset_password_link_to_failed": "Failed to send reset password link.",
+			"transaction_amount_must_be_over_2_dollar": "Transaction amount equal to or must be over $2",
+			"transaction_amount_must_be_over_20_dollar": "Transaction amount equal to or must be over $20"
 		},
 		"no_orders": "No orders",
 		"no_orders_registered_in_the_last_24_hours": "No orders registered in the last 24 hours",
 		"please_check_that_you_are_visiting": "Please check that you are visiting",
+		"please_select_your_transaction_image_from_the_Select_File_section": "Please select your transaction image from the \"Select File\" section",
 		"rules": {
 			"confirm_password": "Those password didn't match. Try again.",
 			"email": "Email is wrong.",
@@ -156,6 +168,9 @@
 			"send_reset_password_link_to_sent": "Password reset link sent.",
 			"successfully_joined_to_the_tournament": "Successfully joined to the tournament"
 		}
+	},
+	"names": {
+		"edrees_sharifi": "Edrees Sharifi"
 	},
 	"pages": {
 		"home": {

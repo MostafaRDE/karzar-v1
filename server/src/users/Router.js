@@ -15,7 +15,7 @@ router.post('/register', User.register_user);
 router.post('/login', LoginRateLimit , User.loginToAccount , passport.authenticate('local') , (req , res) => { res.json({status : true}) } );
 router.get('/logout', LoginRateLimit , UsersMiddleware.check_login_user , (req , res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect(`/${req.query.lang || ''}`);
 } );
 router.get('/get/me' , UsersMiddleware.check_login_user , User.get_user);
 router.put('/update-profile' , UsersMiddleware.check_login_user , User.updateProfile);

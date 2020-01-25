@@ -17,36 +17,67 @@ class Actions {
                     }
                 } catch (e) {
                     console.log(e);
-                    reject(e)
+                    reject({
+                        status: false,
+                        msg: __('messages').interval_server_error
+                    });
                 }
                 resolve(data)
-            }).catch(reject)
+            }).catch(error => {
+                console.log(error);
+                reject({
+                    status: false,
+                    msg: __('messages').interval_server_error
+                });
+            })
         })
     }
 
-    store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId) {
-        console.log(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId)
+    store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId, dataField) {
         return new Promise((resolve, reject) => {
             let transactionModel = new TransactionModel();
             let walletModel = new WalletModel();
-            walletModel.fetch_one('*', ['user_id'], [userId]).then(wallet => {
-                let keys = ['amount', 'description', 'gateway_id', 'in_order_to', 'type', 'ip', 'wallet_id', 'user_id'],
-                    values = [amount, description, gatewayId, inOrderTo, type, ip, wallet.id, userId];
-                if (mediaId) {
-                    keys.push('attachment_media_id');
-                    values.push(mediaId);
-                }
-                transactionModel.insertSync(keys, values).then(res => {
-                    resolve({status: true})
-                }).catch(error => {
-                    console.log(error);
+            transactionModel.fetch_all_custom(`SELECT created_at FROM transactions WHERE created_at > NOW() - INTERVAL '15 minutes' AND type = '${type}'`).then(data => {
+
+                if (data.result.length) {
                     reject({
                         status: false,
-                        msg: __('messages').internal_server_error
+                        msg: __('messages').please_re_register_15_minute_after_your_last_transaction_was_re_registered,
                     })
-                });
+                } else {
+
+                    walletModel.fetch_one('*', ['user_id'], [userId]).then(wallet => {
+                        let keys = ['amount', 'description', 'gateway_id', 'in_order_to', 'type', 'ip', 'wallet_id', 'user_id', 'data'],
+                            values = [amount, description, gatewayId, inOrderTo, type, ip, wallet.id, userId, dataField];
+                        if (mediaId) {
+                            keys.push('attachment_media_id');
+                            values.push(mediaId);
+                        }
+                        transactionModel.insertSync(keys, values).then(res => {
+                            resolve({status: true})
+                        }).catch(error => {
+                            console.log(error);
+                            reject({
+                                status: false,
+                                msg: __('messages').internal_server_error
+                            })
+                        });
+                    }).catch(error => {
+                        console.log(error);
+                        reject({
+                            status: false,
+                            msg: __('messages').interval_server_error
+                        });
+                    });
+
+                }
+
             }).catch(error => {
-                reject(error)
+                console.log(error);
+                reject({
+                    status: false,
+                    msg: __('messages').interval_server_error
+                });
             });
         })
     }

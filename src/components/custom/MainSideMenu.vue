@@ -13,18 +13,18 @@
             </div>
 
             <div class="text-center mb-65">
-                <p>Lorem ipsum dolor sit amet, elit eget consectetuer adipiscing aenean dolor</p>
+                <p>{{ $t('public.about_sidebar') }}</p>
             </div>
 
             <div class="text-center">
-                <p :style="{fontSize: '16px'}">© Copyright Gametour</p>
+                <p :style="{fontSize: '16px'}">© {{ $t('public.copyright_gametour') }}</p>
             </div>
         </div>
 
         <div class="main-side-menu-social-networks-bottom">
             <div class="mb-45 text-center">
-                <a href="#" style="font-size: 13px;margin: 0 12px;">
-                    <i class="fab fa-facebook"></i>
+                <a v-for="socialLink of socialLinks" :href="socialLink.to" rel="nofollow" target="_blank" style="font-size: 13px;margin: 0 12px;">
+                    <i :class="socialLink.icon"></i>
                 </a>
             </div>
         </div>
@@ -51,6 +51,23 @@
 
         data: () => ({
             logoUrl: '/public/images/public/logos/logo.svg',
+            socialLinks: [
+                {
+                    icon: 'fab fa-facebook',
+                    label: 'Facebook',
+                    to: 'https://www.facebook.com/gametour_official',
+                },
+                {
+                    icon: 'fab fa-instagram',
+                    label: 'Instagram',
+                    to: 'https://www.instagram.com/gametour.co',
+                },
+                {
+                    icon: 'fab fa-telegram',
+                    label: 'Telegram',
+                    to: 'https://t.me/gametour_official',
+                },
+            ]
         }),
 
         computed: {

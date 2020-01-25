@@ -366,8 +366,8 @@
                             to: '/d',
                         },
                         {
-                            label: i18n.t('glossaries.balance'),
-                            to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}},
+                            label: i18n.t('glossaries.about'),
+                            to: {name: 'about', params: {lang: this.$route.params.lang}},
                         },
                     ],
                 },
@@ -376,17 +376,17 @@
                     {
                         icon: 'fab fa-facebook',
                         label: 'Facebook',
-                        to: 'https://www.facebook.com/',
-                    },
-                    {
-                        icon: 'fab fa-youtube',
-                        label: 'Youtube',
-                        to: 'https://www.youtube.com/',
+                        to: 'https://www.facebook.com/gametour_official',
                     },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',
-                        to: 'https://www.instagram.com/',
+                        to: 'https://www.instagram.com/gametour.co',
+                    },
+                    {
+                        icon: 'fab fa-telegram',
+                        label: 'Telegram',
+                        to: 'https://t.me/gametour_official',
                     },
                 ]
             }

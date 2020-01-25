@@ -171,16 +171,17 @@ export function gateways() {
     })
 }
 
-export function addTransaction(amount, gateway_id, in_order_to, type, file = null) {
+export function addTransaction(amount, gateway_id, in_order_to, type, file = null, data) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let url = `lang=${lang()}`;
         let formData = new FormData();
         formData.append('amount', amount);
         formData.append('gateway_id', gateway_id);
-        formData.append('in_order_to', in_order_to);
+        // formData.append('in_order_to', in_order_to);
         formData.append('type', type);
         formData.append('file', file);
+        formData.append('data', data);
         axios.post(`payments/transactions?${url}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(resolve).catch(reject)
     })
 }

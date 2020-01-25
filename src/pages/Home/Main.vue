@@ -174,13 +174,16 @@
 
                 <div class="col-md-6 mb-0 d-flex flex-direction-column justify-content-center py-80 py-md-40 text-center text-md-start">
                     <div>
-                        <h1 class="text-white line-height-1-1" :style="{fontFamily: 'Rubik !important'}">
-                            GAME EXPO: Where digital<br>
-                            worlds meet real<br>
-                            innovation
+                        <h1 class="text-white line-height-1-1" :style="{fontFamily: `${$route.params.lang === 'en' ? 'Rubik' : 'IRANSans'} !important`}">
+                            {{ $t('glossaries.tournaments_executor') }}:<br>
+                            {{ $t('names.edrees_sharifi') }}
                         </h1>
 
-                        <rs-button class="w-fit-content mt-30" solid glow>View Schedule</rs-button>
+                        <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
+                            <a href="https://www.youtube.com/channel/UC--7oyGW0N7fMf164-ZXljQ" target="_blank" class="d-flex" style="padding: 13px 44px">
+                                <span class="btn-text d-flex justify-content-center align-items-center text-white">{{ $t('glossaries.youtube_channel') }}</span>
+                            </a>
+                        </button>
                     </div>
                 </div>
 
@@ -196,13 +199,11 @@
 
                     <title-span class="mt-20"/>
 
-                    <p class="mt-30" :style="{fontSize: '16px'}">Proin gravida nibh vel velit auctor aliquet. Aenean
-                        velit sollicitudin, lorem quis bibendum auctor, nisi elit ipsum consequat ipsum, nec sagittis
-                        sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
+                    <p class="mt-30" :style="{fontSize: '16px'}">{{ $t('public.about_home') }}</p>
 
-                    <span class="d-block mt-30 text-white">
-                        <span class="me-10 d-inline-flex"><i class="fa fa-location-arrow"></i></span>Auguststraße 225, 10543 Berlin
-                    </span>
+<!--                    <span class="d-block mt-30 text-white">-->
+<!--                        <span class="me-10 d-inline-flex"><i class="fa fa-location-arrow"></i></span>Auguststraße 225, 10543 Berlin-->
+<!--                    </span>-->
 
                     <span class="d-block mt-30 text-white">
                         <span class="me-10 d-inline-flex"><i class="fa fa-envelope"></i></span>info@gametour.co

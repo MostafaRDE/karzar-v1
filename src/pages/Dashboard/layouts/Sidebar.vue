@@ -42,7 +42,8 @@
             </li>
 
             <li>
-                <a href="javascript:void(0)"
+                <a :href="`/logout?lang=${$route.params.lang}`"
+                   target="_blank"
                    class="py-20 d-flex">
                     <component is="icon-off"/> &nbsp;
                     {{ $t('glossaries.logout') }}

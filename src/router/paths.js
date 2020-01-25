@@ -163,6 +163,7 @@ export default function getPaths(store) {
                         {path: '', name: 'home', component: () => import('../pages/Home/Main.vue')},
                         {path: 'tutorials', name: 'tutorials', component: () => import('../pages/Home/Tutorials.vue')},
                         {path: 'shop', name: 'shop', component: () => import('../pages/Home/Shop.vue')},
+                        {path: 'about', name: 'about', component: () => import('../pages/Home/Shop.vue')},
                     ]
                     // </editor-fold>
                     // <-- / Home-pages -->

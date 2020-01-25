@@ -18,9 +18,9 @@
                     <div class="mt-20"></div>
 
                     <div class="mt-20 d-flex justify-content-center">
-                        <span v-for="(socialNetwork, index) of socialNetworks" class="mx-10 z-index-3">
-                            <i :class="socialNetwork.icon"></i>
-                        </span>
+                        <a v-for="socialLink of socialNetworks" :href="socialLink.to" rel="nofollow" target="_blank" class="mx-10 z-index-3" style="font-size: 13px">
+                            <i :class="socialLink.icon"></i>
+                        </a>
                     </div>
 
                 </div>
@@ -45,8 +45,21 @@
             ],
 
             socialNetworks: [
-                {icon: 'fab fa-telegram', to: 'https://t.me/#'},
-                {icon: 'fab fa-instagram', to: 'https://www.instagram.com/#'},
+                {
+                    icon: 'fab fa-facebook',
+                    label: 'Facebook',
+                    to: 'https://www.facebook.com/gametour_official',
+                },
+                {
+                    icon: 'fab fa-instagram',
+                    label: 'Instagram',
+                    to: 'https://www.instagram.com/gametour.co',
+                },
+                {
+                    icon: 'fab fa-telegram',
+                    label: 'Telegram',
+                    to: 'https://t.me/gametour_official',
+                },
             ]
         })
     }

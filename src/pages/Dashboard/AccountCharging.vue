@@ -151,23 +151,36 @@
 
             chargeAccount() {
                 if (!this.storing) {
-                    this.storing = true;
-                    addTransaction((Math.floor(parseFloat(this.inputAmount) / parseFloat(this.pricesToDollar[this.selectedCurrency]))).toFixed(0), this.selectedAccount, '', 'INPUT', this.attachment)
-                        .then(response => {
-                            this.$toast.success({
-                                title: i18n.t('glossaries.account_charging'),
-                                message: i18n.t('messages.successes.account_charging_request_successful'),
+                    let amount = (Math.floor(parseFloat(this.inputAmount) / parseFloat(this.pricesToDollar[this.selectedCurrency]))).toFixed(0);
+                    if (amount < 5) {
+                        this.$toast.error({
+                            title: i18n.t('glossaries.error'),
+                            message: i18n.t('messages.errors.transaction_amount_must_be_over_2_dollar'),
+                        })
+                    } else if (!this.attachment) {
+                        this.$toast.error({
+                            title: i18n.t('glossaries.error'),
+                            message: i18n.t('messages.please_select_your_transaction_image_from_the_Select_File_section'),
+                        })
+                    } else {
+                        this.storing = true;
+                        addTransaction(amount, this.selectedAccount, null, 'INPUT', this.attachment)
+                            .then(response => {
+                                this.$toast.success({
+                                    title: i18n.t('glossaries.account_charging'),
+                                    message: i18n.t('messages.successes.account_charging_request_successful'),
+                                })
                             })
-                        })
-                        .catch(error => {
-                            this.$toast.error({
-                                title: i18n.t('glossaries.account_charging'),
-                                message: error.response.data.msg,
+                            .catch(error => {
+                                this.$toast.error({
+                                    title: i18n.t('glossaries.account_charging'),
+                                    message: error.response.data.msg,
+                                })
                             })
-                        })
-                        .finally(() => {
-                            this.storing = false;
-                        })
+                            .finally(() => {
+                                this.storing = false;
+                            })
+                    }
                 }
             }
         },
