@@ -3,9 +3,9 @@
         <div class="progress">
             <svg class="progress-circle" :width="`${size}px`" :height="`${size}px`" xmlns="http://www.w3.org/2000/svg">
                 <circle class="progress-circle-back"
-                        :cx="size / 2" :cy="size / 2" :r="size / 2 - strokeWidth"></circle>
+                        :cx="size / 2" :cy="size / 2" :r="size / 2 - strokeWidth"/>
                 <circle class="progress-circle-progress"
-                        :cx="size / 2" :cy="size / 2" :r="size / 2 - strokeWidth"></circle>
+                        :cx="size / 2" :cy="size / 2" :r="size / 2 - strokeWidth"/>
             </svg>
             <div class="progress-text" ref="progressText">0%</div>
         </div>

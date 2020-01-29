@@ -208,4 +208,28 @@
         top 50%
         transform translateY(-50%)
 
+
+    .title-holder
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        vertical-align: middle;
+        height: 240px;
+        background-position: center 0;
+        background-repeat: no-repeat;
+        color white
+
+    .title-wrapper
+        position: relative;
+        display: table;
+        table-layout: fixed;
+        height: 100%;
+        width: 100%;
+    .title-inner
+        position: relative;
+        display: table-cell;
+        height: 100%;
+        width: 100%;
+        vertical-align: middle;
+
 </style>

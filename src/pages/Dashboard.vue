@@ -2,7 +2,7 @@
     <div id="parent-dashboard">
 
         <global-header class="container-fluid z-index-50">
-            <global-navigation v-model="isActiveMainSideMenu" @clickOnMenuButton="toggleSideBar"/>
+            <global-navigation v-model="isActiveMainSideMenu" :menuVisibility="true" @clickOnMenuButton="toggleSideBar"/>
         </global-header>
 
 

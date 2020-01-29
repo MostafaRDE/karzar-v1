@@ -5,7 +5,7 @@
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
             <span>{{ label }}</span>
-            <span></span>
+            <span/>
         </label>
         <span class="rs-input align-items-center py-10 ps-20 pe-5" :class="inputClass">
 

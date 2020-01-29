@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col mb-0 justify-content-center d-flex">
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
-                        <span class="bottom-trapeze-sides trapeze-start-side"></span>
+                        <span class="bottom-trapeze-sides trapeze-start-side"/>
                         <span lang="en" class="ltr text-white"
                               style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">
                             {{ isRunning ? $t('glossaries.running') : timer }}
                         </span>
-                        <span class="bottom-trapeze-sides trapeze-end-side"></span>
+                        <span class="bottom-trapeze-sides trapeze-end-side"/>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                                                 {{ /* Input */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                    <span lang="en">{{ model.fee }}$</span>
+                                                    <span lang="en">{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
                                                 </div>
 
                                                 {{ /* Reward */ }}
@@ -166,7 +166,7 @@
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                    <rs-button v-if="!model.is_joined && !isRunning"
+                                    <rs-button v-if="$store.state.user_auth && !model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
                                                @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
@@ -316,7 +316,10 @@
                 let text = '';
                 if (!this.isRunning) {
                     if (!this.model.is_joined)
-                        text += `${this.model.fee * this.usersCount}$ `;
+                        if (this.model.fee == 0)
+                            text += `${i18n.t('glossaries.free')} `;
+                        else
+                            text += `${this.model.fee * this.usersCount}$ `;
                     text += i18n.t(`glossaries.${this.model.is_joined ? 'tournaments' : 'join_now'}`)
                 } else {
                     text += i18n.t(`glossaries.watch_now`)

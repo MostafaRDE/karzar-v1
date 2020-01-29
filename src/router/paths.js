@@ -161,9 +161,25 @@ export default function getPaths(store) {
                     // <editor-fold desc="Home-pages">
                     children: [
                         {path: '', name: 'home', component: () => import('../pages/Home/Main.vue')},
+                    ]
+                    // </editor-fold>
+                    // <-- / Home-pages -->
+                },
+                // </editor-fold>
+                // <-- / Parent of home-pages -->
+
+                // <-- Parent of home-pages -->
+                // <editor-fold desc="Parent of home-pages">
+                {
+                    path: '',
+                    component: () => import('../pages/Home/HomeParent.vue'),
+
+                    // <-- Home-pages -->
+                    // <editor-fold desc="Home-pages">
+                    children: [
                         {path: 'tutorials', name: 'tutorials', component: () => import('../pages/Home/Tutorials.vue')},
                         {path: 'shop', name: 'shop', component: () => import('../pages/Home/Shop.vue')},
-                        {path: 'about', name: 'about', component: () => import('../pages/Home/Shop.vue')},
+                        {path: 'about', name: 'about', component: () => import('../pages/Home/About.vue')},
                     ]
                     // </editor-fold>
                     // <-- / Home-pages -->

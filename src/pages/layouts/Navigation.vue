@@ -116,8 +116,13 @@
 
                 {{ /* Start menu part */ }}
                 <div class="h-100 d-flex align-items-center">
-                    <a href="javascript:void(0)" class="d-inline-flex" @click="$emit('clickOnMenuButton', 1)">
+                    <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
                         <icon-menu fill="#fff" size="25px"/>
+                    </a>
+                    <a href="javascript:void(0)" class="d-inline-flex">
+                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                        </a>
                     </a>
                 </div>
                 {{ /* End menu part */ }}
@@ -147,10 +152,7 @@
             <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-hidden">
                 <transition name="slide-down-up-250px">
                     <ul v-if="isShowMenuMobile">
-                        <li class="border-bottom" v-for="item of menu.first">
-                            <router-link :to="item.to">{{ item.label }}</router-link>
-                        </li>
-                        <li class="border-bottom" v-for="item of menu.second">
+                        <li class="border-bottom" v-for="item of menu">
                             <router-link :to="item.to">{{ item.label }}</router-link>
                         </li>
                     </ul>
@@ -161,14 +163,19 @@
 
         <transition name="slide-down-up-fade">
             <nav v-if="responsiveObject.sizes.lg > width && stickyHeader"
-                 class="application-background-color global--navbar--mobile position-fixed left-0 right-0 top-0">
+                 class="application-background-color global--navbar--mobile position-fixed left-0 right-0 top-0 z-index-1">
 
                 <div class="border-bottom px-25 px-sm-35 px-md-65">
 
                     {{ /* Start menu part */ }}
                     <div class="h-100 d-flex align-items-center">
-                        <a href="javascript:void(0)" class="d-inline-flex" @click="$emit('clickOnMenuButton', 1)">
+                        <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
                             <icon-menu fill="#fff" size="25px"/>
+                        </a>
+                        <a href="javascript:void(0)" class="d-inline-flex">
+                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                            </a>
                         </a>
                     </div>
                     {{ /* End menu part */ }}
@@ -226,7 +233,7 @@
             prop: 'isActiveMainSideMenu',
         },
 
-        props: ['isActiveMainSideMenu'],
+        props: ['isActiveMainSideMenu', 'menuVisibility'],
 
         components: {
             'icon-menu': () => import('../../components/icons/MaterialDesignIcons/MdiMenu.vue'),
@@ -245,10 +252,6 @@
 
                 menu: [
                     {
-                        label: i18n.t('glossaries.home'),
-                        to: {name: 'home', params: {lang: this.$route.params.lang}},
-                    },
-                    {
                         label: i18n.t('glossaries.tutorials'),
                         to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                     },
@@ -259,6 +262,10 @@
                     {
                         label: i18n.t('glossaries.shop'),
                         to: {name: 'shop', params: {lang: this.$route.params.lang}},
+                    },
+                    {
+                        label: i18n.t('glossaries.about'),
+                        to: {name: 'about', params: {lang: this.$route.params.lang}},
                     },
                 ],
             }

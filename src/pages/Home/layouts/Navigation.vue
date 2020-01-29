@@ -353,7 +353,7 @@
                         },
                         {
                             label: i18n.t('glossaries.tutorials'),
-                            to: '/b',
+                            to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                         },
                     ],
                     second: [
@@ -396,13 +396,8 @@
             this.handleResize();
             this.handleScroll();
 
-            let vm = this;
-            window.addEventListener('resize', function () {
-                vm.handleResize()
-            });
-            window.addEventListener('scroll', function () {
-                vm.handleScroll()
-            });
+            window.addEventListener('resize', this.handleResize);
+            window.addEventListener('scroll', this.handleScroll);
         },
 
         computed: {
@@ -424,7 +419,12 @@
                 this.stickyHeader = window.scrollY > window.innerHeight;
                 this.model = false
             },
-        }
+        },
+
+        destroyed() {
+            window.removeEventListener('resize', this.handleResize);
+            window.removeEventListener('scroll', this.handleScroll);
+        },
     }
 </script>
 

@@ -206,7 +206,7 @@
 <!--                    </span>-->
 
                     <span class="d-block mt-30 text-white">
-                        <span class="me-10 d-inline-flex"><i class="fa fa-envelope"></i></span>info@gametour.co
+                        <span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@gametour.co
                     </span>
                 </div>
 
@@ -224,7 +224,7 @@
 
                         <div>
                             <textarea placeholder="*Your Message..." class="contact-input"
-                                      v-model="contactFields.content" required></textarea>
+                                      v-model="contactFields.content" required/>
                         </div>
 
                         <div class="mt-10">
