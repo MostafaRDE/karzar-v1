@@ -1,11 +1,13 @@
 <template>
     <div class="py-20 px-40">
-        <ticket-item  v-for="(ticket, index) of tickets"
+        <ticket-item v-if="false"
+                     v-for="(ticket, index) of tickets"
                       :key="`transaction-${index}`"
                       :data="ticket"
                       :class="{'border-bottom': index < tickets.length - 1}"/>
 
-        <div class="row pagination mt-20">
+        <div v-if="false"
+             class="row pagination mt-20">
             <div class="col text-white d-flex justify-content-center">
                 <span class="px-5 linkable">1</span>
                 <span class="px-5 linkable">2</span>
@@ -16,6 +18,10 @@
                     <icon-arrow-left-type-1 v-if="$store.state.dir === 'rtl'" fill="#fff" size="12px"/>
                 </span>
             </div>
+        </div>
+
+        <div class="text-center">
+            <h1 class="py-50">Coming Soon</h1>
         </div>
     </div>
 </template>

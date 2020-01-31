@@ -44,11 +44,11 @@
 
                                     {{ /* Start tournament details */ }}
                                     <div class="col-lg-6 mb-0">
-                                        <div class="flex-grow-1 d-flex align-items-center justify-content-space-around"
+                                        <div class="flex-grow-1 d-flex align-items-center justify-content-space-around pe-lg-10"
                                              :class="{'border-end': width >= 1024}">
 
                                             {{ /* Start tournament round data */ }}
-                                            <div class="flex-grow-1 h-100 d-flex flex-direction-column justify-content-space-around px-lg-10 px-xl-20 running-tournament--panel--data--description me-20"
+                                            <div class="flex-grow-1 h-100 d-flex flex-direction-column justify-content-space-around px-lg-10 px-xl-20 running-tournament--panel--data--description me-10"
                                                  :style="{maxWidth: '200px'}">
 
                                                 {{ /* Map */ }}
@@ -75,7 +75,7 @@
                                             <rs-progressbar-circular fontSize="12px"
                                                                      :progress="model.players_count || 0"
                                                                      :max="model.capacity"
-                                                                     size="100"
+                                                                     :size="width < 1200 && width >= 1024 ? 60 : 100"
                                                                      strokeColorEmpty="#ff0e1f33"
                                                                      strokeColorProgress="#ff0e1f"
                                                                      textType="DIVIDE"/>
@@ -166,7 +166,7 @@
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex w-fit-content ms-auto">
-                                    <rs-button v-if="$store.state.user_auth && !model.is_joined && !isRunning"
+                                    <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
                                                @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
@@ -341,7 +341,7 @@
                     let duration = moment.duration(now.diff(new moment(this.model.start_date)));
 
                     this.timer = `${Math.abs(duration.days())} : ${Math.abs(duration.hours()).toString().padStart(2, '0')} : ${Math.abs(duration.minutes()).toString().padStart(2, '0')} : ${Math.abs(duration.seconds()).toString().padStart(2, '0')}`;
-                    this.isRunning = this.model.is_joined && duration.asMilliseconds() >= 0;
+                    this.isRunning = !this.model.ended_at && duration.asMilliseconds() >= 0;
                 }
             },
 
@@ -378,6 +378,7 @@
 
             storePlayers() {
                 if (this.isRunning) {
+                    console.log(this.model)
                     window.open(this.model.youtube_link, '_blank');
                     return;
                 }
@@ -481,20 +482,9 @@
     .running-tournament
         &--panel
             &--data
-                width calc(100% - 280px)
                 padding-left 0 !important
                 padding-right 0 !important
 
-                &--description
-                    span
-                        font-size 18px
-
-                        &:nth-child(1)
-                            opacity 0.8
-
-                        &:nth-child(2)
-                            color white
-                            font-weight 900
 
     @media screen and (min-width: 1024px)
         .running-tournament
@@ -508,6 +498,19 @@
                         border 3px solid #707070
 
                 &--data
+                    width calc(100% - 280px)
+
+                    &--description
+                        span
+                            font-size 18px
+
+                            &:nth-child(1)
+                                opacity 0.8
+
+                            &:nth-child(2)
+                                color white
+                                font-weight 900
+
                     .content > div:nth-child(1)
                         box-shadow -4px 2px 9px 0 #000
 </style>

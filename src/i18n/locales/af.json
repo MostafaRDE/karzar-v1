@@ -38,6 +38,7 @@
 		"copy": "کپی",
 		"copy_failed": "کپی شکست خورد",
 		"current_password": "گذرواژه فعلی",
+		"dashboard": "پیشخوان",
 		"date": "تاریخ",
 		"deposit": "واریز",
 		"email": "ایمیل",
@@ -81,10 +82,13 @@
 		"orders": "سفارشات",
 		"pair": "جفت",
 		"password": "گذرواژه",
+		"password_update": "بروزرسانی گذرواژه",
 		"players_list": "لیست بازیکنان",
 		"please_enter_the_name_of_your_character": "لطفا نام کاراکتر خود را وارد کنید",
 		"please_enter_the_name_of_your_characters": "لطفا نام کاراکتر های خود را وارد کنید",
 		"price": "قیمت",
+		"profile": "پروفایل",
+		"profile_update": "بروزرسانی پروفایل",
 		"ready_for_a_great_battle": "برای یک نبرد عالی آماده ای؟",
 		"receiver_name": "نام دریافت کننده",
 		"refer_code": "کد معرف",
@@ -159,14 +163,21 @@
 				"string": "حداقل تعداد حروف باید {count} حرف باشد."
 			},
 			"password": "گذرواژه باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
-			"required": "فیلد ورودی اجباری می باشد."
+			"required": "فیلد ورودی اجباری می باشد.",
+			"string": {
+				"default": "ورودی باید متنی باشد.",
+				"digits": "ورودی باید فقط رقم باشد.",
+				"nan": "ورودی باید حرفی غیر عددی نیز داشته باشد"
+			}
 		},
 		"successes": {
 			"account_charging_request_successful": "درخواست شارژ حساب با موفقیت ثبت شد",
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
 			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد.",
-			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد"
+			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد",
+			"the_password_was_successfully_updated": "گذرواژه با موفقیت بروزرسانی شد",
+			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد"
 		}
 	},
 	"names": {

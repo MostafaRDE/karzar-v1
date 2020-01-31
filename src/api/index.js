@@ -16,14 +16,30 @@ export function getPrices() {
 export function getBalance() {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.get('/users/balance').then(resolve).catch(reject)
+        axios.get(`/users/balance?lang=${lang()}`).then(resolve).catch(reject)
     })
 }
 
 export function getProfile() {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        axios.get('/users/get/me').then(resolve).catch(reject)
+        axios.get(`/users/get/me?lang=${lang()}`).then(resolve).catch(reject)
+    })
+}
+
+export function updateProfile(name, whatsapp_number) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let data = {name, whatsapp_number};
+        axios.put(`/users/update-profile?lang=${lang()}`, data).then(resolve).catch(reject)
+    })
+}
+
+export function updatePassword(current_password, new_password) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let data = {current_password, new_password};
+        axios.put(`/users/update-password?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
 

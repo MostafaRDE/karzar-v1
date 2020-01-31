@@ -16,8 +16,12 @@
 
 <script>
     const {itemsPerPage, myTournaments} = require("../../api");
+    import i18n from '../../i18n'
+
     export default {
         name: "Tournaments",
+
+        title: () => i18n.t('glossaries.dashboard') + ' | ' + i18n.t('glossaries.tournaments'),
 
         data: () => ({
             itemsPerPage,

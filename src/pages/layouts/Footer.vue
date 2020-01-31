@@ -34,34 +34,36 @@
     export default {
         name: "Footer",
 
-        data: () => ({
-            menu: [
-                {label: 'Home', to: '#'},
-                {label: 'Account', to: '#'},
-                {label: 'Tutorials', to: '#'},
-                {label: 'Blog', to: '#'},
-                {label: 'Balance', to: '#'},
-                {label: 'Shop', to: '#'},
-            ],
+        data() {
+            return {
+                menu: [
+                    {label: 'Home', to: {name: 'home', params: {lang: this.$route.params.lang}}},
+                    {label: 'Account', to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}}},
+                    {label: 'Tutorials', to: {name: 'tutorials', params: {lang: this.$route.params.lang}}},
+                    {label: 'Blog', to: '#'},
+                    {label: 'Shop', to: '#'},
+                    {label: 'About', to: {name: 'about', params: {lang: this.$route.params.lang}}},
+                ],
 
-            socialNetworks: [
-                {
-                    icon: 'fab fa-facebook',
-                    label: 'Facebook',
-                    to: 'https://www.facebook.com/gametour_official',
-                },
-                {
-                    icon: 'fab fa-instagram',
-                    label: 'Instagram',
-                    to: 'https://www.instagram.com/gametour.co',
-                },
-                {
-                    icon: 'fab fa-telegram',
-                    label: 'Telegram',
-                    to: 'https://t.me/gametour_official',
-                },
-            ]
-        })
+                socialNetworks: [
+                    {
+                        icon: 'fab fa-facebook',
+                        label: 'Facebook',
+                        to: 'https://www.facebook.com/gametour_official',
+                    },
+                    {
+                        icon: 'fab fa-instagram',
+                        label: 'Instagram',
+                        to: 'https://www.instagram.com/gametour.co',
+                    },
+                    {
+                        icon: 'fab fa-telegram',
+                        label: 'Telegram',
+                        to: 'https://t.me/gametour_official',
+                    },
+                ]
+            }
+        }
     }
 </script>
 

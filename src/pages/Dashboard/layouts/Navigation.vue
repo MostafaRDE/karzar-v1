@@ -3,199 +3,107 @@
 
         {{ /* Start Desktop navigations */ }}
         <nav v-if="responsiveObject.sizes.lg <= width"
-             class="navbar d-none d-lg-flex px-lg-20 px-xl-30 z-index-1 application-background-color"
+             class="navbar d-none d-lg-flex px-lg-40 px-xl-60 z-index-1 application-background-color"
              style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.35)"
-             id="main--navbar">
-
-            {{ /* Start first part menu */ }}
-            <div class="d-flex justify-content-space-between flex-grow-1">
-
-                {{ /* Start search part */ }}
-                <div class="h-100 d-flex align-items-center">
-                    <a href="javascript:void(0)" class="d-inline-flex">
-                        <icon-search fill="#fff" size="25px"/>
-                    </a>
-                </div>
-                {{ /* End search part */ }}
-
-                {{ /* Start first menu */ }}
-                <div class="position-relative h-100 pe-20 ps-40 pe-lg-40 ps-lg-70 main--navbar--menu">
-
-                    {{ /* First polygon menu */ }}
-                    <div class="main--navbar--menu-polygon" id="main--navbar--first-menu-polygon"></div>
-
-                    {{ /* Start social networks */ }}
-                    <div class="d-flex justify-content-center align-items-center" id="main--navbar--social-links">
-                        <div class="ms-25">
-                            <span class="font-size-sm">{{ about }}</span>
-                        </div>
-                    </div>
-                    {{ /* End social networks */ }}
-
-                    {{ /* Start first part main menu */ }}
-                    <div class="main--navbar--main-menu">
-                        <div class="z-index-1">
-                            <ul class="d-flex">
-                                <li v-for="item of menu.first" class="px-5 px-xl-15">
-                                    <router-link :to="item.to"><span>{{ item.label }}</span></router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    {{ /* End first part main menu */ }}
-
-                </div>
-                {{ /* End first menu */ }}
-
-            </div>
-            {{ /* End first part menu */ }}
+             id="dashboard--navbar">
 
             {{ /* Start logo */ }}
             <div class="z-index-1">
-                <div>
-                    <router-link :to="{name: 'home', params: {lang: $route.params.lang}}">
+                <div class="d-flex align-items-center">
+                    <router-link :to="{name: 'home', params: {lang: $route.params.lang}}" exact>
                         <img :src="logoUrl"
-                             alt="logo"/>
+                             alt="logo"
+                             class="h-100"/>
                     </router-link>
                 </div>
             </div>
             {{ /* End logo */ }}
 
-            {{ /* Start second part menu */ }}
-            <div class="d-flex justify-content-space-between flex-grow-1">
-
-                {{ /* Start second menu */ }}
-                <div class="position-relative h-100 ps-20 pe-40 ps-lg-40 pe-lg-70 main--navbar--menu">
-
-                    {{ /* Second polygon menu */ }}
-                    <div class="main--navbar--menu-polygon" id="main--navbar--second-menu-polygon"></div>
-
-                    {{ /* Start about */ }}
-                    <div class="d-flex justify-content-center align-items-center" id="main--navbar--about">
-                        <div class="me-25">
-                            <span class="font-size-sm">follow us on:</span>
-                        </div>
-                        <div class="z-index-1">
-                            <ul class="d-flex">
-                                <li v-for="item of socialNetworks" class="mx-10">
-                                    <a :href="item.to" target="_blank" rel="nofollow" :title="item.label"><i
-                                            :class="item.icon"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    {{ /* End about */ }}
-
-                    {{ /* Start second part main menu */ }}
-                    <div class="main--navbar--main-menu">
-                        <div class="z-index-1">
-                            <ul class="d-flex">
-                                <li v-for="item of menu.second" class="px-5 px-xl-15">
-                                    <router-link :to="item.to"><span>{{ item.label }}</span></router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    {{ /* End second part main menu */ }}
-
-                </div>
-                {{ /* End second menu */ }}
-
-                {{ /* Start side area opener part */ }}
-                <div class="h-100 d-flex align-items-center">
-                    <a href="javascript:void(0)" class="d-inline-flex side-area-opener">
-                        <icon-side-area-opener fill="#fff" size="23px"/>
-                    </a>
-                </div>
-                {{ /* End side area opener part */ }}
-
-            </div>
-            {{ /* End second part menu */ }}
-
-        </nav>
-
-        <transition name="slide-down-up-fade">
-            <nav v-if="responsiveObject.sizes.lg <= width && stickyHeader"
-                 class="navbar position-fixed top-0 d-none d-lg-flex px-lg-20 px-xl-30 z-index-1 application-background-color border-bottom"
-                 id="main--navbar--sticky-header">
-
-                {{ /* Start first part menu */ }}
-                <div class="d-flex justify-content-space-between flex-grow-1">
+            {{ /* Start Menu */ }}
+            <div class="dashboard--navbar--main-menu">
+                <div class="z-index-1">
+                    <ul class="d-flex">
+                        <li v-for="item of menu">
+                            <router-link :to="item.to" class="px-25"><span>{{ item.label }}</span></router-link>
+                        </li>
+                    </ul>
 
                     {{ /* Start search part */ }}
-                    <div class="h-100 d-flex align-items-center">
+                    <div class="h-100 d-flex align-items-center me-50 ms-20">
                         <a href="javascript:void(0)" class="d-inline-flex">
-                            <icon-search fill="#fff" size="25px"/>
+                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                            </a>
+                        </a>
+                        <a v-if="menuVisibility && width < widthSideBarShowing" href="javascript:void(0)" class="d-inline-flex ms-40" @click="$emit('clickOnMenuButton', 1)">
+                            <icon-menu fill="#fff" size="25px"/>
                         </a>
                     </div>
                     {{ /* End search part */ }}
 
-                    {{ /* Start first menu */ }}
-                    <div class="position-relative h-100 pe-30 ps-50 pe-xl-40 ps-xl-70 main--navbar--menu">
-
-                        {{ /* Start first part main menu */ }}
-                        <div class="main--navbar--main-menu">
-                            <div class="z-index-1">
-                                <ul class="d-flex">
-                                    <li v-for="item of menu.first" class="px-5 px-xl-15">
-                                        <router-link :to="item.to" class="px-15"><span>{{ item.label }}</span>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        {{ /* End first part main menu */ }}
-
+                    {{ /* Start search part */ }}
+                    <div class="h-100 d-flex align-items-center">
+                        <a href="javascript:void(0)" class="d-inline-flex" @click="model = true">
+                            <icon-side-area-opener fill="#fff" size="23px"/>
+                        </a>
                     </div>
-                    {{ /* End first menu */ }}
-
+                    {{ /* End search part */ }}
                 </div>
-                {{ /* End first part menu */ }}
+            </div>
+            {{ /* End Menu */ }}
+
+        </nav>
+
+        <transition name="slide-down-up-fade">
+            <nav v-if="responsiveObject.sizes.lg <= width"
+                 class="navbar d-none d-lg-flex px-lg-40 px-xl-60 z-index-1 application-background-color position-fixed"
+                 style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.35)"
+                 id="dashboard--navbar--sticky-header">
 
                 {{ /* Start logo */ }}
                 <div class="z-index-1">
                     <div>
                         <router-link :to="{name: 'home', params: {lang: $route.params.lang}}">
-                            <img itemprop="image"
-                                 src="https://playerx.edge-themes.com/wp-content/uploads/2018/06/logo-divided-header.png"
-                                 alt="logo"/>
+                            <img :src="logoUrl"
+                                 alt="logo"
+                                 class="h-100"/>
                         </router-link>
                     </div>
                 </div>
                 {{ /* End logo */ }}
 
-                {{ /* Start second part menu */ }}
-                <div class="d-flex justify-content-space-between flex-grow-1">
+                {{ /* Start Menu */ }}
+                <div class="dashboard--navbar--main-menu">
+                    <div class="z-index-1">
+                        <ul class="d-flex">
+                            <li v-for="item of menu">
+                                <router-link :to="item.to" class="px-25"><span>{{ item.label }}</span></router-link>
+                            </li>
+                        </ul>
 
-                    {{ /* Start second menu */ }}
-                    <div class="position-relative h-100 pe-50 ps-30 pe-xl-70 ps-xl-40 main--navbar--menu">
-
-                        {{ /* Start second part main menu */ }}
-                        <div class="main--navbar--main-menu">
-                            <div class="z-index-1">
-                                <ul class="d-flex">
-                                    <li v-for="item of menu.second" class="px-5 px-xl-15">
-                                        <router-link :to="item.to" class="px-15"><span>{{ item.label }}</span>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </div>
+                        {{ /* Start search part */ }}
+                        <div class="h-100 d-flex align-items-center me-50 ms-20">
+                            <a href="javascript:void(0)" class="d-inline-flex">
+                                <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                                    {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                                </a>
+                            </a>
+                            <a v-if="menuVisibility && width < widthSideBarShowing" href="javascript:void(0)" class="d-inline-flex ms-40" @click="$emit('clickOnMenuButton', 1)">
+                                <icon-menu fill="#fff" size="25px"/>
+                            </a>
                         </div>
-                        {{ /* End second part main menu */ }}
+                        {{ /* End search part */ }}
 
+                        {{ /* Start search part */ }}
+                        <div class="h-100 d-flex align-items-center">
+                            <a href="javascript:void(0)" class="d-inline-flex" @click="model = true">
+                                <icon-side-area-opener fill="#fff" size="23px"/>
+                            </a>
+                        </div>
+                        {{ /* End search part */ }}
                     </div>
-                    {{ /* End second menu */ }}
-
-                    {{ /* Start side area opener part */ }}
-                    <div class="h-100 d-flex align-items-center">
-                        <a href="javascript:void(0)" class="d-inline-flex side-area-opener">
-                            <icon-side-area-opener fill="#fff" size="23px"/>
-                        </a>
-                    </div>
-                    {{ /* End side area opener part */ }}
-
                 </div>
-                {{ /* End second part menu */ }}
+                {{ /* End Menu */ }}
 
             </nav>
         </transition>
@@ -207,18 +115,23 @@
 
         {{ /* Start mobile navigations */ }}
         <nav v-if="responsiveObject.sizes.lg > width"
-             class="application-background-color main--navbar--mobile"
+             class="application-background-color dashboard--navbar--mobile"
              style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.35)">
 
             <div class="border-bottom px-25 px-sm-35 px-md-65">
 
-                {{ /* Start search part */ }}
+                {{ /* Start menu part */ }}
                 <div class="h-100 d-flex align-items-center">
+                    <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
+                        <icon-menu fill="#fff" size="25px"/>
+                    </a>
                     <a href="javascript:void(0)" class="d-inline-flex">
-                        <icon-search fill="#fff" size="25px"/>
+                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                        </a>
                     </a>
                 </div>
-                {{ /* End search part */ }}
+                {{ /* End menu part */ }}
 
                 {{ /* Start logo */ }}
                 <div>
@@ -245,10 +158,7 @@
             <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-hidden">
                 <transition name="slide-down-up-250px">
                     <ul v-if="isShowMenuMobile">
-                        <li class="border-bottom" v-for="item of menu.first">
-                            <router-link :to="item.to">{{ item.label }}</router-link>
-                        </li>
-                        <li class="border-bottom" v-for="item of menu.second">
+                        <li class="border-bottom" v-for="item of menu">
                             <router-link :to="item.to">{{ item.label }}</router-link>
                         </li>
                     </ul>
@@ -258,18 +168,23 @@
         </nav>
 
         <transition name="slide-down-up-fade">
-            <nav v-if="responsiveObject.sizes.lg > width && stickyHeader"
-                 class="application-background-color main--navbar--mobile position-fixed left-0 right-0 top-0">
+            <nav v-if="responsiveObject.sizes.lg > width"
+                 class="application-background-color dashboard--navbar--mobile position-fixed left-0 right-0 top-0 z-index-1">
 
                 <div class="border-bottom px-25 px-sm-35 px-md-65">
 
-                    {{ /* Start search part */ }}
+                    {{ /* Start menu part */ }}
                     <div class="h-100 d-flex align-items-center">
+                        <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
+                            <icon-menu fill="#fff" size="25px"/>
+                        </a>
                         <a href="javascript:void(0)" class="d-inline-flex">
-                            <icon-search fill="#fff" size="25px"/>
+                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
+                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
+                            </a>
                         </a>
                     </div>
-                    {{ /* End search part */ }}
+                    {{ /* End menu part */ }}
 
                     {{ /* Start logo */ }}
                     <div>
@@ -320,82 +235,58 @@
     export default {
         name: "Navigation",
 
+        model: {
+            prop: 'isActiveMainSideMenu',
+        },
+
+        props: ['isActiveMainSideMenu', 'menuVisibility'],
+
         components: {
-            'icon-search': () => import('../../../components/icons/IconSearch.vue'),
+            'icon-menu': () => import('../../../components/icons/MaterialDesignIcons/MdiMenu.vue'),
             'icon-side-area-opener': () => import('../../../components/icons/IconSideAreaOpener.vue'),
         },
 
-        data: () => ({
-            about: 'Your Balance: 50.00$',
-            logoUrl: 'https://playerx.edge-themes.com/wp-content/uploads/2018/06/logo-divided-header.png',
+        data() {
+            return {
+                logoUrl: '/public/images/public/logos/logo.svg',
 
-            stickyHeader: false,
-            isShowMenuMobile: false,
+                stickyHeader: false,
+                isShowMenuMobile: false,
 
-            width: 0,
-            responsiveObject: ResponsiveObject,
+                width: 0,
+                widthSideBarShowing: 1500,
+                responsiveObject: ResponsiveObject,
 
-            menu: {
-                first: [
-                    {
-                        label: i18n.t('glossaries.home'),
-                        to: '',
-                    },
-                    {
-                        label: i18n.t('glossaries.account'),
-                        to: '/a',
-                    },
+                menu: [
                     {
                         label: i18n.t('glossaries.tutorials'),
-                        to: '/b',
+                        to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                     },
-                ],
-                second: [
                     {
                         label: i18n.t('glossaries.blog'),
-                        to: '/c',
+                        to: 'https://www.blog.gametour.co',
                     },
                     {
                         label: i18n.t('glossaries.shop'),
-                        to: '/d',
+                        to: {name: 'shop', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        label: i18n.t('glossaries.balance'),
-                        to: '/e',
+                        label: i18n.t('glossaries.about'),
+                        to: {name: 'about', params: {lang: this.$route.params.lang}},
                     },
                 ],
-            },
+            }
+        },
 
-            socialNetworks: [
-                {
-                    icon: 'fab fa-facebook',
-                    label: 'Facebook',
-                    to: 'https://www.facebook.com/',
+        computed: {
+            model: {
+                get() {
+                    return this.isActiveMainSideMenu
                 },
-                {
-                    icon: 'fab fa-youtube',
-                    label: 'Youtube',
-                    to: 'https://www.youtube.com/',
-                },
-                {
-                    icon: 'fab fa-instagram',
-                    label: 'Instagram',
-                    to: 'https://www.instagram.com/',
-                },
-            ]
-        }),
-
-        mounted() {
-            this.handleResize();
-            this.handleScroll();
-
-            let vm = this;
-            window.addEventListener('resize', function () {
-                vm.handleResize()
-            });
-            window.addEventListener('scroll', function () {
-                vm.handleScroll()
-            });
+                set(isActiveMainSideMenu) {
+                    this.$emit('input', isActiveMainSideMenu)
+                }
+            }
         },
 
         methods: {
@@ -405,12 +296,25 @@
             handleScroll() {
                 this.stickyHeader = window.scrollY > window.innerHeight
             },
+        },
+
+        mounted() {
+            this.handleResize();
+            this.handleScroll();
+
+            window.addEventListener('resize', this.handleResize);
+            window.addEventListener('scroll', this.handleScroll);
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.handleResize);
+            window.removeEventListener('scroll', this.handleScroll);
         }
     }
 </script>
 
 <style lang="stylus">
-    .main--navbar
+    .dashboard--navbar
         &--menu-polygon
             position absolute
             top 0
@@ -426,11 +330,12 @@
 
         &--main-menu
             display flex
-            justify-content center
+            justify-content flex-end
             align-items center
+            flex-grow 1
             margin 0
             width auto
-            height 63%
+            height 100%
             z-index 1
 
             div
@@ -446,6 +351,7 @@
                         display flex
                         margin 0 4px
                         height 100%
+                        font-size 13px
 
                         a
                             position relative
@@ -535,74 +441,20 @@
 
     //--------------------------------------------
 
-    #main--navbar
-        height 120px
+    #dashboard--navbar
+        height 90px
+        justify-content space-between
 
         //--------------------------------------------
 
-        / .ltr &--first-menu-polygon
-            left 0
-            border-left 1px solid rgba(203, 203, 203, .1)
-            -webkit-transform skewX(15deg)
-            -moz-transform skewX(15deg)
-            transform skewX(15deg)
-
-            &:before
-                left 0
-
-        / .rtl &--first-menu-polygon
-            right 0
-            border-right 1px solid rgba(203, 203, 203, .1)
-            -webkit-transform skewX(-15deg)
-            -moz-transform skewX(-15deg)
-            transform skewX(-15deg)
-
-            &:before
-                right 0
-
-        //--------------------------------------------
-
-        / .ltr &--second-menu-polygon
-            right 0
-            border-right 1px solid rgba(203, 203, 203, .1)
-            -webkit-transform skewX(-15deg)
-            -moz-transform skewX(-15deg)
-            transform skewX(-15deg)
-
-            &:before
-                right 0
-
-        / .rtl &--second-menu-polygon
-            left 0
-            border-left 1px solid rgba(203, 203, 203, .1)
-            -webkit-transform skewX(15deg)
-            -moz-transform skewX(15deg)
-            transform skewX(15deg)
-
-            &:before
-                left 0
-
-        //--------------------------------------------
-
-        &--social-links, &--about
-            height 37%
-
-        //--------------------------------------------
-
-        > div:nth-child(2)
+        > div:nth-child(1)
             display flex
             justify-content center
             align-items center
-            width 245px
-            min-width 200px
-            height calc(100% + 10px)
-            background-image url(https://playerx.edge-themes.com/wp-content/uploads/2018/06/logo-background-img.jpg)
-            -webkit-clip-path polygon(0 0, 100% 0, 81% 100%, 19% 100%)
-            clip-path polygon(0 0, 100% 0, 81% 100%, 19% 100%)
 
             a
                 display block
-                height 84px
+                height 42px
 
                 img
                     height 100%
@@ -610,23 +462,17 @@
         //--------------------------------------------
 
         &--sticky-header
-            height 78px
+            height 90px
             left 0
             right 0
             top 0
 
             //--------------------------------------------
 
-            > div:nth-child(2)
+            > div:nth-child(1)
                 display flex
                 justify-content center
                 align-items center
-                width 202px
-                min-width 200px
-                height calc(100% + 10px)
-                background-image url(https://playerx.edge-themes.com/wp-content/uploads/2018/06/logo-background-img.jpg)
-                -webkit-clip-path polygon(0 0, 100% 0, 81% 100%, 19% 100%)
-                clip-path polygon(0 0, 100% 0, 81% 100%, 19% 100%)
 
                 a
                     display block
@@ -637,7 +483,7 @@
 
             //--------------------------------------------
 
-            .main--navbar--main-menu
+            .dashboard--navbar--main-menu
                 height 100%
 
                 ul li span
@@ -645,7 +491,7 @@
 
     //--------------------------------------------
 
-    .main--navbar--mobile
+    .dashboard--navbar--mobile
         .side-area-opener
             transform rotateZ(0deg)
             transition all .25s ease-in-out
@@ -662,7 +508,7 @@
                 /.rtl &
                     transform rotateZ(90deg)
 
-    #main--navbar, #main--navbar--sticky-header
+    #dashboard--navbar, #dashboard--navbar--sticky-header
         .side-area-opener
             transform rotateZ(0deg)
             transition all .25s ease-in-out
@@ -679,17 +525,17 @@
     //--------------------------------------------
     //- Responsive
     @media screen and (min-width: 1440px)
-        .main--navbar
+        .dashboard--navbar
             &--main-menu
                 div ul li a
                     padding-left 30px
                     padding-right 30px
 
-        #main--navbar
+        #dashboard--navbar
             padding-left 45px !important
             padding-right 45px !important
 
-        #main--navbar--sticky-header
+        #dashboard--navbar--sticky-header
             padding-left 65px !important
             padding-right 65px !important
 </style>

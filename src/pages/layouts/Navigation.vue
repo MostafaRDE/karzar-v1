@@ -116,9 +116,6 @@
 
                 {{ /* Start menu part */ }}
                 <div class="h-100 d-flex align-items-center">
-                    <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
-                        <icon-menu fill="#fff" size="25px"/>
-                    </a>
                     <a href="javascript:void(0)" class="d-inline-flex">
                         <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
                             {{ $route.params.lang === 'en' ? 'af' : 'en' }}
@@ -169,9 +166,6 @@
 
                     {{ /* Start menu part */ }}
                     <div class="h-100 d-flex align-items-center">
-                        <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
-                            <icon-menu fill="#fff" size="25px"/>
-                        </a>
                         <a href="javascript:void(0)" class="d-inline-flex">
                             <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
                                 {{ $route.params.lang === 'en' ? 'af' : 'en' }}
@@ -233,10 +227,9 @@
             prop: 'isActiveMainSideMenu',
         },
 
-        props: ['isActiveMainSideMenu', 'menuVisibility'],
+        props: ['isActiveMainSideMenu'],
 
         components: {
-            'icon-menu': () => import('../../components/icons/MaterialDesignIcons/MdiMenu.vue'),
             'icon-side-area-opener': () => import('../../components/icons/IconSideAreaOpener.vue'),
         },
 

@@ -50,13 +50,13 @@
 </template>
 
 <script>
-    import {addTransaction, gateways} from "../../api";
-    import i18n from "../../i18n";
+    import {addTransaction, gateways} from "../../api"
+    import i18n from "../../i18n"
 
     export default {
         name: "Withdraw",
 
-        title: () => i18n.t(''),
+        title: () => i18n.t('glossaries.dashboard') + ' | ' + i18n.t('glossaries.withdraw'),
 
         data: () => ({
             formErrors: {},

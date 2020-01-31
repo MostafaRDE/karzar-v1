@@ -74,7 +74,7 @@
                                    solid
                                    glow
                                    :loading="logging">
-                            {{ $t('glossaries.log_in') }}
+                            {{ $t('glossaries.login') }}
                         </rs-button>
                     </div>
 

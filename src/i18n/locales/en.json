@@ -38,6 +38,7 @@
 		"copy": "Copy",
 		"copy_failed": "Copy failed",
 		"current_password": "Current password",
+		"dashboard": "Dashboard",
 		"date": "Date",
 		"deposit": "Deposit",
 		"email": "Email",
@@ -81,10 +82,13 @@
 		"orders": "Orders",
 		"pair": "Pair",
 		"password": "Password",
+		"password_update": "Password Update",
 		"players_list": "Players List",
 		"please_enter_the_name_of_your_character": "Please enter the name of your character",
 		"please_enter_the_name_of_your_characters": "Please enter the name of your characters",
 		"price": "Price",
+		"profile": "Profile",
+		"profile_update": "Profile Update",
 		"ready_for_a_great_battle": "Ready for a great battle?",
 		"receiver_name": "Receiver Name",
 		"refer_code": "Referral id",
@@ -160,7 +164,12 @@
 				"string": "The input characters must be equal to or greater than {min}"
 			},
 			"password": "The password must contain uppercase and lowercase letters and numbers. (A-Z a-z 0-9)",
-			"required": "The input field is required."
+			"required": "The input field is required.",
+			"string": {
+				"default": "The input must be text",
+				"digits": "The input text must be digits",
+				"nan": "The input must also have a non-numeric value"
+			}
 		},
 		"successes": {
 			"account_charging_request_successful": "Account charging request successful",
@@ -168,7 +177,9 @@
 			"registration_successful": "Registration successful.",
 			"reset_password_successful": "Reset Password successful.",
 			"send_reset_password_link_to_sent": "Password reset link sent.",
-			"successfully_joined_to_the_tournament": "Successfully joined to the tournament"
+			"successfully_joined_to_the_tournament": "Successfully joined to the tournament",
+			"the_password_was_successfully_updated": "The password was successfully updated",
+			"the_profile_was_successfully_updated": "The profile was successfully updated"
 		}
 	},
 	"names": {

@@ -1,5 +1,5 @@
 <template>
-    <nav class="px-20 py-10 dashboard-sidebar" style="background: #252429">
+    <nav class="px-20 py-10 dashboard-sidebar overflow-y-overlay" style="background: #252429">
         <div class="d-flex mb-50 mt-10">
 
             <div class="me-10">
@@ -61,10 +61,12 @@
 
         components: {
             'icon-chat': () => import('../../../components/icons/IconChat.vue'),
+            'icon-down-money': () => import('../../../components/icons/IconDownMoney.vue'),
             'icon-invoice': () => import('../../../components/icons/IconInvoice.vue'),
             'icon-money-bag': () => import('../../../components/icons/IconMoneyBag.vue'),
             'icon-off': () => import('../../../components/icons/IconOff.vue'),
             'icon-reward': () => import('../../../components/icons/IconReward.vue'),
+            'icon-up-money': () => import('../../../components/icons/IconUpMoney.vue'),
         },
 
         data() {
@@ -81,12 +83,12 @@
                         to: {name: 'dashboardTransactions', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        icon: 'icon-chat',
+                        icon: 'icon-up-money',
                         label: i18n.t('glossaries.account_charging'),
                         to: {name: 'dashboardAccountCharging', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        icon: 'icon-chat',
+                        icon: 'icon-down-money',
                         label: i18n.t('glossaries.withdraw'),
                         to: {name: 'dashboardWithdraw', params: {lang: this.$route.params.lang}},
                     },

@@ -1,6 +1,6 @@
 <template>
     <div class="rs-input--parent border" :class="{'opacity-6': disabled}">
-        <label v-if="label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
+        <label v-if="inputWidth >= 200 && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
             <span class="label-icon me-10" v-show="labelIcon">
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
@@ -14,7 +14,9 @@
             <input :class="[inputClass, {'text-disabled' : disabled}]"
                    :disabled="disabled"
                    :type="!showPassword ? type : 'text'"
-                   :placeholder="placeholder" v-model="model" :maxlength="maxlength"/>
+                   class="rs-input--input"
+                   ref="input"
+                   :placeholder="getPlaceholder" v-model="model" :maxlength="maxlength"/>
 
             <span class="line-height-1-0 border-exchange-start ps-5" v-if="type !== 'password'">{{ mark }}</span>
 
@@ -100,6 +102,11 @@
             }
         },
 
+        data: () => ({
+            showPassword: false,
+            inputWidth: 200,
+        }),
+
         computed: {
             model: {
                 get() {
@@ -108,12 +115,34 @@
                 set(value) {
                     this.$emit('input', value)
                 }
+            },
+
+            getPlaceholder() {
+                if (this.inputWidth >= 200) {
+                    return this.placeholder
+                } else {
+                    let temp = this.label;
+                    if (this.placeholder && this.placeholder !== '')
+                        temp += ` (${this.placeholder})`;
+                    return temp
+                }
             }
         },
 
-        data: () => ({
-            showPassword: false
-        }),
+        methods: {
+            setInputWidth() {
+                this.inputWidth = this.$refs.input.clientWidth;
+            },
+        },
+
+        mounted() {
+            this.setInputWidth();
+            window.addEventListener('resize', this.setInputWidth)
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.setInputWidth)
+        }
     }
 </script>
 

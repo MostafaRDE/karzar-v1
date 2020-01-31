@@ -15,10 +15,13 @@
 </template>
 
 <script>
-    import {itemsPerPage, myTransactions} from "../../api";
+    import {itemsPerPage, myTransactions} from "../../api"
+    import i18n from '../../i18n'
 
     export default {
         name: "Transactions",
+
+        title: () => i18n.t('glossaries.dashboard') + ' | ' + i18n.t('glossaries.transactions'),
 
         components: {
             'icon-arrow-left-type-1': () => import('../../components/icons/IconArrowLeftType1.vue'),

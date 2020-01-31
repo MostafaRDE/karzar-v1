@@ -16,9 +16,10 @@
 
                     <span class="z-index-1 font-weight-700 text-center text-white text-uppercase page--home--image-slider--title"
                           :style="{fontFamily: $route.params.lang === 'en' ? 'Rubik !important' : ''}">{{ imagesSlider[selected].title }}</span>
-                    <rs-button glow solid solidShadow trapezeBoth
-                               @click.native="$router.push(imagesSlider[selected].button.to)">{{
-                        imagesSlider[selected].button.label }}
+                    <rs-button glow solid solidShadow trapezeBoth>
+                        <a :href="imagesSlider[selected].button.to" class="text-white" v-smooth-scroll="{offset: -70, updateHistory: false}">
+                            {{ imagesSlider[selected].button.label }}
+                        </a>
                     </rs-button>
 
                 </div>
@@ -71,7 +72,7 @@
             </div>
         </div>
 
-        <div class="container mt-40 py-50 px-20">
+        <div class="container mt-40 py-50 px-20" id="tournaments">
             <h2 class="text-center text-white">{{ $t('glossaries.games_played') }}</h2>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
@@ -132,7 +133,7 @@
             </rs-section>
         </div>
 
-        <div class="container-fluid px-0 py-50">
+        <div class="container-fluid px-0 py-50" id="tutorials">
             <h2 class="text-center text-white">{{ $t('glossaries.tutorials') }}</h2>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
