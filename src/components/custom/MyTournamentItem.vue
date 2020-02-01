@@ -160,7 +160,7 @@
         },
 
         mounted() {
-            console.log(this.data)
+            // console.log(this.data)
         }
     }
 </script>

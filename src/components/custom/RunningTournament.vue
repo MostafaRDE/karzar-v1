@@ -379,7 +379,7 @@
 
             storePlayers() {
                 if (this.isRunning) {
-                    console.log(this.model)
+                    // console.log(this.model)
                     window.open(this.model.youtube_link, '_blank');
                     return;
                 }
