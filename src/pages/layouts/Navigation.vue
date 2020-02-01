@@ -257,7 +257,7 @@
                         to: {name: 'shop', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        label: i18n.t('glossaries.about'),
+                        label: i18n.t('glossaries.about_us'),
                         to: {name: 'about', params: {lang: this.$route.params.lang}},
                     },
                 ],

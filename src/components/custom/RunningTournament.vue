@@ -60,7 +60,7 @@
                                                 {{ /* Input */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                    <span lang="en">{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
+                                                    <span>{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
                                                 </div>
 
                                                 {{ /* Reward */ }}
@@ -165,7 +165,7 @@
                             {{ /* End tournament multiple form */ }}
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
-                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 && (model.is_joined || isRunning) ? 'w-fit-content' : '']">
+                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 || (!model.is_joined && !isRunning) ? 'w-fit-content' : '']">
                                     <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
@@ -176,9 +176,9 @@
                                                :loading="joining"
                                                solid
                                                glow
-                                               :trapezeStart="width >= 1024 && (model.is_joined || isRunning)"
+                                               :trapezeStart="width >= 1024 || (!model.is_joined && !isRunning)"
                                                class="text-white px-80 text-nowrap"
-                                               :class="width >= 1024 && (model.is_joined || isRunning) ? '' : 'w-100'"
+                                               :class="width >= 1024 || (!model.is_joined && !isRunning) ? '' : 'w-100'"
                                                @click.native="storePlayers">
                                         {{ primaryTextButton }}
                                     </rs-button>
@@ -202,7 +202,7 @@
                     <rs-overlay-loading/>
                 </div>
 
-                <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40">
+                <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40 text-center">
                     <span>{{ $t('glossaries.no_players_found') }}</span>
                 </div>
 

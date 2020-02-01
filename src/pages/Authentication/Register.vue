@@ -86,7 +86,7 @@
 <!--                    <span class="text-danger">{{ getInputError('refer_code') }}</span>-->
 
                     {{ /* "Term of Use" check-box button accepting */ }}
-                    <div class="mb-15 mt-10">
+                    <div class="mb-15 mt-10" v-if="height >= 660">
                         <rs-check-box :label="$t('pages.authentication.register.content.accepting_text_term_of_use')"
                                       labelClass="font-size-xs"
                                       name="is_accepted_term_of_use"
@@ -148,6 +148,8 @@
         },
 
         data: () => ({
+            height: 0,
+
             // Load site name translate
             siteName: i18n.t('app.name'),
 
@@ -167,7 +169,7 @@
                 retypePassword: '',
                 whatsappNumber: '',
                 referCode: '',
-                isAcceptTermOfUse: false,
+                isAcceptTermOfUse: true,
 
                 // Rules of inputs of page
                 rules: {
@@ -182,6 +184,10 @@
         }),
 
         methods: {
+            handleResize() {
+                this.height = window.innerHeight
+            },
+
             // Get errors from "rs-form"-component and set in "formErrors"-data-variable
             setFormErrors(errors) {
                 this.formErrors = errors
@@ -237,5 +243,15 @@
                     })
             }
         },
+
+        mounted() {
+            this.handleResize();
+
+            window.addEventListener('resize', this.handleResize)
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.handleResize)
+        }
     }
 </script>

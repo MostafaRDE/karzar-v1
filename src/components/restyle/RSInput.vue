@@ -1,6 +1,6 @@
 <template>
     <div class="rs-input--parent border" :class="{'opacity-6': disabled}">
-        <label v-if="width >= responsiveObject.sizes.lg && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
+        <label v-if="width >= responsiveObject.sizes.xl && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
             <span class="label-icon me-10" v-show="labelIcon">
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
@@ -122,7 +122,7 @@
             },
 
             getPlaceholder() {
-                if (this.inputWidth >= 200) {
+                if (this.width >= this.responsiveObject.sizes.xl) {
                     return this.placeholder
                 } else {
                     let temp = this.label;
@@ -144,6 +144,7 @@
 
         mounted() {
             this.setInputWidth();
+            this.handleResize();
             window.addEventListener('resize', this.handleResize);
             window.addEventListener('resize', this.setInputWidth)
         },

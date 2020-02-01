@@ -31,18 +31,20 @@
 </template>
 
 <script>
+    import i18n from '../../i18n'
+
     export default {
         name: "Footer",
 
         data() {
             return {
                 menu: [
-                    {label: 'Home', to: {name: 'home', params: {lang: this.$route.params.lang}}},
-                    {label: 'Account', to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}}},
-                    {label: 'Tutorials', to: {name: 'tutorials', params: {lang: this.$route.params.lang}}},
-                    {label: 'Blog', to: '#'},
-                    {label: 'Shop', to: '#'},
-                    {label: 'About', to: {name: 'about', params: {lang: this.$route.params.lang}}},
+                    {label: i18n.t('glossaries.home'), to: {name: 'home', params: {lang: this.$route.params.lang}}},
+                    {label: i18n.t('glossaries.tournaments'), to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}}},
+                    {label: i18n.t('glossaries.tutorials'), to: {name: 'tutorials', params: {lang: this.$route.params.lang}}},
+                    {label: i18n.t('glossaries.blog'), to: '#'},
+                    {label: i18n.t('glossaries.shop'), to: '#'},
+                    {label: i18n.t('glossaries.about_us'), to: {name: 'about', params: {lang: this.$route.params.lang}}},
                 ],
 
                 socialNetworks: [

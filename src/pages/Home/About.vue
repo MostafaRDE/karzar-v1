@@ -2,7 +2,7 @@
     <div>
         <div class="container-fluid title-holder text-center text-uppercase" :style="titleStyles">
             <div class="title-wrapper" style="height: 460px">
-                <h1 class="title-inner text-center">{{ $t('glossaries.about') }}</h1>
+                <h1 class="title-inner text-center">{{ $t('glossaries.about_us') }}</h1>
             </div>
         </div>
 

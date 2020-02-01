@@ -15,6 +15,7 @@
 	"currencies_short": {},
 	"glossaries": {
 		"about": "About",
+		"about_us": "About Us",
 		"account": "Account",
 		"account_charging": "Account Charging",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "After the request, you will be paid between 1 and 24 hours",
@@ -189,7 +190,7 @@
 	"pages": {
 		"home": {
 			"main": {
-				"title": "Home Page",
+				"title": "Gametour | Online Games Tournament, PUBG Games Tournament, Fortnite Tournament, Counter Strike Server, Clash Of The Clans Tournament, League Of Legends Tournament",
 				"reservation_panel": {
 					"pubg_users_modal": {
 						"title": "You can find your place at the start of the tournament here"

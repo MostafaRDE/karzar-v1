@@ -254,7 +254,7 @@
                 isShowMenuMobile: false,
 
                 width: 0,
-                widthSideBarShowing: 1500,
+                widthSideBarShowing: 1024,
                 responsiveObject: ResponsiveObject,
 
                 menu: [
