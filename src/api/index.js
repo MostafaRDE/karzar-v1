@@ -155,7 +155,7 @@ export function games_played(page = null, size = itemsPerPage) {
         let url = `lang=${lang()}`;
         if (page)
             url += `&page=${page}&size=${size}`;
-        axios.get(`tournaments/pubg/played?lang=${url}`).then(resolve).catch(reject)
+        axios.get(`tournaments/pubg/played?${url}`).then(resolve).catch(reject)
     })
 }
 

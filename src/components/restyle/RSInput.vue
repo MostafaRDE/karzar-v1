@@ -1,6 +1,6 @@
 <template>
     <div class="rs-input--parent border" :class="{'opacity-6': disabled}">
-        <label v-if="inputWidth >= 200 && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
+        <label v-if="width >= responsiveObject.sizes.lg && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
             <span class="label-icon me-10" v-show="labelIcon">
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+    import ResponsiveObject from "../../modules/objects/Responsive"
+
     export default {
         name: "RSInput",
 
@@ -103,8 +105,10 @@
         },
 
         data: () => ({
+            responsiveObject: ResponsiveObject,
             showPassword: false,
             inputWidth: 200,
+            width: 0,
         }),
 
         computed: {
@@ -130,6 +134,9 @@
         },
 
         methods: {
+            handleResize() {
+                this.width = window.innerWidth
+            },
             setInputWidth() {
                 this.inputWidth = this.$refs.input.clientWidth;
             },
@@ -137,11 +144,13 @@
 
         mounted() {
             this.setInputWidth();
+            window.addEventListener('resize', this.handleResize);
             window.addEventListener('resize', this.setInputWidth)
         },
 
         beforeDestroy() {
-            window.removeEventListener('resize', this.setInputWidth)
+            window.removeEventListener('resize', this.handleResize);
+            window.removeEventListener('resize', this.setInputWidth);
         }
     }
 </script>

@@ -140,7 +140,8 @@
 		"your_games": "Your Games",
 		"your_message": "Your Message",
 		"your_name": "Your Name",
-		"youtube_channel": "Youtube Channel"
+		"youtube_channel": "Youtube Channel",
+		"your_team_bonus_of_this_game": "Your team bonus of this game"
 	},
 	"messages": {
 		"err_empty_required_filed": "",

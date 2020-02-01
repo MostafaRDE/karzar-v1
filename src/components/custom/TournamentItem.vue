@@ -13,7 +13,7 @@
                 <h3 class="text-white">{{ data.title }}</h3>
             </div>
             <div class="w-100 text-center text-xs-start">
-                <span lang="en" class="opacity-8 text-nowrap">{{ data.time }}</span>
+                <span lang="en" class="opacity-8 text-nowrap">{{ data.start_date | moment(`${$route.params.lang === 'af' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'} HH:mm:ss`) }}</span>
             </div>
         </div>
 
@@ -122,7 +122,7 @@
                 let now = moment(new Date());
                 let duration = moment.duration(now.diff(new moment(this.data.start_date)));
 
-                return this.data.is_joined && duration.asMilliseconds() >= 0;
+                return !this.data.finished_at && duration.asMilliseconds() >= 0;
             }
         },
         methods: {
@@ -156,6 +156,10 @@
                         this.loadingPlayers = false;
                     })
             },
+        },
+
+        mounted() {
+            console.log(this.data)
         }
     }
 </script>

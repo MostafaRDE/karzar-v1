@@ -165,7 +165,7 @@
                             {{ /* End tournament multiple form */ }}
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
-                                <div class="flex-grow-1 d-flex w-fit-content ms-auto">
+                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 && (model.is_joined || isRunning) ? 'w-fit-content' : '']">
                                     <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
@@ -176,8 +176,9 @@
                                                :loading="joining"
                                                solid
                                                glow
-                                               trapezeStart
+                                               :trapezeStart="width >= 1024 && (model.is_joined || isRunning)"
                                                class="text-white px-80 text-nowrap"
+                                               :class="width >= 1024 && (model.is_joined || isRunning) ? '' : 'w-100'"
                                                @click.native="storePlayers">
                                         {{ primaryTextButton }}
                                     </rs-button>
@@ -466,14 +467,16 @@
 
             this.resetTimer();
 
-            let vm = this;
-            window.addEventListener('resize', function () {
-                vm.handleResize()
-            });
+            window.addEventListener('resize', this.handleResize);
 
+            let vm = this;
             setInterval(function () {
                 vm.resetTimer();
             }, 1000)
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.handleResize);
         }
     }
 </script>

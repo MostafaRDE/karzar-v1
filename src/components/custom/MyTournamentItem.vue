@@ -7,7 +7,7 @@
 
         <div class="col-xs-6 col-md-5 mt-20 mt-md-0 m-0 d-flex flex-direction-column justify-content-space-between align-items-flex-start">
             <div class="w-100 text-center text-xs-start">
-                <span>{{ $t('glossaries.your_bonus_of_this_game') }}: {{ data.yourReward }}</span>
+                <span>{{ $t('glossaries.your_team_bonus_of_this_game') }}: {{ data.reward_value }}</span>
             </div>
             <div class="w-100 text-center text-xs-start">
                 <h3 class="text-white">{{ data.title }}</h3>
@@ -123,7 +123,7 @@
                 let now = moment(new Date());
                 let duration = moment.duration(now.diff(new moment(this.data.start_date)));
 
-                return this.data.is_joined && duration.asMilliseconds() >= 0;
+                return !this.data.finished_at && duration.asMilliseconds() >= 0;
             }
         },
         methods: {
@@ -157,6 +157,10 @@
                         this.loadingPlayers = false;
                     })
             },
+        },
+
+        mounted() {
+            console.log(this.data)
         }
     }
 </script>

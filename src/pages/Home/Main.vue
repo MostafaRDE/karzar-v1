@@ -108,6 +108,7 @@
                             v-if="tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
                             v-for="(item, index) of tournaments"
                             :key="`tournament-${index}`"
+                            :data="item"
                             class="row py-20"
                             :class="{'border-bottom': index < tournaments.length - 1}"/>
 
@@ -225,7 +226,7 @@
 
                         <div>
                             <textarea placeholder="*Your Message..." class="contact-input"
-                                      v-model="contactFields.content" required/>
+                                      v-model="contactFields.content" required></textarea>
                         </div>
 
                         <div class="mt-10">
@@ -368,6 +369,9 @@
                             let totalPages = response.data.total / this.itemsPerPage;
                             this.gamesPlayedTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
                             this.gamesPlayed = response.data.result;
+
+                            if (this.selectedTournamentTab === 'PUBLIC')
+                                this.tournaments = this.gamesPlayed
                         })
                         .catch(error => {
 
@@ -388,6 +392,8 @@
                             let totalPages = response.data.total / this.itemsPerPage;
                             this.myTournamentsTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
                             this.myTournaments = response.data.result;
+                            if (this.selectedTournamentTab === 'ME')
+                                this.tournaments = this.myTournaments
                         })
                         .catch(error => {
 
@@ -476,9 +482,7 @@
             this.handleResize();
 
             let vm = this;
-            window.addEventListener('resize', function () {
-                vm.handleResize()
-            });
+            window.addEventListener('resize', this.handleResize);
 
             // Load Main Sliders
             getMainSliderItems().then(response => {
@@ -503,6 +507,10 @@
                 this.getMyTournaments();
 
             this.getTutorials();
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.handleResize);
         }
     }
 </script>
