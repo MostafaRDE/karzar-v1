@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import axios from "axios";
 
+const lang = () => require('../i18n').default.locale;
 const token = localStorage.getItem("access_token");
 // Full config:  https://github.com/axios/axios#request-config
 axios.defaults.baseURL = process.env.SERVER_URL || process.env.apiUrl || '';
@@ -34,7 +35,7 @@ const _axios = axios.create(config);
 //         return Promise.reject(error);
 //     }
 // );
-//
+
 // // Add a response interceptor
 _axios.interceptors.response.use(
     function (response) {
@@ -42,7 +43,7 @@ _axios.interceptors.response.use(
     },
     function (error) {
         if (error.response.status && error.response.status === 401) {
-            window.location.assign('/login');
+            window.location.assign(`/${lang()}/login`);
         }
         return Promise.reject(error);
     }

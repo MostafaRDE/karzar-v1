@@ -159,7 +159,7 @@
                 <transition name="slide-down-up-250px">
                     <ul v-if="isShowMenuMobile">
                         <li class="border-bottom" v-for="item of menu">
-                            <router-link :to="item.to">{{ item.label }}</router-link>
+                            <router-link :to="item.to" class="z-index-10">{{ item.label }}</router-link>
                         </li>
                     </ul>
                 </transition>
@@ -215,7 +215,7 @@
                                 <router-link :to="item.to">{{ item.label }}</router-link>
                             </li>
                             <li class="border-bottom" v-for="item of menu.second">
-                                <router-link :to="item.to">{{ item.label }}</router-link>
+                                <router-link :to="item.to" class="z-index-10">{{ item.label }}</router-link>
                             </li>
                         </ul>
                     </transition>

@@ -7,7 +7,7 @@
                 <div class="col mb-0 justify-content-center d-flex">
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
                         <span class="bottom-trapeze-sides trapeze-start-side"/>
-                        <span lang="en" class="ltr text-white"
+                        <span :lang="isRunning && $route.params.lang === 'af' ? 'af' : 'en'" class="ltr text-white"
                               style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">
                             {{ isRunning ? $t('glossaries.running') : timer }}
                         </span>

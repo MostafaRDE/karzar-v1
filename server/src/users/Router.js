@@ -12,8 +12,10 @@ let LoginRateLimit = rateLimit({
 
 
 router.post('/register', User.register_user);
-router.post('/login', LoginRateLimit , User.loginToAccount , passport.authenticate('local') , (req , res) => { res.json({status : true}) } );
-router.get('/logout', LoginRateLimit , UsersMiddleware.check_login_user , (req , res) => {
+router.post('/login', LoginRateLimit, User.loginToAccount, passport.authenticate('local'), (req, res) => {
+    res.json({status : true});
+} );
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect(`/${req.query.lang || ''}`);
 } );

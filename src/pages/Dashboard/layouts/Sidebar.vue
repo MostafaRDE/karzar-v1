@@ -33,7 +33,7 @@
         <hr class="opacity-1"/>
 
         <ul class="main-menu mx--20 mt-20">
-            <li v-for="item of items">
+            <li v-for="item of items" @click="$emit('clickOnMenuButton', 1)">
                 <router-link :to="item.to"
                              class="py-20 d-flex">
                     <component :is="item.icon"/> &nbsp;
@@ -41,9 +41,8 @@
                 </router-link>
             </li>
 
-            <li>
-                <a :href="`/logout?lang=${$route.params.lang}`"
-                   target="_blank"
+            <li @click="$emit('clickOnMenuButton', 1)">
+                <a :href="`/api/v1/users/logout?lang=${$route.params.lang}`"
                    class="py-20 d-flex">
                     <component is="icon-off"/> &nbsp;
                     {{ $t('glossaries.logout') }}

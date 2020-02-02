@@ -11,9 +11,9 @@
         <div class="container-fluid px-0" :style="{background: `#17161a url(${require('../../public/images/public/bg-pubg-sunset.jpg')}) center center / cover repeat-y`}">
             <div class="row">
 
-                <div class="mb-0 z-index-10" :class="[width >= 1024 ? 'col-sm-2' : 'position-fixed bottom-0', width < 1024 ? 'top-70' : '']" style="padding-left: 0 !important; padding-right: 0 !important; min-width: 275px">
+                <div class="mb-0" :class="[{'z-index-10' : width >= 1024 || (width < 1024 && isSideBarActiveInResponsive)}, width >= 1024 ? 'col-sm-2' : 'position-fixed bottom-0', width < 1024 ? 'top-70' : '']" style="padding-left: 0 !important; padding-right: 0 !important; min-width: 275px">
                     <transition name="fade">
-                        <dashboard-sidebar v-if="width >= 1024 || isSideBarActiveInResponsive" class="h-100"/>
+                        <dashboard-sidebar v-if="width >= 1024 || isSideBarActiveInResponsive" class="h-100" @clickOnMenuButton="toggleSideBar"/>
                     </transition>
 
                 </div>

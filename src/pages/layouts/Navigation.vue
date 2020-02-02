@@ -245,6 +245,10 @@
 
                 menu: [
                     {
+                        label: i18n.t('glossaries.account'),
+                        to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}},
+                    },
+                    {
                         label: i18n.t('glossaries.tutorials'),
                         to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                     },
