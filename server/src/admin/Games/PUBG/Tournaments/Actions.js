@@ -208,6 +208,30 @@ class PubgTournamentsActions {
         })
     }
 
+    end(id) {
+        return new Promise(async (resolve, reject) => {
+            let model = new PubgTournamentPlayerModel();
+
+            model.update(['finished_at'], ['now()'], ['id'], [id]).then(data => {
+                resolve({status: true})
+            }).catch(error => {
+                reject({status: false})
+            })
+        });
+    }
+
+    clearEnd(id) {
+        return new Promise(async (resolve, reject) => {
+            let model = new PubgTournamentPlayerModel();
+
+            model.update(['finished_at'], [null], ['id'], [id]).then(data => {
+                resolve({status: true})
+            }).catch(error => {
+                reject({status: false})
+            })
+        });
+    }
+
     destroy(id) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();

@@ -53,7 +53,7 @@
             <rs-overlay-loading/>
         </div>
 
-        <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40">
+        <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40 text-center">
             <span>{{ $t('glossaries.no_players_found') }}</span>
         </div>
 

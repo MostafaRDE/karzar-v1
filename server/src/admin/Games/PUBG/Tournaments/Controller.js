@@ -89,6 +89,30 @@ module.exports = {
         ).then(res => response.json(res)).catch(err => response.send(err))
     },
 
+    end(request, response) {
+        // if (authorize('users.block', request.user_data)) {
+            let actions = new Actions();
+
+            actions.end(
+                request.params.id
+            ).then(res => response.json(res)).catch(err => response.send(err))
+        // } else {
+        //     response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
+        // }
+    },
+
+    clearEnd(request, response) {
+        // if (authorize('users.unblock', request.user_data)) {
+            let actions = new Actions();
+
+            actions.clearEnd(
+                request.params.id
+            ).then(res => response.json(res)).catch(err => response.send(err))
+        // } else {
+        //     response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
+        // }
+    },
+
     destroy(request, response) {
         let actions = new Actions();
         actions.destroy(request.params.id).then(data => {

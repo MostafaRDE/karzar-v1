@@ -13,7 +13,7 @@
 
             <div class="d-flex align-items-center">
                 <a href="javascript:void(0)" class="cursor-pointer"
-                   @click="$router.push({name: 'dashboardProfile', params: {lang: $route.params.lang}})">
+                   @click="goToProfile">
                     <img src="/public/images/public/icons/ic-gear.svg" alt=""/>
                 </a>
             </div>
@@ -25,7 +25,7 @@
                 <span class="py-20 d-flex align-items-center cursor-default" @click="">
                     <component is="icon-money-bag"/>&nbsp;&nbsp;{{ $t('glossaries.balance') }}:
                     <span class="font-size-lg font-weight-900 mx-20">{{ moneyFormatFast($store.state.balance || '0', 2) }}$</span>
-                    <rs-button glow solid xsmall class="ms-auto" @click.native="$router.push({name: 'dashboardAccountCharging', params: {lang: $route.params.lang}})">+</rs-button>
+                    <rs-button glow solid xsmall class="ms-auto" @click.native="goToDepositPage">+</rs-button>
                 </span>
             </li>
         </ul>
@@ -99,6 +99,17 @@
                 ]
             }
         },
+
+        methods: {
+            goToDepositPage() {
+                this.$router.push({name: 'dashboardAccountCharging', params: {lang: this.$route.params.lang}});
+                this.$emit('clickOnMenuButton', 1)
+            },
+            goToProfile() {
+                this.$router.push({name: 'dashboardProfile', params: {lang: this.$route.params.lang}});
+                this.$emit('clickOnMenuButton', 1)
+            }
+        }
     }
 </script>
 

@@ -10,7 +10,11 @@
             <rs-overlay-loading width="28"/>
         </div>
 
-        <rs-pagination v-if="tournaments.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
+        <div v-if="!loading && !tournaments.length" class="py-50 text-center">
+            {{ $t('glossaries.nothing_tournaments') }}
+        </div>
+
+        <rs-pagination v-if="!loading && tournaments.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
     </div>
 </template>
 

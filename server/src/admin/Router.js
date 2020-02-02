@@ -69,6 +69,8 @@ router.get('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournaments
 router.post('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournamentsController.store);
 router.get('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.show);
 router.put('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.update);
+router.put('/games/pubg/tournaments/:id/end', adminMiddleware.check_jwt, PubgTournamentsController.end);
+router.put('/games/pubg/tournaments/:id/clear-end', adminMiddleware.check_jwt, PubgTournamentsController.clearEnd);
 router.put('/games/pubg/tournaments/:id/set-winner-team', adminMiddleware.check_jwt, PubgTournamentsController.setWinnerTeam);
 router.get('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, PubgTournamentsController.players);
 router.put('/games/pubg/tournaments/:id/players/:player_id/add-room-details', adminMiddleware.check_jwt, PubgTournamentsController.addAuthenticationRoomToGroupPlayers);
