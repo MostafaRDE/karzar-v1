@@ -56,7 +56,7 @@
                 this.updateDetailsOfThemeParts(newTheme)
             },
             isFirstLoaded(val) {
-                if (val || this.canNotLoadFirstData) {
+                if (val && !this.canNotLoadFirstData) {
                     document.body.style.overflow = 'auto';
                 } else {
                     document.body.style.overflow = 'hidden';

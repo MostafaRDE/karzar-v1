@@ -24,7 +24,7 @@
             <li>
                 <span class="py-20 d-flex align-items-center cursor-default" @click="">
                     <component is="icon-money-bag"/>&nbsp;&nbsp;{{ $t('glossaries.balance') }}:
-                    <span class="font-size-lg font-weight-900 mx-20">{{ moneyFormatFast($store.state.balance, 2) }}$</span>
+                    <span class="font-size-lg font-weight-900 mx-20">{{ moneyFormatFast($store.state.balance || '0', 2) }}$</span>
                     <rs-button glow solid xsmall class="ms-auto" @click.native="$router.push({name: 'dashboardAccountCharging', params: {lang: $route.params.lang}})">+</rs-button>
                 </span>
             </li>
