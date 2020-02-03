@@ -73,7 +73,7 @@
                     {{ /* Start about */ }}
                     <div class="d-flex justify-content-center align-items-center" id="main--navbar--about">
                         <div class="me-25">
-                            <span class="font-size-sm">follow us on:</span>
+                            <span class="font-size-sm">{{ $t('glossaries.follow_us_on') }}:</span>
                         </div>
                         <div class="z-index-1">
                             <ul class="d-flex">
