@@ -10,7 +10,7 @@
             <rs-overlay-loading width="28"/>
         </div>
 
-        <div v-if="!loading && !tournaments.length" class="py-50 text-center">
+        <div v-if="!loading && !transactions.length" class="py-50 text-center">
             {{ $t('glossaries.nothing_transactions') }}
         </div>
 

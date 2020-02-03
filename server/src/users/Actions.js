@@ -60,6 +60,10 @@ class Actions {
                             bcrypt.hash(password, salt, function (err, pass_hash) {
                                 userModel.insert(['email', 'whatsapp_number', 'password', 'refer_code'], [email, whatsapp_number, pass_hash, refer_code]);
                                 userModel.on('insert', async data => {
+
+                                    let walletModel = new WalletModel();
+                                    await walletModel.insertSync(['user_id'], [data.id]);
+
                                     // TODO :: SEND EMAIL APPROVE
                                     await mailer.send_valid_email_address(data.id, email, lang);
 

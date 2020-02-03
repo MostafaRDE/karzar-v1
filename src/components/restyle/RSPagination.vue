@@ -3,7 +3,7 @@
         {{ /* Previous Button */ }}
         <span class="d-flex align-items-center linkable"
                    :color="color"
-                   @click="model -= model !== 1 ? 1 : 0">
+                   @click="back()">
             <mdi-arrow-right
                     v-if="$route.params.lang !== 'fa' && $route.params.lang !== 'ar' && $route.params.lang !== 'af'"
                     class="me-5"
@@ -19,11 +19,11 @@
             <template v-for="button of buttons">
 
                 <span v-if="button.type === 1"
-                      class="px-5 linkable"
+                      class="px-5 linkable no-select"
                       :style="{color: selected !== button.index ? color : activeColor}"
                       @click="updatePagination(button.index)">{{ button.index }}</span>
                 <span v-if="button.type === 0"
-                           class="px-5">...
+                           class="px-5 no-select">...
                 </span>
             </template>
 
@@ -33,7 +33,7 @@
         <span class="d-flex align-items-center linkable"
                    :bg="bg"
                    :color="color"
-                   @click="model += model < count ? 1 : 0">
+                   @click="next()">
             <mdi-arrow-left
                     v-if="$route.params.lang !== 'fa' && $route.params.lang !== 'ar' && $route.params.lang !== 'af'"
                     class="ms-5"
@@ -147,8 +147,19 @@
         },
 
         methods: {
+            back() {
+                if (this.model !== 1)
+                    this.model--
+            },
+
+            next() {
+                if (this.model < this.count)
+                    this.model++
+            },
+
             updatePagination (n) {
-                this.model = n
+                if (this.selected !== this.model)
+                    this.model = n
             }
         }
     }

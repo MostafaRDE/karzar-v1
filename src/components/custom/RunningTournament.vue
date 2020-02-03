@@ -91,13 +91,8 @@
                                     {{ /* Start getting user registration data */ }}
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
-                                            <div v-if="$store.state.user_auth && model.is_joined && !isRunning && tournament.username"
-                                                 class="d-inline-flex flex-direction-column">
-                                                <span>{{ $t('glossaries.username') }}: {{ tournament.username }}</span>
-                                                <span>{{ $t('glossaries.password') }}: {{ tournament.password }}</span>
-                                            </div>
-                                            <div>
-                                                <rs-input v-if="!model.is_joined && !isRunning"
+                                            <div v-if="!model.is_joined && !isRunning">
+                                                <rs-input
                                                           type="text"
                                                           :label="$t('glossaries.character_name')"
                                                           v-model="fields.player1"/>
@@ -107,6 +102,14 @@
                                                       @click="showPlayersModal">
                                                     <icon-multiple-users fill="#BBBBBB" width="35px"/>
                                                 </span>
+                                                <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ms-20">
+                                                    <span>{{ $t('glossaries.username') }}: {{ tournament.username || '' }}</span>
+                                                    <span>{{ $t('glossaries.password') }}: {{ tournament.password || '' }}</span>
+                                                </div>
+                                            </div>
+                                            <div v-if="model.is_joined || isRunning" class="d-inline-flex flex-direction-column mt-20">
+                                                <span>{{ $t('glossaries.username') }}: {{ tournament.username || '' }}</span>
+                                                <span>{{ $t('glossaries.password') }}: {{ tournament.password || '' }}</span>
                                             </div>
                                         </div>
                                     </div>
