@@ -8,10 +8,10 @@ const translateStore = require('../../../util/glossary').store;
 const translateUpdate = require('../../../util/glossary').update;
 
 class GatewaysActions {
-    index(lang = null) {
+    index(lang = null, type) {
         return new Promise((resolve, reject) => {
             let gatewayModel = new GatewayModel();
-            gatewayModel.fetch_all_custom(`SELECT * FROM gateways ORDER BY name ASC`).then(async data => {
+            gatewayModel.fetch_all_custom(`SELECT * FROM gateways WHERE type = '${type}' ORDER BY name ASC`).then(async data => {
                 for (let i = 0; i < data.result.length; i++)
                     if (data.result[i].image_media_id) {
                         data.result[i].key_1 = lang === null ? await getTranslates(data.result[i].glossary_key_key_1) : await translate(data.result[i].glossary_key_key_1, lang);
@@ -23,15 +23,15 @@ class GatewaysActions {
         });
     }
 
-    store(name, key1, key2, mediaId) {
+    store(name, key1, key2, mediaId, type) {
         return new Promise(async (resolve, reject) => {
             let gatewayModel = new GatewayModel();
             let totalAmountModel = new TotalAmountModel();
             try {
                 const translateKey1 = `gateway_key_1_${microtime()}`;
                 const translateKey2 = `gateway_key_2_${microtime()}`;
-                let keys = ['name', 'glossary_key_key_1', 'glossary_key_key_2'];
-                let values = [name, translateKey1, translateKey2];
+                let keys = ['name', 'glossary_key_key_1', 'glossary_key_key_2', 'type'];
+                let values = [name, translateKey1, translateKey2, type];
                 if (mediaId) {
                     keys.push('image_media_id');
                     values.push(mediaId);
@@ -55,13 +55,13 @@ class GatewaysActions {
         });
     }
 
-    update(id, name, key1, key2, mediaId = undefined) {
+    update(id, name, key1, key2, type, mediaId = undefined) {
         return new Promise(async (resolve, reject) => {
             let gatewayModel = new GatewayModel();
 
             try {
-                let keys = ['name'];
-                let values = [name];
+                let keys = ['name', 'type'];
+                let values = [name, type];
                 if (mediaId) {
                     keys.push('image_media_id');
                     values.push(mediaId);

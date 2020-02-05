@@ -1,10 +1,10 @@
 const {TotalAmountModel, TransactionModel} = require("../../../../Models/PaymentModel")
 
 class TransactionsAction {
-    index() {
+    index(type) {
         return new Promise((resolve, reject) => {
             let model = new TransactionModel();
-            model.fetch_all_custom('SELECT * FROM v_transactions_users').then(async data => {
+            model.fetch_all_custom(`SELECT * FROM v_transactions_users WHERE type = '${type}' ORDER BY id DESC`).then(async data => {
                 resolve(data)
             }).catch(reject)
         })
