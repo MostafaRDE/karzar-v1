@@ -465,7 +465,7 @@
                                 tag: 'sports',
                                 text: tutorial.text,
                                 youtubeLink: tutorial.youtube_link,
-                                backgroundImage: `/api/v1/uploads?id=${tutorial.image_media_id}`
+                                backgroundImage: tutorial.image.url_static,
                             }))
                         })
                         .catch(error => {
@@ -488,8 +488,8 @@
             getMainSliderItems().then(response => {
                 response.data.result.forEach(slide => {
                     vm.imagesSlider.push({
-                        image: slide.media.id,
-                        imageStatic: false,
+                        image: slide.media.url_static,
+                        imageStatic: true,
                         title: slide.title,
                         button: {
                             label: slide.link_text,

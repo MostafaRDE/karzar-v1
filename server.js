@@ -86,6 +86,7 @@ grid.collection('uploads');
 app.use(compression({threshold: 0}));
 app.use('/dist', serve('./dist', true));
 app.use('/public', serve('./public', true));
+app.use('/uploads', serve('./uploads', true));
 app.use('/manifest.json', serve('./manifest.json', true));
 app.use('/service-worker.js', serve('./dist/service-worker.js'));
 app.use(helmet());

@@ -13,6 +13,7 @@ module.exports.getFile = function (id, thumb) {
                 let date = moment(file.updated_at);
 
                 file['url'] = `${process.env.UPLOADS_DIR}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${file.filename_physical}`;
+                file['url_static'] = `${process.env.UPLOADS_DIR_STATIC}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${file.filename_physical}`;
 
                 if (thumb) {
                     if (file.thumbs) {
@@ -27,7 +28,8 @@ module.exports.getFile = function (id, thumb) {
                             else
                                 extname = '';
 
-                            file['url'] = `${process.env.UPLOADS_DIR}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${basenameWithoutExtname}_thumb_${thumb}${extname}`
+                            file['url'] = `${process.env.UPLOADS_DIR}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${basenameWithoutExtname}_thumb_${thumb}${extname}`;
+                            file['url_static'] = `${process.env.UPLOADS_DIR_STATIC}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${basenameWithoutExtname}_thumb_${thumb}${extname}`;
                         } else {
                             reject({
                                 status: false,
@@ -44,6 +46,7 @@ module.exports.getFile = function (id, thumb) {
 
                 resolve(file)
             }).catch(error => {
+                console.log(error);
                 reject({
                     status: false,
                     msg: __('messages').internal_server_error

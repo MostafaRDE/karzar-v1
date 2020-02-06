@@ -58,7 +58,7 @@
                                 typeShift: item.type, // INPUT | OUTPUT | ABSOLUTE
                                 time: item.created_at, // TIME WITH TIMEZONE
                                 gateway: item.gateway.name, // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
-                                gateway_logo_id: item.gateway.image_media_id, // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
+                                gateway_logo: item.gateway.image.url_static, // PAYPAL | BITCOIN | TOURNAMENT | ACCOUNT
                                 status: this.status_convertCodeToKey(item.status), // AWAITING_REVIEW | SUCCESS | FAILED
                                 reason: item.in_order_to, // account_charging | join_to_tournament | withdraw
                                 reasonReject: item.status_description, // Reason for rejected action

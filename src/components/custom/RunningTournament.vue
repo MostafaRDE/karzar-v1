@@ -27,7 +27,7 @@
                                     class="mb-0 px-10 pe-lg-0 z-index-1 d-flex justify-content-flex-end align-items-center running-tournament--panel--banner">
 
                             <div class="flex-grow-0 my-10 ms-lg--30 d-flex align-items-center">
-                                <img :src="`/api/v1/uploads?id=${model.map.image.id}&thumb=1024`"
+                                <img :src="model.map.image.url_static"
                                      alt="" class="w-100"/>
                             </div>
 
@@ -168,10 +168,11 @@
                             {{ /* End tournament multiple form */ }}
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
-                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 || (!model.is_joined && !isRunning) ? 'w-fit-content' : '']">
+                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 || (width >= 1024 && (!model.is_joined && !isRunning)) ? 'w-fit-content' : 'w-100', {'flex-direction-column': width <= 425}]">
                                     <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
+                                               :class="{'flex-grow-1': width < 1024}"
                                                @click.native="reservationType === 'SINGLE' && tournament.group_capacity > 1 ? reservationType = 'GROUP' : reservationType = 'SINGLE'">
                                         {{ $t('glossaries.' + (reservationType === 'SINGLE' && tournament.group_capacity > 1 ? 'team_join' : 'information')) }}
                                     </rs-button>
@@ -179,9 +180,9 @@
                                                :loading="joining"
                                                solid
                                                glow
-                                               :trapezeStart="width >= 1024 || (!model.is_joined && !isRunning)"
-                                               class="text-white px-80 text-nowrap"
-                                               :class="width >= 1024 || (!model.is_joined && !isRunning) ? '' : 'w-100'"
+                                               :trapezeStart="width >= 1024 || (width >= 1024 && (!model.is_joined && !isRunning))"
+                                               class="text-white text-nowrap"
+                                               :class="[width >= 1024 || (!model.is_joined && !isRunning) ? '' : 'w-100', {'px-80': width >= 1024}, {'flex-grow-1': width < 1024}]"
                                                @click.native="storePlayers">
                                         {{ primaryTextButton }}
                                     </rs-button>
@@ -222,7 +223,7 @@
                             <div class="col-3 mb-0" v-for="player of team">
                                 <div class="overflow-hidden position-relative"
                                      :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                                    <img :src="player.image ? `/api/v1/uploads?id=${player.image}&thumb=64` : '/public/images/public/pubg-default-profile.svg'"
+                                    <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
                                          alt=""
                                          class="w-100"/>
                                     <span class="position-absolute font-size-xxs"
@@ -365,7 +366,7 @@
                                 this.modals.pubgTournamentUsers.teams[player.group_number - 1] = [];
                             this.modals.pubgTournamentUsers.teams[player.group_number - 1].push({
                                 name: player.character_name,
-                                image: player.profile_image_id
+                                image: player.profile_image
                             })
                         });
                     })

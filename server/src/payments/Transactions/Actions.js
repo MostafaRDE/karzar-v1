@@ -1,6 +1,7 @@
 const {GatewayModel} = require("../../../Models/GatewayModel");
 const {TransactionModel} = require("../../../Models/PaymentModel");
 const {WalletModel} = require("../../../Models/WalletModel");
+const mediaGetFile = require('../../../util/media').getFile;
 const translate = require('../../../util/glossary').translate;
 
 class Actions {
@@ -12,6 +13,7 @@ class Actions {
                 try {
                     for (let i = 0; i < data.result.length; i++) {
                         data.result[i].gateway = await gatewayModel.fetch_one('*', ['id'], [data.result[i].gateway_id]);
+                        data.result[i].gateway.image = await mediaGetFile(data.result[i].gateway.image_media_id);
                         data.result[i].gateway.key1 = await translate(data.result[i].gateway.glossary_key_key_1, lang);
                         data.result[i].gateway.key2 = await translate(data.result[i].gateway.glossary_key_key_2, lang);
                     }

@@ -1,5 +1,5 @@
 <template>
-    <div :style="`background: url(/public/images/${$store.state.dir}/public/bg-withdraw-pubg.jpg) center center / cover repeat-y`">
+    <div :style="`background: url(/public/images/${$store.state.dir}/public/bg-withdraw-pubg.jpg) center top / cover fixed repeat-y`">
         <rs-form :submit="withdraw" @errors="setFormErrors">
             <div class="py-20 px-40"
                  style="background: #161519CC; width: 450px; max-width: 100%; min-height: 660px; color: #fff">
@@ -121,7 +121,8 @@
                                 this.$toast.success({
                                     title: i18n.t('glossaries.account_charging'),
                                     message: i18n.t('messages.successes.account_charging_request_successful'),
-                                })
+                                });
+                                this.$router.push({name: 'dashboardTransactions', params: {lang: this.$route.params.lang}})
                             })
                             .catch(error => {
                                 this.$toast.error({

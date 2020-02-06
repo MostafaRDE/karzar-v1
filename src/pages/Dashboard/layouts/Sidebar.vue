@@ -7,8 +7,8 @@
             </div>
 
             <div class="flex-grow-1 d-flex flex-direction-column justify-content-space-around">
-                <span>{{ $store.state.profile.name }}</span>
-                <span>{{ $store.state.profile.email }}</span>
+                <span>{{ name }}</span>
+                <span>{{ email }}</span>
             </div>
 
             <div class="d-flex align-items-center">
@@ -97,6 +97,21 @@
                         to: {name: 'dashboardTickets', params: {lang: this.$route.params.lang}},
                     },
                 ]
+            }
+        },
+
+        computed: {
+            email() {
+                if (this.$store.state.profile)
+                    return this.$store.state.profile.email;
+                else
+                    return ''
+            },
+            name() {
+                if (this.$store.state.profile)
+                    return this.$store.state.profile.name;
+                else
+                    return ''
             }
         },
 

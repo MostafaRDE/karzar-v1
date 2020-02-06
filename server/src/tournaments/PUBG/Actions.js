@@ -149,7 +149,15 @@ class Actions {
         return new Promise((resolve, reject) => {
             let model = new PubgTournamentPlayerModel();
             model.fetch_all_custom(`SELECT pubg.tournament_players.*, users.media_id as profile_image_id FROM pubg.tournament_players INNER JOIN users ON (tournament_players.user_id = users.id) WHERE tournament_id = ${id} ORDER BY group_number, character_name`)
-                .then(resolve)
+                .then(async data => {
+                    for (let i = 0; i < data.result.length; i++) {
+                        if (data.result[i].profile_image_id)
+                            data.result[i].profile_image = await mediaGetFile(data.result[i].profile_image_id);
+                        else
+                            data.result[i].profile_image = null;
+                    }
+                    resolve(data)
+                })
                 .catch(error => {
                     reject({
                         status: false,

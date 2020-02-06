@@ -2,7 +2,7 @@
     <div class="row py-20">
 
         <div class="col-md-2 m-0 d-flex justify-content-center">
-            <img :src="`/api/v1/uploads?id=${data.map.image.id}`" alt="" style="max-width: 100%" />
+            <img :src="data.map.image.url_static" alt="" style="max-width: 100%" />
         </div>
 
         <div class="col-xs-6 col-md-5 mt-20 mt-md-0 m-0 d-flex flex-direction-column justify-content-space-between align-items-flex-start">
@@ -70,7 +70,7 @@
                     <div class="col-3 mb-0" v-for="player of team">
                         <div class="overflow-hidden position-relative"
                              :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                            <img :src="player.image ? `/api/v1/uploads?id=${player.image}&thumb=64` : '/public/images/public/pubg-default-profile.svg'"
+                            <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
                                  alt=""
                                  class="w-100"/>
                             <span class="position-absolute font-size-xxs"
@@ -143,7 +143,7 @@
                                 this.modals.pubgTournamentUsers.teams[player.group_number - 1] = [];
                             this.modals.pubgTournamentUsers.teams[player.group_number - 1].push({
                                 name: player.character_name,
-                                image: player.profile_image_id
+                                image: player.profile_image
                             })
                         });
                     })
