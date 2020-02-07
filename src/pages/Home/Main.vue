@@ -156,7 +156,7 @@
                         <a :href="tutorial.youtubeLink" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
                     </title-box-animated>
 
-                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date }}</span>
+                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date | moment(`${$route.params.lang === 'af' ? 'jYYYY/jMM/jDD': 'YYYY/MM/DD'} HH:mm:ss`) }}</span>
 
                     <p class="mt-20 text-white">{{ tutorial.text }}</p>
 
@@ -179,7 +179,7 @@
                         <h1 class="text-white line-height-1-1" :style="{fontFamily: `${$route.params.lang === 'en' ? 'Rubik' : 'IRANSans'} !important`}">
                             {{ $t('glossaries.tournaments_executor') }}:<br>
 <!--                            {{ $t('names.edrees_sharifi') }}-->
-                            {{ $t('names.youtuber_name') }}
+                            {{ $t('glossaries.youtuber_name') }}
                         </h1>
 
                         <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
