@@ -178,11 +178,15 @@
                     <div>
                         <h1 class="text-white line-height-1-1" :style="{fontFamily: `${$route.params.lang === 'en' ? 'Rubik' : 'IRANSans'} !important`}">
                             {{ $t('glossaries.tournaments_executor') }}:<br>
-                            {{ $t('names.edrees_sharifi') }}
+<!--                            {{ $t('names.edrees_sharifi') }}-->
+                            {{ $t('names.youtuber_name') }}
                         </h1>
 
                         <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
-                            <a href="https://www.youtube.com/channel/UC--7oyGW0N7fMf164-ZXljQ" target="_blank" class="d-flex" style="padding: 13px 44px">
+<!--                            <a href="https://www.youtube.com/channel/UC&#45;&#45;7oyGW0N7fMf164-ZXljQ" target="_blank" class="d-flex" style="padding: 13px 44px">-->
+<!--                                <span class="btn-text d-flex justify-content-center align-items-center text-white">{{ $t('glossaries.youtube_channel') }}</span>-->
+<!--                            </a>-->
+                            <a href="https://www.youtube.com/" target="_blank" class="d-flex" style="padding: 13px 44px">
                                 <span class="btn-text d-flex justify-content-center align-items-center text-white">{{ $t('glossaries.youtube_channel') }}</span>
                             </a>
                         </button>

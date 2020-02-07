@@ -145,7 +145,8 @@
 		"your_message": "پیام شما",
 		"your_name": "نام شما",
 		"your_team_bonus_of_this_game": "جایزه تیم شما از این بازی",
-		"youtube_channel": "کانال یوتیوب"
+		"youtube_channel": "کانال یوتیوب",
+		"youtuber_name": "نام یوتیوبر"
 	},
 	"messages": {
 		"err_empty_required_filed": "فیلد های اجباری را پر کنید",
