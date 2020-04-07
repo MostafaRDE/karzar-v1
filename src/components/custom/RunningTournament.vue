@@ -54,25 +54,26 @@
                                                 {{ /* Map */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.map') }}:</span>&nbsp;
-                                                    <span lang="en">{{ model.map.name }}</span>
+                                                    <span class="text-left" lang="en">{{ model.map.name }}</span>
                                                 </div>
 
                                                 {{ /* Input */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                    <span>{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
+                                                    <span class="text-left text-nowrap">{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
                                                 </div>
 
                                                 {{ /* Reward */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.reward') }}:</span>&nbsp;
-                                                    <span lang="en">{{ model.reward_value }}</span>
+                                                    <span class="text-left text-nowrap">{{ model.reward_value }}</span>
                                                 </div>
 
                                             </div>
 
                                             {{ /* Start count gamers data */ }}
-                                            <rs-progressbar-circular fontSize="12px"
+                                            <rs-progressbar-circular v-if="width >= 1200 || width < 1024"
+                                                                     fontSize="12px"
                                                                      :progress="model.players_count || 0"
                                                                      :max="model.capacity"
                                                                      :size="width < 1200 && width >= 1024 ? 60 : 100"
@@ -215,11 +216,12 @@
                         <div class="team-title d-flex">
                             <div class="d-flex">
                                 <span class="font-size-xs text-nowrap"
-                                      style="padding: 2px 20px 1px 8px; background: #ffffff0f">{{ `${$t('glossaries.team')} ${index + 1}` }}</span>
+                                      style="padding: 2px 20px 1px 8px"
+                                      :style="{background: isMyTeam(team) ? '#E17F0045' : '#ffffff0f'}">{{ `${$t('glossaries.team')} ${index + 1}` }}</span>
                             </div>
                             <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
                         </div>
-                        <div class="row py-10" style="background: #ffffff0f">
+                        <div class="row py-10" :style="{background: isMyTeam(team) ? '#E17F0045' : '#ffffff0f'}">
                             <div class="col-3 mb-0" v-for="player of team">
                                 <div class="overflow-hidden position-relative"
                                      :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
@@ -310,21 +312,16 @@
             usersCount() {
                 let count = 1;
                 if (this.actives.player2)
-                    count ++;
+                    count++;
                 if (this.actives.player3)
-                    count ++;
+                    count++;
                 if (this.actives.player4)
-                    count ++;
+                    count++;
                 return count;
             },
             primaryTextButton() {
                 let text = '';
                 if (!this.isRunning) {
-                    if (!this.model.is_joined)
-                        if (this.model.fee == 0)
-                            text += `${i18n.t('glossaries.free')} `;
-                        else
-                            text += `${this.model.fee * this.usersCount}$ `;
                     text += i18n.t(`glossaries.${this.model.is_joined ? 'tournaments' : 'join_now'}`)
                 } else {
                     text += i18n.t(`glossaries.watch_now`)
@@ -334,6 +331,16 @@
         },
 
         methods: {
+            isMyTeam(team) {
+                console.log(team)
+                if (this.$store.state.profile)
+                    for (let i = 0; i < team.length; i++)
+                        if (team[i].userId === this.$store.state.profile.id)
+                            return true;
+
+                return false;
+            },
+
             handleResize() {
                 this.width = window.innerWidth
             },
@@ -366,7 +373,8 @@
                                 this.modals.pubgTournamentUsers.teams[player.group_number - 1] = [];
                             this.modals.pubgTournamentUsers.teams[player.group_number - 1].push({
                                 name: player.character_name,
-                                image: player.profile_image
+                                image: player.profile_image,
+                                userId: player.user_id,
                             })
                         });
                     })
@@ -491,6 +499,12 @@
             &--data
                 padding-left 0 !important
                 padding-right 0 !important
+                &--description
+                    span
+                        &:nth-child(1)
+                            opacity 0.8
+                        &:nth-child(2)
+                            color white
 
 
     @media screen and (min-width: 1024px)
@@ -511,12 +525,12 @@
                         span
                             font-size 18px
 
-                            &:nth-child(1)
-                                opacity 0.8
+                            /*&:nth-child(1)*/
+                            /*    opacity 0.8*/
 
-                            &:nth-child(2)
-                                color white
-                                font-weight 900
+                            /*&:nth-child(2)*/
+                            /*    color white*/
+                            /*    font-weight 900*/
 
                     .content > div:nth-child(1)
                         box-shadow -4px 2px 9px 0 #000

@@ -1,12 +1,12 @@
 <template>
     <div class="py-20 px-40">
-        <ticket-item v-if="false"
+        <ticket-item v-if="isDev"
                      v-for="(ticket, index) of tickets"
                       :key="`transaction-${index}`"
                       :data="ticket"
                       :class="{'border-bottom': index < tickets.length - 1}"/>
 
-        <div v-if="false"
+        <div v-if="isDev"
              class="row pagination mt-20">
             <div class="col text-white d-flex justify-content-center">
                 <span class="px-5 linkable">1</span>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="text-center">
+        <div v-if="!isDev" class="text-center">
             <h1 class="py-50">Coming Soon</h1>
         </div>
     </div>
@@ -36,6 +36,7 @@
         },
 
         data: () => ({
+            isDev: process.env.NODE_ENV === 'development',
             tickets: [
                 {id: 23451, subject: 'Problem in deposit', status: 'ANSWERED', date: '2019/05/18 - 09-23'},
                 {id: 23452, subject: 'Problem in withdraw', status: 'NEW', date: '2019/05/19 - 21-08'},

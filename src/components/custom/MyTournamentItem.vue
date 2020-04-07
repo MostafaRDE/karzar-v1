@@ -7,7 +7,7 @@
 
         <div class="col-xs-6 col-md-5 mt-20 mt-md-0 m-0 d-flex flex-direction-column justify-content-space-between align-items-flex-start">
             <div class="w-100 text-center text-xs-start">
-                <span>{{ $t('glossaries.your_team_bonus_of_this_game') }}: {{ data.reward_value }}</span>
+                <span>{{ $t('glossaries.your_team_bonus_of_this_game') }}: <span class="text-white">{{ data.reward_value }}</span></span>
             </div>
             <div class="w-100 text-center text-xs-start">
                 <h3 class="text-white">{{ data.title }}</h3>
@@ -40,47 +40,47 @@
             </div>
         </div>
 
-    <rs-modal :styleModal="modals.pubgTournamentUsers.stylesModal"
-              v-model="modals.pubgTournamentUsers.visibility">
-        <div class="py-10 text-center">
-            <span>{{ $t('pages.home.main.reservation_panel.pubg_users_modal.title') }}</span>
-            <span class="position-absolute font-size-xl end-15 cursor-pointer"
-                  @click="modals.pubgTournamentUsers.visibility = false">×</span>
-        </div>
-        <hr class="mx-100 opacity-2"/>
+        <rs-modal :styleModal="modals.pubgTournamentUsers.stylesModal"
+                  v-model="modals.pubgTournamentUsers.visibility">
+            <div class="py-10 text-center">
+                <span>{{ $t('pages.home.main.reservation_panel.pubg_users_modal.title') }}</span>
+                <span class="position-absolute font-size-xl end-15 cursor-pointer"
+                      @click="modals.pubgTournamentUsers.visibility = false">×</span>
+            </div>
+            <hr class="mx-100 opacity-2"/>
 
-        <div v-if="loadingPlayers" class="pb-50 pt-40">
-            <rs-overlay-loading/>
-        </div>
+            <div v-if="loadingPlayers" class="pb-50 pt-40">
+                <rs-overlay-loading/>
+            </div>
 
-        <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40 text-center">
-            <span>{{ $t('glossaries.no_players_found') }}</span>
-        </div>
+            <div v-if="!loadingPlayers && !modals.pubgTournamentUsers.teams.length" class="pb-50 pt-40 text-center">
+                <span>{{ $t('glossaries.no_players_found') }}</span>
+            </div>
 
-        <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10">
-            <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
-                <div class="team-title d-flex">
-                    <div class="d-flex">
+            <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10">
+                <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
+                    <div class="team-title d-flex">
+                        <div class="d-flex">
                                 <span class="font-size-xs text-nowrap"
                                       style="padding: 2px 20px 1px 8px; background: #ffffff0f">{{ `${$t('glossaries.team')} ${index + 1}` }}</span>
+                        </div>
+                        <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
                     </div>
-                    <div class="w-100 mb-5 ms-5" style="background: #ffffff0f"></div>
-                </div>
-                <div class="row py-10" style="background: #ffffff0f">
-                    <div class="col-3 mb-0" v-for="player of team">
-                        <div class="overflow-hidden position-relative"
-                             :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                            <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
-                                 alt=""
-                                 class="w-100"/>
-                            <span class="position-absolute font-size-xxs"
-                                  style="padding: 0 4px; background: #000B; bottom: 1px; left: 1px; right: 1px;">{{ player.name }}</span>
+                    <div class="row py-10" style="background: #ffffff0f">
+                        <div class="col-3 mb-0" v-for="player of team">
+                            <div class="overflow-hidden position-relative"
+                                 :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
+                                <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
+                                     alt=""
+                                     class="w-100"/>
+                                <span class="position-absolute font-size-xxs"
+                                      style="padding: 0 4px; background: #000B; bottom: 1px; left: 1px; right: 1px;">{{ player.name }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </rs-modal>
+        </rs-modal>
 
     </div>
 </template>

@@ -14,6 +14,7 @@
                           rules="required"
                           name="amount"
                           v-model="amount"/>
+                <span class="text-danger">{{ getInputError('amount') }}</span>
 
                 <rs-drop-down-pro class="mt-30" :source="accounts" v-model="selectedAccount">
                     <template slot-scope="{data}" slot="item-adapter">

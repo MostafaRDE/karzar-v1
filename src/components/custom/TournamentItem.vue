@@ -12,7 +12,7 @@
             <div class="w-100 text-center text-xs-start">
                 <h3 class="text-white">{{ data.title }}</h3>
             </div>
-            <div class="w-100 text-center text-xs-start">
+            <div class="w-100 text-center text-xs-start ltr">
                 <span lang="en" class="opacity-8 text-nowrap">{{ data.start_date | moment(`${$route.params.lang === 'af' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'} HH:mm:ss`) }}</span>
             </div>
         </div>

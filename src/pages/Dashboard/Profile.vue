@@ -207,10 +207,8 @@
         },
 
         mounted() {
-            if (this.$store.state.profile) {
                 this.fields.profile.name = this.$store.state.profile.name;
                 this.fields.profile.whatsappNumber = this.$store.state.profile.whatsapp_number;
-            }
 
             this.handleResize();
             window.addEventListener('resize', this.handleResize);

@@ -32,7 +32,7 @@
                 <rs-carousel-slider :items="carouselSlider">
                     <a slot="item-adapter"
                        slot-scope="{item}"
-                       class="position-relative d-flex">
+                       class="position-relative d-flex justify-content-center">
 
                         <span>
                             <img :src="item.image" alt=""/>
