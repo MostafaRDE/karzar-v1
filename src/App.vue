@@ -12,7 +12,7 @@
 
         <transition name="fade">
             <div v-if="!isFirstLoaded"
-                 class="position-absolute bottom-0 left-0 right-0 top-0 d-flex flex-direction-column justify-content-center align-items-center application-background-color z-index-100">
+                 class="position-fixed bottom-0 left-0 right-0 top-0 d-flex flex-direction-column justify-content-center align-items-center application-background-color" style="z-index: 10000">
                 <img src="/public/images/public/logos/logo.svg" alt="" style="width: 140px;"/>
                 <div class="mt-30">
                     <rs-button v-if="canNotLoadFirstData" color="indigo" class="small" @click.native="startLoadingFirstData">{{ $t('glossaries.try_again')

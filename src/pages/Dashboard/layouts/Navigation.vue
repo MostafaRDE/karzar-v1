@@ -30,11 +30,7 @@
 
                     {{ /* Start search part */ }}
                     <div class="h-100 d-flex align-items-center me-50 ms-20">
-                        <a href="javascript:void(0)" class="d-inline-flex">
-                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                            </a>
-                        </a>
+                        <change-language/>
                         <a v-if="menuVisibility && width < widthSideBarShowing" href="javascript:void(0)" class="d-inline-flex ms-40" @click="$emit('clickOnMenuButton', 1)">
                             <icon-menu fill="#fff" size="25px"/>
                         </a>
@@ -83,11 +79,7 @@
 
                         {{ /* Start search part */ }}
                         <div class="h-100 d-flex align-items-center me-50 ms-20">
-                            <a href="javascript:void(0)" class="d-inline-flex">
-                                <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                    {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                                </a>
-                            </a>
+                            <change-language/>
                             <a v-if="menuVisibility && width < widthSideBarShowing" href="javascript:void(0)" class="d-inline-flex ms-40" @click="$emit('clickOnMenuButton', 1)">
                                 <icon-menu fill="#fff" size="25px"/>
                             </a>
@@ -125,11 +117,7 @@
                     <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
                         <icon-menu fill="#fff" size="25px"/>
                     </a>
-                    <a href="javascript:void(0)" class="d-inline-flex">
-                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                        </a>
-                    </a>
+                    <change-language/>
                 </div>
                 {{ /* End menu part */ }}
 
@@ -178,11 +166,7 @@
                         <a v-if="menuVisibility" href="javascript:void(0)" class="d-inline-flex me-10" @click="$emit('clickOnMenuButton', 1)">
                             <icon-menu fill="#fff" size="25px"/>
                         </a>
-                        <a href="javascript:void(0)" class="d-inline-flex">
-                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                            </a>
-                        </a>
+                        <change-language/>
                     </div>
                     {{ /* End menu part */ }}
 

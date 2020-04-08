@@ -29,13 +29,7 @@
                     </ul>
 
                     {{ /* Start search part */ }}
-                    <div class="h-100 d-flex align-items-center me-50 ms-20">
-                        <a href="javascript:void(0)" class="d-inline-flex">
-                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                            </a>
-                        </a>
-                    </div>
+                    <change-language/>
                     {{ /* End search part */ }}
 
                     {{ /* Start search part */ }}
@@ -79,13 +73,7 @@
                         </ul>
 
                         {{ /* Start search part */ }}
-                        <div class="h-100 d-flex align-items-center me-50 ms-20">
-                            <a href="javascript:void(0)" class="d-inline-flex">
-                                <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                    {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                                </a>
-                            </a>
-                        </div>
+                        <change-language/>
                         {{ /* End search part */ }}
 
                         {{ /* Start search part */ }}
@@ -115,13 +103,7 @@
             <div class="border-bottom px-25 px-sm-35 px-md-65">
 
                 {{ /* Start menu part */ }}
-                <div class="h-100 d-flex align-items-center">
-                    <a href="javascript:void(0)" class="d-inline-flex">
-                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                        </a>
-                    </a>
-                </div>
+                <change-language/>
                 {{ /* End menu part */ }}
 
                 {{ /* Start logo */ }}
@@ -165,13 +147,7 @@
                 <div class="border-bottom px-25 px-sm-35 px-md-65">
 
                     {{ /* Start menu part */ }}
-                    <div class="h-100 d-flex align-items-center">
-                        <a href="javascript:void(0)" class="d-inline-flex">
-                            <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase">
-                                {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                            </a>
-                        </a>
-                    </div>
+                    <change-language/>
                     {{ /* End menu part */ }}
 
                     {{ /* Start logo */ }}

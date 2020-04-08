@@ -178,8 +178,8 @@ export default function getPaths(store) {
                     // <editor-fold desc="Home-pages">
                     children: [
                         {path: 'tutorials', name: 'tutorials', component: () => import('../pages/Home/Tutorials.vue')},
-                        {path: 'shop', name: 'shop', component: () => import('../pages/Home/Shop.vue')},
                         {path: 'about', name: 'about', component: () => import('../pages/Home/About.vue')},
+                        {path: 'games/counter-strike', name: 'counterStrike', component: () => import('../pages/Home/Games/CounterStrike.vue')},
                     ]
                     // </editor-fold>
                     // <-- / Home-pages -->

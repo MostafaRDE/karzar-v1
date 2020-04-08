@@ -4,7 +4,9 @@
             <transition-group class="rs-image-slider--viewport--viewer" name="fade" mode="in-out">
 
                 {{ /* Image slider */ }}
-                <img v-for="(item, index) of source" :key="`${index}`" v-show="selected === index" :src="item.imageStatic ? item.image : `/api/v1/uploads?id=${item.image}`"
+                <img v-for="(item, index) of source" :key="`${index}`" v-show="selected === index"
+                     :src="item.imageStatic ? item.image : `/api/v1/uploads?id=${item.image}`"
+                     onerror="this.src=''"
                      alt=""/>
 
                 {{ /* Title slider */ }}
