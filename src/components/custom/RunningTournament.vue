@@ -104,8 +104,8 @@
                                                     <icon-multiple-users fill="#BBBBBB" width="35px"/>
                                                 </span>
                                                 <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ms-20">
-                                                    <span>{{ $t('glossaries.username') }}: {{ tournament.username || '' }}</span>
-                                                    <span>{{ $t('glossaries.password') }}: {{ tournament.password || '' }}</span>
+                                                    <span>{{ $t('glossaries.username') }}: {{ username }}</span>
+                                                    <span>{{ $t('glossaries.password') }}: {{ password }}</span>
                                                 </div>
                                             </div>
                                             <div v-if="model.is_joined || isRunning" class="d-inline-flex flex-direction-column mt-20">
@@ -308,6 +308,12 @@
                 set(tournament) {
                     this.$emit('change', tournament)
                 }
+            },
+            password() {
+                return this.tournament.password || ''
+            },
+            username() {
+                return this.tournament.username || ''
             },
             usersCount() {
                 let count = 1;

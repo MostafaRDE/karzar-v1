@@ -36,7 +36,8 @@
 
         computed: {
             currentLanguage() {
-                return this.languages.find(lang => lang.key === this.$route.params.lang)
+                let lang = this.languages.find(lang => lang.key === this.$route.params.lang);
+                return lang || {}
             }
         }
     }

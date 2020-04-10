@@ -6,13 +6,16 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 const glob = require('glob-all');
 const { VueLoaderPlugin } = require('vue-loader');
 const Dotenv = require('dotenv-webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    devtool: isProd
-        ? false
-        : '#cheap-module-source-map',
+    devtool: '#cheap-module-source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/dist/',
@@ -50,33 +53,72 @@ module.exports = {
             },
             {
                 test: /\.styl(us)?$/,
-                use: isProd
-                    ? ExtractTextPlugin.extract({
-                        use: [
-                            {
-                                loader: 'css-loader',
-                                options: { minimize: true }
-                            },
-                            'stylus-loader'
-                        ],
-                        fallback: 'vue-style-loader'
-                    })
-                    : ['vue-style-loader', 'css-loader', 'stylus-loader']
+                use: isProd? [
+                    {
+                        loader: ExtractCssChunks.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === 'development',
+                            // if hmr does not work, this is a forceful method.
+                            reloadAll: true,
+                        },
+                    },
+                    'css-loader',
+                    'stylus-loader'
+                ] : [ExtractCssChunks.loader, 'css-loader'],
             },
+            // {
+            //     test: /\.styl(us)?$/,
+            //     exclude: /node_modules/,
+            //     use: isProd
+            //         ? ExtractTextPlugin.extract({
+            //             use: [
+            //                 {
+            //                     loader: 'css-loader',
+            //                     options: { minimize: true }
+            //                 },
+            //                 'stylus-loader'
+            //             ],
+            //             fallback: 'vue-style-loader'
+            //         })
+            //         : ['vue-style-loader', 'css-loader', 'stylus-loader']
+            // },
         ]
     },
     performance: {
         hints: false
     },
+    optimization: {
+        minimizer: isProd ? [
+            new TerserJSPlugin({
+                test: /\.js($|\?)/i,
+                sourceMap: false,
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ] : [],
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
     plugins: isProd
         ? [
             new VueLoaderPlugin(),
-            new webpack.optimize.UglifyJsPlugin({
-                compress: { warnings: false }
-            }),
             new webpack.optimize.ModuleConcatenationPlugin(),
-            new ExtractTextPlugin({
-                filename: 'common.[chunkhash].css'
+            // new ExtractTextPlugin({
+            //     filename: 'common.[chunkhash].css'
+            // }),
+            new ExtractCssChunks({
+                // Options similar to the same options in webpackOptions.output
+                // both options are optional
+                filename: isProd ? '[name].[hash].css' : '[name].css',
+                chunkFilename: isProd ? '[id].[hash].css' : '[id].css',
+                ignoreOrder: true, // Enable to remove warnings about conflicting order
             }),
             // Remove unused CSS using purgecss. See https://github.com/FullHuman/purgecss
             // for more information about purgecss.
