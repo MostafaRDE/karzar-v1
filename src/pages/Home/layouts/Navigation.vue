@@ -205,11 +205,7 @@
             <div class="border-bottom px-25 px-sm-35 px-md-65">
 
                 {{ /* Start search part */ }}
-                <div class="h-100 d-flex align-items-center">
-                    <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase font-weight-900">
-                        {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                    </a>
-                </div>
+                <change-language/>
                 {{ /* End search part */ }}
 
                 {{ /* Start logo */ }}
@@ -256,11 +252,7 @@
                 <div class="border-bottom px-25 px-sm-35 px-md-65">
 
                     {{ /* Start search part */ }}
-                    <div class="h-100 d-flex align-items-center">
-                        <a :href="`/${$route.params.lang === 'en' ? 'af' : 'en'}`" class="d-inline-flex text-uppercase font-weight-900">
-                            {{ $route.params.lang === 'en' ? 'af' : 'en' }}
-                        </a>
-                    </div>
+                    <change-language/>
                     {{ /* End search part */ }}
 
                     {{ /* Start logo */ }}
@@ -350,12 +342,12 @@
                     ],
                     second: [
                         {
-                            label: i18n.t('glossaries.blog'),
-                            to: '/c',
+                            label: i18n.t('glossaries.counter_strike'),
+                            to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
                         },
                         {
                             label: i18n.t('glossaries.shop'),
-                            to: '/d',
+                            to: {name: 'shop', params: {lang: this.$route.params.lang}},
                         },
                         {
                             label: i18n.t('glossaries.about_us'),

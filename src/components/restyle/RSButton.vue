@@ -2,14 +2,12 @@
     <button class="btn" :class="classList">
         <rs-overlay-loading :loading="loading" :type="loadingType" v-if="loading" />
 
-        <span v-if="trapezeBoth || reverseTrapezeBoth || trapezeStart || reverseTrapezeStart"
-              class="btn-trapeze-start-side"
+        <span class="btn-trapeze-start-side"
               :class="{'btn-trapeze-top': trapezeBoth || trapezeStart, 'btn-trapeze-bottom': reverseTrapezeBoth || reverseTrapezeStart}"></span>
         <span class="btn-text d-flex justify-content-center align-items-center">
             <slot v-if="loading === false" />
         </span>
-        <span v-if="trapezeBoth || reverseTrapezeBoth || trapezeEnd || reverseTrapezeEnd"
-              class="btn-trapeze-end-side"
+        <span class="btn-trapeze-end-side"
               :class="{'btn-trapeze-top': trapezeBoth || trapezeEnd, 'btn-trapeze-bottom': reverseTrapezeBoth || reverseTrapezeEnd}"></span>
     </button>
 </template>

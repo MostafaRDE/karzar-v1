@@ -33,9 +33,17 @@
         <hr class="opacity-1"/>
 
         <ul class="main-menu mx--20 mt-20">
+            <li>
+                <a :href="`/${$route.params.lang}`"
+                   class="py-20 d-flex align-items-center">
+                    <icon-gametour/> &nbsp;
+                    {{ $t('app.name') }}
+                </a>
+            </li>
+
             <li v-for="item of items" @click="$emit('clickOnMenuButton', 1)">
                 <router-link :to="item.to"
-                             class="py-20 d-flex">
+                             class="py-20 d-flex align-items-center">
                     <component :is="item.icon"/> &nbsp;
                     {{ item.label }}
                 </router-link>
@@ -43,7 +51,7 @@
 
             <li @click="$emit('clickOnMenuButton', 1)">
                 <a :href="`/api/v1/users/logout?lang=${$route.params.lang}`"
-                   class="py-20 d-flex">
+                   class="py-20 d-flex align-items-center">
                     <component is="icon-off"/> &nbsp;
                     {{ $t('glossaries.logout') }}
                 </a>
@@ -61,6 +69,7 @@
         components: {
             'icon-chat': () => import('../../../components/icons/IconChat.vue'),
             'icon-down-money': () => import('../../../components/icons/IconDownMoney.vue'),
+            'icon-gametour': () => import('../../../components/icons/IconGametour.vue'),
             'icon-invoice': () => import('../../../components/icons/IconInvoice.vue'),
             'icon-money-bag': () => import('../../../components/icons/IconMoneyBag.vue'),
             'icon-off': () => import('../../../components/icons/IconOff.vue'),

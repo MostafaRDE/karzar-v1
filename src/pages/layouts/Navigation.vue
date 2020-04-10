@@ -29,7 +29,7 @@
                     </ul>
 
                     {{ /* Start search part */ }}
-                    <change-language/>
+                    <change-language class="me-20"/>
                     {{ /* End search part */ }}
 
                     {{ /* Start search part */ }}
@@ -73,7 +73,7 @@
                         </ul>
 
                         {{ /* Start search part */ }}
-                        <change-language/>
+                        <change-language class="me-20"/>
                         {{ /* End search part */ }}
 
                         {{ /* Start search part */ }}
@@ -229,8 +229,8 @@
                         to: {name: 'tutorials', params: {lang: this.$route.params.lang}},
                     },
                     {
-                        label: i18n.t('glossaries.blog'),
-                        to: 'https://www.blog.gametour.co',
+                        label: i18n.t('glossaries.counter_strike'),
+                        to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
                     },
                     {
                         label: i18n.t('glossaries.shop'),

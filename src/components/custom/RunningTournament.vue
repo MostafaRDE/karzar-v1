@@ -121,7 +121,7 @@
                             {{ /* End tournament single data */ }}
 
                             {{ /* Start tournament multiple form */ }}
-                            <div v-if="reservationType === 'GROUP'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'SINGLE'}">
+                            <div v-if="reservationType === 'GROUP'" class="flex-grow-1 d-flex py-20" :class="{'position-absolute' : reservationType === 'SINGLE'}" style="min-height: 148px">
 
                                     <div class="row">
                                         <div class="col-lg-6 mb-0 mt-10 mt-lg-0">

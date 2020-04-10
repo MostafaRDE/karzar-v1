@@ -77,61 +77,43 @@
 
             <title-span class="mt-20 w-100 d-block text-center"/>
 
-            <rs-section class="mt-60 flex-direction-column">
+            <rs-tabs class="mt-60" :tabs="tabs" v-model="selectedTournamentTab">
 
-                <div class="overflow-x-overlay border-bottom overflow-y-hidden">
-                    <div class="d-flex w-fit-content">
-                        <rs-button class="px-20 me-15 text-nowrap"
-                                   :transparent="selectedTournamentTab === 'ME'"
-                                   :solid="selectedTournamentTab === 'PUBLIC'"
-                                   glow
-                                   :reverseTrapezeEnd="selectedTournamentTab === 'PUBLIC'"
-                                   @click.native="updateTournamentsSelected('PUBLIC')">
-                            {{ $t('glossaries.games_played') }}
-                        </rs-button>
-                        <rs-button v-if="$store.state.user_auth"
-                                   class="px-20 text-nowrap"
-                                   :transparent="selectedTournamentTab === 'PUBLIC'"
-                                   :solid="selectedTournamentTab === 'ME'"
-                                   glow
-                                   :trapezeStart="selectedTournamentTab === 'ME'"
-                                   :reverseTrapezeEnd="selectedTournamentTab === 'ME'"
-                                   @click.native="updateTournamentsSelected('ME')">
-                            {{ $t('glossaries.your_games') }}
-                        </rs-button>
-                    </div>
-                </div>
+                <rs-tab-content class="position-relative flex-direction-column px-0 justify-content-center overflow-hidden align-items-center"
+                                id="page--games--counter-strike--installation-guide">
 
-                <div class="d-flex flex-direction-column px-20">
+                    <div class="d-flex flex-direction-column px-20">
 
-                    <tournament-item
-                            v-if="tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
-                            v-for="(item, index) of tournaments"
-                            :key="`tournament-${index}`"
-                            :data="item"
-                            class="row py-20"
-                            :class="{'border-bottom': index < tournaments.length - 1}"/>
+                        <tournament-item
+                                v-if="tournaments.length && (selectedTournamentTab === 0 && !loadingGamesPlayed || selectedTournamentTab === 1 && !loadingMyTournaments)"
+                                v-for="(item, index) of tournaments"
+                                :key="`tournament-${index}`"
+                                :data="item"
+                                class="row py-20"
+                                :class="{'border-bottom': index < tournaments.length - 1}"/>
 
-<!--                    <div v-if="selectedTournamentTab === 'PUBLIC' && loadingGamesPlayed || selectedTournamentTab === 'ME' && loadingMyTournaments"-->
-<!--                         class="py-50">-->
-<!--                        <rs-overlay-loading width="28"/>-->
-<!--                    </div>-->
+                        <!--                    <div v-if="selectedTournamentTab === 0 && loadingGamesPlayed || selectedTournamentTab === 1 && loadingMyTournaments"-->
+                        <!--                         class="py-50">-->
+                        <!--                        <rs-overlay-loading width="28"/>-->
+                        <!--                    </div>-->
 
-                    <div v-if="!tournaments.length && (selectedTournamentTab === 'PUBLIC' && !loadingGamesPlayed || selectedTournamentTab === 'ME' && !loadingMyTournaments)"
-                         class="py-50 text-center">
-                        <span>{{ $t('glossaries.not_found') }}</span>
+                        <div v-if="!tournaments.length && (selectedTournamentTab === 0 && !loadingGamesPlayed || selectedTournamentTab === 1 && !loadingMyTournaments)"
+                             class="py-50 text-center">
+                            <span>{{ $t('glossaries.not_found') }}</span>
+                        </div>
+
+                        <rs-pagination v-if="selectedTournamentTab === 0 && tournaments.length" class="my-20"
+                                       v-model="gamesPlayedCurrentPage" :count="gamesPlayedTotalPages"
+                                       @change="updateListByPagination(0)"/>
+                        <rs-pagination v-if="selectedTournamentTab === 1 && tournaments.length" class="my-20"
+                                       v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages"
+                                       @change="updateListByPagination(1)"/>
+
                     </div>
 
-                    <rs-pagination v-if="selectedTournamentTab === 'PUBLIC' && tournaments.length" class="my-20"
-                                   v-model="gamesPlayedCurrentPage" :count="gamesPlayedTotalPages"
-                                   @change="updateListByPagination('PUBLIC')"/>
-                    <rs-pagination v-if="selectedTournamentTab === 'ME' && tournaments.length" class="my-20"
-                                   v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages"
-                                   @change="updateListByPagination('ME')"/>
+                </rs-tab-content>
 
-                </div>
-
-            </rs-section>
+            </rs-tabs>
         </div>
 
         <div class="container-fluid px-0 py-50" id="tutorials">
@@ -212,25 +194,28 @@
 <!--                    </span>-->
 
                     <span class="d-block mt-30 text-white">
-                        <span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@gametour.co
+                        <a href="mailto:info@gametour.co"><span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@gametour.co</a>
                     </span>
                 </div>
 
                 <div class="col-md-6">
                     <rs-form :submit="sendContactMessage">
                         <div>
-                            <input type="text" placeholder="*Your Name" class="contact-input"
+                            <input type="text" :placeholder="`*${$t('glossaries.your_name')}`" class="contact-input"
                                    v-model="contactFields.name" required/>
                         </div>
 
                         <div>
-                            <input type="email" placeholder="*Email Address" class="contact-input"
+                            <input type="email" :placeholder="`*${$t('glossaries.email_address')}`" class="contact-input"
                                    v-model="contactFields.email" required/>
                         </div>
 
                         <div>
-                            <textarea placeholder="*Your Message..." class="contact-input"
-                                      v-model="contactFields.content" required></textarea>
+                            <textarea :placeholder="`*${$t('glossaries.your_message')}...`"
+                                      class="contact-input"
+                                      :lang="$route.params.lang"
+                                      v-model="contactFields.content"
+                                      required></textarea>
                         </div>
 
                         <div class="mt-10">
@@ -280,7 +265,7 @@
 
             selected: 0,
 
-            selectedTournamentTab: 'PUBLIC', // PUBLIC | ME
+            selectedTournamentTab: 0,
 
             loadingRunningTournaments: false,
             runningTournaments: [],
@@ -339,6 +324,21 @@
                 content: '',
             },
         }),
+
+        computed: {
+            tabs () {
+
+                return [
+                    {
+                        label: i18n.t('glossaries.games_played'),
+                    },
+                    {
+                        label: i18n.t('glossaries.your_games'),
+                        visibility: this.$store.state.user_auth,
+                    },
+                ]
+            }
+        },
 
         methods: {
             handleResize() {
