@@ -31,7 +31,7 @@ const config = merge(base, {
                     priority: 1
                 },
                 vendors: {
-                    test: /[\\]node_modules[\\]/,
+                    test: /[\\/]node_modules[\\/]/,
                     priority: 2,
                     name: 'vendors',
                     enforce: true,
