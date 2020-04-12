@@ -138,7 +138,7 @@
         methods: {
             handleScroll() {
                 this.scrollY = window.scrollY;
-                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 300}px`
+                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 238}px`
             },
             updateSelectedTab(tab) {
                 this.selectedTab = tab
