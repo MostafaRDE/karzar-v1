@@ -31,6 +31,7 @@
                 backgroundAttachment: 'fixed',
                 backgroundImage: "url('/public/images/public/backgrounds/bg-title-shop.jpg')",
                 backgroundPosition: 'center 0',
+                backgroundSize: 'cover',
                 boxShadow: '#0005 15px 15px 21px 0',
             },
         }),

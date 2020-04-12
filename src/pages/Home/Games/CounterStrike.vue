@@ -130,6 +130,7 @@
                 backgroundAttachment: 'fixed',
                 backgroundImage: "url('/public/images/public/backgrounds/bg-title-counter-strike.jpg')",
                 backgroundPosition: 'center 0',
+                backgroundSize: 'cover',
                 boxShadow: '#0005 15px 15px 21px 0',
             },
         }),
