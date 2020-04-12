@@ -210,11 +210,12 @@ class PubgTournamentsActions {
 
     end(id) {
         return new Promise(async (resolve, reject) => {
-            let model = new PubgTournamentPlayerModel();
+            let model = new PubgTournamentModel();
 
             model.update(['finished_at'], ['now()'], ['id'], [id]).then(data => {
                 resolve({status: true})
             }).catch(error => {
+                console.error(error)
                 reject({status: false})
             })
         });
@@ -222,7 +223,7 @@ class PubgTournamentsActions {
 
     clearEnd(id) {
         return new Promise(async (resolve, reject) => {
-            let model = new PubgTournamentPlayerModel();
+            let model = new PubgTournamentModel();
 
             model.update(['finished_at'], [null], ['id'], [id]).then(data => {
                 resolve({status: true})

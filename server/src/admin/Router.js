@@ -57,25 +57,25 @@ router.post('/sliders/:id/store', adminMiddleware.check_jwt, Storage.array('imag
 
 // Maps
 const PubgMapsController = require('./Games/PUBG/Maps/Controller');
-router.get('/games/pubg/maps', adminMiddleware.check_jwt, PubgMapsController.index);
-router.post('/games/pubg/maps', adminMiddleware.check_jwt, Storage.array('image'), PubgMapsController.store);
-router.get('/games/pubg/maps/:id', adminMiddleware.check_jwt, PubgMapsController.show);
-router.put('/games/pubg/maps/:id', adminMiddleware.check_jwt, Storage.array('image'), PubgMapsController.update);
-router.delete('/games/pubg/maps/:id', adminMiddleware.check_jwt, PubgMapsController.destroy);
+router.get('/games/pubg/maps', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgMapsController.index);
+router.post('/games/pubg/maps', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), PubgMapsController.store);
+router.get('/games/pubg/maps/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgMapsController.show);
+router.put('/games/pubg/maps/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), PubgMapsController.update);
+router.delete('/games/pubg/maps/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgMapsController.destroy);
 
 // Tournaments
 const PubgTournamentsController = require('./Games/PUBG/Tournaments/Controller');
-router.get('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournamentsController.index);
-router.post('/games/pubg/tournaments', adminMiddleware.check_jwt, PubgTournamentsController.store);
-router.get('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.show);
-router.put('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.update);
-router.put('/games/pubg/tournaments/:id/end', adminMiddleware.check_jwt, PubgTournamentsController.end);
-router.put('/games/pubg/tournaments/:id/clear-end', adminMiddleware.check_jwt, PubgTournamentsController.clearEnd);
-router.put('/games/pubg/tournaments/:id/set-winner-team', adminMiddleware.check_jwt, PubgTournamentsController.setWinnerTeam);
-router.get('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, PubgTournamentsController.players);
-router.put('/games/pubg/tournaments/:id/players/:player_id/add-room-details', adminMiddleware.check_jwt, PubgTournamentsController.addAuthenticationRoomToGroupPlayers);
-router.put('/games/pubg/tournaments/:id/players/:player_id/remove-room-details', adminMiddleware.check_jwt, PubgTournamentsController.removeAuthenticationRoomToGroupPlayers);
-router.delete('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, PubgTournamentsController.destroy);
+router.get('/games/pubg/tournaments', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.index);
+router.post('/games/pubg/tournaments', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.store);
+router.get('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.show);
+router.put('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.update);
+router.put('/games/pubg/tournaments/:id/end', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.end);
+router.put('/games/pubg/tournaments/:id/clear-end', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.clearEnd);
+router.put('/games/pubg/tournaments/:id/set-winner-team', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.setWinnerTeam);
+router.get('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.players);
+router.put('/games/pubg/tournaments/:id/players/:player_id/add-room-details', adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), adminMiddleware.check_jwt, PubgTournamentsController.addAuthenticationRoomToGroupPlayers);
+router.put('/games/pubg/tournaments/:id/players/:player_id/remove-room-details', adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), adminMiddleware.check_jwt, PubgTournamentsController.removeAuthenticationRoomToGroupPlayers);
+router.delete('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.destroy);
 
 // </editor-fold>
 
@@ -107,10 +107,10 @@ router.put('/payments/wallets/:id', adminMiddleware.check_jwt, PaymentsWalletsCo
 // <editor-fold desc="Tutorials">
 
 const TutorialsController = require('./Tutorials/Controller');
-router.get('/tutorials', adminMiddleware.check_jwt, TutorialsController.index);
-router.post('/tutorials', adminMiddleware.check_jwt, Storage.array('image'), TutorialsController.store);
-router.put('/tutorials/:id', adminMiddleware.check_jwt, Storage.array('image'), TutorialsController.update);
-router.delete('/tutorials/:id', adminMiddleware.check_jwt, TutorialsController.destroy);
+router.get('/tutorials', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), TutorialsController.index);
+router.post('/tutorials', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), TutorialsController.store);
+router.put('/tutorials/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), TutorialsController.update);
+router.delete('/tutorials/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), TutorialsController.destroy);
 
 // </editor-fold>
 

@@ -7,10 +7,12 @@ const translateStore = require('../../../util/glossary').store;
 const translateUpdate = require('../../../util/glossary').update;
 
 class Actions {
-    index(page, size) {
+    index(page, size, user_id) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
-            tutorialsModel.fetch_all('*', undefined, undefined, undefined, undefined, page, size, 'id DESC').then(async data => {
+            let whereKey = user_id ? ['user_id'] : null,
+                whereValue = user_id ? [user_id] : null;
+            tutorialsModel.fetch_all('*', whereKey, whereValue, undefined, undefined, page, size, 'id DESC').then(async data => {
 
                 for (let i = 0; i < data.total; i++) {
                     data.result[i].title = await getTranslates(data.result[i].glossary_key_title);
@@ -20,16 +22,19 @@ class Actions {
 
                 resolve(data)
 
-            }).catch(reject);
+            }).catch(err => {
+                console.error(err)
+                reject(err)
+            });
         })
     }
 
-    store(title, text, youtubeLink, imageId) {
+    store(title, text, youtubeLink, imageId, userId) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
             const translateKeyTitle = `tutorials_title_${microtime()}`;
             const translateKeyText = `tutorials_text_${microtime()}`;
-            tutorialsModel.insertSync(['glossary_key_title', 'glossary_key_text', 'youtube_link', 'image_media_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId]).then(async response => {
+            tutorialsModel.insertSync(['glossary_key_title', 'glossary_key_text', 'youtube_link', 'image_media_id', 'user_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId, userId]).then(async response => {
 
                 try {
                     let languages = Object.keys(title);
@@ -53,7 +58,7 @@ class Actions {
         })
     }
 
-    update(id, title, text, youtubeLink, imageId) {
+    update(id, title, text, youtubeLink, imageId, userId) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
             let keys = ['youtube_link'],

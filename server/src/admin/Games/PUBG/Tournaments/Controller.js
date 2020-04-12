@@ -95,7 +95,7 @@ module.exports = {
 
             actions.end(
                 request.params.id
-            ).then(res => response.json(res)).catch(err => response.send(err))
+            ).then(res => response.json(res)).catch(err => response.status(500).send(err))
         // } else {
         //     response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
         // }

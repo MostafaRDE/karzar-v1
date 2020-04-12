@@ -1,11 +1,18 @@
 let Actions = require('./Actions');
 const storage = require('../../../util/multer/image-identity-storage');
+const roles = require('../../../util/objects/roles.js');
 const mediaSaveFile = require('../../../util/media').saveFile;
 
 module.exports = {
     index(request, response) {
+
+        let userId = undefined;
+        if (request.user_data.role !== roles.SUPER_ADMIN)
+            userId = request.user_data.id;
+
         let actions = new Actions();
-        actions.index(request.query.page, request.query.size).then(data => {
+
+        actions.index(request.query.page, request.query.size, userId).then(data => {
             response.json(data)
         }).catch(error => {
             response.status(500).send(error)
@@ -13,23 +20,30 @@ module.exports = {
     },
 
     store(request, response) {
+
         let actions = new Actions(),
             image = request.files[0],
             imageDescription = request.body.image_description,
             youtubeLink = request.body.youtube_link,
             title = JSON.parse(request.body.title || '{}'),
             text = JSON.parse(request.body.text || '{}');
+
         storage.array('file')(request, response, function (err) {
             if (err)
                 response.status(500).end("Something went wrong:(");
             mediaSaveFile(image, imageDescription || null).then(media => {
-                actions.store(title, text, youtubeLink, media.id)
+                actions.store(title, text, youtubeLink, media.id, request.user_data.id)
                     .then(res => response.json(res)).catch(err => response.send(err))
             }).catch(err => response.send(err))
         });
     },
 
     update(request, response) {
+
+        let userId = undefined;
+        if (request.user_data.role !== roles.SUPER_ADMIN)
+            userId = request.user_data.id;
+
         let actions = new Actions(),
             id = request.params.id,
             image = request.files[0],
@@ -42,7 +56,7 @@ module.exports = {
                 if (err)
                     response.status(500).end("Something went wrong:(");
                 mediaSaveFile(image, imageDescription || null).then(media => {
-                    actions.update(id, title, text, youtubeLink, media.id)
+                    actions.update(id, title, text, youtubeLink, media.id, userId)
                         .then(res => response.json(res)).catch(err => response.send(err))
                 }).catch(err => response.send(err))
             });
