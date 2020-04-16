@@ -633,10 +633,6 @@
                                     label: i18n.t('glossaries.counter_strike'),
                                     to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
                                 },
-                                {
-                                    label: i18n.t('glossaries.counter_strike'),
-                                    to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
-                                },
                             ],
                         },
                         {
