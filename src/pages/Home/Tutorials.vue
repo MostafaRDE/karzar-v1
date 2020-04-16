@@ -27,7 +27,7 @@
                         <a :href="tutorial.youtubeLink" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
                     </title-box-animated>
 
-                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date }}</span>
+                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date | moment(`${$route.params.lang === 'fa' ? 'YYYY/MM/DD' : 'jYYYY/jMM/jDD'} HH:mm:ss`) }}</span>
 
                     <p class="mt-20 text-white">{{ tutorial.text }}</p>
 
@@ -35,9 +35,14 @@
 
             </div>
 
-            <div v-if="!tutorials.length"
+            <div v-if="!tutorials.length && !loadingTutorials"
                  class="py-50 text-center">
                 <span>{{ $t('glossaries.not_found') }}</span>
+            </div>
+
+            <div v-if="!tutorials.length && loadingTutorials"
+                 class="py-50 text-center">
+                <rs-overlay-loading/>
             </div>
 
             <rs-pagination v-if="tutorials.length" class="mt-20"
@@ -61,6 +66,7 @@
             currentPage: 1,
             itemsPerPage: 12,
             tutorials: [],
+            loadingTutorials: false,
 
             titleStyles: {
                 height: '150px',

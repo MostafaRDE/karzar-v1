@@ -7,7 +7,7 @@
                 <div class="col mb-0 justify-content-center d-flex">
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
                         <span class="bottom-trapeze-sides trapeze-start-side"/>
-                        <span :lang="isRunning && $route.params.lang === 'af' ? 'af' : 'en'" class="ltr text-white"
+                        <span :lang="isRunning && $route.params.lang === 'af' ? 'af' : 'en'" class="ltr text-white text-nowrap"
                               style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">
                             {{ isRunning ? $t('glossaries.running') : timer }}
                         </span>
@@ -44,7 +44,7 @@
 
                                     {{ /* Start tournament details */ }}
                                     <div class="col-lg-6 mb-0">
-                                        <div class="flex-grow-1 d-flex align-items-center justify-content-space-around pe-lg-10"
+                                        <div class="flex-grow-1 d-flex align-items-center justify-content-space-around pe-lg-10 h-100"
                                              :class="{'border-end': width >= 1024}">
 
                                             {{ /* Start tournament round data */ }}
@@ -99,18 +99,30 @@
                                                           v-model="fields.player1"/>
                                             </div>
                                             <div class="mt-20 d-flex align-items-center">
-                                                <span class="d-inline-flex cursor-pointer"
+                                                <span class="d-inline-flex cursor-pointer pe-10"
                                                       @click="showPlayersModal">
                                                     <icon-multiple-users fill="#BBBBBB" width="35px"/>
                                                 </span>
-                                                <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ms-20">
-                                                    <span>{{ $t('glossaries.username') }}: {{ username }}</span>
-                                                    <span>{{ $t('glossaries.password') }}: {{ password }}</span>
+                                                <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ps-15 border-start">
+                                                    <template v-if="$store.state.user_auth">
+                                                        <span>{{ $t('glossaries.room') }}: {{ room }}</span>
+                                                        <span>{{ $t('glossaries.password') }}: {{ password }}</span>
+                                                    </template>
+                                                    <template v-else>
+                                                        <span>{{ $t('glossaries.room') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                        <span>{{ $t('glossaries.password') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                    </template>
                                                 </div>
                                             </div>
                                             <div v-if="model.is_joined || isRunning" class="d-inline-flex flex-direction-column mt-20">
-                                                <span>{{ $t('glossaries.username') }}: {{ tournament.username || '' }}</span>
-                                                <span>{{ $t('glossaries.password') }}: {{ tournament.password || '' }}</span>
+                                                <template v-if="$store.state.user_auth">
+                                                    <span>{{ $t('glossaries.room') }}: {{ room }}</span>
+                                                    <span>{{ $t('glossaries.password') }}: {{ password }}</span>
+                                                </template>
+                                                <template v-else>
+                                                    <span>{{ $t('glossaries.room') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                    <span>{{ $t('glossaries.password') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                </template>
                                             </div>
                                         </div>
                                     </div>
@@ -310,10 +322,10 @@
                 }
             },
             password() {
-                return this.tournament.password || ''
+                return this.tournament.password || i18n.t('glossaries.not_registered')
             },
-            username() {
-                return this.tournament.username || ''
+            room() {
+                return this.tournament.username || i18n.t('glossaries.not_registered')
             },
             usersCount() {
                 let count = 1;

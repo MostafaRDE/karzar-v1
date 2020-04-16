@@ -110,7 +110,7 @@
     import i18n from '../../i18n'
 
     export default {
-        name: "RunningTournament",
+        name: "CounterStrikeTournament",
 
         model: {
             prop: 'tournament',

@@ -1,0 +1,57 @@
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+.slide-down-up-250px-enter-active {
+    animation: slide-down-250px 0.5s;
+}
+.slide-down-up-250px-leave-active {
+    animation: slide-down-250px 0.5s reverse;
+}
+.slide-down-up-fade-enter-active {
+    transition: all 0.3s ease;
+}
+.slide-down-up-fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-down-up-fade-enter,
+.slide-down-up-fade-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+@-moz-keyframes slide-down-250px {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 250px;
+    }
+}
+@-webkit-keyframes slide-down-250px {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 250px;
+    }
+}
+@-o-keyframes slide-down-250px {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 250px;
+    }
+}
+@keyframes slide-down-250px {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 250px;
+    }
+}

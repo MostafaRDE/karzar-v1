@@ -34,7 +34,7 @@
             </div>
             <div class="text-center text-xs-end">
                 <a class="w-fit-content" target="_blank" :href="data.youtube_link">
-                    {{ !isRunning === 'WATCH' ? $t('glossaries.watch') : $t('glossaries.live_preview') }}
+                    {{ !isRunning ? $t('glossaries.watch') : $t('glossaries.live_preview') }}
                     &nbsp;<span class="d-inline-flex"><icon-play fill="#BBBBBB" width="16px" /></span>
                 </a>
             </div>

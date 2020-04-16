@@ -51,7 +51,7 @@
 
         <div v-if="(!loadingRunningTournaments && runningTournaments.length) || loadingRunningTournaments"
              class="container-fluid py-60"
-             style="background: url('../../../public/images/public/bg-tournament-timer.png') center center">
+             style="background: url('/public/images/public/bg-tournament-timer.png') center center; background-size: cover">
             <div class="container">
 
                 <div class="row text-white">
@@ -374,7 +374,7 @@
                             this.gamesPlayedTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
                             this.gamesPlayed = response.data.result;
 
-                            if (this.selectedTournamentTab === 'PUBLIC')
+                            if (this.selectedTournamentTab === 0)
                                 this.tournaments = this.gamesPlayed
                         })
                         .catch(error => {
@@ -396,7 +396,7 @@
                             let totalPages = response.data.total / this.itemsPerPage;
                             this.myTournamentsTotalPages = (totalPages % 1 !== 0) ? Math.floor(totalPages) + 1 : totalPages;
                             this.myTournaments = response.data.result;
-                            if (this.selectedTournamentTab === 'ME')
+                            if (this.selectedTournamentTab === 1)
                                 this.tournaments = this.myTournaments
                         })
                         .catch(error => {
@@ -410,11 +410,11 @@
 
             updateListByPagination(type) {
                 switch (type) {
-                    case 'PUBLIC':
+                    case 0:
                         this.getGamesPlayed();
                         break;
 
-                    case 'ME':
+                    case 1:
                         this.getMyTournaments();
                         break;
                 }
@@ -422,12 +422,12 @@
 
             updateTournamentsSelected(type) {
                 switch (type) {
-                    case 'PUBLIC':
+                    case 0:
                         this.tournaments = this.gamesPlayed;
                         this.selectedTournamentTab = 'PUBLIC';
                         break;
 
-                    case 'ME':
+                    case 0:
                         this.tournaments = this.myTournaments;
                         this.selectedTournamentTab = 'ME';
                         break;

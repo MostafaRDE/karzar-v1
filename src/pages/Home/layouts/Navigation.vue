@@ -32,8 +32,39 @@
                     <div class="main--navbar--main-menu">
                         <div class="z-index-1">
                             <ul class="d-flex">
-                                <li v-for="item of menu.first" class="px-5 px-xl-15">
-                                    <router-link :to="item.to"><span>{{ item.label }}</span></router-link>
+                                <li v-for="item of menu.first"
+                                    class="px-5 px-xl-15 position-relative"
+                                    @mouseenter="item.subItemsVisibility = true"
+                                    @mouseleave="item.subItemsVisibility = false">
+
+                                    <template v-if="item.children && item.children.length">
+
+                                        <a :href="item.to">
+                                            <span>{{ item.label }}</span>
+                                        </a>
+
+                                        <transition name="fade">
+                                            <ul v-show="item.subItemsVisibility"
+                                                class="main--navbar--sub-menu position-absolute left-0 top-75 px-0 py-20"
+                                                style="background: #0F0F0FE6; width: 266px">
+                                                <li v-for="(subItem, index) of item.children"
+                                                    :key="`${item.label}-subItem-${index}`">
+                                                    <router-link :to="subItem.to"
+                                                                 class="text-nowrap">
+                                                        <span><span>{{ subItem.label }}</span></span>
+                                                    </router-link>
+                                                </li>
+                                            </ul>
+                                        </transition>
+
+                                    </template>
+
+                                    <template v-else>
+                                        <router-link :to="item.to">
+                                            <span>{{ item.label }}</span>
+                                        </router-link>
+                                    </template>
+
                                 </li>
                             </ul>
                         </div>
@@ -86,8 +117,39 @@
                     <div class="main--navbar--main-menu">
                         <div class="z-index-1">
                             <ul class="d-flex">
-                                <li v-for="item of menu.second" class="px-5 px-xl-15">
-                                    <router-link :to="item.to"><span>{{ item.label }}</span></router-link>
+                                <li v-for="item of menu.second"
+                                    class="px-5 px-xl-15 position-relative"
+                                    @mouseenter="item.subItemsVisibility = true"
+                                    @mouseleave="item.subItemsVisibility = false">
+
+                                    <template v-if="item.children && item.children.length">
+
+                                        <a :href="item.to">
+                                            <span>{{ item.label }}</span>
+                                        </a>
+
+                                        <transition name="fade">
+                                            <ul v-show="item.subItemsVisibility"
+                                                class="main--navbar--sub-menu position-absolute left-0 top-75 px-0 py-20"
+                                                style="background: #0F0F0FE6; width: 266px">
+                                                <li v-for="(subItem, index) of item.children"
+                                                    :key="`${item.label}-subItem-${index}`">
+                                                    <router-link :to="subItem.to"
+                                                                 class="text-nowrap">
+                                                        <span><span>{{ subItem.label }}</span></span>
+                                                    </router-link>
+                                                </li>
+                                            </ul>
+                                        </transition>
+
+                                    </template>
+
+                                    <template v-else>
+                                        <router-link :to="item.to">
+                                            <span>{{ item.label }}</span>
+                                        </router-link>
+                                    </template>
+
                                 </li>
                             </ul>
                         </div>
@@ -129,9 +191,36 @@
                         <div class="main--navbar--main-menu">
                             <div class="z-index-1">
                                 <ul class="d-flex">
-                                    <li v-for="item of menu.first" class="px-5 px-xl-15">
-                                        <router-link :to="item.to" class="px-15"><span>{{ item.label }}</span>
-                                        </router-link>
+                                    <li v-for="item of menu.first" class="px-5 px-xl-15 position-relative">
+
+                                        <template v-if="item.children && item.children.length">
+
+                                            <a :href="item.to" class="px-15">
+                                                <span>{{ item.label }}</span>
+                                            </a>
+
+                                            <transition name="fade">
+                                                <ul v-show="item.subItemsVisibility"
+                                                    class="main--navbar--sub-menu position-absolute left-0 top-75 px-0 py-20"
+                                                    style="background: #0F0F0FE6; width: 266px">
+                                                    <li v-for="(subItem, index) of item.children"
+                                                        :key="`${item.label}-subItem-${index}`">
+                                                        <router-link :to="subItem.to"
+                                                                     class="text-nowrap">
+                                                            <span><span>{{ subItem.label }}</span></span>
+                                                        </router-link>
+                                                    </li>
+                                                </ul>
+                                            </transition>
+
+                                        </template>
+
+                                        <template v-else>
+                                            <router-link :to="item.to" class="px-15">
+                                                <span>{{ item.label }}</span>
+                                            </router-link>
+                                        </template>
+
                                     </li>
                                 </ul>
                             </div>
@@ -166,9 +255,39 @@
                         <div class="main--navbar--main-menu">
                             <div class="z-index-1">
                                 <ul class="d-flex">
-                                    <li v-for="item of menu.second" class="px-5 px-xl-15">
-                                        <router-link :to="item.to" class="px-15"><span>{{ item.label }}</span>
-                                        </router-link>
+                                    <li v-for="item of menu.second"
+                                        class="px-5 px-xl-15 position-relative"
+                                        @mouseenter="item.subItemsVisibility = true"
+                                        @mouseleave="item.subItemsVisibility = false">
+
+                                        <template v-if="item.children && item.children.length">
+
+                                            <a :href="item.to" class="px-15">
+                                                <span>{{ item.label }}</span>
+                                            </a>
+
+                                            <transition name="fade">
+                                                <ul v-show="item.subItemsVisibility"
+                                                    class="main--navbar--sub-menu position-absolute left-0 top-75 px-0 py-20"
+                                                    style="background: #0F0F0FE6; width: 266px">
+                                                    <li v-for="(subItem, index) of item.children"
+                                                        :key="`${item.label}-subItem-${index}`">
+                                                        <router-link :to="subItem.to"
+                                                                     class="text-nowrap">
+                                                            <span><span>{{ subItem.label }}</span></span>
+                                                        </router-link>
+                                                    </li>
+                                                </ul>
+                                            </transition>
+
+                                        </template>
+
+                                        <template v-else>
+                                            <router-link :to="item.to" class="px-15">
+                                                <span>{{ item.label }}</span>
+                                            </router-link>
+                                        </template>
+
                                     </li>
                                 </ul>
                             </div>
@@ -230,14 +349,95 @@
 
             </div>
 
-            <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-hidden">
+            <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-y-scroll"
+                 style="max-height: 250px">
                 <transition name="slide-down-up-250px">
                     <ul v-if="isShowMenuMobile">
-                        <li class="border-bottom" v-for="item of menu.first">
-                            <router-link :to="item.to">{{ item.label }}</router-link>
+                        <li class="border-bottom position-relative"
+                            v-for="item of menu.first"
+                            @click="item.subItemsVisibility = !item.subItemsVisibility">
+
+                            <template v-if="item.children && item.children.length">
+
+                                <div class="d-flex align-items-center">
+
+                                    <a :href="item.to" class="flex-grow-1">{{ item.label }}</a>
+
+                                    <span class="d-flex">
+                                        <mdi-arrow-right
+                                                v-if="$route.params.lang === 'fa' || $route.params.lang === 'ar' || $route.params.lang === 'af'"
+                                                class="me-5"
+                                                size="20px"/>
+                                        <mdi-arrow-left v-else class="me-5" size="20px"/>
+                                    </span>
+
+                                </div>
+
+                                <transition name="fade">
+                                    <ul v-show="item.subItemsVisibility"
+                                        class="main--navbar--sub-menu p-0 ms-15"
+                                        style="background: #0F0F0FE6">
+                                        <li v-for="(subItem, index) of item.children"
+                                            :key="`${item.label}-subItem-${index}`">
+                                            <router-link :to="subItem.to"
+                                                         class="text-nowrap font-weight-100"
+                                                         :class="{'border-bottom': index < item.children.length - 1}"
+                                                         style="padding: 9px 0; font-size: 11px">
+                                                {{ subItem.label }}
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </transition>
+
+                            </template>
+
+                            <template v-else>
+                                <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                            </template>
+
                         </li>
-                        <li class="border-bottom" v-for="item of menu.second">
-                            <router-link :to="item.to">{{ item.label }}</router-link>
+                        <li class="border-bottom position-relative"
+                            v-for="item of menu.second"
+                            @click="item.subItemsVisibility = !item.subItemsVisibility">
+
+                            <template v-if="item.children && item.children.length">
+
+                                <div class="d-flex align-items-center">
+
+                                    <a :href="item.to" class="flex-grow-1">{{ item.label }}</a>
+
+                                    <span class="d-flex">
+                                        <mdi-arrow-right
+                                                v-if="$route.params.lang === 'fa' || $route.params.lang === 'ar' || $route.params.lang === 'af'"
+                                                class="me-5"
+                                                size="20px"/>
+                                        <mdi-arrow-left v-else class="me-5" size="20px"/>
+                                    </span>
+
+                                </div>
+
+                                <transition name="fade">
+                                    <ul v-show="item.subItemsVisibility"
+                                        class="main--navbar--sub-menu p-0 ms-15"
+                                        style="background: #0F0F0FE6">
+                                        <li v-for="(subItem, index) of item.children"
+                                            :key="`${item.label}-subItem-${index}`">
+                                            <router-link :to="subItem.to"
+                                                         class="text-nowrap font-weight-100"
+                                                         :class="{'border-bottom': index < item.children.length - 1}"
+                                                         style="padding: 9px 0; font-size: 11px">
+                                                {{ subItem.label }}
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </transition>
+
+                            </template>
+
+                            <template v-else>
+                                <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                            </template>
+
                         </li>
                     </ul>
                 </transition>
@@ -277,14 +477,95 @@
 
                 </div>
 
-                <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-hidden">
+                <div class="border-bottom px-25 px-sm-35 px-md-65 overflow-y-scroll"
+                     style="max-height: 250px">
                     <transition name="slide-down-up-250px">
                         <ul v-if="isShowMenuMobile">
-                            <li class="border-bottom" v-for="item of menu.first">
-                                <router-link :to="item.to">{{ item.label }}</router-link>
+                            <li class="border-bottom position-relative"
+                                v-for="item of menu.first"
+                                @click="item.subItemsVisibility = !item.subItemsVisibility">
+
+                                <template v-if="item.children && item.children.length">
+
+                                    <div class="d-flex align-items-center">
+
+                                        <a :href="item.to" class="flex-grow-1">{{ item.label }}</a>
+
+                                        <span class="d-flex">
+                                        <mdi-arrow-right
+                                                v-if="$route.params.lang === 'fa' || $route.params.lang === 'ar' || $route.params.lang === 'af'"
+                                                class="me-5"
+                                                size="20px"/>
+                                        <mdi-arrow-left v-else class="me-5" size="20px"/>
+                                    </span>
+
+                                    </div>
+
+                                    <transition name="fade">
+                                        <ul v-show="item.subItemsVisibility"
+                                            class="main--navbar--sub-menu p-0 ms-15"
+                                            style="background: #0F0F0FE6">
+                                            <li v-for="(subItem, index) of item.children"
+                                                :key="`${item.label}-subItem-${index}`">
+                                                <router-link :to="subItem.to"
+                                                             class="text-nowrap font-weight-100"
+                                                             :class="{'border-bottom': index < item.children.length - 1}"
+                                                             style="padding: 9px 0; font-size: 11px">
+                                                    {{ subItem.label }}
+                                                </router-link>
+                                            </li>
+                                        </ul>
+                                    </transition>
+
+                                </template>
+
+                                <template v-else>
+                                    <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                                </template>
+
                             </li>
-                            <li class="border-bottom" v-for="item of menu.second">
-                                <router-link :to="item.to">{{ item.label }}</router-link>
+                            <li class="border-bottom position-relative"
+                                v-for="item of menu.second"
+                                @click="item.subItemsVisibility = !item.subItemsVisibility">
+
+                                <template v-if="item.children && item.children.length">
+
+                                    <div class="d-flex align-items-center">
+
+                                        <a :href="item.to" class="flex-grow-1">{{ item.label }}</a>
+
+                                        <span class="d-flex">
+                                        <mdi-arrow-right
+                                                v-if="$route.params.lang === 'fa' || $route.params.lang === 'ar' || $route.params.lang === 'af'"
+                                                class="me-5"
+                                                size="20px"/>
+                                        <mdi-arrow-left v-else class="me-5" size="20px"/>
+                                    </span>
+
+                                    </div>
+
+                                    <transition name="fade">
+                                        <ul v-show="item.subItemsVisibility"
+                                            class="main--navbar--sub-menu p-0 ms-15"
+                                            style="background: #0F0F0FE6">
+                                            <li v-for="(subItem, index) of item.children"
+                                                :key="`${item.label}-subItem-${index}`">
+                                                <router-link :to="subItem.to"
+                                                             class="text-nowrap font-weight-100"
+                                                             :class="{'border-bottom': index < item.children.length - 1}"
+                                                             style="padding: 9px 0; font-size: 11px">
+                                                    {{ subItem.label }}
+                                                </router-link>
+                                            </li>
+                                        </ul>
+                                    </transition>
+
+                                </template>
+
+                                <template v-else>
+                                    <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                                </template>
+
                             </li>
                         </ul>
                     </transition>
@@ -313,6 +594,8 @@
         components: {
             'icon-search': () => import('../../../components/icons/IconSearch.vue'),
             'icon-side-area-opener': () => import('../../../components/icons/IconSideAreaOpener.vue'),
+            'mdi-arrow-left': () => import ('../../../components/icons/MaterialDesignIcons/MdiArrowLeft.vue'),
+            'mdi-arrow-right': () => import ('../../../components/icons/MaterialDesignIcons/MdiArrowRight.vue'),
         },
 
         data() {
@@ -342,8 +625,19 @@
                     ],
                     second: [
                         {
-                            label: i18n.t('glossaries.counter_strike'),
-                            to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
+                            label: i18n.t('glossaries.games'),
+                            to: 'javascript:void(0)',
+                            subItemsVisibility: false,
+                            children: [
+                                {
+                                    label: i18n.t('glossaries.counter_strike'),
+                                    to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
+                                },
+                                {
+                                    label: i18n.t('glossaries.counter_strike'),
+                                    to: {name: 'counterStrike', params: {lang: this.$route.params.lang}},
+                                },
+                            ],
                         },
                         {
                             label: i18n.t('glossaries.shop'),
@@ -500,6 +794,84 @@
                             a:after
                                 opacity 1
 
+
+            //--------------------------------------------
+
+        &--sub-menu
+            height auto !important
+
+            li
+                display flex
+                margin 0 4px
+                height 100%
+
+                a
+                    position relative
+                    width 100%
+                    height 100%
+                    color #fff
+                    font-size 13px
+                    line-height 1
+                    letter-spacing .06em
+                    text-transform uppercase
+                    box-sizing border-box
+                    padding 6px 26px
+
+                    span
+                        position relative
+                        display inline-block !important
+                        font-weight 100 !important
+                        -webkit-transform translateY(0) !important
+                        -moz-transform translateY(0) !important
+                        transform translateY(0) !important
+
+                    > span
+                        position relative
+                        display block
+                        overflow hidden
+                        padding 0 30px 0 0
+                        box-sizing border-box
+                        -webkit-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
+                        -moz-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
+                        transition padding .6s cubic-bezier(.19,1,.22,1) .1s
+
+                        &:before
+                            content ''
+                            position absolute
+                            bottom calc(50% - 1px)
+                            height 3px
+                            width 18px
+                            left -15px
+                            background-color #ff0e1f
+                            opacity 0
+                            -webkit-transition .3s ease
+                            -moz-transition .3s ease
+                            transition .3s ease
+                            -webkit-transform skewX(15deg)
+                            -moz-transform skewX(15deg)
+                            transform skewX(15deg)
+
+                    &:after
+                        content none !important
+
+                &:hover
+                    a
+                        > span
+                            padding 0 10px 0 28px
+                            -webkit-transition padding .3s
+                            -moz-transition padding .3s
+                            transition padding .3s
+
+                            &:before
+                                opacity 1
+                                left 0
+                                -webkit-transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
+                                -moz-transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
+                                transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
+
+                        a:after
+                            opacity 1
+
         &--mobile
             > div:nth-child(1)
                 display flex
@@ -641,6 +1013,14 @@
             //--------------------------------------------
 
             .main--navbar--main-menu
+                height 100%
+
+                ul li span
+                    font-size 12px
+
+            //--------------------------------------------
+
+            .main--navbar--sub-menu
                 height 100%
 
                 ul li span

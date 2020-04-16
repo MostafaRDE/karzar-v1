@@ -30,7 +30,7 @@
             },
             contentClass: {
                 default: '',
-                type: String,
+                type: [Array, String],
                 required: false,
             },
             headerClass: {

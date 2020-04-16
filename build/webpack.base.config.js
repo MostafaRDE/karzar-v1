@@ -12,7 +12,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    // devtool: '#cheap-module-source-map',
+    devtool: isProd
+        ? false
+        : '#cheap-module-source-map',
+    mode: isProd ? 'production' : 'development',
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/dist/',
@@ -81,7 +84,7 @@ module.exports = {
             cacheGroups: {
                 styles: {
                     name: 'styles',
-                    test: /\.css$/,
+                    test: /\.styl(us)?$/,
                     chunks: 'all',
                     enforce: true,
                 },
