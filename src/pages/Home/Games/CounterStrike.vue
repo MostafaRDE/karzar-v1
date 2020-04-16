@@ -82,7 +82,7 @@
                                         id="page--games--counter-strike--installation-guide"
                                         v-show="selectedTab === 1">
 
-                            <img src="/public/images/public/backgrounds/how-to-install-counter-strike.png" alt="" class="opacity-2 w-100"/>
+                            <img src="/public/images/public/backgrounds/how-to-install-counter-strike.jpg" alt="" class="opacity-2 w-100"/>
                             <icon-play class="position-absolute" size="48px" fill="#fff"/>
 
                         </rs-tab-content>
