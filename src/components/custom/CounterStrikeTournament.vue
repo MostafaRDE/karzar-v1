@@ -84,15 +84,17 @@
                                     <rs-button transparent glow
                                                class="text-nowrap"
                                                :class="{'flex-grow-1': width < 1024}">
-                                        192.168.23.253
+<!--                                        {{ $t('glossaries.coming_soon') }}-->
                                     </rs-button>
                                     <rs-button solid
                                                glow
+                                               disabled
                                                :trapezeStart="width >= 1024"
                                                class="text-white text-nowrap"
                                                :class="[{'px-80': width >= 1024}, {'flex-grow-1': width < 1024}]"
                                                @click.native="copyIP">
-                                        {{ $t('glossaries.copy_server_ip')}}
+<!--                                        {{ $t('glossaries.copy_server_ip')}}-->
+                                        {{ $t('glossaries.coming_soon') }}
                                     </rs-button>
                                 </div>
                             </div>
