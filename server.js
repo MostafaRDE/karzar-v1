@@ -129,6 +129,31 @@ function createRenderer(bundle, options) {
         }),
         // this is only needed when vue-server-renderer is npm-linked
         basedir: resolve('./dist'),
+        // inject: false,
+        renderStyles: () => {
+
+        },
+        renderState: () => {
+
+        },
+        renderScripts: () =>{
+
+        },
+        shouldPreload: (file, type) => {
+            // https://fetch.spec.whatwg.org/#concept-request-destination
+            // console.log(file,type);
+            if (type === 'script' || type === 'style') {
+                return true
+            }
+
+            if (type === 'font') {
+                return /\.woff2$/.test(file)
+            }
+            if (type === 'image') {}
+        },
+        shouldPrefetch: (file, type) => {
+            return false;
+        },
         // recommended for performance
         runInNewContext: false
     }))
