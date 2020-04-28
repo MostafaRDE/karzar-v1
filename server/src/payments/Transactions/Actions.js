@@ -35,7 +35,7 @@ class Actions {
         })
     }
 
-    store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId, dataField) {
+                  store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId, dataField) {
         return new Promise((resolve, reject) => {
             let transactionModel = new TransactionModel();
             let walletModel = new WalletModel();

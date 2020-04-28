@@ -92,10 +92,10 @@
                                 class="row py-20"
                                 :class="{'border-bottom': index < tournaments.length - 1}"/>
 
-                        <!--                    <div v-if="selectedTournamentTab === 0 && loadingGamesPlayed || selectedTournamentTab === 1 && loadingMyTournaments"-->
-                        <!--                         class="py-50">-->
-                        <!--                        <rs-overlay-loading width="28"/>-->
-                        <!--                    </div>-->
+                                            <div v-if="selectedTournamentTab === 0 && loadingGamesPlayed || selectedTournamentTab === 1 && loadingMyTournaments"
+                                                 class="py-50">
+                                                <rs-overlay-loading width="28"/>
+                                            </div>
 
                         <div v-if="!tournaments.length && (selectedTournamentTab === 0 && !loadingGamesPlayed || selectedTournamentTab === 1 && !loadingMyTournaments)"
                              class="py-50 text-center">
@@ -108,6 +108,44 @@
                         <rs-pagination v-if="selectedTournamentTab === 1 && tournaments.length" class="my-20"
                                        v-model="myTournamentsCurrentPage" :count="myTournamentsTotalPages"
                                        @change="updateListByPagination(1)"/>
+
+                    </div>
+
+                </rs-tab-content>
+
+            </rs-tabs>
+        </div>
+
+        <div class="container mt-40 py-50 px-20" id="top10">
+            <h2 class="text-center text-white">{{ $t('glossaries.games_played') }}</h2>
+
+            <title-span class="mt-20 w-100 d-block text-center"/>
+
+            <rs-tabs class="mt-60" :tabs="top10Tabs" v-model="selectedTop10Tab">
+
+                <rs-tab-content class="position-relative flex-direction-column px-0 justify-content-center overflow-hidden align-items-center"
+                                id="page--home--top10--30days">
+
+                    <div class="d-flex flex-direction-column px-20">
+
+                        <top10-item
+                                v-if="top10.length && !loadingTop10"
+                                v-for="(item, index) of top10"
+                                :key="`top10-${index}`"
+                                :data="item"
+                                :rank="index + 1"
+                                class="row py-20"
+                                :class="{'border-bottom': index < top10.length - 1}"/>
+
+                                <div v-if="loadingTop10"
+                                     class="py-50">
+                                    <rs-overlay-loading width="28"/>
+                                </div>
+
+                        <div v-if="!top10.length && !loadingTop10"
+                             class="py-50 text-center">
+                            <span>{{ $t('glossaries.not_found') }}</span>
+                        </div>
 
                     </div>
 
@@ -241,7 +279,7 @@
         getMainSliderItems,
         myTournaments,
         runningTournaments,
-        sendContactMessage,
+        sendContactMessage, top10,
         tutorials
     } from '../../api'
 
@@ -282,6 +320,18 @@
 
             // Filtered tournaments
             tournaments: [],
+
+            loadingTop10: false,
+            top10: [],
+            selectedTop10Tab: 0,
+            top10Tabs: [
+                {
+                    label: i18n.t('glossaries.30_days'),
+                },
+                {
+                    label: i18n.t('glossaries.all'),
+                },
+            ],
 
             isActiveMainSideMenu: false,
 
@@ -327,7 +377,6 @@
 
         computed: {
             tabs () {
-
                 return [
                     {
                         label: i18n.t('glossaries.games_played'),
@@ -375,7 +424,7 @@
                             this.gamesPlayed = response.data.result;
 
                             if (this.selectedTournamentTab === 0)
-                                this.tournaments = this.gamesPlayed
+                                this.tournaments = this.gamesPlayed;
                         })
                         .catch(error => {
 
@@ -408,6 +457,22 @@
                 }
             },
 
+            getTop10(days) {
+                if (!this.loadingTop10) {
+                    this.loadingTop10 = true;
+                    top10(days)
+                        .then(res => {
+                            this.top10 = res.data.result;
+                        })
+                        .catch(err => {
+
+                        })
+                        .finally(() => {
+                            this.loadingTop10 = false
+                        })
+                }
+            },
+
             updateListByPagination(type) {
                 switch (type) {
                     case 0:
@@ -416,20 +481,6 @@
 
                     case 1:
                         this.getMyTournaments();
-                        break;
-                }
-            },
-
-            updateTournamentsSelected(type) {
-                switch (type) {
-                    case 0:
-                        this.tournaments = this.gamesPlayed;
-                        this.selectedTournamentTab = 'PUBLIC';
-                        break;
-
-                    case 0:
-                        this.tournaments = this.myTournaments;
-                        this.selectedTournamentTab = 'ME';
                         break;
                 }
             },
@@ -500,17 +551,32 @@
                             to: slide.link,
                         },
                     })
-                })
+                });
             }).catch(error => {
 
             });
 
             this.getRunningTournaments();
             this.getGamesPlayed();
+
             if (this.$store.state.user_auth)
                 this.getMyTournaments();
 
+            this.getTop10(30);
             this.getTutorials();
+        },
+
+        watch: {
+            selectedTop10Tab(val) {
+                switch (val) {
+                    case 0:
+                        this.getTop10(30);
+                        break;
+                    case 1:
+                        this.getTop10();
+                        break;
+                }
+            }
         },
 
         beforeDestroy() {

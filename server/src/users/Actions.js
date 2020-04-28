@@ -1,3 +1,4 @@
+const {PubgCharacterModel} = require('../../Models/PubgModel');
 const {UserModel} = require('../../Models/UserModel');
 const {WalletModel} = require('../../Models/WalletModel');
 const bcrypt = require("bcrypt");
@@ -41,12 +42,14 @@ class Actions {
      * This is a add account
      * @param email
      * @param password
-     * @param character_name
      * @param whatsapp_number
      * @param refer_code
+     * @param character_id
+     * @param character_name
+     * @param lang
      * @returns {Promise<any>}
      */
-    addAccount({email, password, whatsapp_number, refer_code, lang}) {
+    addAccount({email, password, whatsapp_number, refer_code, character_id, character_name, lang}) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
             userModel.fetch_one('id , email', ['email'], [email])
@@ -63,6 +66,9 @@ class Actions {
 
                                     let walletModel = new WalletModel();
                                     await walletModel.insertSync(['user_id'], [data.id]);
+
+                                    let pubgCharacterModel = new PubgCharacterModel();
+                                    await pubgCharacterModel.insertSync(['user_id', 'name', 'id'], [data.id, character_name, character_id]);
 
                                     // TODO :: SEND EMAIL APPROVE
                                     await mailer.send_valid_email_address(data.id, email, lang);

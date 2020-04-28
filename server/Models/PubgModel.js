@@ -2,6 +2,12 @@
 
 const pg_helper = require('../util/db/psql/pg_help');
 
+class PubgCharacterModel extends pg_helper {
+    constructor() {
+        super('pubg.characters')
+    }
+}
+
 class PubgMapModel extends pg_helper {
     constructor() {
         super('pubg.maps')
@@ -26,4 +32,4 @@ class PubgTournamentWinnerModel extends pg_helper {
     }
 }
 
-module.exports = {PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel};
+module.exports = {PubgCharacterModel, PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel};

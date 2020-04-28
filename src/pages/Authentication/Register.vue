@@ -74,6 +74,28 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('whatsappNumber') }}</span>
 
+                    {{ /* Whatsapp number input */ }}
+                    <rs-input type="text"
+                              class="mt-20"
+                              inputClass="font-size-md"
+                              :label="$t('glossaries.player_id')"
+                              name="playerId"
+                              v-model="fields.playerId"
+                              :rules="fields.rules.playerId"/>
+                    {{ /* Email form error */ }}
+                    <span class="text-danger">{{ getInputError('playerId') }}</span>
+
+                    {{ /* Whatsapp number input */ }}
+                    <rs-input type="text"
+                              class="mt-20"
+                              inputClass="font-size-md"
+                              :label="$t('glossaries.player_name')"
+                              name="playerName"
+                              v-model="fields.playerName"
+                              :rules="fields.rules.playerName"/>
+                    {{ /* Email form error */ }}
+                    <span class="text-danger">{{ getInputError('playerName') }}</span>
+
                     {{ /* Refer-code input */ }}
 <!--                    <rs-input type="number"-->
 <!--                              class="mt-20"-->
@@ -168,6 +190,8 @@
                 password: '',
                 retypePassword: '',
                 whatsappNumber: '',
+                playerId: '',
+                playerName: '',
                 referCode: '',
                 isAcceptTermOfUse: true,
 
@@ -177,6 +201,8 @@
                     password: 'required|string|min:6',
                     retypePassword: 'required|confirm_password',
                     whatsappNumber: 'required|string:digits',
+                    playerId: 'required|string:digits',
+                    playerName: 'required|string',
                     referCode: '',
                     isAcceptTermOfUse: 'required',
                 }
@@ -208,7 +234,7 @@
                 this.registering = true;
 
                 // Call "register" api method
-                register(this.fields.email, this.fields.password, this.fields.whatsappNumber, this.fields.referCode)
+                register(this.fields.email, this.fields.password, this.fields.whatsappNumber, this.fields.playerId, this.fields.playerName, this.fields.referCode)
                 // If api is successful
                     .then(response => {
                         // Show toast successful

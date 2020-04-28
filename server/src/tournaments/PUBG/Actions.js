@@ -1,4 +1,4 @@
-let {PubgTournamentModel, PubgTournamentPlayerModel} = require('../../../Models/PubgModel');
+let {PubgCharacterModel, PubgTournamentModel, PubgTournamentPlayerModel} = require('../../../Models/PubgModel');
 let {WalletModel, WalletTransactionsModel} = require('../../../Models/WalletModel');
 const mediaGetFile = require('../../../util/media').getFile;
 const getTranslates = require('../../../util/glossary').getTranslates;
@@ -148,7 +148,7 @@ class Actions {
     players(lang, id) {
         return new Promise((resolve, reject) => {
             let model = new PubgTournamentPlayerModel();
-            model.fetch_all_custom(`SELECT pubg.tournament_players.*, users.media_id as profile_image_id FROM pubg.tournament_players INNER JOIN users ON (tournament_players.user_id = users.id) WHERE tournament_id = ${id} ORDER BY group_number, character_name`)
+            model.fetch_all_custom(`SELECT pubg.tournament_players.*, pubg.characters.name as character_name, users.media_id as profile_image_id FROM pubg.tournament_players INNER JOIN users ON (tournament_players.user_id = users.id) INNER JOIN pubg.characters ON (tournament_players.character_id = pubg.characters.id) WHERE tournament_id = ${id} ORDER BY group_number, character_name`)
                 .then(async data => {
                     for (let i = 0; i < data.result.length; i++) {
                         if (data.result[i].profile_image_id)
@@ -167,7 +167,20 @@ class Actions {
         })
     }
 
-    enter(lang, id, userId, characterName) {
+    top10(days) {
+        return new Promise((resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
+            let query = `SELECT * FROM pubg.characters ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
+            pubgCharacterModel.fetch_all_custom(query, 1, 10).then(res => {
+                resolve(res)
+            }).catch(err => {
+                console.error(err);
+                reject({status: false})
+            })
+        })
+    }
+
+    enter(lang, id, userId, characterId) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
@@ -186,7 +199,7 @@ class Actions {
                         }
                     }
 
-                    pubgTournamentPlayerModel.fetch_one('*', ['character_name', 'tournament_id'], [characterName, id]).then(async response => {
+                    pubgTournamentPlayerModel.fetch_one('*', ['character_id', 'tournament_id'], [characterId, id]).then(async response => {
 
                         if (!response) {
                             let tour = await pubgTournamentModel.fetch_one('*', ['id'], [id]);
@@ -245,8 +258,8 @@ class Actions {
                                                         }
 
                                                         pubgTournamentPlayerModel.insertSync(
-                                                            ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
-                                                            [characterName, groupNumber, walletTransactionId, id, userId]
+                                                            ['character_id', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
+                                                            [characterId, groupNumber, walletTransactionId, id, userId]
                                                         ).then(response => {
                                                             resolve({status: true})
                                                         }).catch(e => {
@@ -268,8 +281,8 @@ class Actions {
                                             } else {
                                                 // Add first user(player) in the tournament
                                                 pubgTournamentPlayerModel.insertSync(
-                                                    ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
-                                                    [characterName, 1, walletTransactionId, id, userId]
+                                                    ['character_id', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
+                                                    [characterId, 1, walletTransactionId, id, userId]
                                                 ).then(response => {
                                                     resolve({status: true})
                                                 }).catch(e => {
@@ -328,7 +341,7 @@ class Actions {
         })
     }
 
-    enterMultiPlayer(lang, id, userId, characterNames) {
+    enterMultiPlayer(lang, id, userId, characterIds) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
@@ -336,16 +349,16 @@ class Actions {
             let walletTransactionModel = new WalletTransactionsModel();
             try {
 
-                let tempCharacterNames = [];
-                characterNames.forEach(characterName => tempCharacterNames.push(characterName));
+                let tempCharacterIds = [];
+                characterIds.forEach(characterName => tempCharacterIds.push(characterName));
 
-                for (let i = 0; i < tempCharacterNames.length; i++) {
+                for (let i = 0; i < tempCharacterIds.length; i++) {
                     try {
-                        let response = await pubgTournamentPlayerModel.fetch_one('*', ['character_name', 'tournament_id'], [tempCharacterNames[i], id]);
+                        let response = await pubgTournamentPlayerModel.fetch_one('*', ['character_id', 'tournament_id'], [tempCharacterIds[i], id]);
                         if (response) {
-                            let index = characterNames.indexOf(tempCharacterNames[i]);
+                            let index = characterIds.indexOf(tempCharacterIds[i]);
                             if (index > -1) {
-                                characterNames.splice(index, 1)
+                                characterIds.splice(index, 1)
                             }
                         }
                     } catch (e) {
@@ -353,12 +366,12 @@ class Actions {
                     }
                 }
 
-                if (characterNames.length) {
+                if (characterIds.length) {
 
                     let tour = await pubgTournamentModel.fetch_one('*', ['id'], [id]);
                     let wallet = await walletModel.fetch_one('*', ['user_id'], [userId]);
 
-                    if (tour.group_capacity >= characterNames.length) {
+                    if (tour.group_capacity >= characterIds.length) {
 
                         // In below calculate capacity for registering
                         pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_players_registered_count').then(data => {
@@ -366,10 +379,10 @@ class Actions {
                             if (data.total)
                                 playersRegisteredCount = data.result[0].players_count;
 
-                            if (!playersRegisteredCount || tour.capacity - characterNames.length >= playersRegisteredCount) {
+                            if (!playersRegisteredCount || tour.capacity - characterIds.length >= playersRegisteredCount) {
 
                                 // In below calculate payment
-                                if (wallet.amount < (tour.fee * characterNames.length)) {
+                                if (wallet.amount < (tour.fee * characterIds.length)) {
                                     reject({
                                         status: false,
                                         msg: __('messages').not_enough_amount
@@ -378,11 +391,11 @@ class Actions {
                                     // Set transaction wallet
                                     walletTransactionModel.insertSync(
                                         ['amount', 'type', 'wallet_id', 'in_order_to'],
-                                        [(tour.fee * characterNames.length), 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
+                                        [(tour.fee * characterIds.length), 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
                                     ).then(data => {
                                         let walletTransactionId = data.id;
                                         // Decrease amount of user(player) wallet
-                                        walletModel.update(['amount'], [(wallet.amount - (tour.fee * characterNames.length)).toFixed(2)], ['id'], [wallet.id]).then(response => {
+                                        walletModel.update(['amount'], [(wallet.amount - (tour.fee * characterIds.length)).toFixed(2)], ['id'], [wallet.id]).then(response => {
 
                                             // In below calculate group player and other options of new players of the tournament
 
@@ -392,7 +405,7 @@ class Actions {
                                                     // get max group number created to now
                                                     let groupNumber = Math.max.apply(Math, data.result.map(group => group.group_number)),
                                                         // Max allow members registered in a group and new team add side by the old group (Merge team)
-                                                        maxAllowGroupMembersForNewPlayers = tour.group_capacity - characterNames.length;
+                                                        maxAllowGroupMembersForNewPlayers = tour.group_capacity - characterIds.length;
                                                     // If new team not filling group
                                                     if (maxAllowGroupMembersForNewPlayers > 0) {
                                                         // If exist a group with capacity for new team
@@ -405,7 +418,7 @@ class Actions {
                                                         groupNumber++;
                                                     }
 
-                                                    this.enterUser(characterNames, groupNumber, walletTransactionId, id, userId).then(resolve).catch(reject)
+                                                    this.enterUser(characterIds, groupNumber, walletTransactionId, id, userId).then(resolve).catch(reject)
 
                                                 }).catch(e => {
                                                     reject({
@@ -415,7 +428,7 @@ class Actions {
                                                 });
                                             } else {
                                                 // Add first user(player) or team in the tournament
-                                                this.enterUser(characterNames, 1, walletTransactionId, id, userId).then(resolve).catch(reject);
+                                                this.enterUser(characterIds, 1, walletTransactionId, id, userId).then(resolve).catch(reject);
                                             }
                                         }).catch(e => {
                                             reject({
@@ -499,17 +512,17 @@ class Actions {
 
     // -----------------------------------------------------
 
-    enterUser(characterNames, groupNumber, walletTransactionId, tournamentId, userId) {
+    enterUser(characterIds, groupNumber, walletTransactionId, tournamentId, userId) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel(),
                 i = 0;
 
 
-            for (let j = 0; j < characterNames.length; j++) {
+            for (let j = 0; j < characterIds.length; j++) {
                 try {
                     await pubgTournamentPlayerModel.insertSync(
-                        ['character_name', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
-                        [characterNames[j], groupNumber, walletTransactionId, tournamentId, userId]
+                        ['character_id', 'group_number', 'wallet_transaction_id', 'tournament_id', 'user_id'],
+                        [characterIds[j], groupNumber, walletTransactionId, tournamentId, userId]
                     );
 
                     i++
@@ -520,7 +533,7 @@ class Actions {
 
 
             // If registered all new users
-            if (i === characterNames.length) {
+            if (i === characterIds.length) {
                 resolve({status: true})
             }
             // Else if i > 0 and not registered all new characters

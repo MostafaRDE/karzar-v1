@@ -14,12 +14,14 @@
 	},
 	"currencies_short": {},
 	"glossaries": {
+		"30_days": "30 روز",
 		"about": "درباره",
 		"about_us": "درباره ما",
 		"account": "حساب",
 		"account_charging": "شارژ حساب",
 		"afghan": "افغانی",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "بعد از درخواست بین 1 تا 24 ساعت کاری با شما تسویه انجام می شود",
+		"all": "همه",
 		"amount": "حجم",
 		"and_in_the_last_step_send_a_screenshot_of_your_payment": "و در آخرین مرحله اسکرین شات از پرداخت خود را ارسال کنید",
 		"average": "میانگین",
@@ -103,6 +105,8 @@
 		"pair": "جفت",
 		"password": "گذرواژه",
 		"password_update": "بروزرسانی گذرواژه",
+		"player_id": "آی دی بازیکن",
+		"player_name": "نام کاراکتر",
 		"players": "بازیکنان",
 		"players2": "تعداد",
 		"players_list": "لیست بازیکنان",
@@ -117,11 +121,12 @@
 		"refer_code_optional": "کد معرف (اختیاری)",
 		"register": "ثبت نام",
 		"resend_verification_email": "ارسال مجدد لینک فعال سازی",
-		"reset_password": "بازیابی گذرواژه",
-		"retype_new_password": "تکرار گذرواژه جدید",
-		"retype_password": "تکرار گذرواژه",
+		"reset_password": "بازیابی رمز عبور",
+		"retype_new_password": "تکرار رمز عبور جدید",
+		"retype_password": "تکرار رمز عبور",
 		"reward": "جایزه",
 		"room": "روم",
+		"room_password": "رمز عبور روم",
 		"running": "در حال اجرا",
 		"running_tournaments": "تورنومنت های در حال اجرا",
 		"search": "جستجو",
@@ -172,7 +177,7 @@
 		"errors": {
 			"log_in_failed": "ورود با شکست مواجه شد.مجدد امتحان کنید",
 			"registration_failed": "ثبت نام با شکست مواجه شد.مجدد امتحان کنید",
-			"reset_password_failed": "تغییر گذرواژه با شکست مواجه شد.مجدد امتحان کنید",
+			"reset_password_failed": "تغییر رمز عبور با شکست مواجه شد.مجدد امتحان کنید",
 			"transaction_amount_must_be_over_2_dollar": "مبلغ تراکنش باید برابر یا بیش از ۵ دلار باشد",
 			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد"
 		},
@@ -186,13 +191,13 @@
 		"please_check_that_you_are_visiting": "لطفا بررسی کنید که آدرس مرورگراتان ,آدرس زیر باشد",
 		"please_select_your_transaction_image_from_the_Select_File_section": "لطفا تصویر تراکنش خود را از بخش \"انتخاب فایل\" انتخاب کنید",
 		"rules": {
-			"confirm_password": "تکرار گذرواژه مطابقت ندارد",
+			"confirm_password": "تکرار رمز عبور مطابقت ندارد",
 			"email": "ایمیل وروی اشتباه است.",
 			"min": {
 				"number": "عدد ورودی باید بزرگتر مساوی با {number} باشد.",
 				"string": "حداقل تعداد حروف باید {count} حرف باشد."
 			},
-			"password": "گذرواژه باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
+			"password": "رمز عبور باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
 			"required": "فیلد ورودی اجباری می باشد.",
 			"string": {
 				"default": "ورودی باید متنی باشد.",
@@ -204,9 +209,9 @@
 			"account_charging_request_successful": "درخواست شارژ حساب با موفقیت ثبت شد",
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
-			"reset_password_successful": "تغییر گذرواژه با موفقیت انجام شد.",
+			"reset_password_successful": "تغییر رمز عبور با موفقیت انجام شد.",
 			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد",
-			"the_password_was_successfully_updated": "گذرواژه با موفقیت بروزرسانی شد",
+			"the_password_was_successfully_updated": "رمز عبور با موفقیت بروزرسانی شد",
 			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد"
 		}
 	},
@@ -240,26 +245,26 @@
 				"title": "Your account has been approved"
 			},
 			"login": {
-				"title": "ورود | بیترانکس"
+				"title": "ورود | گیم تور"
 			},
 			"login_with_google_authenticator": {
 				"header": "کد احراز هویت گوگل خود را وارد کنید",
 				"title": "کد احراز هویت گوگل خود را وارد کنید"
 			},
 			"password_change": {
-				"header": "تغییر گذرواژه",
-				"title": "تغییر گذرواژه"
+				"header": "تغییر رمز عبور",
+				"title": "تغییر رمز عبور"
 			},
 			"password_changed": {
 				"content": {
-					"message": "گذرواژه با موفقیت تغییر یافت."
+					"message": "رمز عبور با موفقیت تغییر یافت."
 				},
-				"header": "تغییر گذرواژه",
-				"title": "تغییر گذرواژه"
+				"header": "تغییر رمز عبور",
+				"title": "تغییر رمز عبور"
 			},
 			"password_reset_link_sent": {
-				"header": "لینک تغییر گذرواژه ارسال شد",
-				"title": "لینک تغییر گذرواژه ارسال شد"
+				"header": "لینک تغییر رمز عبور ارسال شد",
+				"title": "لینک تغییر رمز عبور ارسال شد"
 			},
 			"register": {
 				"content": {
@@ -267,35 +272,35 @@
 					"the_site_s_term_of_use": "شرایط استفاده از {site_name}"
 				},
 				"header": "ثبت نام",
-				"title": "ثبت نام | بیترانکس"
+				"title": "ثبت نام | گیم تور"
 			},
 			"reset_password": {
 				"content": {
-					"withdrawal_warning": "برای اهداف امنیتی ، هیچ برداشتی به مدت 24 ساعت پس از اصلاح گذرواژه مجاز نیست."
+					"withdrawal_warning": "برای اهداف امنیتی ، هیچ برداشتی به مدت 24 ساعت پس از اصلاح رمز عبور مجاز نیست."
 				},
-				"header": "بازیابی گذرواژه",
-				"title": "بازیابی گذرواژه | بیترانکس"
+				"header": "بازیابی رمز عبور",
+				"title": "بازیابی رمز عبور | گیم تور"
 			},
 			"reset_password_error_ip": {
 				"content": {
-					"message": "آی پی شما برای تغییر گذرواژه نامعتبر است."
+					"message": "آی پی شما برای تغییر رمز عبور نامعتبر است."
 				},
-				"header": "خطا در تغییر گذرواژه",
-				"title": "خطا در تغییر گذرواژه | بیترانکس"
+				"header": "خطا در تغییر رمز عبور",
+				"title": "خطا در تغییر رمز عبور | گیم تور"
 			},
 			"reset_password_token_expire": {
 				"content": {
 					"message": "توکن تغییر گذراوژه منقضی شده است."
 				},
-				"header": "خطا در تغییر گذرواژه",
-				"title": "خطا در تغییر گذرواژه | بیترانکس"
+				"header": "خطا در تغییر رمز عبور",
+				"title": "خطا در تغییر رمز عبور | گیم تور"
 			},
 			"send_reset_password_link_to": {
 				"content": {
-					"send_reset_password_link": "ارسال لینک تغییر گذرواژه"
+					"send_reset_password_link": "ارسال لینک تغییر رمز عبور"
 				},
-				"header": "ارسال لینک تغییر گذرواژه به",
-				"title": "ارسال لینک تغییر گذرواژه به | بیترانکس"
+				"header": "ارسال لینک تغییر رمز عبور به",
+				"title": "ارسال لینک تغییر رمز عبور به | گیم تور"
 			},
 			"verify_email_address": {
 				"content": {
@@ -303,7 +308,7 @@
 					"created_email_and_sent_verifier_email": "حساب شما در {site_name} ساخته و یک پیام حاوی لینک فعال سازی به ایمیل شما ارسال شد."
 				},
 				"header": "فعال سازی حساب کاربری",
-				"title": "فعال سازی حساب کاربری | بیترانکس"
+				"title": "فعال سازی حساب کاربری | گیم تور"
 			}
 		},
 		"trade": {
@@ -315,7 +320,7 @@
 	},
 	"questions": {
 		"already_registered": "قبلا ثبت نام کرده اید؟",
-		"forgot_password": "گذرواژه خود را فراموش کرده اید؟",
+		"forgot_password": "رمز عبور خود را فراموش کرده اید؟",
 		"not_on_the_site_yet": "هنوز در {site_name} عضو نشده اید؟"
 	},
 	"reasons": {

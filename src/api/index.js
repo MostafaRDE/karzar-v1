@@ -68,10 +68,10 @@ export function login(email, password) {
 }
 
 // Register api
-export function register(email, password, whatsapp_number, refer_code) {
+export function register(email, password, whatsapp_number, player_id, player_name, refer_code) {
     // Create requested data as object
     const data = {
-        email, password, whatsapp_number, refer_code,
+        email, password, whatsapp_number, player_id, player_name, refer_code,
     };
 
     // Create request as "Promise" and returned it
@@ -137,6 +137,17 @@ export function tournamentPlayers(id) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         axios.get(`tournaments/pubg/${id}/players?lang=${lang()}`).then(resolve).catch(reject)
+    })
+}
+
+export function top10(days) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let query = `?lang=${lang()}`;
+        if (days)
+            query += `&days=${days}`;
+
+        axios.get(`tournaments/pubg/top-10${query}`).then(resolve).catch(reject)
     })
 }
 

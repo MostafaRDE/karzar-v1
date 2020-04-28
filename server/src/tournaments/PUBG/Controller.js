@@ -19,6 +19,15 @@ module.exports = {
         })
     },
 
+    top10(req, res) {
+        const actions = new Actions();
+        actions.top10(req.query.days).then(data => {
+            res.json(data)
+        }).catch(error => {
+            res.status(500).send(error)
+        })
+    },
+
     last(request, response) {
         const actions = new Actions();
         actions.last(request.query.lang).then(data => {
@@ -48,22 +57,22 @@ module.exports = {
 
     enter(request, response) {
         const actions = new Actions();
-        let characterName = request.body.character_name;
-        if (characterName) {
+        let characters = request.body.characters;
+        if (characters) {
 
-            let characterNames = characterName.split(',');
-            characterNames = characterNames.map(char => char.trim());
-            characterNames = characterNames.filter(char => char !== '');
+            let characterIds = characters.split(',');
+            characterIds = characterIds.map(char => char.trim());
+            characterIds = characterIds.filter(char => char !== '');
 
-            if (characterNames.length > 0) {
-                if (characterNames.length === 1) {
-                    actions.enter(request.query.lang, request.params.id, request.user.id, characterNames[0]).then(data => {
+            if (characterIds.length > 0) {
+                if (characterIds.length === 1) {
+                    actions.enter(request.query.lang, request.params.id, request.user.id, characterIds[0]).then(data => {
                         response.send(data)
                     }).catch(error => {
                         response.status(500).send(error)
                     })
                 } else {
-                    actions.enterMultiPlayer(request.query.lang, request.params.id, request.user.id, characterNames).then(data => {
+                    actions.enterMultiPlayer(request.query.lang, request.params.id, request.user.id, characterIds).then(data => {
                         response.send(data)
                     }).catch(error => {
                         response.status(500).send(error)
