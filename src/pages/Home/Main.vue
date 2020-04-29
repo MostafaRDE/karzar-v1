@@ -117,7 +117,7 @@
         </div>
 
         <div class="container mt-40 py-50 px-20" id="top10">
-            <h2 class="text-center text-white">{{ $t('glossaries.games_played') }}</h2>
+            <h2 class="text-center text-white">{{ $t('glossaries.top_10') }}</h2>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
 
@@ -196,11 +196,11 @@
 
                 <div class="col-md-6 mb-0 d-flex flex-direction-column justify-content-center py-80 py-md-40 text-center text-md-start">
                     <div>
-                        <h1 class="text-white line-height-1-1" :style="{fontFamily: `${$route.params.lang === 'en' ? 'Rubik' : 'IRANSans'} !important`}">
-                            {{ $t('glossaries.tournaments_executor') }}:<br>
-                            S3VEN
+                        <h2 class="text-white line-height-1-1" :style="{fontFamily: `${$route.params.lang === 'en' ? 'Rubik' : 'IRANSans'} !important`}">
+                            {{ $t('glossaries.tournaments_executor') }}:
 <!--                            {{ $t('glossaries.youtuber_name') }}-->
-                        </h1>
+                        </h2>
+                        <h1 class="text-white" :style="{fontFamily: `Rubik !important`}">S3VEN</h1>
 
                         <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
 <!--                            <a href="https://www.youtube.com/channel/UC&#45;&#45;7oyGW0N7fMf164-ZXljQ" target="_blank" class="d-flex" style="padding: 13px 44px">-->

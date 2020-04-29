@@ -12,7 +12,7 @@
                     <template v-else-if="rank === 3">
                         <img src="/public/images/public/ranking/1.png" alt="" class="w-100"/>
                     </template>
-                    <template v-else>rank</template>
+                    <template v-else>{{ rank }}</template>
                 </div>
                 <div>
                     <div class="overflow-hidden position-relative pxw-65"
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="d-flex flex-direction-column justify-content-space-around ms-20">
-                    <span class="text-white font-weight-900">{{ data.name }}</span>
-                    <span class="text-white">#{{ data.id }}</span>
+                    <span class="text-white font-weight-900 d-flex align-items-center"><img src="/public/images/public/icons/ic-user.png" class="me-5" style="height: 14px" alt=""/>{{ data.name }}</span>
+                    <span class="text-white d-flex align-items-center"><img src="/public/images/public/icons/ic-id.png" alt="" class="me-5" style="height: 14px"/>#{{ data.id }}</span>
                 </div>
             </div>
             <div class="col-sm-6 text-center text-sm-end d-flex align-items-center" :class="width <= 679 ? 'justify-content-center' : 'justify-content-flex-end'">

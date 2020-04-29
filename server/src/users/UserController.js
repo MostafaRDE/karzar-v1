@@ -21,8 +21,8 @@ module.exports = {
         let password = req.body.password;
         let whatsapp_number = req.body.whatsapp_number;
         let refer_code = req.body.refer_code;
-        let character_id = req.body.character_id;
-        let character_name = req.body.character_name;
+        let character_id = req.body.player_id;
+        let character_name = req.body.player_name;
 
         if (!email || !password || !whatsapp_number) {
             return res.status(400).json({error: -400, msg: __('messages').err_empty_required_filed})
