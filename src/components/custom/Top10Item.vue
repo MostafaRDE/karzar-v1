@@ -7,10 +7,10 @@
                         <img src="/public/images/public/ranking/1.png" alt="" class="w-100"/>
                     </template>
                     <template v-else-if="rank === 2">
-                        <img src="/public/images/public/ranking/1.png" alt="" class="w-100"/>
+                        <img src="/public/images/public/ranking/2.png" alt="" class="w-100"/>
                     </template>
                     <template v-else-if="rank === 3">
-                        <img src="/public/images/public/ranking/1.png" alt="" class="w-100"/>
+                        <img src="/public/images/public/ranking/2.png" alt="" class="w-100"/>
                     </template>
                     <template v-else>{{ rank }}</template>
                 </div>
