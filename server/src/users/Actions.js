@@ -68,7 +68,7 @@ class Actions {
                                     await walletModel.insertSync(['user_id'], [data.id]);
 
                                     let pubgCharacterModel = new PubgCharacterModel();
-                                    await pubgCharacterModel.insertSync(['user_id', 'name', 'id'], [data.id, character_name, character_id]);
+                                    await pubgCharacterModel.insertSync(['user_id', 'name', 'id', 'updated_at'], [data.id, character_name, character_id, 'NOW()']);
 
                                     // TODO :: SEND EMAIL APPROVE
                                     await mailer.send_valid_email_address(data.id, email, lang);
