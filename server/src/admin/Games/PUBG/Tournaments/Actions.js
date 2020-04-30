@@ -188,6 +188,20 @@ class PubgTournamentsActions {
         });
     }
 
+    updatePlayers(id, data = []) {
+        return new Promise(async (resolve, reject) => {
+            let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
+            for (let i = 0; i < data.length; i++) {
+                pubgTournamentPlayerModel.update(['killed_number'], [data[i].killed_number], ['id'], [data.id]).then(res => {
+                    resolve({status: true})
+                }).catch(err => {
+                    console.error(err);
+                    reject(err)
+                })
+            }
+        });
+    }
+
     addAuthenticationRoomToGroupPlayers(player_id) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();

@@ -93,9 +93,11 @@
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
                                             <div v-if="!model.is_joined && !isRunning">
-                                                <rs-input
-                                                          type="text"
+                                                <rs-input type="text"
                                                           :label="$t('glossaries.character_name')"
+                                                          @focusin="fields.player1CharactersListVisibility = true"
+                                                          @focusout="fields.player1CharactersListVisibility = false"
+                                                          @change="getCharacters(1, $event)"
                                                           v-model="fields.player1"/>
                                             </div>
                                             <div class="mt-20 d-flex align-items-center">
@@ -142,6 +144,9 @@
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
+                                                          @focusin="fields.player1CharactersListVisibility = true"
+                                                          @focusout="fields.player1CharactersListVisibility = false"
+                                                          @change="getCharacters(1, $event)"
                                                           v-model="fields.player1"/>
                                             </div>
                                         </div>
@@ -152,6 +157,9 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player2"
+                                                          @focusin="fields.player2CharactersListVisibility = true"
+                                                          @focusout="fields.player2CharactersListVisibility = false"
+                                                          @change="getCharacters(2, $event)"
                                                           v-model="fields.player2"/>
                                             </div>
                                         </div>
@@ -162,6 +170,9 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player3"
+                                                          @focusin="fields.player3CharactersListVisibility = true"
+                                                          @focusout="fields.player3CharactersListVisibility = false"
+                                                          @change="getCharacters(3, $event)"
                                                           v-model="fields.player3"/>
                                             </div>
                                         </div>
@@ -172,6 +183,9 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player4"
+                                                          @focusin="fields.player4CharactersListVisibility = true"
+                                                          @focusout="fields.player4CharactersListVisibility = false"
+                                                          @change="getCharacters(4, $event)"
                                                           v-model="fields.player4"/>
                                             </div>
                                         </div>
@@ -237,7 +251,7 @@
                             <div class="col-3 mb-0" v-for="player of team">
                                 <div class="overflow-hidden position-relative"
                                      :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                                    <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
+                                    <img :src="player.image.url_static || '/public/images/public/pubg-default-profile.svg'"
                                          alt=""
                                          class="w-100"/>
                                     <span class="position-absolute font-size-xxs"
@@ -256,7 +270,7 @@
 
 <script>
     import moment from 'moment'
-    import {enterToTheTournament, tournamentPlayers} from "../../api";
+    import {characters, enterToTheTournament, tournamentPlayers} from "../../api";
     import i18n from '../../i18n'
 
     export default {
@@ -306,9 +320,21 @@
             },
             fields: {
                 player1: '',
+                player1CharactersList: [],
+                player1CharactersListLoading: false,
+                player1CharactersListVisibility: false,
                 player2: '',
+                player2CharactersList: [],
+                player2CharactersListLoading: false,
+                player2CharactersListVisibility: false,
                 player3: '',
+                player3CharactersList: [],
+                player3CharactersListLoading: false,
+                player3CharactersListVisibility: false,
                 player4: '',
+                player4CharactersList: [],
+                player4CharactersListLoading: false,
+                player4CharactersListVisibility: false,
             }
         }),
 
@@ -378,6 +404,22 @@
             showPlayersModal() {
                 this.modals.pubgTournamentUsers.visibility = true;
                 this.getPlayers()
+            },
+
+            getCharacters(id, character) {
+                if (!this.fields[`player${id}CharactersListLoading`] && character && character !== '') {
+                    this.fields[`player${id}CharactersListLoading`] = true;
+                    characters(character)
+                        .then(res => {
+                            this.fields[`player${id}CharactersList`] = res.data.result
+                        })
+                        .catch(err => {
+
+                        })
+                        .finally(() => {
+                            this.fields[`player${id}CharactersListLoading`] = false
+                        })
+                }
             },
 
             getPlayers() {
@@ -503,6 +545,10 @@
             setInterval(function () {
                 vm.resetTimer();
             }, 1000)
+        },
+
+        watch: {
+
         },
 
         beforeDestroy() {

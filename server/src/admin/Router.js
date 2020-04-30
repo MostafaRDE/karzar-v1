@@ -73,6 +73,7 @@ router.put('/games/pubg/tournaments/:id/end', adminMiddleware.check_jwt, adminMi
 router.put('/games/pubg/tournaments/:id/clear-end', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.clearEnd);
 router.put('/games/pubg/tournaments/:id/set-winner-team', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.setWinnerTeam);
 router.get('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.players);
+router.put('/games/pubg/tournaments/:id/players', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.updatePlayers);
 router.put('/games/pubg/tournaments/:id/players/:player_id/add-room-details', adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), adminMiddleware.check_jwt, PubgTournamentsController.addAuthenticationRoomToGroupPlayers);
 router.put('/games/pubg/tournaments/:id/players/:player_id/remove-room-details', adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), adminMiddleware.check_jwt, PubgTournamentsController.removeAuthenticationRoomToGroupPlayers);
 router.delete('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgTournamentsController.destroy);

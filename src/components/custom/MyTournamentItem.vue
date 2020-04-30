@@ -70,7 +70,7 @@
                         <div class="col-3 mb-0" v-for="player of team">
                             <div class="overflow-hidden position-relative"
                                  :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                                <img :src="player.image || '/public/images/public/pubg-default-profile.svg'"
+                                <img :src="player.image.url_static || '/public/images/public/pubg-default-profile.svg'"
                                      alt=""
                                      class="w-100"/>
                                 <span class="position-absolute font-size-xxs"

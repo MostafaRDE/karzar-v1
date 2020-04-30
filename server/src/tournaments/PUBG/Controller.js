@@ -46,6 +46,15 @@ module.exports = {
         })
     },
 
+    characters(request, response) {
+        const actions = new Actions();
+        actions.characters(request.query.character).then(data => {
+            response.send(data)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
+
     players(request, response) {
         const actions = new Actions();
         actions.players(request.query.lang, request.params.id).then(data => {

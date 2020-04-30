@@ -167,16 +167,42 @@ class Actions {
         })
     }
 
-    top10(days) {
+    characters(character) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
-            let query = `SELECT * FROM pubg.characters ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
-            pubgCharacterModel.fetch_all_custom(query, 1, 10).then(res => {
-                resolve(res)
-            }).catch(err => {
+            pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE pubg.characters.name ILIKE '%${character}%' ${typeof character === 'number' ? `OR pubg.characters.id = '${character}'` : ''}`, 1, 5)
+                .then(async res => {
+                    for (let i = 0; i < res.result.length; i++) {
+                        if (res.result[i].media_id)
+                            res.result[i].profile_image_id = await mediaGetFile(data.result[i].profile_image_id);
+                        else
+                            res.result[i].profile_image = null;
+                    }
+                    resolve(res)
+                }).catch(err => {
                 console.error(err);
                 reject({status: false})
             })
+        })
+    }
+
+    top10(days) {
+        return new Promise((resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
+            let query = `SELECT pubg.characters.*, user.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
+            pubgCharacterModel.fetch_all_custom(query, 1, 10)
+                .then(async res => {
+                    for (let i = 0; i < res.result.length; i++) {
+                        if (res.result[i].profile_image_id)
+                            res.result[i].profile_image = await mediaGetFile(data.result[i].profile_image_id);
+                        else
+                            res.result[i].profile_image = null;
+                    }
+                    resolve(res)
+                }).catch(err => {
+                    console.error(err);
+                    reject({status: false})
+                })
         })
     }
 

@@ -26,6 +26,7 @@ Vue.mixin(titleMixin);
 // Loading global styles
 import './assets/styles/index.styl';
 
+
 export function createApp() {
     const store = createStore();
     const router = createRouter(store, i18n);

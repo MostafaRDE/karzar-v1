@@ -140,6 +140,17 @@ export function tournamentPlayers(id) {
     })
 }
 
+export function characters(character) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let query = `?lang=${lang()}`;
+        if (character)
+            query += `&character=${character}`;
+
+        axios.get(`tournaments/pubg/characters${query}`).then(resolve).catch(reject)
+    })
+}
+
 export function top10(days) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {

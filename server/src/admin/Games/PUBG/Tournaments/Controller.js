@@ -73,6 +73,15 @@ module.exports = {
         ).then(res => response.json(res)).catch(err => response.send(err))
     },
 
+    updatePlayers(request, response) {
+        let actions = new Actions();
+
+        actions.updatePlayers(
+            request.params.id,
+            request.body
+        ).then(res => response.json(res)).catch(err => response.send(err))
+    },
+
     addAuthenticationRoomToGroupPlayers(request, response) {
         let actions = new Actions();
 

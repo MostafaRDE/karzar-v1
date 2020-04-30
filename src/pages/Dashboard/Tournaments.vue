@@ -6,11 +6,11 @@
                                 :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
                                 @refresh="getRunningTournaments"/>
 
-            <div v-if="loading" class="py-50">
+            <div v-if="loadingRunningTournaments" class="py-50">
                 <rs-overlay-loading width="28"/>
             </div>
 
-            <div v-if="!loading && !tournaments.length" class="py-50 text-center">
+            <div v-if="!loadingRunningTournaments && !runningTournaments.length" class="py-50 text-center">
                 {{ $t('glossaries.nothing_tournaments') }}
             </div>
         </div>
