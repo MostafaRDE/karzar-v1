@@ -5,9 +5,9 @@
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
             <span>{{ label }}</span>
-            <span/>
+            <span class="z-index-1"/>
         </label>
-        <span class="rs-input align-items-center py-10 ps-20 pe-5" :class="inputClass">
+        <div class="rs-input align-items-center py-10 ps-20 pe-5 position-relative" :class="inputClass">
 
             <span class="rs-input--icon"><slot name="icon"/></span>
 
@@ -16,7 +16,27 @@
                    :type="!showPassword ? type : 'text'"
                    class="rs-input--input"
                    ref="input"
-                   :placeholder="getPlaceholder" v-model="model" :maxlength="maxlength"/>
+                   :placeholder="getPlaceholder"
+                   v-model="model"
+                   :maxlength="maxlength"
+                   @focusin="focusin = true"
+                   @focusout="focusin = false"/>
+
+            <transition name="fade">
+                <div v-show="model && model !== '' && focusin" class="position-absolute end-0 border bg-shades black z-index-100"
+                     :class="width >= responsiveObject.sizes.xl && label !== '' ? 'start-15' : 'start-0'"
+                     style="top: 43px;">
+                    <div v-if="sourceLoading" class="d-flex align-items-center justify-content-center pxh-80">
+                        <rs-overlay-loading/>
+                    </div>
+                    <div v-else-if="!sourceLoading && !source.length" class="d-flex align-items-center justify-content-center pxh-80">
+                        <span class="font-size-xs">{{ $t('glossaries.not_found') }}</span>
+                    </div>
+                    <div v-else class="d-flex flex-direction-column">
+                        <slot name="source-item"/>
+                    </div>
+                </div>
+            </transition>
 
             <span class="line-height-1-0 border-exchange-start ps-5" v-if="type !== 'password'">{{ mark }}</span>
 
@@ -34,7 +54,7 @@
                 </svg>
             </span>
 
-        </span>
+        </div>
     </div>
 </template>
 
@@ -92,6 +112,14 @@
             rules: {
                 default: null,
             },
+            source: {
+                default: null,
+            },
+            sourceLoading: {
+                default: false,
+                type: Boolean,
+                required: false
+            },
             type: {
                 default: '',
                 type: String,
@@ -109,6 +137,7 @@
             showPassword: false,
             inputWidth: 200,
             width: 0,
+            focusin: false,
         }),
 
         computed: {

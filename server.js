@@ -34,7 +34,7 @@ const useMicroCache = process.env.MICRO_CACHE !== 'false';
 let renderer;
 let readyPromise;
 const templatePath = resolve('./src/index.template.html');
-const port = process.env.PORT || 8080;
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT_PRODUCTION || 8080 : process.env.PORT_DEVELOPMENT || 8081;
 const serve = (path, cache) => express.static(resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 });

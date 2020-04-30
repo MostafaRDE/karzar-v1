@@ -17,7 +17,7 @@
                 <div>
                     <div class="overflow-hidden position-relative" :class="width > 767 ? 'pxw-65' : (width > 440 ? 'pxw-40' : 'pxw-35')"
                          :style="data.profile_image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                        <img :src="data.profile_image.url_static || '/public/images/public/pubg-default-profile.svg'"
+                        <img :src="data.profile_image ? data.profile_image.url_static : '/public/images/public/pubg-default-profile.svg'"
                              alt=""
                              class="w-100"/>
                     </div>

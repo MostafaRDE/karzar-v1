@@ -95,10 +95,17 @@
                                             <div v-if="!model.is_joined && !isRunning">
                                                 <rs-input type="text"
                                                           :label="$t('glossaries.character_name')"
-                                                          @focusin="fields.player1CharactersListVisibility = true"
-                                                          @focusout="fields.player1CharactersListVisibility = false"
-                                                          @change="getCharacters(1, $event)"
-                                                          v-model="fields.player1"/>
+                                                          :source="fields.player1CharactersList"
+                                                          :sourceLoading="fields.player1CharactersListLoading"
+                                                          @input="getCharacters(1, $event)"
+                                                          v-model="fields.player1">
+                                                    <template slot="source-item">
+                                                        <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 :data="data"
+                                                                                 :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
+                                                                                 @click.native="updateCharacter(1, data)"/>
+                                                    </template>
+                                                </rs-input>
                                             </div>
                                             <div class="mt-20 d-flex align-items-center">
                                                 <span class="d-inline-flex cursor-pointer pe-10"
@@ -144,10 +151,17 @@
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
-                                                          @focusin="fields.player1CharactersListVisibility = true"
-                                                          @focusout="fields.player1CharactersListVisibility = false"
-                                                          @change="getCharacters(1, $event)"
-                                                          v-model="fields.player1"/>
+                                                          :source="fields.player1CharactersList"
+                                                          :sourceLoading="fields.player1CharactersListLoading"
+                                                          @input="getCharacters(1, $event)"
+                                                          v-model="fields.player1">
+                                                    <template slot="source-item">
+                                                        <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 :data="data"
+                                                                                 :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
+                                                                                 @click.native="updateCharacter(1, data)"/>
+                                                    </template>
+                                                </rs-input>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
@@ -157,10 +171,17 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player2"
-                                                          @focusin="fields.player2CharactersListVisibility = true"
-                                                          @focusout="fields.player2CharactersListVisibility = false"
-                                                          @change="getCharacters(2, $event)"
-                                                          v-model="fields.player2"/>
+                                                          :source="fields.player2CharactersList"
+                                                          :sourceLoading="fields.player2CharactersListLoading"
+                                                          @input="getCharacters(2, $event)"
+                                                          v-model="fields.player2">
+                                                    <template slot="source-item">
+                                                        <character-input-adapter v-for="(data, index) of fields.player2CharactersList"
+                                                                                 :data="data"
+                                                                                 :class="index < fields.player2CharactersList.length - 1 ? 'border-bottom' : ''"
+                                                                                 @click.native="updateCharacter(2, data)"/>
+                                                    </template>
+                                                </rs-input>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10">
@@ -170,10 +191,17 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player3"
-                                                          @focusin="fields.player3CharactersListVisibility = true"
-                                                          @focusout="fields.player3CharactersListVisibility = false"
-                                                          @change="getCharacters(3, $event)"
-                                                          v-model="fields.player3"/>
+                                                          :source="fields.player3CharactersList"
+                                                          :sourceLoading="fields.player3CharactersListLoading"
+                                                          @input="getCharacters(3, $event)"
+                                                          v-model="fields.player3">
+                                                    <template slot="source-item">
+                                                        <character-input-adapter v-for="(data, index) of fields.player3CharactersList"
+                                                                                 :data="data"
+                                                                                 :class="index < fields.player3CharactersList.length - 1 ? 'border-bottom' : ''"
+                                                                                 @click.native="updateCharacter(3, data)"/>
+                                                    </template>
+                                                </rs-input>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10">
@@ -183,10 +211,17 @@
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_name')"
                                                           :disabled="!actives.player4"
-                                                          @focusin="fields.player4CharactersListVisibility = true"
-                                                          @focusout="fields.player4CharactersListVisibility = false"
-                                                          @change="getCharacters(4, $event)"
-                                                          v-model="fields.player4"/>
+                                                          :source="fields.player4CharactersList"
+                                                          :sourceLoading="fields.player4CharactersListLoading"
+                                                          @input="getCharacters(4, $event)"
+                                                          v-model="fields.player4">
+                                                    <template slot="source-item">
+                                                        <character-input-adapter v-for="(data, index) of fields.player4CharactersList"
+                                                                                 :data="data"
+                                                                                 :class="index < fields.player4CharactersList.length - 1 ? 'border-bottom' : ''"
+                                                                                 @click.native="updateCharacter(4, data)"/>
+                                                    </template>
+                                                </rs-input>
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +286,7 @@
                             <div class="col-3 mb-0" v-for="player of team">
                                 <div class="overflow-hidden position-relative"
                                      :style="player.image ? 'padding: 1px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain' : ''">
-                                    <img :src="player.image.url_static || '/public/images/public/pubg-default-profile.svg'"
+                                    <img :src="player.image ? player.image.url_static : '/public/images/public/pubg-default-profile.svg'"
                                          alt=""
                                          class="w-100"/>
                                     <span class="position-absolute font-size-xxs"
@@ -320,18 +355,22 @@
             },
             fields: {
                 player1: '',
+                player1Id: null,
                 player1CharactersList: [],
                 player1CharactersListLoading: false,
                 player1CharactersListVisibility: false,
                 player2: '',
+                player2Id: null,
                 player2CharactersList: [],
                 player2CharactersListLoading: false,
                 player2CharactersListVisibility: false,
                 player3: '',
+                player3Id: null,
                 player3CharactersList: [],
                 player3CharactersListLoading: false,
                 player3CharactersListVisibility: false,
                 player4: '',
+                player4Id: null,
                 player4CharactersList: [],
                 player4CharactersListLoading: false,
                 player4CharactersListVisibility: false,
@@ -376,13 +415,17 @@
 
         methods: {
             isMyTeam(team) {
-                console.log(team)
                 if (this.$store.state.profile)
                     for (let i = 0; i < team.length; i++)
                         if (team[i].userId === this.$store.state.profile.id)
                             return true;
 
                 return false;
+            },
+
+            updateCharacter(id, data) {
+                this.fields[`player${id}`] = data.name;
+                this.fields[`player${id}Id`] = data.id;
             },
 
             handleResize() {
@@ -419,6 +462,8 @@
                         .finally(() => {
                             this.fields[`player${id}CharactersListLoading`] = false
                         })
+                } else if (!character || character !== '') {
+                    this.fields[`player${id}CharactersList`] = []
                 }
             },
 
@@ -473,28 +518,25 @@
                 let errors = 0,
                     characterNames = '';
 
-                if (this.fields.player1.trim() === '')
+                if (!this.fields.player1Id)
                     errors++;
                 else
-                    characterNames += this.fields.player1.trim();
+                    characterNames += this.fields.player1Id;
 
-                if (this.actives.player2)
-                    if (this.fields.player2.trim() === '')
-                        errors++;
-                    else
-                        characterNames += `,${this.fields.player2.trim()}`;
+                if (!this.actives.player2Id)
+                    errors++;
+                else
+                    characterNames += `,${this.fields.player2Id}`;
 
-                if (this.actives.player3)
-                    if (this.fields.player3.trim() === '')
-                        errors++;
-                    else
-                        characterNames += `,${this.fields.player3.trim()}`;
+                if (this.actives.player3Id)
+                    errors++;
+                else
+                    characterNames += `,${this.fields.player3Id}`;
 
-                if (this.actives.player4)
-                    if (this.fields.player4.trim() === '')
-                        errors++;
-                    else
-                        characterNames += `,${this.fields.player4.trim()}`;
+                if (this.actives.player4Id)
+                    errors++;
+                else
+                    characterNames += `,${this.fields.player4Id}`;
 
                 if (errors > 0) {
                     this.$toast.error({
