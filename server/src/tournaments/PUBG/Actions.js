@@ -167,29 +167,39 @@ class Actions {
         })
     }
 
-    characters(character) {
+    characters(character, user_id) {
         return new Promise((resolve, reject) => {
-            let pubgCharacterModel = new PubgCharacterModel();
-            pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE pubg.characters.name ILIKE '%${character}%' ${typeof character === 'number' ? `OR pubg.characters.id = '${character}'` : ''}`, 1, 5)
-                .then(async res => {
-                    for (let i = 0; i < res.result.length; i++) {
-                        if (res.result[i].media_id)
-                            res.result[i].profile_image_id = await mediaGetFile(data.result[i].profile_image_id);
-                        else
-                            res.result[i].profile_image = null;
-                    }
-                    resolve(res)
-                }).catch(err => {
-                console.error(err);
-                reject({status: false})
-            })
+            if (user_id) {
+                let characterId = null;
+                if (!isNaN(character))
+                    characterId = parseInt(character);
+                let pubgCharacterModel = new PubgCharacterModel();
+                pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE ${characterId ? `pubg.characters.id = '${characterId}'` : `pubg.characters.user_id =  '${user_id}'`}`)
+                    .then(async res => {
+                        for (let i = 0; i < res.result.length; i++) {
+                            if (res.result[i].media_id)
+                                res.result[i].profile_image_id = await mediaGetFile(data.result[i].profile_image_id);
+                            else
+                                res.result[i].profile_image = null;
+                        }
+                        resolve(res)
+                    }).catch(err => {
+                    console.error(err);
+                    reject({status: false})
+                })
+            } else {
+                resolve({
+                    status: true,
+                    result: [],
+                })
+            }
         })
     }
 
     top10(days) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
-            let query = `SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
+            let query = `SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE pubg.characters.updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC, pubg.characters.updated_at DESC`;
             pubgCharacterModel.fetch_all_custom(query, 1, 10)
                 .then(async res => {
                     for (let i = 0; i < res.result.length; i++) {

@@ -23,7 +23,7 @@
                    @focusout="focusin = false"/>
 
             <transition name="fade">
-                <div v-show="model && model !== '' && focusin" class="position-absolute end-0 border bg-shades black z-index-100"
+                <div v-if="source" v-show="focusin" class="position-absolute end-0 border bg-shades black z-index-100"
                      :class="width >= responsiveObject.sizes.xl && label !== '' ? 'start-15' : 'start-0'"
                      style="top: 43px;">
                     <div v-if="sourceLoading" class="d-flex align-items-center justify-content-center pxh-80">

@@ -48,7 +48,7 @@ module.exports = {
 
     characters(request, response) {
         const actions = new Actions();
-        actions.characters(request.query.character).then(data => {
+        actions.characters(request.query.character, request.user ? request.user.id : null).then(data => {
             response.send(data)
         }).catch(error => {
             response.status(500).send(error)

@@ -30,6 +30,11 @@ Vue.mixin({
             return result;
         },
 
+        likeSearch(string, key, ignoreCase = true) {
+            let regex = new RegExp(`\.\*${key}\.\*`, `${ignoreCase ? 'i' : ''}`);
+            return regex.test(string);
+        },
+
         moneyFormatFast(number, pointsNumber) {
             if (typeof number === 'string')
                 number = parseFloat(number);

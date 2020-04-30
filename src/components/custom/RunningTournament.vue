@@ -95,12 +95,13 @@
                                             <div v-if="!model.is_joined && !isRunning">
                                                 <rs-input type="text"
                                                           :label="$t('glossaries.character_name')"
-                                                          :source="fields.player1CharactersList"
+                                                          :source="characters"
                                                           :sourceLoading="fields.player1CharactersListLoading"
                                                           @input="getCharacters(1, $event)"
                                                           v-model="fields.player1">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 :key="`join-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
                                                                                  @click.native="updateCharacter(1, data)"/>
@@ -157,6 +158,7 @@
                                                           v-model="fields.player1">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 :key="`join-team-1-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
                                                                                  @click.native="updateCharacter(1, data)"/>
@@ -177,6 +179,7 @@
                                                           v-model="fields.player2">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player2CharactersList"
+                                                                                 :key="`join-team-2-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player2CharactersList.length - 1 ? 'border-bottom' : ''"
                                                                                  @click.native="updateCharacter(2, data)"/>
@@ -197,6 +200,7 @@
                                                           v-model="fields.player3">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player3CharactersList"
+                                                                                 :key="`join-team-3-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player3CharactersList.length - 1 ? 'border-bottom' : ''"
                                                                                  @click.native="updateCharacter(3, data)"/>
@@ -217,6 +221,7 @@
                                                           v-model="fields.player4">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player4CharactersList"
+                                                                                 :key="`join-team-4-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player4CharactersList.length - 1 ? 'border-bottom' : ''"
                                                                                  @click.native="updateCharacter(4, data)"/>
@@ -353,6 +358,7 @@
                 player3: false,
                 player4: false,
             },
+            characters: [],
             fields: {
                 player1: '',
                 player1Id: null,
@@ -450,11 +456,33 @@
             },
 
             getCharacters(id, character) {
-                if (!this.fields[`player${id}CharactersListLoading`] && character && character !== '') {
-                    this.fields[`player${id}CharactersListLoading`] = true;
+                if (id) {
+                    if (isNaN(character)) {
+                        if (character && character !== '') {
+                            let vm = this;
+                            this.fields[`player${id}CharactersList`] = this.characters.filter(item => vm.likeSearch(item.name, character));
+                        } else {
+                            this.fields[`player${id}CharactersList`] = this.characters
+                        }
+                    } else if (character && character !== '') {
+                        if (!this.fields[`player${id}CharactersListLoading`]) {
+                            this.fields[`player${id}CharactersListLoading`] = true;
+                            characters(character)
+                                .then(res => {
+                                    this.fields[`player${id}CharactersList`] = res.data.result
+                                })
+                                .catch(err => {})
+                                .finally(() => {
+                                    this.fields[`player${id}CharactersListLoading`] = false
+                                })
+                        }
+                    } else {
+                        this.fields[`player${id}CharactersList`] = this.characters
+                    }
+                } else {
                     characters(character)
                         .then(res => {
-                            this.fields[`player${id}CharactersList`] = res.data.result
+                            this.characters = this.fields[`player1CharactersList`] = this.fields[`player2CharactersList`] = this.fields[`player3CharactersList`] = this.fields[`player4CharactersList`] = res.data.result
                         })
                         .catch(err => {
 
@@ -462,8 +490,6 @@
                         .finally(() => {
                             this.fields[`player${id}CharactersListLoading`] = false
                         })
-                } else if (!character || character !== '') {
-                    this.fields[`player${id}CharactersList`] = []
                 }
             },
 
@@ -580,6 +606,8 @@
             this.handleResize();
 
             this.resetTimer();
+
+            this.getCharacters();
 
             window.addEventListener('resize', this.handleResize);
 
