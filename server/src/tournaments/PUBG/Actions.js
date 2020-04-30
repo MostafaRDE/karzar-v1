@@ -189,7 +189,7 @@ class Actions {
     top10(days) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
-            let query = `SELECT pubg.characters.*, user.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
+            let query = `SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC`;
             pubgCharacterModel.fetch_all_custom(query, 1, 10)
                 .then(async res => {
                     for (let i = 0; i < res.result.length; i++) {
