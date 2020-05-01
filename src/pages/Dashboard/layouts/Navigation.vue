@@ -612,6 +612,9 @@
                         -webkit-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
                         -moz-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
                         transition padding .6s cubic-bezier(.19,1,.22,1) .1s
+                        -webkit-transform translateY(0) !important
+                        -moz-transform translateY(0) !important
+                        transform translateY(0) !important
 
                         &:before
                             content ''

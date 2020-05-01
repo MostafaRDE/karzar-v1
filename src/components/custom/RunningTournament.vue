@@ -95,7 +95,7 @@
                                             <div v-if="!model.is_joined && !isRunning">
                                                 <rs-input type="text"
                                                           :label="$t('glossaries.character_name')"
-                                                          :source="characters"
+                                                          :source="fields.player1CharactersList"
                                                           :sourceLoading="fields.player1CharactersListLoading"
                                                           @input="getCharacters(1, $event)"
                                                           v-model="fields.player1">
@@ -478,7 +478,10 @@
             },
 
             getCharacters(id, character) {
-                this.fields[`player${id}Id`] = '';
+                if (this.fields[`player${id}Id`] && this.fields[`player${id}Id`] !== '') {
+                    this.fields[`player${id}`] = '';
+                    this.fields[`player${id}Id`] = '';
+                }
                 this.filterListCharacters();
 
                 if (id) {

@@ -72,6 +72,7 @@
             'icon-gametour': () => import('../../../components/icons/IconGametour.vue'),
             'icon-invoice': () => import('../../../components/icons/IconInvoice.vue'),
             'icon-money-bag': () => import('../../../components/icons/IconMoneyBag.vue'),
+            'icon-multiple-users': () => import('../../../components/icons/IconMultipleUsers.vue'),
             'icon-off': () => import('../../../components/icons/IconOff.vue'),
             'icon-reward': () => import('../../../components/icons/IconReward.vue'),
             'icon-up-money': () => import('../../../components/icons/IconUpMoney.vue'),
@@ -84,6 +85,11 @@
                         icon: 'icon-reward',
                         label: i18n.t('glossaries.tournaments'),
                         to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}},
+                    },
+                    {
+                        icon: 'icon-multiple-users',
+                        label: i18n.t('glossaries.characters'),
+                        to: {name: 'dashboardCharacters', params: {lang: this.$route.params.lang}},
                     },
                     {
                         icon: 'icon-invoice',

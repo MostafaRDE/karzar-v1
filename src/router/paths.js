@@ -137,6 +137,7 @@ export default function getPaths(store) {
                     // <editor-fold desc="Dashboard-pages">
                     children: [
                         {path: 'tournaments', name: 'dashboardTournaments', component: () => import('../pages/Dashboard/Tournaments.vue')},
+                        {path: 'characters', name: 'dashboardCharacters', component: () => import('../pages/Dashboard/Characters.vue')},
                         {path: 'transactions', name: 'dashboardTransactions', component: () => import('../pages/Dashboard/Transactions.vue')},
                         {path: 'account-charging', name: 'dashboardAccountCharging', component: () => import('../pages/Dashboard/AccountCharging.vue')},
                         {path: 'withdraw', name: 'dashboardWithdraw', component: () => import('../pages/Dashboard/Withdraw.vue')},
