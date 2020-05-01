@@ -363,12 +363,14 @@ class Actions {
                     });
 
                 }).catch(error => {
+                    console.error(error);
                     reject({
                         status: false,
                         msg: __('messages').internal_server_error
                     })
                 });
             } catch (e) {
+                console.error(e);
                 reject({
                     status: false,
                     msg: __('messages').internal_server_error
@@ -519,7 +521,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            pubgTournamentModel.fetch_all_custom(`SELECT v_tournaments.* FROM pubg.v_tournaments INNER JOIN pubg.tournament_players ON (v_tournaments.id = tournament_players.tournament_id) WHERE tournament_players.user_id = '${userId}' ORDER BY v_tournaments.id DESC`, page, size).then(async data => {
+            pubgTournamentModel.fetch_all_custom(`SELECT DISTINCT v_tournaments.* FROM pubg.v_tournaments INNER JOIN pubg.tournament_players ON (v_tournaments.id = tournament_players.tournament_id) WHERE tournament_players.user_id = '${userId}' ORDER BY v_tournaments.id DESC`, page, size).then(async data => {
                 let result = [];
 
                 for (let i = 0; i < data.result.length; i++) {

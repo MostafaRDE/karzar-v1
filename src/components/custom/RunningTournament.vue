@@ -432,6 +432,28 @@
             updateCharacter(id, data) {
                 this.fields[`player${id}`] = data.name;
                 this.fields[`player${id}Id`] = data.id;
+
+                this.filterListCharacters();
+            },
+
+            filterListCharacters() {
+                let vm = this;
+                for (let i = 1; i <= 4; i++)
+                    this.fields[`player${i}CharactersList`] = this.characters.filter(item => {
+                        if (`${vm.fields[`player${i}Id`]}` === `${item.id}`)
+                            return true;
+
+                        let result = (
+                            (`${vm.fields.player1Id}` !== `${item.id}`) &&
+                            (!vm.actives.player2 || (vm.actives.player2 && `${vm.fields.player2Id}` !== `${item.id}`)) &&
+                            (!vm.actives.player3 || (vm.actives.player3 && `${vm.fields.player3Id}` !== `${item.id}`)) &&
+                            (!vm.actives.player4 || (vm.actives.player4 && `${vm.fields.player4Id}` !== `${item.id}`))
+                        );
+                        if (result && this.fields[`player${i}`] && this.fields[`player${i}`] !== '')
+                            return result && vm.likeSearch(item.name, this.fields[`player${i}`]);
+                        else
+                            return result;
+                    });
             },
 
             handleResize() {
@@ -456,14 +478,12 @@
             },
 
             getCharacters(id, character) {
+                this.fields[`player${id}Id`] = '';
+                this.filterListCharacters();
+
                 if (id) {
                     if (isNaN(character)) {
-                        if (character && character !== '') {
-                            let vm = this;
-                            this.fields[`player${id}CharactersList`] = this.characters.filter(item => vm.likeSearch(item.name, character));
-                        } else {
-                            this.fields[`player${id}CharactersList`] = this.characters
-                        }
+
                     } else if (character && character !== '') {
                         if (!this.fields[`player${id}CharactersListLoading`]) {
                             this.fields[`player${id}CharactersListLoading`] = true;
@@ -477,12 +497,17 @@
                                 })
                         }
                     } else {
-                        this.fields[`player${id}CharactersList`] = this.characters
+
                     }
                 } else {
                     characters(character)
                         .then(res => {
-                            this.characters = this.fields[`player1CharactersList`] = this.fields[`player2CharactersList`] = this.fields[`player3CharactersList`] = this.fields[`player4CharactersList`] = res.data.result
+                            let data = JSON.stringify(res.data.result);
+                            this.characters = JSON.parse(data);
+                            this.fields[`player1CharactersList`] = JSON.parse(data);
+                            this.fields[`player2CharactersList`] = JSON.parse(data);
+                            this.fields[`player3CharactersList`] = JSON.parse(data);
+                            this.fields[`player4CharactersList`] = JSON.parse(data);
                         })
                         .catch(err => {
 
@@ -549,20 +574,26 @@
                 else
                     characterNames += this.fields.player1Id;
 
-                if (!this.actives.player2Id)
-                    errors++;
-                else
-                    characterNames += `,${this.fields.player2Id}`;
+                if (this.actives.player2) {
+                    if (!this.fields.player2Id)
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player2Id}`;
+                }
 
-                if (this.actives.player3Id)
-                    errors++;
-                else
-                    characterNames += `,${this.fields.player3Id}`;
+                if (this.actives.player3) {
+                    if (!this.fields.player3Id)
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player3Id}`;
+                }
 
-                if (this.actives.player4Id)
-                    errors++;
-                else
-                    characterNames += `,${this.fields.player4Id}`;
+                if (this.actives.player4) {
+                    if (!this.fields.player4Id)
+                        errors++;
+                    else
+                        characterNames += `,${this.fields.player4Id}`;
+                }
 
                 if (errors > 0) {
                     this.$toast.error({

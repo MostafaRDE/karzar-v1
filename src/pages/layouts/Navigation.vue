@@ -41,7 +41,7 @@
                                         <li v-for="(subItem, index) of item.children"
                                             :key="`${item.label}-subItem-${index}`">
                                             <router-link :to="subItem.to"
-                                                         class="text-nowrap">
+                                                         class="text-nowrap" :rel="item.rel">
                                                 <span><span>{{ subItem.label }}</span></span>
                                             </router-link>
                                         </li>
@@ -51,7 +51,7 @@
                             </template>
 
                             <template v-else>
-                                <router-link :to="item.to" class="px-25">
+                                <router-link :to="item.to" class="px-25" :rel="item.rel">
                                     <span>{{ item.label }}</span>
                                 </router-link>
                             </template>
@@ -116,7 +116,7 @@
                                             <li v-for="(subItem, index) of item.children"
                                                 :key="`${item.label}-subItem-${index}`">
                                                 <router-link :to="subItem.to"
-                                                             class="text-nowrap">
+                                                             class="text-nowrap" :rel="item.rel">
                                                     <span><span>{{ subItem.label }}</span></span>
                                                 </router-link>
                                             </li>
@@ -126,7 +126,7 @@
                                 </template>
 
                                 <template v-else>
-                                    <router-link :to="item.to" class="px-25">
+                                    <router-link :to="item.to" class="px-25" :rel="item.rel">
                                         <span>{{ item.label }}</span>
                                     </router-link>
                                 </template>
@@ -223,7 +223,7 @@
                                             <router-link :to="subItem.to"
                                                          class="text-nowrap font-weight-100"
                                                          :class="{'border-bottom': index < item.children.length - 1}"
-                                                         style="padding: 9px 0; font-size: 11px">
+                                                         style="padding: 9px 0; font-size: 11px" :rel="item.rel">
                                                 {{ subItem.label }}
                                             </router-link>
                                         </li>
@@ -233,7 +233,7 @@
                             </template>
 
                             <template v-else>
-                                <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                                <router-link :to="item.to" class="flex-grow-1" :rel="item.rel">{{ item.label }}</router-link>
                             </template>
 
                         </li>
@@ -308,7 +308,7 @@
                                                 <router-link :to="subItem.to"
                                                              class="text-nowrap font-weight-100"
                                                              :class="{'border-bottom': index < item.children.length - 1}"
-                                                             style="padding: 9px 0; font-size: 11px">
+                                                             style="padding: 9px 0; font-size: 11px" :rel="item.rel">
                                                     {{ subItem.label }}
                                                 </router-link>
                                             </li>
@@ -318,7 +318,7 @@
                                 </template>
 
                                 <template v-else>
-                                    <router-link :to="item.to" class="flex-grow-1">{{ item.label }}</router-link>
+                                    <router-link :to="item.to" :rel="item.rel" class="flex-grow-1">{{ item.label }}</router-link>
                                 </template>
 
                             </li>
@@ -365,7 +365,8 @@
                 menu: [
                     {
                         label: i18n.t('glossaries.account'),
-                        to: {name: 'dashboardTournaments', params: {lang: this.$route.params.lang}},
+                        rel: this.$store.state.user_auth ? 'nofollow' : '',
+                        to: {name: this.$store.state.user_auth ? 'dashboardTournaments' : 'login', params: {lang: this.$route.params.lang}},
                     },
                     {
                         label: i18n.t('glossaries.tutorials'),

@@ -162,10 +162,10 @@ export function top10(days) {
     })
 }
 
-export function enterToTheTournament(id, character_names) {
+export function enterToTheTournament(id, characters) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        let data = {character_name: character_names};
+        let data = {characters};
 
         axios.post(`tournaments/pubg/${id}/enter?lang=${lang()}`, data).then(resolve).catch(reject)
     })

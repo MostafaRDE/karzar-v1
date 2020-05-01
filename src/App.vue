@@ -8,6 +8,11 @@
             <rs-button class="position-fixed end-0 z-index-100 p-0" id="bg-main-audio-button">
                 <i @click="toggleAudio" class="fas p-15" :class="[`fa-${audioStatus === 'PAUSE' ? 'play' : 'pause'}`]"></i>
             </rs-button>
+            <rs-button class="position-fixed end-0 z-index-100 p-0" id="bg-main-telegram-button">
+                <a target="_blank" href="https://t.me/gametour_official" rel="nofollow" class="text-white">
+                    <i class="fab fa-telegram p-15"></i>
+                </a>
+            </rs-button>
         </div>
 
         <transition name="fade">
@@ -213,7 +218,13 @@
 
     #bg-main-audio-button
         top 50%
-        transform translateY(-50%)
+        transform translateY(calc(-50% + 30px))
+    #bg-main-telegram-button
+        top 50%
+        transform translateY(calc(-50% - 30px))
+        background: #ff003b;
+        color: #fff;
+        border: none;
 
 
     .title-holder

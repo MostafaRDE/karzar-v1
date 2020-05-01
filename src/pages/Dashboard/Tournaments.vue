@@ -4,7 +4,7 @@
             <running-tournament v-if="!loadingRunningTournaments && runningTournaments.length && !runningTournaments.is_joined"
                                 v-for="(runningTournament, index) of runningTournaments"
                                 :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
-                                @refresh="getRunningTournaments"/>
+                                @refresh="refresh"/>
 
             <div v-if="loadingRunningTournaments" class="py-50">
                 <rs-overlay-loading width="28"/>
@@ -61,6 +61,11 @@
 
         methods: {
             updateListByPagination() {
+                this.getMyTournaments()
+            },
+
+            refresh() {
+                this.getRunningTournaments();
                 this.getMyTournaments()
             },
 
