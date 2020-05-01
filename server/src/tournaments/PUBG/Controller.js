@@ -55,6 +55,24 @@ module.exports = {
         })
     },
 
+    storeCharacter(request, response) {
+        const actions = new Actions();
+        actions.storeCharacter(request.body.id, request.body.name, request.user.id).then(data => {
+            response.send(data)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
+
+    updateCharacter(request, response) {
+        const actions = new Actions();
+        actions.updateCharacter(request.params.id, request.body.name, request.user.id).then(data => {
+            response.send(data)
+        }).catch(error => {
+            response.status(500).send(error)
+        })
+    },
+
     players(request, response) {
         const actions = new Actions();
         actions.players(request.query.lang, request.params.id).then(data => {

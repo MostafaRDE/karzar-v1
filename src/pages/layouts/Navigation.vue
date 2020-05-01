@@ -36,7 +36,7 @@
 
                                 <transition name="fade">
                                     <ul v-show="item.subItemsVisibility"
-                                        class="global--navbar--sub-menu position-absolute left-0 top-90 px-0 py-20"
+                                        class="global--navbar--sub-menu position-absolute start-0 top-90 px-0 py-20"
                                         style="background: #0F0F0FE6; width: 266px">
                                         <li v-for="(subItem, index) of item.children"
                                             :key="`${item.label}-subItem-${index}`">
@@ -111,7 +111,7 @@
 
                                     <transition name="fade">
                                         <ul v-show="item.subItemsVisibility"
-                                            class="global--navbar--sub-menu position-absolute left-0 top-90 px-0 py-20"
+                                            class="global--navbar--sub-menu position-absolute start-0 top-90 px-0 py-20"
                                             style="background: #0F0F0FE6; width: 266px">
                                             <li v-for="(subItem, index) of item.children"
                                                 :key="`${item.label}-subItem-${index}`">
@@ -551,7 +551,6 @@
                         position relative
                         display block
                         overflow hidden
-                        padding 0 30px 0 0
                         box-sizing border-box
                         -webkit-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
                         -moz-transition padding .6s cubic-bezier(.19,1,.22,1) .1s
@@ -563,7 +562,6 @@
                             bottom calc(50% - 1px)
                             height 3px
                             width 18px
-                            left -15px
                             background-color #ff0e1f
                             opacity 0
                             -webkit-transition .3s ease
@@ -573,23 +571,39 @@
                             -moz-transform skewX(15deg)
                             transform skewX(15deg)
 
+                        / .ltr &
+                            padding 0 30px 0 0
+                            &:before
+                                left -15px
+                        / .rtl &
+                            padding 0 0 0 30px
+                            &:before
+                                right -15px
+
                     &:after
                         content none !important
 
                 &:hover
                     a
                         > span
-                            padding 0 10px 0 28px
                             -webkit-transition padding .3s
                             -moz-transition padding .3s
                             transition padding .3s
 
                             &:before
                                 opacity 1
-                                left 0
                                 -webkit-transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
                                 -moz-transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
                                 transition .3s cubic-bezier(.645,.045,.355,1),opacity .5s
+
+                            / .ltr &
+                                padding 0 10px 0 28px
+                                &:before
+                                    left 0
+                            / .rtl &
+                                padding 0 28px 0 10px
+                                &:before
+                                    right 0
 
                         a:after
                             opacity 1

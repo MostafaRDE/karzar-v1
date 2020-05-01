@@ -19,6 +19,8 @@
 		"about_us": "درباره ما",
 		"account": "حساب",
 		"account_charging": "شارژ حساب",
+		"add": "افزودن",
+		"add_character": "افزودن کاراکتر",
 		"afghan": "افغانی",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "بعد از درخواست بین 1 تا 24 ساعت کاری با شما تسویه انجام می شود",
 		"all": "همه",
@@ -71,11 +73,12 @@
 		"follow_us_on": "ما را دنبال کنید در",
 		"free": "رایگان",
 		"funds": "ارز ها",
-		"games": "بازی هآ",
+		"games": "بازی ها",
 		"games_played": "بازی های انجام شده",
 		"group_booking": "رزرو گروهی",
 		"hide_other_pairs": "جفت های دیگر را مخفی کن",
 		"home": "خانه",
+		"id": "ID",
 		"increase": "افزایش",
 		"info": "اطلاعات",
 		"information": "اطلاعات",
@@ -155,6 +158,7 @@
 		"tutorials": "آموزش ها",
 		"type": "نوع",
 		"update": "بروزرسانی",
+		"update_character": "بروزرسانی کاراکتر",
 		"username": "نام کاربری",
 		"volume": "ارزش",
 		"volume_coin_box": "حجم",
@@ -210,17 +214,17 @@
 		},
 		"successes": {
 			"account_charging_request_successful": "درخواست شارژ حساب با موفقیت ثبت شد",
+			"character_was_successfully_added": "کاراکنر با موفقیت انجام شد",
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
 			"reset_password_successful": "تغییر رمز عبور با موفقیت انجام شد.",
 			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد",
+			"the_character_was_successfully_updated": "کاراکتر با موفقیت بروزرسانی شد",
 			"the_password_was_successfully_updated": "رمز عبور با موفقیت بروزرسانی شد",
 			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد"
 		}
 	},
-	"names": {
-		"edrees_sharifi": "ادریس شریفی"
-	},
+	"names": {},
 	"pages": {
 		"home": {
 			"main": {

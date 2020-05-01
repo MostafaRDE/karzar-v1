@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 Vue.component('change-language', () => import('./ChangeLanguage.vue'));
+Vue.component('character-item', () => import('./CharacterItem.vue'));
 Vue.component('counter-strike-tournament', () => import('./CounterStrikeTournament.vue'));
 Vue.component('main-side-menu', () => import('./MainSideMenu.vue'));
 Vue.component('my-tournament-item', () => import('./MyTournamentItem.vue'));

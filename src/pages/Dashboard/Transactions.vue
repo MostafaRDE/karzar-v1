@@ -1,18 +1,20 @@
 <template>
     <div class="py-20 px-40">
-        <transaction v-if="transactions.length && !loading"
-                     v-for="(item, index) of transactions"
-                     :key="`transaction-${index}`"
-                     :class="{'border-bottom': index < transactions.length - 1}"
-                     :data="item"/>
+        <template>
+            <div v-if="loading" class="py-50">
+                <rs-overlay-loading width="28"/>
+            </div>
 
-        <div v-if="loading" class="py-50">
-            <rs-overlay-loading width="28"/>
-        </div>
+            <transaction v-else-if="transactions.length"
+                         v-for="(item, index) of transactions"
+                         :key="`transaction-${index}`"
+                         :class="{'border-bottom': index < transactions.length - 1}"
+                         :data="item"/>
 
-        <div v-if="!loading && !transactions.length" class="py-50 text-center">
-            {{ $t('glossaries.nothing_transactions') }}
-        </div>
+            <div v-else class="py-50 text-center">
+                {{ $t('glossaries.nothing_transactions') }}
+            </div>
+        </template>
 
         <rs-pagination v-if="transactions.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
     </div>

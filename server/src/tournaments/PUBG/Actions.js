@@ -174,7 +174,7 @@ class Actions {
                 if (!isNaN(character))
                     characterId = parseInt(character);
                 let pubgCharacterModel = new PubgCharacterModel();
-                pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE ${characterId ? `pubg.characters.id = '${characterId}'` : `pubg.characters.user_id =  '${user_id}'`}`)
+                pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE ${characterId ? `pubg.characters.id = '${characterId}'` : `pubg.characters.user_id =  '${user_id}'`} ORDER BY pubg.characters.name`)
                     .then(async res => {
                         for (let i = 0; i < res.result.length; i++) {
                             if (res.result[i].media_id)
@@ -193,6 +193,40 @@ class Actions {
                     result: [],
                 })
             }
+        })
+    }
+
+    storeCharacter(id, name, user_id) {
+        return new Promise((resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
+            pubgCharacterModel.insertSync(['id', 'name', 'user_id'], [id, name, user_id])
+                .then(res => {
+                    resolve({status: true})
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject({
+                        status: false,
+                        msg: __('messages').internal_server_error
+                    })
+                })
+        })
+    }
+
+    updateCharacter(id, name, user_id) {
+        return new Promise((resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
+            pubgCharacterModel.update(['name'], [name], ['id', 'user_id'], [id, user_id])
+                .then(res => {
+                    resolve({status: true})
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject({
+                        status: false,
+                        msg: __('messages').internal_server_error
+                    })
+                })
         })
     }
 

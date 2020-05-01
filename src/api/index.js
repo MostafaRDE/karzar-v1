@@ -151,6 +151,26 @@ export function characters(character) {
     })
 }
 
+export function storeCharacter(id, name) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let query = `?lang=${lang()}`,
+            data = {id, name};
+
+        axios.post(`tournaments/pubg/characters${query}`, data).then(resolve).catch(reject)
+    })
+}
+
+export function updateCharacter(id, name) {
+    // Create request as "Promise" and returned it
+    return new Promise((resolve, reject) => {
+        let query = `?lang=${lang()}`,
+            data = {name};
+
+        axios.put(`tournaments/pubg/characters/${id}${query}`, data).then(resolve).catch(reject)
+    })
+}
+
 export function top10(days) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {

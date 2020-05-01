@@ -1,16 +1,16 @@
 <template>
     <div>
         <div class="py-20 px-40">
-            <running-tournament v-if="!loadingRunningTournaments && runningTournaments.length && !runningTournaments.is_joined"
-                                v-for="(runningTournament, index) of runningTournaments"
-                                :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
-                                @refresh="refresh"/>
-
             <div v-if="loadingRunningTournaments" class="py-50">
                 <rs-overlay-loading width="28"/>
             </div>
 
-            <div v-if="!loadingRunningTournaments && !runningTournaments.length" class="py-50 text-center">
+            <running-tournament v-else-if="runningTournaments.length && !runningTournaments.is_joined"
+                                v-for="(runningTournament, index) of runningTournaments"
+                                :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
+                                @refresh="refresh"/>
+
+            <div v-else-if="!runningTournaments.length" class="py-50 text-center">
                 {{ $t('glossaries.nothing_tournaments') }}
             </div>
         </div>
@@ -18,19 +18,21 @@
         <hr style="border: none; border-top: solid 1px #fff3">
 
         <div class="py-20 px-40">
-            <my-tournament-item v-if="tournaments.length && !loading"
-                                v-for="(item, index) of tournaments"
-                                :key="`tournament-${index}`"
-                                :class="{'border-bottom': index < tournaments.length - 1}"
-                                :data="item"/>
+            <template>
+                <div v-if="loading" class="py-50">
+                    <rs-overlay-loading width="28"/>
+                </div>
 
-            <div v-if="loading" class="py-50">
-                <rs-overlay-loading width="28"/>
-            </div>
+                <my-tournament-item v-else-if="tournaments.length"
+                                    v-for="(item, index) of tournaments"
+                                    :key="`tournament-${index}`"
+                                    :class="{'border-bottom': index < tournaments.length - 1}"
+                                    :data="item"/>
 
-            <div v-if="!loading && !tournaments.length" class="py-50 text-center">
-                {{ $t('glossaries.nothing_tournaments') }}
-            </div>
+                <div v-else class="py-50 text-center">
+                    {{ $t('glossaries.nothing_tournaments') }}
+                </div>
+            </template>
 
             <rs-pagination v-if="!loading && tournaments.length" class="my-20" v-model="currentPage" :count="totalPages" @change="updateListByPagination"/>
         </div>

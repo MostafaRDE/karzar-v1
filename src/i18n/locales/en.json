@@ -19,6 +19,8 @@
 		"about_us": "About Us",
 		"account": "Account",
 		"account_charging": "Account Charging",
+		"add": "Add",
+		"add_character": "Add Character",
 		"afghan": "Afghan",
 		"after_the_request_you_will_be_paid_between_1_and_24_hours": "After the request, you will be paid between 1 and 24 hours",
 		"all": "All",
@@ -76,6 +78,7 @@
 		"group_booking": "Group Booking",
 		"hide_other_pairs": "Hide Other Pairs",
 		"home": "Home",
+		"id": "ID",
 		"increase": "Increase",
 		"info": "Info",
 		"information": "Information",
@@ -155,6 +158,7 @@
 		"tutorials": "Tutorials",
 		"type": "Type",
 		"update": "Update",
+		"update_character": "Update Character",
 		"username": "Username",
 		"volume": "Volume",
 		"volume_coin_box": "Volume",
@@ -211,18 +215,18 @@
 		},
 		"successes": {
 			"account_charging_request_successful": "Account charging request successful",
+			"character_was_successfully_added": "Character was successfully added",
 			"log_in_successful": "Log In successful.",
 			"registration_successful": "Registration successful.",
 			"reset_password_successful": "Reset Password successful.",
 			"send_reset_password_link_to_sent": "Password reset link sent.",
 			"successfully_joined_to_the_tournament": "Successfully joined to the tournament",
+			"the_character_was_successfully_updated": "The character was successfully updated",
 			"the_password_was_successfully_updated": "The password was successfully updated",
 			"the_profile_was_successfully_updated": "The profile was successfully updated"
 		}
 	},
-	"names": {
-		"edrees_sharifi": "Edrees Sharifi"
-	},
+	"names": {},
 	"pages": {
 		"home": {
 			"main": {

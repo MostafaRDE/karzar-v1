@@ -1,6 +1,6 @@
 <template>
     <div class="rs-input--parent border" :class="{'opacity-6': disabled}">
-        <label v-if="width >= responsiveObject.sizes.xl && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
+        <label :lang="labelLang" v-if="width >= responsiveObject.sizes.xl && label !== ''" class="ps-10 pe-5 position-relative" :id="`rs-input--label--${_uid}`">
             <span class="label-icon me-10" v-show="labelIcon">
                 <img :src="labelIcon" alt="" style="height: 24px"/>
             </span>
@@ -11,7 +11,8 @@
 
             <span class="rs-input--icon"><slot name="icon"/></span>
 
-            <input :class="[inputClass, {'text-disabled' : disabled}]"
+            <input :lang="inputLang"
+                   :class="[inputClass, {'text-disabled' : disabled}]"
                    :disabled="disabled"
                    :type="!showPassword ? type : 'text'"
                    class="rs-input--input"
@@ -19,6 +20,7 @@
                    :placeholder="getPlaceholder"
                    v-model="model"
                    :maxlength="maxlength"
+                   @keypress="keypress"
                    @focusin="focusin = true"
                    @focusout="focusin = false"/>
 
@@ -79,12 +81,25 @@
                 type: String,
                 required: false
             },
+            inputLang: {
+                default: '',
+                type: String,
+                required: false
+            },
+            keypress: {
+                default: () => (() => {})
+            },
             label: {
                 default: '',
                 type: String,
                 required: false
             },
             labelIcon: {
+                default: '',
+                type: String,
+                required: false
+            },
+            labelLang: {
                 default: '',
                 type: String,
                 required: false
