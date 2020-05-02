@@ -1,7 +1,7 @@
 <template>
     <div class="row py-30">
         <div class="col-sm-1 text-center mb-0">
-            <img :src="data.gateway_logo" alt="">
+            <img :src="data.gateway_image" alt="">
         </div>
         <div class="col-sm d-flex flex-direction-column text-center text-sm-start mb-0">
             <div class="mb-20">
@@ -21,9 +21,5 @@
         name: "Transaction",
 
         props: ['data'],
-
-        mounted() {
-            console.log(this.data)
-        }
     }
 </script>

@@ -342,6 +342,7 @@
 		"failed": "ناموفق",
 		"pending": "در انتظار",
 		"reject": "رد شده",
+		"rejected": "رد شده",
 		"success": "موفق"
 	},
 	"emails": "emails"
