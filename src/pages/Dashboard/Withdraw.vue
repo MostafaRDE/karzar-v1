@@ -117,7 +117,7 @@
                         })
                     } else {
                         this.storing = true;
-                        addTransaction(amount, this.selectedAccount, null, 'OUTPUT', null, JSON.stringify({key1:{type:"string",value:this.key1},key2: {type: "string",value: this.key2}}))
+                        addTransaction(amount, this.selectedAccount, 'WITHDRAW_FROM_ACCOUNT', 'OUTPUT', null, JSON.stringify({key1:{type:"string",value:this.key1},key2: {type: "string",value: this.key2}}))
                             .then(response => {
                                 this.$toast.success({
                                     title: i18n.t('glossaries.account_charging'),

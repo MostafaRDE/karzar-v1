@@ -1,4 +1,5 @@
-const {TotalAmountModel, TransactionModel} = require("../../../../Models/PaymentModel")
+const {TotalAmountModel, TransactionModel} = require("../../../../Models/PaymentModel");
+const {WalletModel} = require("../../../../Models/WalletModel");
 
 class TransactionsAction {
     index(type) {
@@ -54,22 +55,50 @@ class TransactionsAction {
     }
 
     updateStatus(id, status, statusDescription) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             let model = new TransactionModel();
-            model.update(['status', 'status_description'], [status, statusDescription], ['id'], [id], 'id, amount, gateway_id').then(async data => {
+            model.update(['status', 'status_description'], [status, statusDescription], ['id'], [id], undefined, 'id, amount, gateway_id, user_id, type').then(async data => {
                 try {
-                    if (status === 1) {
+                    if (status === '1') {
                         let totalAmountModel = new TotalAmountModel();
                         let totalAmount = await totalAmountModel.fetch_one('*', ['gateway_id'], [data.gateway_id]);
-                        totalAmountModel.update(['amount'], [(totalAmount.amount + parseFloat(data.amount)).toFixed(2)], ['gateway_id'], [data.gateway_id]).then(response => {
+
+                        if (data.type === 'INPUT') {
+                            totalAmountModel.update(['amount'], [(parseFloat(totalAmount.amount) + parseFloat(data.amount)).toFixed(2)], ['gateway_id'], [data.gateway_id]).then(async response => {
+                                let walletModel = new WalletModel();
+                                let wallet = await walletModel.fetch_one('*', ['user_id'], [data.user_id]);
+                                walletModel.update(['amount'], [(parseFloat(wallet.amount) + parseFloat(data.amount)).toFixed(2)], ['id'], [wallet.id]).then(res2 => {
+                                    resolve({status: true})
+                                }).catch(error => {
+                                    console.error(error);
+                                    reject({status: false})
+                                })
+                            }).catch(error => {
+                                console.error(error);
+                                reject({status: false})
+                            })
+                        } else if (data.type === 'OUTPUT') {
+                            totalAmountModel.update(['amount'], [(parseFloat(totalAmount.amount) - parseFloat(data.amount)).toFixed(2)], ['gateway_id'], [data.gateway_id]).then(response => {
+                                resolve({status: true})
+                            }).catch(error => {
+                                console.error(error);
+                                reject({status: false})
+                            })
+                        }
+                    } else if (status === '2' && data.type === 'OUTPUT') {
+                        let walletModel = new WalletModel();
+                        let wallet = await walletModel.fetch_one('*', ['user_id'], [data.user_id]);
+                        walletModel.update(['amount'], [(parseFloat(wallet.amount) + parseFloat(data.amount)).toFixed(2)], ['id'], [wallet.id]).then(response => {
                             resolve({status: true})
                         }).catch(error => {
+                            console.error(error);
                             reject({status: false})
                         })
                     } else {
                         resolve({status: true})
                     }
                 } catch (e) {
+                    console.error(error);
                     reject(e)
                 }
             }).catch(error => {

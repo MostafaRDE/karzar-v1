@@ -283,7 +283,7 @@ class Actions {
                             } else {
                                 walletTransactionModel.insertSync(
                                     ['amount', 'type', 'wallet_id', 'in_order_to'],
-                                    [tour.fee, 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
+                                    [tour.fee, 'INCREASE', wallet.id, 'JOIN_TO_TOURNAMENT']
                                 ).then(data => {
                                     let walletTransactionId = data.id;
                                     walletModel.update(['amount'], [(wallet.amount - tour.fee).toFixed(2)], ['id'], [wallet.id]).then(response => {
@@ -463,7 +463,7 @@ class Actions {
                                     // Set transaction wallet
                                     walletTransactionModel.insertSync(
                                         ['amount', 'type', 'wallet_id', 'in_order_to'],
-                                        [(tour.fee * characterIds.length), 'INCREASE', wallet.id, 'INPUT_IN_TOURNAMENT']
+                                        [(tour.fee * characterIds.length), 'INCREASE', wallet.id, 'JOIN_TO_TOURNAMENT']
                                     ).then(data => {
                                         let walletTransactionId = data.id;
                                         // Decrease amount of user(player) wallet

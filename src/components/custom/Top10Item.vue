@@ -12,7 +12,9 @@
                     <template v-else-if="rank === 3">
                         <img src="/public/images/public/ranking/3.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
                     </template>
-                    <template v-else>{{ rank }}</template>
+                    <template v-else>
+                        <span lang="en" class="font-weight-900 text-white" v-text="rank"></span>
+                    </template>
                 </div>
                 <div>
                     <div class="overflow-hidden position-relative" :class="width > 767 ? 'pxw-65' : (width > 440 ? 'pxw-40' : 'pxw-35')"

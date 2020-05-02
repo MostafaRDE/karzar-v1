@@ -35,7 +35,7 @@ class Actions {
         })
     }
 
-                  store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId, dataField) {
+  store(userId, ip, amount, description, gatewayId, inOrderTo, type, mediaId, dataField) {
         return new Promise((resolve, reject) => {
             let transactionModel = new TransactionModel();
             let walletModel = new WalletModel();
@@ -56,7 +56,19 @@ class Actions {
                             values.push(mediaId);
                         }
                         transactionModel.insertSync(keys, values).then(res => {
-                            resolve({status: true})
+                            if (type === 'OUTPUT') {
+                                walletModel.update(['amount'], [(parseFloat(wallet.amount) - parseFloat(amount)).toFixed(2)], ['id', 'user_id'], [wallet.id, userId]).then(res => {
+                                    resolve({status: true})
+                                }).catch(error => {
+                                    console.log(error);
+                                    reject({
+                                        status: false,
+                                        msg: __('messages').internal_server_error
+                                    })
+                                });
+                            } else {
+                                resolve({status: true})
+                            }
                         }).catch(error => {
                             console.log(error);
                             reject({

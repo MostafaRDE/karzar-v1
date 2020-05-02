@@ -27,6 +27,7 @@ const server = http.createServer(app);
 const io = socket(server);
 
 app.use(cors());
+app.use(bodyParser.json({limit: '10mb'}));
 
 // variable setter for app
 const isProd = process.env.NODE_ENV === 'production';

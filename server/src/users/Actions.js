@@ -328,7 +328,13 @@ class Actions {
                     .then(data => {
                         resolve({status: true})
                     })
-                    .catch(reject)
+                    .catch(err => {
+                        console.error(err);
+                        reject({
+                            status: false,
+                            msg: __('messages').internal_Server_error
+                        });
+                    })
             } else reject('params not object')
         });
     }
