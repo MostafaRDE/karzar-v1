@@ -50,5 +50,29 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5C5MD6F"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBQRdgBoxBYoqesdZXaowU8hnJ4ih__6xg",
+        authDomain: "gametour-global.firebaseapp.com",
+        databaseURL: "https://gametour-global.firebaseio.com",
+        projectId: "gametour-global",
+        storageBucket: "gametour-global.appspot.com",
+        messagingSenderId: "696643004399",
+        appId: "1:696643004399:web:0f418d3f27e2d8cb5df81a",
+        measurementId: "G-GNYB3YCT65"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
 </body>
 </html>
