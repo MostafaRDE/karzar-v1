@@ -9,8 +9,8 @@
                 <i @click="toggleAudio" class="fas p-15" :class="[`fa-${audioStatus === 'PAUSE' ? 'play' : 'pause'}`]"></i>
             </rs-button>
             <rs-button class="position-fixed end-0 z-index-100 p-0" id="bg-main-telegram-button">
-                <a target="_blank" href="https://t.me/gametour_official" rel="nofollow" class="text-white">
-                    <i class="fab fa-telegram p-15"></i>
+                <a target="_blank" href="https://t.me/gametour_official" rel="nofollow" class="text-white d-flex">
+                    <icon-telegram style="margin: 10px"/>
                 </a>
             </rs-button>
         </div>
@@ -40,6 +40,10 @@
 
     export default {
         name: "App",
+
+        components: {
+            'icon-telegram': () => import('./components/icons/IconTelegram.vue'),
+        },
 
         data: () => ({
             audioStatus: process.browser ? localStorage.getItem('bg_audio_status_playing') : 'PLAY',
