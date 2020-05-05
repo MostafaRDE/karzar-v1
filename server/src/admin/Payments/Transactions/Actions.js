@@ -59,7 +59,7 @@ class TransactionsAction {
             let model = new TransactionModel();
             model.update(['status', 'status_description'], [status, statusDescription], ['id'], [id], undefined, 'id, amount, gateway_id, user_id, type').then(async data => {
                 try {
-                    if (status === '1') {
+                    if (status === 1) {
                         let totalAmountModel = new TotalAmountModel();
                         let totalAmount = await totalAmountModel.fetch_one('*', ['gateway_id'], [data.gateway_id]);
 
@@ -85,7 +85,7 @@ class TransactionsAction {
                                 reject({status: false})
                             })
                         }
-                    } else if (status === '2' && data.type === 'OUTPUT') {
+                    } else if (status === 2 && data.type === 'OUTPUT') {
                         let walletModel = new WalletModel();
                         let wallet = await walletModel.fetch_one('*', ['user_id'], [data.user_id]);
                         walletModel.update(['amount'], [(parseFloat(wallet.amount) + parseFloat(data.amount)).toFixed(2)], ['id'], [wallet.id]).then(response => {

@@ -1,4 +1,4 @@
-const {PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel} = require('./../../../../../Models/PubgModel');
+const {PubgCharacterModel, PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel} = require('./../../../../../Models/PubgModel');
 const mediaGetFile = require('../../../../../util/media').getFile;
 const getTranslates = require('../../../../../util/glossary').getTranslates;
 const translate = require('../../../../../util/glossary').translate;
@@ -182,7 +182,7 @@ class PubgTournamentsActions {
     players(id) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
-            pubgTournamentPlayerModel.fetch_all_custom(`SELECT *, pubg.tournament_players.id as player_id FROM pubg.tournament_players INNER JOIN users ON (pubg.tournament_players.user_id = users.id) WHERE tournament_players.tournament_id = ${id}`).then(data => {
+            pubgTournamentPlayerModel.fetch_all_custom(`SELECT *, pubg.tournament_players.id as player_id, pubg.characters.name as character_name FROM pubg.tournament_players INNER JOIN pubg.characters ON (pubg.characters.id = pubg.tournament_players.character_id) INNER JOIN users ON (pubg.tournament_players.user_id = users.id) WHERE tournament_players.tournament_id = ${id}`).then(data => {
                 resolve(data)
             }).catch(reject)
         });
@@ -190,13 +190,22 @@ class PubgTournamentsActions {
 
     updatePlayers(id, data = []) {
         return new Promise(async (resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
-            for (let i = 0; i < data.length; i++) {
-                pubgTournamentPlayerModel.update(['killed_number'], [data[i].killed_number], ['id'], [data.id]).then(res => {
-                    resolve({status: true})
-                }).catch(err => {
-                    console.error(err);
-                    reject(err)
+            try {
+                let players = await pubgTournamentPlayerModel.fetch_all('*', ['tournament_id'], [id]);
+                for (let i = 0; i < data.length; i++) {
+                    let player = players.result.find(player => player.id === data[i].id);
+                    let diffKilledNumber = parseFloat(data[i].killed_number) - player.killed_number;
+                    let character = await pubgCharacterModel.fetch_one('*', ['id'], [player.character_id]);
+                    await pubgCharacterModel.update(['killed_total'], [character.killed_total + diffKilledNumber], ['id'], [character.id]);
+                    await pubgTournamentPlayerModel.update(['killed_number'], [data[i].killed_number], ['id'], [data[i].id]);
+                }
+                resolve({status: true})
+            } catch (e) {
+                console.error(e);
+                reject({
+                    status: false,
                 })
             }
         });

@@ -27,7 +27,7 @@
 
                 {{ /* Button for goto exchange page */ }}
                 <div class="text-center mb-10 mt-20">
-                    <rs-button solid glow @click.native="gotoExchange()">{{ $t('glossaries.exchange') }}</rs-button>
+                    <rs-button solid glow @click.native="gotoExchange()">{{ $t('glossaries.login') }}</rs-button>
                 </div>
 
             </div>
@@ -54,7 +54,7 @@
 
         methods: {
             gotoExchange() {
-                this.$router.push({name: 'dashboardTournaments', params: {lang: this.$route.params.lang}})
+                this.$router.push({name: 'login', params: {lang: this.$route.params.lang}})
             }
         },
     }
