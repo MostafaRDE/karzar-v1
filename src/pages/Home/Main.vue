@@ -126,7 +126,7 @@
                 <rs-tab-content class="position-relative flex-direction-column px-0 justify-content-center overflow-hidden align-items-center"
                                 id="page--home--top10--30days">
 
-                    <div class="d-flex flex-direction-column px-20">
+                    <div class="d-flex flex-direction-column px-20 overflow-y-overlay" style="max-height: 530px">
 
                         <top10-item
                                 v-if="top10.length && !loadingTop10"
@@ -134,7 +134,7 @@
                                 :key="`top10-${index}`"
                                 :data="item"
                                 :rank="index + 1"
-                                class="row py-20"
+                                class="row py-20 mb-0"
                                 :class="{'border-bottom': index < top10.length - 1}"/>
 
                                 <div v-if="loadingTop10"

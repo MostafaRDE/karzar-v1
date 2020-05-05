@@ -1,6 +1,6 @@
 <template>
     <div class="row py-30">
-        <div class="col-sm-1 text-center mb-0">
+        <div class="col-sm-1 d-flex align-items-center justify-content-center mb-0">
             <img :src="data.gateway_image" alt="">
         </div>
         <div class="col-sm d-flex flex-direction-column text-center text-sm-start mb-0">

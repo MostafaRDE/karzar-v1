@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row" :class="width > 767 ? 'mx-0' : (width > 440 ? 'mx--10' : 'mx--20')" :style="{width: width > 767 ? '' : (width > 440 ? 'calc(100% + 20px)' : 'calc(100% + 40px)')}">
-            <div class="col-6 d-flex">
+            <div class="col-6 mb-0 d-flex">
                 <div class="d-flex align-items-center justify-content-center" :class="width > 767 ? 'me-20 pxw-40' : 'me-10 pxw-30'">
                     <template v-if="rank === 1">
                         <img src="/public/images/public/ranking/1.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
@@ -29,7 +29,7 @@
                     <span lang="en" class="text-white d-flex align-items-center" :style="{fontSize: width > 767 ? '14px' : (width > 440 ? '12px' : '11px')}"><img src="/public/images/public/icons/ic-id.png" alt="" class="me-5" style="height: 14px"/>#{{ data.id }}</span>
                 </div>
             </div>
-            <div class="col-6 text-center text-sm-end d-flex align-items-center justify-content-flex-end">
+            <div class="col-6 mb-0 text-center text-sm-end d-flex align-items-center justify-content-flex-end">
                 <span class="font-weight-900 text-white d-flex" :style="{fontSize: width > 767 ? '18px' : '14px'}">{{ data.killed_total }}</span>
                 <img src="/public/images/public/icons/ic-head-shot.png" alt="" :class="['ms-10', width > 767 ? 'pxw-30' : 'pxw-25']"/>
             </div>
