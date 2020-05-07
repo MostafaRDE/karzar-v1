@@ -105,6 +105,14 @@ router.put('/payments/wallets/:id', adminMiddleware.check_jwt, PaymentsWalletsCo
 
 // </editor-fold>
 
+// <editor-fold desc="Tickets">
+
+const TicketsController = require('./Tickets/Controller');
+router.get('/tickets', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), TicketsController.index);
+router.post('/tickets', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), Storage.array('image'), TicketsController.store);
+
+// </editor-fold>
+
 // <editor-fold desc="Tutorials">
 
 const TutorialsController = require('./Tutorials/Controller');

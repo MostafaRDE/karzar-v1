@@ -8,7 +8,7 @@
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
                         <span class="bottom-trapeze-sides trapeze-start-side"/>
                         <span :lang="isRunning && $route.params.lang === 'af' ? 'af' : 'en'" class="ltr text-white text-nowrap"
-                              style="padding: 7px 20px; background-color: #ff0e1f; font-size: 1.6em; font-family: 'Oxanium Medium', Arial Black, serif !important; letter-spacing: 4px">
+                              :style="{padding: '7px 20px', backgroundColor: '#ff0e1f', fontSize: '1.6em', fontFamily: $route.params.lang === 'en' ? 'Oxanium Medium, Arial Black, serif !important' : '', letterSpacing: $route.params.lang !== 'af' ? '4px' : ''}">
                             {{ isRunning ? $t('glossaries.running') : timer }}
                         </span>
                         <span class="bottom-trapeze-sides trapeze-end-side"/>

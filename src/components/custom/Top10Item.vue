@@ -4,13 +4,13 @@
             <div class="col-6 mb-0 d-flex">
                 <div class="d-flex align-items-center justify-content-center" :class="width > 767 ? 'me-20 pxw-40' : 'me-10 pxw-30'">
                     <template v-if="rank === 1">
-                        <img src="/public/images/public/ranking/1.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
+                        <img src="/public/images/public/ranking/cup1.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
                     </template>
                     <template v-else-if="rank === 2">
-                        <img src="/public/images/public/ranking/2.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
+                        <img src="/public/images/public/ranking/cup2.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
                     </template>
                     <template v-else-if="rank === 3">
-                        <img src="/public/images/public/ranking/3.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
+                        <img src="/public/images/public/ranking/cup3.png" alt="" :class="width > 767 ? 'pxw-40' : (width > 440 ? 'pxw-30' : 'pxw-25')"/>
                     </template>
                     <template v-else>
                         <span lang="en" class="font-weight-900 text-white" v-text="rank"></span>
