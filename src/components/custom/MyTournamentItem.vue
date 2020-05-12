@@ -22,7 +22,7 @@
                 <span class="w-fit-content text-white">
                     {{ $t ('glossaries.team') }} {{ data.winning_group }}
                     &nbsp;<span class="d-inline-flex">
-                        <img src="/public/images/public/icons/ic-cup.svg" alt="" style="width: 18px">
+                        <img src="/public/images/public/icons/ic-cup.svg" alt="" style="width: 18px; height: 18px">
                     </span>
                 </span>
             </div>

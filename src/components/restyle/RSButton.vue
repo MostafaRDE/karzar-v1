@@ -4,7 +4,7 @@
 
         <span class="btn-trapeze-start-side"
               :class="{'btn-trapeze-top': trapezeBoth || trapezeStart, 'btn-trapeze-bottom': reverseTrapezeBoth || reverseTrapezeStart}"></span>
-        <span class="btn-text d-flex justify-content-center align-items-center">
+        <span class="btn-text d-flex justify-content-center align-items-center" :class="classInner" :style="styleInner">
             <slot v-if="loading === false" />
         </span>
         <span class="btn-trapeze-end-side"
@@ -17,6 +17,11 @@
         name: "RSButton",
 
         props: {
+            classInner: {
+                default: '',
+                type: [String, Array, Object],
+                required: false
+            },
             color: {
                 default: '',
                 type: String,
@@ -43,6 +48,11 @@
             reverseTrapezeStart: {
                 default: false,
                 type: Boolean,
+            },
+            styleInner: {
+                default: '',
+                type: [String, Object],
+                required: false
             },
             trapezeBoth: {
                 default: false,

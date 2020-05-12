@@ -134,7 +134,7 @@
                                 :key="`top10-${index}`"
                                 :data="item"
                                 :rank="index + 1"
-                                class="row py-20 mb-0"
+                                class="row py-20 mb-0 d-block"
                                 :class="{'border-bottom': index < top10.length - 1}"/>
 
                                 <div v-if="loadingTop10"

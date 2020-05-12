@@ -69,6 +69,7 @@
                                 :key="`character-${index}`"
                                 :data="item"
                                 :editAction="showUpdateModal"
+                                class="d-block"
                                 :class="{'border-bottom': index < items.length - 1}"/>
 
                 <div v-else class="py-50 text-center">
