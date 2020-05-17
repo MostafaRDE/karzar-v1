@@ -82,7 +82,7 @@
             sourceCurrencies: [
                 {key: 'dollar', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.dollar')},
                 {key: 'euro', icon: '/public/images/public/currencies/ic-euro.svg', label: i18n.t('currencies.euro')},
-                {key: 'pound', icon: '/public/images/public/currencies/ic-gpb.svg', label: i18n.t('currencies.pound_sterling')},
+                {key: 'pound', icon: '/public/images/public/currencies/ic-gbp.svg', label: i18n.t('currencies.pound_sterling')},
                 {key: 'krona', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.swedish_krona')},
                 {key: 'krone', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.norwegian_krone')},
                 {key: 'franc', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.swiss_franc')},
