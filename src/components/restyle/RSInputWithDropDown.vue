@@ -14,7 +14,7 @@
                     </span>
                 </span>
                 <div v-if="showSourceList"
-                     class="position-absolute ms--10 me--20 z-index-1 left-0 right-0 top-0 d-block"
+                     class="position-absolute ms--10 me--20 z-index-10 start-0 top-0 d-block"
                      style="margin-top: 33px">
                     <ul class="px-10 w-100" style="background-color: #333; box-shadow: 0 0 10px 0 #000">
                         <li v-for="(item, index) of source"

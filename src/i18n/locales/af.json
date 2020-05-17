@@ -10,7 +10,11 @@
 	"currencies": {
 		"dollar": "دلار",
 		"euro": "یورو",
-		"krone": "کرون"
+		"norwegian_krone": "کرون نروژ",
+		"swedish_krona": "کرون سوئد",
+		"swiss_franc": "فرانک سوییس",
+		"turkish_lira": "لیر ترکیه",
+		"pound_sterling": "پوند انگلستان"
 	},
 	"currencies_short": {},
 	"glossaries": {

@@ -14,13 +14,10 @@
                                          @updateSelectedSourceKey="selectedCurrency = $event"
                                          :source="sourceCurrencies"
                                          v-model="inputAmount"/>
-                <rs-input class="mt-20 opacity-10"
-                          type="number"
-                          disabled
-                          :placeholder="$t('glossaries.is_equal_to')"
-                          :label="$t('currencies.dollar')"
-                          labelIcon="/public/images/public/currencies/ic-dollar.svg"
-                          :value="`${(Math.floor(parseFloat(inputAmount) / parseFloat(pricesToDollar[selectedCurrency]))).toFixed(0)}`"/>
+                <div class="mt-10 d-flex align-items-center">
+                    <span class="opacity-8 me-10">{{ $t('glossaries.is_equal_to') }}</span>
+                    <span lang="en" class="font-weight-900 font-size-lg">{{ (parseFloat(inputAmount) / parseFloat(pricesToDollar[selectedCurrency]) || 0).toFixed(2) }}$</span>
+                </div>
 
                 <rs-drop-down-pro class="mt-30" :source="accounts" v-model="selectedAccount">
                     <template slot-scope="{data}" slot="item-adapter">
@@ -72,14 +69,24 @@
             timer: null,
             inputAmount: '0',
             pricesToDollar: {
+                dollar: 0,
                 euro: 0,
+                pound: 0,
+                krona: 0,
                 krone: 0,
+                franc: 0,
+                lira: 0,
             },
 
-            selectedCurrency: 'krone',
+            selectedCurrency: 'dollar',
             sourceCurrencies: [
-                {key: 'krone', icon: '/public/images/public/currencies/ic-krone.svg', label: 'Krone'},
-                {key: 'euro', icon: '/public/images/public/currencies/ic-euro.svg', label: 'Euro'},
+                {key: 'dollar', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.dollar')},
+                {key: 'euro', icon: '/public/images/public/currencies/ic-euro.svg', label: i18n.t('currencies.euro')},
+                {key: 'pound', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.pound_sterling')},
+                {key: 'krona', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.swedish_krona')},
+                {key: 'krone', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.norwegian_krone')},
+                {key: 'franc', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.swiss_franc')},
+                {key: 'lira', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.turkish_lira')},
             ],
 
             loadingGateways: false,
@@ -116,8 +123,13 @@
                 fetch('https://api.exchangeratesapi.io/latest?base=USD')
                     .then(response => response.json())
                     .then(data => {
+                        this.pricesToDollar.dollar = data.rates.USD;
                         this.pricesToDollar.euro = data.rates.EUR;
-                        this.pricesToDollar.krone = data.rates.SEK;
+                        this.pricesToDollar.krona = data.rates.SEK;
+                        this.pricesToDollar.krone = data.rates.NOK;
+                        this.pricesToDollar.pound = data.rates.GBP;
+                        this.pricesToDollar.franc = data.rates.CHF;
+                        this.pricesToDollar.lira = data.rates.TRY;
                     })
                     .catch(error => {
 
