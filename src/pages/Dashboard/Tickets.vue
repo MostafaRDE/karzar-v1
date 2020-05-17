@@ -4,7 +4,8 @@
                      v-for="(ticket, index) of tickets"
                       :key="`transaction-${index}`"
                       :data="ticket"
-                      :class="{'border-bottom': index < tickets.length - 1}"/>
+                      :class="{'border-bottom': index < tickets.length - 1}"
+                     @click.native="$router.push({name: 'dashboardTicketChat', params: {lang: $route.params.lang, id: ticket.id}})"/>
 
         <div v-if="isDev"
              class="row pagination mt-20">

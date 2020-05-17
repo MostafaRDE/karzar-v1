@@ -1,5 +1,5 @@
 <template>
-    <div class="row ticket-item">
+    <div class="row ticket-item px-10">
         <div class="col-sm-6 mt-20 d-flex flex-direction-column">
             <h6 class="text-white">{{ data.subject }}</h6>
             <span>Ticket Number: <span class="text-white">#{{ data.id }}</span></span>

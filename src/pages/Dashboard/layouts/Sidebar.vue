@@ -2,7 +2,7 @@
     <nav class="px-20 py-10 dashboard-sidebar overflow-y-overlay" style="background: #252429">
         <div class="d-flex mb-50 mt-10">
 
-            <div class="me-10">
+            <div class="me-10" @click="goToProfile">
                 <img src="/public/images/public/pubg-default-profile.svg" alt=""/>
             </div>
 

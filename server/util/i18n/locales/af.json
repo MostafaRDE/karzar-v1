@@ -45,7 +45,8 @@
 		"there_is_a_disturbance_in_the_player_registration_process_unfortunately_some_players_are_not_registered_please_notify_via_ticket": "در مراحل ثبت بازیکنان اختلال ایجاد شده است. متاسفانه بعضی بازیکنان ثبت نشده اند. لطفا از طریق تیکت اطلاع رسانی کنید",
 		"there_was_an_error_registering_players_and_the_registration_failed_please_notify_via_ticket": "در مراحل ثبت بازیکنان خطایی اتفاق افتاده است و ثبت با شکست مواجه شده. لطفا از طریق تیکت اطلاع رسانی کنید.",
 		"there_is_no_photo_of_these_dimensions": "عکسی با این ابعاد وجود ندارد",
-		"please_re_register_15_minute_after_your_last_transaction_was_re_registered": "لطفا برای ثبت مجدد، ۱۵ دقیقه بعد از ثبت آخرین تراکنش خود اقدام کنید"
+		"please_re_register_15_minute_after_your_last_transaction_was_re_registered": "لطفا برای ثبت مجدد، ۱۵ دقیقه بعد از ثبت آخرین تراکنش خود اقدام کنید",
+		"please_re_register_5_minute_after_your_last_transaction_was_re_registered": "لطفا برای ثبت مجدد، ۵ دقیقه بعد از ثبت آخرین تراکنش خود اقدام کنید"
 	},
 	"emails": {
 		"email_validate": {

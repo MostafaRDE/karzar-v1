@@ -66,7 +66,7 @@
                                                 {{ /* Reward */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.reward') }}:</span>&nbsp;
-                                                    <span class="text-left text-nowrap">{{ model.reward_value }}</span>
+                                                    <span class="text-left text-nowrap">{{ model.reward_value }}{{ rewardValueType(model.reward_value_type) }}</span>
                                                 </div>
 
                                             </div>
@@ -420,6 +420,22 @@
         },
 
         methods: {
+            rewardValueType(type) {
+                switch (type) {
+                    // Dollar currency
+                    case 0:
+                        return '$';
+
+                    // String
+                    case 1:
+                        return null;
+
+                    // UC pubg currency
+                    case 2:
+                        return ' UC';
+                }
+            },
+
             isMyTeam(team) {
                 if (this.$store.state.profile)
                     for (let i = 0; i < team.length; i++)

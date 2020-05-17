@@ -1,4 +1,3 @@
 import Vue from 'vue';
-import VueCropper from 'vue-cropperjs';
 
-Vue.component(VueCropper);
+Vue.component('vue-cropper', () => import('vue-cropperjs'));

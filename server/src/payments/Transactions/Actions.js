@@ -39,12 +39,12 @@ class Actions {
         return new Promise((resolve, reject) => {
             let transactionModel = new TransactionModel();
             let walletModel = new WalletModel();
-            transactionModel.fetch_all_custom(`SELECT created_at FROM transactions WHERE created_at > NOW() - INTERVAL '15 minutes' AND type = '${type}'`).then(data => {
+            transactionModel.fetch_all_custom(`SELECT created_at FROM transactions WHERE created_at > NOW() - INTERVAL '5 minutes' AND type = '${type}'`).then(data => {
 
                 if (data.result.length) {
                     reject({
                         status: false,
-                        msg: __('messages').please_re_register_15_minute_after_your_last_transaction_was_re_registered,
+                        msg: __('messages').please_re_register_5_minute_after_your_last_transaction_was_re_registered,
                     })
                 } else {
 

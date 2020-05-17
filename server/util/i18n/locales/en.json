@@ -45,7 +45,8 @@
 		"there_is_a_disturbance_in_the_player_registration_process_unfortunately_some_players_are_not_registered_please_notify_via_ticket": "There is a disturbance in the player registration process. Unfortunately some players are not registered. Please notify via ticket",
 		"there_was_an_error_registering_players_and_the_registration_failed_please_notify_via_ticket": "There was an error registering players and the registration failed. Please notify via ticket.",
 		"there_is_no_photo_of_these_dimensions": "There is no photo of these dimensions",
-		"please_re_register_15_minute_after_your_last_transaction_was_re_registered": "Please re-register, 15 minute after your last transaction was re-registered"
+		"please_re_register_15_minute_after_your_last_transaction_was_re_registered": "Please re-register, 15 minute after your last transaction was re-registered",
+		"please_re_register_5_minute_after_your_last_transaction_was_re_registered": "Please re-register, 5 minute after your last transaction was re-registered"
 	},
 	"emails": {
 		"email_validate": {

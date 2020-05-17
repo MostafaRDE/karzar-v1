@@ -5,6 +5,18 @@
                 <rs-form class="px-10" :submit="updateProfile" @errors="setFormErrors($event, 'PROFILE')">
                     <h5>{{ $t('glossaries.base_information') }}</h5>
 
+                    <div v-if="false" class="mt-30">
+                        <div v-if="imgSrc">
+                            <vue-cropper ref="cropper"
+                                         :src="imgSrc"
+                                         :aspect-ratio="1/1"
+                                         alt="Source Image"/>
+                        </div>
+                        <div v-else class="d-flex">
+                            <rs-button solid glow>{{ $t('glossaries.select_image') }}</rs-button>
+                        </div>
+                    </div>
+
                     <div>
                         <rs-input class="mt-30"
                                   :label="$t('glossaries.name')"
@@ -39,7 +51,7 @@
                         <span class="text-danger">{{ getInputError('currentPassword', 'PASSWORD') }}</span>
                     </div>
 
-                    <hr class="opacity-1">
+                    <hr class="opacity-1" style="border: none; border-top: solid 1px #fff"/>
 
                     <div class="mt-15">
                         <rs-input type="password"
@@ -86,6 +98,7 @@
 
             updatingProfile: false,
             updatingPassword: false,
+            imgSrc: null,
 
             fields: {
                 profile: {
