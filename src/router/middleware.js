@@ -39,7 +39,7 @@ export function beforeEachCreator(i18n, store) {
 
                 // Redirect to fix language part of path route
                 default:
-                    return next(`/en${path}`);
+                    return next(`/af${path}`);
             }
 
             // </editor-fold>
