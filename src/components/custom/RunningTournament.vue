@@ -54,7 +54,7 @@
                                                 {{ /* Map */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.map') }}:</span>&nbsp;
-                                                    <span class="text-left" lang="en">{{ model.map.name }}</span>
+                                                    <span class="text-left">{{ model.map.name }}</span>
                                                 </div>
 
                                                 {{ /* Input */ }}

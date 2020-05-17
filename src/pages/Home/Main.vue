@@ -117,7 +117,8 @@
         </div>
 
         <div class="container mt-40 py-50 px-20" id="top10">
-            <h2 class="text-center text-white">{{ $t('glossaries.top_10') }}</h2>
+            <h2 class="text-center text-white">{{ $t('glossaries.top_10_players') }}</h2>
+            <span class="text-center w-100 d-block mt-5">{{ $t('glossaries.special_award_for_having_the_best_website_players_every_month') }}</span>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
 

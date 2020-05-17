@@ -238,7 +238,7 @@ class Actions {
                 .then(async res => {
                     for (let i = 0; i < res.result.length; i++) {
                         if (res.result[i].profile_image_id)
-                            res.result[i].profile_image = await mediaGetFile(data.result[i].profile_image_id);
+                            res.result[i].profile_image = await mediaGetFile(res.result[i].profile_image_id);
                         else
                             res.result[i].profile_image = null;
                     }

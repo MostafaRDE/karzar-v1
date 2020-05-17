@@ -32,7 +32,7 @@
 		"blog": "بلاگ",
 		"cancel": "لغو",
 		"change": "تغییر",
-		"change_password": "تغییر گذرواژه",
+		"change_password": "تغییر پسورد",
 		"character": "کاراکتر",
 		"character_name": "نام کاراکتر",
 		"characters": "کاراکتر ها",
@@ -48,7 +48,7 @@
 		"copy_server_ip": "کپی آدرس IP",
 		"counter_strike": "کانتر استریک",
 		"counter_strike_1_6": "کانتر استریک 1.6",
-		"current_password": "گذرواژه فعلی",
+		"current_password": "پسورد فعلی",
 		"dashboard": "پیشخوان",
 		"date": "تاریخ",
 		"deposit": "واریز",
@@ -96,7 +96,7 @@
 		"more_information": "اطلاعات بیشتر",
 		"my_24h_order_history": "تاریخچه سفارشات ۲۴ ساعت گذشته",
 		"name": "نام",
-		"new_password": "گذرواژه جدید",
+		"new_password": "پسورد جدید",
 		"no_players_found": "بازیکنی پیدا نشد",
 		"not_found": "چیزی پیدا نشد",
 		"not_registered": "ثبت نشده",
@@ -108,8 +108,8 @@
 		"open_orders": "سفارشات باز",
 		"orders": "سفارشات",
 		"pair": "جفت",
-		"password": "گذرواژه",
-		"password_update": "بروزرسانی گذرواژه",
+		"password": "پسورد",
+		"password_update": "بروزرسانی پسورد",
 		"player_id": "آی دی بازیکن",
 		"player_name": "نام کاراکتر",
 		"players": "بازیکنان",
@@ -126,12 +126,12 @@
 		"refer_code_optional": "کد معرف (اختیاری)",
 		"register": "ثبت نام",
 		"resend_verification_email": "ارسال مجدد لینک فعال سازی",
-		"reset_password": "بازیابی رمز عبور",
-		"retype_new_password": "تکرار رمز عبور جدید",
-		"retype_password": "تکرار رمز عبور",
+		"reset_password": "بازیابی پسورد",
+		"retype_new_password": "تکرار پسورد جدید",
+		"retype_password": "تکرار پسورد",
 		"reward": "جایزه",
 		"room": "روم",
-		"room_password": "رمز عبور روم",
+		"room_password": "پسورد روم",
 		"running": "در حال اجرا",
 		"running_tournaments": "تورنومنت های در حال اجرا",
 		"search": "جستجو",
@@ -140,13 +140,15 @@
 		"shop": "فروشگاه",
 		"side": "جهت",
 		"soon": "بزودی",
+		"special_award_for_having_the_best_website_players_every_month": "هر ماه جایزه ویژه برای بازیکن برتر وب سایت",
 		"status": "وضعیت",
 		"stop-limit": "Stop-Limit",
 		"submit": "ارسال",
 		"team": "تیم",
 		"team_join": "رزرو گروهی",
 		"tickets": "تیکت ها",
-		"top_10": "10 بازیکن برتر",
+		"top_10": "10 تای برتر",
+		"top_10_players": "10 بازیکن برتر",
 		"total": "مجموع",
 		"tournament_players": "بازیکنان تورنومنت",
 		"tournaments": "تورنومنت ها",
@@ -184,7 +186,7 @@
 		"errors": {
 			"log_in_failed": "ورود با شکست مواجه شد.مجدد امتحان کنید",
 			"registration_failed": "ثبت نام با شکست مواجه شد.مجدد امتحان کنید",
-			"reset_password_failed": "تغییر رمز عبور با شکست مواجه شد.مجدد امتحان کنید",
+			"reset_password_failed": "تغییر پسورد با شکست مواجه شد.مجدد امتحان کنید",
 			"transaction_amount_must_be_over_2_dollar": "مبلغ تراکنش باید برابر یا بیش از ۵ دلار باشد",
 			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد"
 		},
@@ -198,13 +200,13 @@
 		"please_check_that_you_are_visiting": "لطفا بررسی کنید که آدرس مرورگراتان ,آدرس زیر باشد",
 		"please_select_your_transaction_image_from_the_Select_File_section": "لطفا تصویر تراکنش خود را از بخش \"انتخاب فایل\" انتخاب کنید",
 		"rules": {
-			"confirm_password": "تکرار رمز عبور مطابقت ندارد",
+			"confirm_password": "تکرار پسورد مطابقت ندارد",
 			"email": "ایمیل وروی اشتباه است.",
 			"min": {
 				"number": "عدد ورودی باید بزرگتر مساوی با {number} باشد.",
 				"string": "حداقل تعداد حروف باید {count} حرف باشد."
 			},
-			"password": "رمز عبور باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
+			"password": "پسورد باید شامل حروف بزرگ و کوجک انگلیسی و اعداد باشد. (A-Z a-z 0-9)",
 			"required": "فیلد ورودی اجباری می باشد.",
 			"string": {
 				"default": "ورودی باید متنی باشد.",
@@ -217,10 +219,10 @@
 			"character_was_successfully_added": "کاراکنر با موفقیت انجام شد",
 			"log_in_successful": "ورود با موفقیت انجام شد.",
 			"registration_successful": "ثبت نام با موفقیت انجام شد.",
-			"reset_password_successful": "تغییر رمز عبور با موفقیت انجام شد.",
+			"reset_password_successful": "تغییر پسورد با موفقیت انجام شد.",
 			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد",
 			"the_character_was_successfully_updated": "کاراکتر با موفقیت بروزرسانی شد",
-			"the_password_was_successfully_updated": "رمز عبور با موفقیت بروزرسانی شد",
+			"the_password_was_successfully_updated": "پسورد با موفقیت بروزرسانی شد",
 			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد"
 		}
 	},
@@ -259,19 +261,19 @@
 				"title": "کد احراز هویت گوگل خود را وارد کنید"
 			},
 			"password_change": {
-				"header": "تغییر رمز عبور",
-				"title": "تغییر رمز عبور"
+				"header": "تغییر پسورد",
+				"title": "تغییر پسورد"
 			},
 			"password_changed": {
 				"content": {
-					"message": "رمز عبور با موفقیت تغییر یافت."
+					"message": "پسورد با موفقیت تغییر یافت."
 				},
-				"header": "تغییر رمز عبور",
-				"title": "تغییر رمز عبور"
+				"header": "تغییر پسورد",
+				"title": "تغییر پسورد"
 			},
 			"password_reset_link_sent": {
-				"header": "لینک تغییر رمز عبور ارسال شد",
-				"title": "لینک تغییر رمز عبور ارسال شد"
+				"header": "لینک تغییر پسورد ارسال شد",
+				"title": "لینک تغییر پسورد ارسال شد"
 			},
 			"register": {
 				"content": {
@@ -283,31 +285,31 @@
 			},
 			"reset_password": {
 				"content": {
-					"withdrawal_warning": "برای اهداف امنیتی ، هیچ برداشتی به مدت 24 ساعت پس از اصلاح رمز عبور مجاز نیست."
+					"withdrawal_warning": "برای اهداف امنیتی ، هیچ برداشتی به مدت 24 ساعت پس از اصلاح پسورد مجاز نیست."
 				},
-				"header": "بازیابی رمز عبور",
-				"title": "بازیابی رمز عبور | گیم تور"
+				"header": "بازیابی پسورد",
+				"title": "بازیابی پسورد | گیم تور"
 			},
 			"reset_password_error_ip": {
 				"content": {
-					"message": "آی پی شما برای تغییر رمز عبور نامعتبر است."
+					"message": "آی پی شما برای تغییر پسورد نامعتبر است."
 				},
-				"header": "خطا در تغییر رمز عبور",
-				"title": "خطا در تغییر رمز عبور | گیم تور"
+				"header": "خطا در تغییر پسورد",
+				"title": "خطا در تغییر پسورد | گیم تور"
 			},
 			"reset_password_token_expire": {
 				"content": {
 					"message": "توکن تغییر گذراوژه منقضی شده است."
 				},
-				"header": "خطا در تغییر رمز عبور",
-				"title": "خطا در تغییر رمز عبور | گیم تور"
+				"header": "خطا در تغییر پسورد",
+				"title": "خطا در تغییر پسورد | گیم تور"
 			},
 			"send_reset_password_link_to": {
 				"content": {
-					"send_reset_password_link": "ارسال لینک تغییر رمز عبور"
+					"send_reset_password_link": "ارسال لینک تغییر پسورد"
 				},
-				"header": "ارسال لینک تغییر رمز عبور به",
-				"title": "ارسال لینک تغییر رمز عبور به | گیم تور"
+				"header": "ارسال لینک تغییر پسورد به",
+				"title": "ارسال لینک تغییر پسورد به | گیم تور"
 			},
 			"verify_email_address": {
 				"content": {
@@ -327,7 +329,7 @@
 	},
 	"questions": {
 		"already_registered": "قبلا ثبت نام کرده اید؟",
-		"forgot_password": "رمز عبور خود را فراموش کرده اید؟",
+		"forgot_password": "پسورد خود را فراموش کرده اید؟",
 		"not_on_the_site_yet": "هنوز در {site_name} عضو نشده اید؟"
 	},
 	"reasons": {
