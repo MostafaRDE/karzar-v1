@@ -39,6 +39,7 @@
 		"tournament_capacity_is_filled": "Tournament capacity is filled",
 		"you_are_already_joined_the_tournament": "You are already joined the tournament",
 		"you_are_already_a_member_of_the_tournament": "You are already a member of the tournament",
+		"your_inventory_is_less_than_the_amount_requested": "Your inventory is less than the amount requested",
 		"the_number_of_players_represented_by_you_is_higher_than_the_capacity_of_the_tournament_group": "The number of players represented by you is higher than the capacity of the tournament group",
 		"introduced_players_are_already_registered": "Introduced players are already registered",
 		"there_is_a_disturbance_in_the_player_registration_process_unfortunately_some_players_are_not_registered_please_notify_via_ticket": "There is a disturbance in the player registration process. Unfortunately some players are not registered. Please notify via ticket",
@@ -48,13 +49,11 @@
 	},
 	"emails": {
 		"email_validate": {
-			"subject": "تایید ایمیل",
-			"new_password": "رمز جدید"
+			"subject": "Verify Email",
+			"new_password": "New Password"
 		},
 		"login_to_account": {
-			"subject": "ورود به حساب کاربری"
+			"subject": "Login to Account"
 		}
-	},
-	"mwssages": "mwssages",
-	"message": "message"
+	}
 }

@@ -37,8 +37,9 @@
 		"internal_server_error": "خطای داخلی سرور",
 		"not_enough_amount": "موجودی کافی نمی باشد",
 		"tournament_capacity_is_filled": "ظرفیت تورنومنت تکمیل است",
-		"you_are_already_joined_the_tournament": "You are already joined the tournament",
+		"you_are_already_joined_the_tournament": "شما هم اکنون عضو تورنومنت هستید",
 		"you_are_already_a_member_of_the_tournament": "شما از قبل عضو تورنومنت شده اید",
+		"your_inventory_is_less_than_the_amount_requested": "موجودی شما کمتر از مقدار برداشت درخواستی است",
 		"the_number_of_players_represented_by_you_is_higher_than_the_capacity_of_the_tournament_group": "تعداد بازیکنان معرفی شده از سمت شما بیش از ظرفیت گروه تورنومنت می باشد",
 		"introduced_players_are_already_registered": "بازیکنان معرفی شده از قبل ثبت نام شده اند",
 		"there_is_a_disturbance_in_the_player_registration_process_unfortunately_some_players_are_not_registered_please_notify_via_ticket": "در مراحل ثبت بازیکنان اختلال ایجاد شده است. متاسفانه بعضی بازیکنان ثبت نشده اند. لطفا از طریق تیکت اطلاع رسانی کنید",
@@ -54,6 +55,5 @@
 		"login_to_account": {
 			"subject": "ورود به حساب کاربری"
 		}
-	},
-	"mwssages": "mwssages"
+	}
 }

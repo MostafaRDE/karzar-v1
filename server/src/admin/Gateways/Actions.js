@@ -11,7 +11,7 @@ class GatewaysActions {
     index(lang = null, type) {
         return new Promise((resolve, reject) => {
             let gatewayModel = new GatewayModel();
-            gatewayModel.fetch_all_custom(`SELECT * FROM gateways WHERE type = '${type}' ORDER BY name ASC`).then(async data => {
+            gatewayModel.fetch_all_custom(`SELECT * FROM gateways WHERE type = '${type}' ORDER BY id`).then(async data => {
                 for (let i = 0; i < data.result.length; i++)
                     if (data.result[i].image_media_id) {
                         data.result[i].key_1 = lang === null ? await getTranslates(data.result[i].glossary_key_key_1) : await translate(data.result[i].glossary_key_key_1, lang);

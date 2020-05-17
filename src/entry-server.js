@@ -12,8 +12,22 @@ export default context => {
 
         router.onReady(() => {
             const getComponentMatch = router.getMatchedComponents();
-            if (!getComponentMatch) {
+            if (!getComponentMatch.length) {
                 return reject({code : 404})
+            }
+
+            context.lang = store.state.route.params.lang || 'af';
+            if (context.lang !== 'en' && context.lang !== 'af')
+                context.lang = 'af';
+
+            switch (context.lang) {
+                case 'af':
+                case 'ar':
+                case 'fa':
+                    store.state.dir = 'rtl';
+
+                default:
+                    store.state.dir = 'ltr';
             }
 
 

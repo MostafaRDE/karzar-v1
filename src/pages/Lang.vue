@@ -13,6 +13,8 @@
 
             if (lang === 'af') {
                 this.$store.commit('setDirection', 'rtl')
+            } else {
+                this.$store.commit('setDirection', 'ltr')
             }
 
             switch (lang) {

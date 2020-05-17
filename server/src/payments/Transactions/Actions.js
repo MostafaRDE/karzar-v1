@@ -49,33 +49,46 @@ class Actions {
                 } else {
 
                     walletModel.fetch_one('*', ['user_id'], [userId]).then(wallet => {
-                        let keys = ['amount', 'description', 'gateway_id', 'in_order_to', 'type', 'ip', 'wallet_id', 'user_id', 'data'],
-                            values = [amount, description, gatewayId, inOrderTo, type, ip, wallet.id, userId, dataField];
-                        if (mediaId) {
-                            keys.push('attachment_media_id');
-                            values.push(mediaId);
-                        }
-                        transactionModel.insertSync(keys, values).then(res => {
-                            if (type === 'OUTPUT') {
-                                walletModel.update(['amount'], [(parseFloat(wallet.amount) - parseFloat(amount)).toFixed(2)], ['id', 'user_id'], [wallet.id, userId]).then(res => {
-                                    resolve({status: true})
-                                }).catch(error => {
-                                    console.log(error);
-                                    reject({
-                                        status: false,
-                                        msg: __('messages').internal_server_error
-                                    })
-                                });
-                            } else {
-                                resolve({status: true})
-                            }
-                        }).catch(error => {
-                            console.log(error);
+
+                        if (type === 'OUTPUT' && parseFloat(wallet.amount) - parseFloat(amount) < 0) {
+
                             reject({
                                 status: false,
-                                msg: __('messages').internal_server_error
+                                msg: __('messages').your_inventory_is_less_than_the_amount_requested,
                             })
-                        });
+
+                        } else {
+
+                            let keys = ['amount', 'description', 'gateway_id', 'in_order_to', 'type', 'ip', 'wallet_id', 'user_id', 'data'],
+                                values = [amount, description, gatewayId, inOrderTo, type, ip, wallet.id, userId, dataField];
+                            if (mediaId) {
+                                keys.push('attachment_media_id');
+                                values.push(mediaId);
+                            }
+                            transactionModel.insertSync(keys, values).then(res => {
+                                if (type === 'OUTPUT') {
+                                    walletModel.update(['amount'], [(parseFloat(wallet.amount) - parseFloat(amount)).toFixed(2)], ['id', 'user_id'], [wallet.id, userId]).then(res => {
+                                        resolve({status: true})
+                                    }).catch(error => {
+                                        console.log(error);
+                                        reject({
+                                            status: false,
+                                            msg: __('messages').internal_server_error
+                                        })
+                                    });
+                                } else {
+                                    resolve({status: true})
+                                }
+                            }).catch(error => {
+                                console.log(error);
+                                reject({
+                                    status: false,
+                                    msg: __('messages').internal_server_error
+                                })
+                            });
+
+                        }
+
                     }).catch(error => {
                         console.log(error);
                         reject({

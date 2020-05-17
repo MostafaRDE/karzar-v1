@@ -42,7 +42,7 @@
             <rs-modal classModel="p-30 text-center" v-model="modals.character.visibility">
                 <h4 class="mb-20">{{ $t('glossaries.update_character')}}</h4>
                 <div class="row">
-                    <div class="col-sm pe-0 ps-0">
+                    <div class="col-sm pe-0 pe-sm-10 ps-0">
                         <rs-input inputLang="en"
                                   :label="$t('glossaries.name')"
                                   inputClass="text-center"
@@ -50,6 +50,16 @@
                                   v-model="modals.character.fields.name"
                                   :rules="modals.character.fields.rules.name"/>
                         <span class="text-danger">{{ getInputError('name') }}</span>
+                    </div>
+                    <div class="col-sm pe-0 ps-0 ps-sm-10">
+                        <rs-input inputLang="en"
+                                  type="number"
+                                  :label="$t('glossaries.id')"
+                                  inputClass="text-center"
+                                  name="id"
+                                  v-model="modals.character.fields.id"
+                                  :rules="modals.character.fields.rules.id"/>
+                        <span class="text-danger">{{ getInputError('id') }}</span>
                     </div>
                 </div>
 
@@ -114,9 +124,11 @@
                     formErrors: {},
 
                     fields: {
+                        id: 0,
                         name: '',
 
                         rules: {
+                            id: 'required|string:digits',
                             name: 'required|string',
                         }
                     }
@@ -184,6 +196,7 @@
             showUpdateModal(data) {
                 this.modals.character.formErrors = {};
                 this.modals.character.id = data.id;
+                this.modals.character.fields.id = data.id;
                 this.modals.character.fields.name = data.name;
                 this.modals.character.visibility = true;
             },
@@ -192,13 +205,14 @@
                 if (!this.modals.character.updating) {
                     this.modals.character.updating = true;
                     this.modals.character.formErrors = {};
-                    updateCharacter(this.modals.character.id, this.modals.character.fields.name)
+                    updateCharacter(this.modals.character.id, this.modals.character.fields.id, this.modals.character.fields.name)
                         .then(res => {
                             this.$toast.success({
                                 title: i18n.t('glossaries.update_character'),
                                 message: i18n.t('messages.successes.the_character_was_successfully_updated'),
                             });
                             this.modals.character.id = 0;
+                            this.modals.character.fields.id = 0;
                             this.modals.character.fields.name = '';
                             this.modals.character.visibility = false;
                             this.getItems();
