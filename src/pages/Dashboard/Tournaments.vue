@@ -7,7 +7,10 @@
 
             <running-tournament v-else-if="runningTournaments.length && !runningTournaments.is_joined"
                                 v-for="(runningTournament, index) of runningTournaments"
-                                :key="`running-tournament-${index}`" class="mt-30" :tournament="runningTournament"
+                                :key="`running-tournament-${index}`"
+                                class="mx--40 mx--lg-20 mt-30"
+                                :style="{width: width < 1024 ? 'calc(100% + 80px)' : 'calc(100% + 40px)'}"
+                                :tournament="runningTournament"
                                 @refresh="refresh"/>
 
             <div v-else-if="!runningTournaments.length" class="py-50 text-center">
@@ -51,6 +54,8 @@
         title: () => i18n.t('glossaries.dashboard') + ' | ' + i18n.t('glossaries.tournaments'),
 
         data: () => ({
+            width: 0,
+
             itemsPerPage,
             currentPage: 1,
             totalPages: 0,
@@ -62,6 +67,10 @@
         }),
 
         methods: {
+            handleResize() {
+                this.width = window.innerWidth
+            },
+
             updateListByPagination() {
                 this.getMyTournaments()
             },
@@ -111,8 +120,16 @@
         },
 
         mounted() {
+            this.handleResize();
+
+            window.addEventListener('resize', this.handleResize);
+
             this.getRunningTournaments();
             this.getMyTournaments();
-        }
+        },
+
+        beforeDestroy() {
+            window.removeEventListener('resize', this.handleResize);
+        },
     }
 </script>

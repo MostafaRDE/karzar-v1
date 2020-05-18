@@ -24,7 +24,8 @@
 
                         {{ /* Start map image */ }}
                         <rs-section :class="[width < 1024 ? 'col-xl' : '']"
-                                    class="mb-0 px-10 pe-lg-0 z-index-1 d-flex justify-content-flex-end align-items-center running-tournament--panel--banner">
+                                    class="mb-0 px-10 pe-lg-0 z-index-1 d-flex justify-content-flex-end align-items-center running-tournament--panel--banner"
+                                    contentClass="w-100">
 
                             <div class="flex-grow-0 my-10 ms-lg--30 d-flex align-items-center">
                                 <img :src="model.map.image.url_static"
