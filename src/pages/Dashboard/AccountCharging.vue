@@ -37,7 +37,7 @@
                     <div class="text-center mt-10">
                         <rs-button class="mx-auto p-0 position-relative" type="button">
                             <transition name="fade">
-                                <div v-if="this.attachment"
+                                <div v-if="attachment"
                                      class="position-absolute rounded-circle pxw-10 pxh-10 top-0 left-0"
                                      style="background-color: #f00; transform: translateX(-50%) translateY(-50%)"></div>
                             </transition>
@@ -80,7 +80,7 @@
 
             selectedCurrency: 'dollar',
             sourceCurrencies: [
-                {key: 'dollar', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.dollar')},
+                {key: 'dollar', icon: '/public/images/public/currencies/ic-dollar.svg', label: i18n.t('currencies.dollar')},
                 {key: 'euro', icon: '/public/images/public/currencies/ic-euro.svg', label: i18n.t('currencies.euro')},
                 {key: 'pound', icon: '/public/images/public/currencies/ic-gbp.svg', label: i18n.t('currencies.pound_sterling')},
                 {key: 'krona', icon: '/public/images/public/currencies/ic-krone.svg', label: i18n.t('currencies.swedish_krona')},

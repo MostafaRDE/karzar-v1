@@ -53,6 +53,11 @@
             logoUrl: '/public/images/public/logos/logo.svg',
             socialLinks: [
                 {
+                    icon: 'fab fa-youtube',
+                    label: 'Youtube',
+                    to: 'https://www.youtube.com/channel/UCZLw2PdXDnSHr85CDWIBZIw',
+                },
+                {
                     icon: 'fab fa-facebook',
                     label: 'Facebook',
                     to: 'https://www.facebook.com/gametour_official',

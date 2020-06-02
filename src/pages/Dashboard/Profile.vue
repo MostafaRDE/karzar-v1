@@ -5,7 +5,7 @@
                 <rs-form class="px-10" :submit="updateProfile" @errors="setFormErrors($event, 'PROFILE')">
                     <h5>{{ $t('glossaries.base_information') }}</h5>
 
-                    <div v-if="false" class="mt-30">
+                    <div class="mt-30">
                         <div v-if="imgSrc">
                             <vue-cropper ref="cropper"
                                          :src="imgSrc"
@@ -13,7 +13,18 @@
                                          alt="Source Image"/>
                         </div>
                         <div v-else class="d-flex">
-                            <rs-button solid glow>{{ $t('glossaries.select_image') }}</rs-button>
+                            <rs-button class="p-0 position-relative" type="button">
+                                <transition name="fade">
+                                    <div v-if="imgSrc"
+                                         class="position-absolute rounded-circle pxw-10 pxh-10 top-0 left-0"
+                                         style="background-color: #f00; transform: translateX(-50%) translateY(-50%)"></div>
+                                </transition>
+                                <label class="cursor-pointer" style="padding: 13px 44px">
+                                    <input type="file" class="d-none"/>
+                                    <span class="me-20">+</span>
+                                    {{ $t('glossaries.select_profile_image') }}
+                                </label>
+                            </rs-button>
                         </div>
                     </div>
 
@@ -220,8 +231,10 @@
         },
 
         mounted() {
+            if (this.$store.state.profile) {
                 this.fields.profile.name = this.$store.state.profile.name;
                 this.fields.profile.whatsappNumber = this.$store.state.profile.whatsapp_number;
+            }
 
             this.handleResize();
             window.addEventListener('resize', this.handleResize);
