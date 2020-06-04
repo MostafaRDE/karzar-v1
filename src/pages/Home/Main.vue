@@ -201,7 +201,7 @@
                             {{ $t('glossaries.tournaments_executor') }}:
 <!--                            {{ $t('glossaries.youtuber_name') }}-->
                         </h2>
-                        <h1 class="text-white" :style="{fontFamily: `Rubik !important`}">S3VEN</h1>
+                        <h1 class="text-white">{{ $t('app.name') }}</h1>
 
                         <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
 <!--                            <a href="https://www.youtube.com/channel/UC&#45;&#45;7oyGW0N7fMf164-ZXljQ" target="_blank" class="d-flex" style="padding: 13px 44px">-->
