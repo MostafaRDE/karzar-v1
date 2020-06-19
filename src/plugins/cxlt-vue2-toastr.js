@@ -5,5 +5,5 @@ import CxltToastr from 'cxlt-vue2-toastr'
 Vue.use(CxltToastr, {
     position: 'top right',
     showDuration: 1000,
-    timeOut: 2000,
+    timeOut: 4000,
 });

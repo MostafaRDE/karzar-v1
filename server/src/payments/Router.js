@@ -8,7 +8,7 @@ const Storage = require('../../util/multer/image-identity-storage');
 const gatewaysController = require('./Gateways/Controller');
 const transactionsController = require('./Transactions/Controller');
 
-router.get('/gateways', gatewaysController.index);
+router.get('/gateways/:type?', gatewaysController.index);
 router.get('/transactions', UsersMiddleware.check_login_user, transactionsController.index);
 router.post('/transactions', UsersMiddleware.check_login_user, Storage.single('file'), transactionsController.store);
 

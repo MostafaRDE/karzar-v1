@@ -84,7 +84,7 @@ router.delete('/games/pubg/tournaments/:id', adminMiddleware.check_jwt, adminMid
 
 // Gateways
 const GatewaysController = require('./Gateways/Controller');
-router.get('/gateways', adminMiddleware.check_jwt, GatewaysController.index);
+router.get('/gateways/:type?', adminMiddleware.check_jwt, GatewaysController.index);
 router.post('/gateways', adminMiddleware.check_jwt, Storage.array('image'), GatewaysController.store);
 router.put('/gateways/:id', adminMiddleware.check_jwt, Storage.array('image'), GatewaysController.update);
 

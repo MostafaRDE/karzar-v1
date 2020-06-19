@@ -347,9 +347,11 @@
 		}
 	},
 	"statuses": {
+		"accepted": "Accepted",
 		"awaiting_review": "Awaiting review",
 		"failed": "Failed",
 		"pending": "Pending",
+		"pending2": "Pending",
 		"reject": "Reject",
 		"rejected": "Rejected",
 		"success": "Success"

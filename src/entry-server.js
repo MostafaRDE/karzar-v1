@@ -12,8 +12,10 @@ export default context => {
 
         router.onReady(() => {
             const getComponentMatch = router.getMatchedComponents();
-            if (!getComponentMatch.length) {
-                return reject({code : 404})
+            if (router.currentRoute.params.lang) {
+                if (!getComponentMatch.length) {
+                    return reject({code: 404})
+                }
             }
 
             context.lang = store.state.route.params.lang || 'af';
@@ -25,6 +27,7 @@ export default context => {
                 case 'ar':
                 case 'fa':
                     store.state.dir = 'rtl';
+                    break;
 
                 default:
                     store.state.dir = 'ltr';

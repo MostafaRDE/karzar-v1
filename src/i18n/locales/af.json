@@ -346,9 +346,11 @@
 		}
 	},
 	"statuses": {
+		"accepted": "تایید شده",
 		"awaiting_review": "منتظر بررسی",
 		"failed": "ناموفق",
 		"pending": "در انتظار",
+		"pending2": "در انتظار تایید",
 		"reject": "رد شده",
 		"rejected": "رد شده",
 		"success": "موفق"

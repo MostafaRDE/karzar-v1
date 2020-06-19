@@ -8,7 +8,6 @@ export default function getPaths(store) {
             beforeEnter(to, from, next) {
                 return next('/af')
             },
-
         },
         // </editor-fold>
         // <-- / Redirect to default route with language -->
@@ -30,6 +29,7 @@ export default function getPaths(store) {
                     },
                 },
                 {
+
                     path: 'register',
                     component: () => import('../pages/Authentication/Register.vue'),
                     name: 'register',

@@ -141,7 +141,7 @@
 
             getGateways() {
                 this.loadingGateways = true;
-                gateways()
+                gateways('deposit')
                     .then(response => {
                         response.data.result.forEach(gateway => {
                             this.accounts.push({

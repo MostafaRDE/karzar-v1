@@ -5,7 +5,7 @@ const mediaSaveFile = require('../../../util/media').saveFile;
 module.exports = {
     index(request, response) {
         let actions = new Actions();
-        actions.index(request.query.lang || null, request.query.type).then(data => {
+        actions.index(request.query.lang || null, request.params.type).then(data => {
             response.json(data)
         }).catch(error => {
             response.send(error)
@@ -15,9 +15,13 @@ module.exports = {
     store(request, response) {
         let actions = new Actions(),
             name = request.body.name,
-            key1 = JSON.parse(request.body.key1),
-            key2 = JSON.parse(request.body.key2),
-            type = JSON.parse(request.body.type),
+            isActive = JSON.parse(request.body.is_active),
+            isDeposit = JSON.parse(request.body.is_deposit),
+            isWithdrawal = JSON.parse(request.body.is_withdrawal),
+            key1Deposit = JSON.parse(request.body.key1_deposit),
+            key2Deposit = JSON.parse(request.body.key2_deposit),
+            key1Withdrawal = JSON.parse(request.body.key1_deposit),
+            key2Withdrawal = JSON.parse(request.body.key2_deposit),
             image = request.files[0];
 
         storage.array('file')(request, response, function (err) {
@@ -25,7 +29,7 @@ module.exports = {
                 response.status(500).end("Something went wrong:(");
 
             mediaSaveFile(image).then(media => {
-                actions.store(name, key1, key2, media.id, type)
+                actions.store(name, isActive, isDeposit, isWithdrawal, key1Deposit, key2Deposit, key1Withdrawal, key2Withdrawal, media.id)
                     .then(res => response.json(res)).catch(err => response.send(err))
             });
         })
@@ -34,9 +38,13 @@ module.exports = {
     update(request, response) {
         let actions = new Actions(),
             name = request.body.name,
-            key1 = JSON.parse(request.body.key1),
-            key2 = JSON.parse(request.body.key2),
-            type = JSON.parse(request.body.type),
+            isActive = JSON.parse(request.body.is_active),
+            isDeposit = JSON.parse(request.body.is_deposit),
+            isWithdrawal = JSON.parse(request.body.is_withdrawal),
+            key1Deposit = JSON.parse(request.body.key1_deposit),
+            key2Deposit = JSON.parse(request.body.key2_deposit),
+            key1Withdrawal = JSON.parse(request.body.key1_deposit),
+            key2Withdrawal = JSON.parse(request.body.key2_deposit),
             image = request.files[0];
 
         if (image) {
@@ -45,12 +53,12 @@ module.exports = {
                     response.status(500).end("Something went wrong:(");
 
                 mediaSaveFile(image).then(media => {
-                    actions.update(request.params.id, name, key1, key2, type, media.id)
+                    actions.update(request.params.id, name, isActive, isDeposit, isWithdrawal, key1Deposit, key2Deposit, key1Withdrawal, key2Withdrawal, media.id)
                         .then(res => response.json(res)).catch(err => response.send(err))
                 });
             })
         } else {
-            actions.update(request.params.id, name, key1, key2, type)
+            actions.update(request.params.id, name, isActive, isDeposit, isWithdrawal, key1Deposit, key2Deposit, key1Withdrawal, key2Withdrawal)
                 .then(res => response.json(res)).catch(err => response.send(err))
         }
     },

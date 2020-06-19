@@ -161,11 +161,11 @@ export function storeCharacter(id, name) {
     })
 }
 
-export function updateCharacter(id, newId, name) {
+export function updateCharacter({id, name}) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let query = `?lang=${lang()}`,
-            data = {id: newId, name};
+            data = {name};
 
         axios.put(`tournaments/pubg/characters/${id}${query}`, data).then(resolve).catch(reject)
     })
@@ -221,11 +221,11 @@ export function myTransactions(page = null, size = itemsPerPage) {
     })
 }
 
-export function gateways() {
+export function gateways(type) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let url = `lang=${lang()}`;
-        axios.get(`payments/gateways?${url}`).then(resolve).catch(reject)
+        axios.get(`payments/gateways/${type}?${url}`).then(resolve).catch(reject)
     })
 }
 

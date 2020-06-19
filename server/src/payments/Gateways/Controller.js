@@ -3,7 +3,7 @@ const Actions = require('./Actions');
 module.exports = {
     index(req, res) {
         let actions = new Actions();
-        actions.index(req.query.lang).then(response => {
+        actions.index(req.query.lang, req.params.type).then(response => {
             res.json(response)
         }).catch(error => {
             res.status(500).send({
