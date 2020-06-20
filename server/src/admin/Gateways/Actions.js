@@ -23,14 +23,16 @@ class GatewaysActions {
             }
 
             gatewayModel.fetch_all('*', whereKeys.length ? whereKeys : undefined, whereValues ? whereValues : undefined, undefined, undefined, undefined, undefined, 'id').then(async data => {
-                for (let i = 0; i < data.result.length; i++)
+                for (let i = 0; i < data.result.length; i++) {
+                    data.result[i].key_1_deposit = lang === null ? await getTranslates(data.result[i].glossary_key_key_1_deposit) : await translate(data.result[i].glossary_key_key_1_deposit, lang);
+                    data.result[i].key_2_deposit = lang === null ? await getTranslates(data.result[i].glossary_key_key_2_deposit) : await translate(data.result[i].glossary_key_key_2_deposit, lang);
+                    data.result[i].key_1_withdrawal = lang === null ? await getTranslates(data.result[i].glossary_key_key_1_withdrawal) : await translate(data.result[i].glossary_key_key_1_withdrawal, lang);
+                    data.result[i].key_2_withdrawal = lang === null ? await getTranslates(data.result[i].glossary_key_key_2_withdrawal) : await translate(data.result[i].glossary_key_key_2_withdrawal, lang);
+
                     if (data.result[i].image_media_id) {
-                        data.result[i].key_1_deposit = lang === null ? await getTranslates(data.result[i].glossary_key_key_1_deposit) : await translate(data.result[i].glossary_key_key_1_deposit, lang);
-                        data.result[i].key_2_deposit = lang === null ? await getTranslates(data.result[i].glossary_key_key_2_deposit) : await translate(data.result[i].glossary_key_key_2_deposit, lang);
-                        data.result[i].key_1_withdrawal = lang === null ? await getTranslates(data.result[i].glossary_key_key_1_withdrawal) : await translate(data.result[i].glossary_key_key_1_withdrawal, lang);
-                        data.result[i].key_2_withdrawal = lang === null ? await getTranslates(data.result[i].glossary_key_key_2_withdrawal) : await translate(data.result[i].glossary_key_key_2_withdrawal, lang);
                         data.result[i].image = await mediaGetFile(data.result[i].image_media_id);
                     }
+                }
                 resolve(data)
             }).catch(reject)
         });
@@ -46,7 +48,7 @@ class GatewaysActions {
                 const translateKey1Withdrawal = `gateway_key_1_withdrawal_${microtime()}`;
                 const translateKey2Withdrawal = `gateway_key_2_withdrawal_${microtime()}`;
                 let keys = ['name', 'is_active', 'is_deposit', 'is_withdrawal', 'glossary_key_key_1_deposit', 'glossary_key_key_2_deposit', 'glossary_key_key_1_withdrawal', 'glossary_key_key_2_withdrawal'];
-                let values = [name, isActive, isDeposit, isWithdrawal, key1Deposit, key2Deposit, key1Withdrawal, key2Withdrawal];
+                let values = [name, isActive, isDeposit, isWithdrawal, translateKey1Deposit, translateKey2Deposit, translateKey1Withdrawal, translateKey2Withdrawal];
                 if (mediaId) {
                     keys.push('image_media_id');
                     values.push(mediaId);
@@ -90,7 +92,7 @@ class GatewaysActions {
                     values.push(mediaId);
                 }
 
-                gatewayModel.update(keys, values, ['id'], [id], undefined, 'glossary_key_key_1, glossary_key_key_2').then(async data => {
+                gatewayModel.update(keys, values, ['id'], [id], undefined, 'glossary_key_key_1_deposit, glossary_key_key_2_deposit, glossary_key_key_1_withdrawal, glossary_key_key_2_withdrawal').then(async data => {
 
                     let languages = Object.keys(key1Deposit);
                     for (let i = 0; i < languages.length; i++)

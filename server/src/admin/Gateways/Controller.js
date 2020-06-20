@@ -20,8 +20,8 @@ module.exports = {
             isWithdrawal = JSON.parse(request.body.is_withdrawal),
             key1Deposit = JSON.parse(request.body.key1_deposit),
             key2Deposit = JSON.parse(request.body.key2_deposit),
-            key1Withdrawal = JSON.parse(request.body.key1_deposit),
-            key2Withdrawal = JSON.parse(request.body.key2_deposit),
+            key1Withdrawal = JSON.parse(request.body.key1_withdrawal),
+            key2Withdrawal = JSON.parse(request.body.key2_withdrawal),
             image = request.files[0];
 
         storage.array('file')(request, response, function (err) {
