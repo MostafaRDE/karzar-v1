@@ -83,6 +83,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let model = new UserModel();
             model.fetch_one('*', ['id'], [id]).then(async data => {
+                data.password = undefined;
                 resolve(data)
             }).catch(reject)
         })

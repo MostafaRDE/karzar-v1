@@ -55,6 +55,11 @@ router.post('/sliders/:id/store', adminMiddleware.check_jwt, Storage.array('imag
 
 // <editor-fold desc="Games routes">
 
+// Characters
+const PubgCharactersController = require('./Games/PUBG/Characters/Controller');
+router.get('/games/pubg/characters', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN']), PubgCharactersController.index);
+router.put('/games/pubg/characters/:id/status', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN']), PubgCharactersController.updateStatus);
+
 // Maps
 const PubgMapsController = require('./Games/PUBG/Maps/Controller');
 router.get('/games/pubg/maps', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), PubgMapsController.index);

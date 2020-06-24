@@ -61,7 +61,6 @@ class pg_help {
 
                 query += `) RETURNING ${returning ? returning : 'id'} `;
 
-
                 pool.query(query, values)
                     .then(result => {
                         resolve(result.rows[0])
@@ -377,7 +376,7 @@ class pg_methods {
         if (relations && Array.isArray(relations)) {
             relations.forEach((key) => {
                 let child = key.child || 'id';
-                query += ` LEFT JOIN ${key.table} ${key.alias} ON ${table}.${key.parent} = ${key.alias}.${child} `
+                query += ` ${key.type} JOIN ${key.alias || key.table} ON ${table}.${key.parent} = ${key.alias}.${child} `
             })
         }
         return query;
