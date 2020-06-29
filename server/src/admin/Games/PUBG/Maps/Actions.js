@@ -19,7 +19,7 @@ class PubgMapActions {
                 for (let i = 0; i < data.total; i++)
                     response.result[i] = {
                         id: data.result[i].id,
-                        name: lang === null ? await getTranslates(data.result[i].glossary_key_name) : await translate(data.result[i].glossary_key_name, lang),
+                        name: lang === null ? await getTranslates(data.result[i].gk_name) : await translate(data.result[i].gk_name, lang),
                         image: await mediaGetFile(data.result[i].image_media_id),
                     };
 
@@ -33,7 +33,7 @@ class PubgMapActions {
             let pubgMapModel = new PubgMapModel();
             try {
                 const translateKey = `pubg_maps_name_${microtime()}`;
-                await pubgMapModel.insertSync(['glossary_key_name', 'image_media_id'], [translateKey, mediaId]);
+                await pubgMapModel.insertSync(['gk_name', 'image_media_id'], [translateKey, mediaId]);
 
                 const languages = Object.keys(names);
                 for (let i = 0; i < languages.length; i++) {
@@ -53,8 +53,8 @@ class PubgMapActions {
             pubgMapModel.fetch_one('*', ['id'], [id]).then(async data => {
                 resolve({
                     id: data.id,
-                    glossary_key_name: data.glossary_key_name,
-                    name: lang === null ? await getTranslates(data.glossary_key_name) : await translate(data.glossary_key_name, lang),
+                    gk_name: data.gk_name,
+                    name: lang === null ? await getTranslates(data.gk_name) : await translate(data.gk_name, lang),
                     image: await mediaGetFile(data.image_media_id),
                 })
             }).catch(reject)
@@ -71,7 +71,7 @@ class PubgMapActions {
                 pubgMapModel.update(['image_media_id'], [mediaId], ['id'], [id]).then(async data => {
                     try {
                         for (let i = 0; i < languages.length; i++)
-                            await translateUpdate(map.glossary_key_name, names[languages[i]], languages[i]);
+                            await translateUpdate(map.gk_name, names[languages[i]], languages[i]);
                     } catch (e) {
                         reject(e)
                     }
@@ -80,7 +80,7 @@ class PubgMapActions {
             } else {
                 try {
                     for (let i = 0; i < languages.length; i++) {
-                        await translateUpdate(map.glossary_key_name, names[languages[i]], languages[i]);
+                        await translateUpdate(map.gk_name, names[languages[i]], languages[i]);
                     }
                     this.show(id, lang).then(res => resolve(res)).catch(reject)
                 } catch (e) {

@@ -6,7 +6,7 @@ export default function getPaths(store) {
         {
             path: '/',
             beforeEnter(to, from, next) {
-                return next('/af')
+                return next('/fa')
             },
         },
         // </editor-fold>

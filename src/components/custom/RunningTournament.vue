@@ -7,8 +7,8 @@
                 <div class="col mb-0 justify-content-center d-flex">
                     <div class="timer w-fit-content position-relative d-flex align-items-center">
                         <span class="bottom-trapeze-sides trapeze-start-side"/>
-                        <span :lang="isRunning && $route.params.lang === 'af' ? 'af' : 'en'" class="ltr text-white text-nowrap"
-                              :style="{padding: '7px 20px', backgroundColor: '#ff0e1f', fontSize: '1.6em', fontFamily: $route.params.lang === 'en' ? 'Oxanium Medium, Arial Black, serif !important' : '', letterSpacing: $route.params.lang !== 'af' ? '4px' : ''}">
+                        <span :lang="isRunning && $route.params.lang === 'fa' ? 'fa' : 'en'" class="ltr text-white text-nowrap"
+                              :style="{padding: '7px 20px', backgroundColor: '#ff0e1f', fontSize: '1.6em', fontFamily: $route.params.lang === 'en' ? 'Oxanium Medium, Arial Black, serif !important' : 'IRANSans', letterSpacing: $route.params.lang !== 'fa' ? '4px' : ''}">
                             {{ isRunning ? $t('glossaries.running') : timer }}
                         </span>
                         <span class="bottom-trapeze-sides trapeze-end-side"/>
@@ -61,7 +61,7 @@
                                                 {{ /* Input */ }}
                                                 <div class="d-flex justify-content-space-between">
                                                     <span>{{ $t('glossaries.fee') }}:</span>&nbsp;
-                                                    <span class="text-left text-nowrap">{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee}$` }}</span>
+                                                    <span class="text-left text-nowrap">{{ model.fee == 0 ? $t('glossaries.free') : `${model.fee} ${$t('currencies.toman')}` }}</span>
                                                 </div>
 
                                                 {{ /* Reward */ }}
@@ -425,7 +425,7 @@
                 switch (type) {
                     // Dollar currency
                     case 0:
-                        return '$';
+                        return ` ${i18n.t('currencies.toman')}`;
 
                     // String
                     case 1:

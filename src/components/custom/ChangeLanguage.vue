@@ -30,7 +30,7 @@
             menuVisibility: false,
             languages: [
                 {key: 'en', img: require('../../../public/images/public/icons/ic-english.png'), value: i18n.t('glossaries.english')},
-                {key: 'af', img: require('../../../public/images/public/icons/ic-afghan.png'), value: i18n.t('glossaries.afghan')},
+                {key: 'fa', img: require('../../../public/images/public/countries/round/ic-iran.svg'), value: i18n.t('glossaries.persian')},
             ]
         }),
 

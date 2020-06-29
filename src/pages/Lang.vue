@@ -11,7 +11,7 @@
 
             document.querySelector("html").setAttribute('lang', lang);
 
-            if (lang === 'af') {
+            if (lang === 'fa') {
                 this.$store.commit('setDirection', 'rtl')
             } else {
                 this.$store.commit('setDirection', 'ltr')
@@ -19,7 +19,7 @@
 
             switch (lang) {
                 case 'en':
-                case 'af':
+                case 'fa':
                     this.$i18n.locale = lang;
             }
         },

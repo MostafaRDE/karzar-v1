@@ -14,11 +14,11 @@ class Actions {
 
                 for (let i = 0; i < data.result.length; i++) {
                     data.result[i].map = {};
-                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_gk_name, lang) : await getTranslates(data.result[i].maps_gk_name);
                     data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
 
-                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
-                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_gk_title, lang) : await getTranslates(data.result[i].tournaments_gk_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_gk_description, lang) : await getTranslates(data.result[i].tournaments_gk_description);
 
                     result.push(data.result[i])
                 }
@@ -45,11 +45,11 @@ class Actions {
 
                 for (let i = 0; i < data.result.length; i++) {
                     data.result[i].map = {};
-                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_gk_name, lang) : await getTranslates(data.result[i].maps_gk_name);
                     data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
 
-                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
-                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_gk_title, lang) : await getTranslates(data.result[i].tournaments_gk_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_gk_description, lang) : await getTranslates(data.result[i].tournaments_gk_description);
 
                     result.push(data.result[i])
                 }
@@ -71,7 +71,7 @@ class Actions {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
 
-            let query = 'SELECT pubg.tournaments.id, pubg.tournaments.glossary_key_title as tournaments_glossary_key_title, pubg.tournaments.glossary_key_description as tournaments_glossary_key_description, pubg.tournaments.capacity, pubg.tournaments.start_date, pubg.tournaments.reward_value, pubg.tournaments.fee, pubg.tournaments.status, pubg.tournaments.youtube_link, pubg.tournaments.group_capacity, pubg.tournaments.username, pubg.tournaments.password, pubg.tournaments.map_id, pubg.maps.glossary_key_name as maps_glossary_key_name, pubg.maps.image_media_id as maps_image_media_id FROM pubg.tournaments ';
+            let query = 'SELECT pubg.tournaments.id, pubg.tournaments.gk_title as tournaments_gk_title, pubg.tournaments.gk_description as tournaments_gk_description, pubg.tournaments.capacity, pubg.tournaments.start_date, pubg.tournaments.reward_value, pubg.tournaments.fee, pubg.tournaments.status, pubg.tournaments.youtube_link, pubg.tournaments.group_capacity, pubg.tournaments.username, pubg.tournaments.password, pubg.tournaments.map_id, pubg.maps.gk_name as maps_gk_name, pubg.maps.image_media_id as maps_image_media_id FROM pubg.tournaments ';
             let leftJoinQuery = ' LEFT JOIN pubg.maps ON (pubg.tournaments.map_id = pubg.maps.id) ';
             let orderQuery = ' ORDER BY pubg.tournaments.id DESC';
 
@@ -82,11 +82,11 @@ class Actions {
                     result = data.result[0];
 
                     result.map = {};
-                    result.map['name'] = lang ? await translate(result.maps_glossary_key_name, lang) : await getTranslates(result.maps_glossary_key_name);
+                    result.map['name'] = lang ? await translate(result.maps_gk_name, lang) : await getTranslates(result.maps_gk_name);
                     result.map['image'] = await mediaGetFile(result.maps_image_media_id);
 
-                    result.title = lang ? await translate(result.tournaments_glossary_key_title, lang) : await getTranslates(result.tournaments_glossary_key_title);
-                    result.description = lang ? await translate(result.tournaments_glossary_key_description, lang) : await getTranslates(result.tournaments_glossary_key_description);
+                    result.title = lang ? await translate(result.tournaments_gk_title, lang) : await getTranslates(result.tournaments_gk_title);
+                    result.description = lang ? await translate(result.tournaments_gk_description, lang) : await getTranslates(result.tournaments_gk_description);
                 }
 
                 resolve(result)

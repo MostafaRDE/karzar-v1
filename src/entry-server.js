@@ -18,9 +18,9 @@ export default context => {
                 }
             }
 
-            context.lang = store.state.route.params.lang || 'af';
-            if (context.lang !== 'en' && context.lang !== 'af')
-                context.lang = 'af';
+            context.lang = store.state.route.params.lang || 'fa';
+            if (context.lang !== 'en' && context.lang !== 'fa')
+                context.lang = 'fa';
 
             switch (context.lang) {
                 case 'af':

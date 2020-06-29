@@ -27,11 +27,11 @@ class PubgTournamentsActions {
 
                 for (let i = 0; i < data.result.length; i++) {
                     let map = {};
-                    map['name'] = await getTranslates(data.result[i].maps_glossary_key_name);
+                    map['name'] = await getTranslates(data.result[i].maps_gk_name);
                     map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
 
-                    data.result[i].title = await getTranslates(data.result[i].tournaments_glossary_key_title);
-                    data.result[i].description = await getTranslates(data.result[i].tournaments_glossary_key_description);
+                    data.result[i].title = await getTranslates(data.result[i].tournaments_gk_title);
+                    data.result[i].description = await getTranslates(data.result[i].tournaments_gk_description);
                     data.result[i].map = map;
 
                     if (search) {
@@ -77,7 +77,7 @@ class PubgTournamentsActions {
                 const translateKeyTitle = `pubg_tournaments_title_${microtime()}`,
                     translateKeyDescription = `pubg_tournaments_description_${microtime()}`;
                 await pubgTournamentModel.insertSync(
-                    ['glossary_key_title', 'glossary_key_description', 'capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity'],
+                    ['gk_title', 'gk_description', 'capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity'],
                     [translateKeyTitle, translateKeyDescription, capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity]
                 );
 
@@ -106,8 +106,8 @@ class PubgTournamentsActions {
                 try {
                     let map = await pubgMapModel.fetch_one('*', ['id'], [data.map_id]);
                     map['image'] = await mediaGetFile(map.image_media_id);
-                    data.title = lang === null ? await getTranslates(data.glossary_key_title) : await translate(data.glossary_key_title, lang);
-                    data.description = lang === null ? await getTranslates(data.glossary_key_description) : await translate(data.glossary_key_description, lang);
+                    data.title = lang === null ? await getTranslates(data.gk_title) : await translate(data.gk_title, lang);
+                    data.description = lang === null ? await getTranslates(data.gk_description) : await translate(data.gk_description, lang);
                     data.map = map;
                     resolve(data)
                 } catch (e) {
@@ -139,11 +139,11 @@ class PubgTournamentsActions {
                 try {
                     const languagesTitles = Object.keys(titles);
                     for (let i = 0; i < languagesTitles.length; i++)
-                        await translateUpdate(tournament.glossary_key_title, titles[languagesTitles[i]], languagesTitles[i]);
+                        await translateUpdate(tournament.gk_title, titles[languagesTitles[i]], languagesTitles[i]);
 
                     const languagesDescriptions = Object.keys(descriptions);
                     for (let i = 0; i < languagesDescriptions.length; i++)
-                        await translateUpdate(tournament.glossary_key_description, descriptions[languagesDescriptions[i]], languagesDescriptions[i]);
+                        await translateUpdate(tournament.gk_description, descriptions[languagesDescriptions[i]], languagesDescriptions[i]);
 
                     this.show(data.id, lang).then(res => resolve(res)).catch(reject)
                 } catch (e) {

@@ -23,7 +23,7 @@
                     {{ /* Start social networks */ }}
                     <div class="d-flex justify-content-center align-items-center" id="main--navbar--social-links">
                         <div class="ms-25">
-                            <span class="font-size-sm">{{ `${$t('glossaries.your_balance')}: ${moneyFormatFast($store.state.balance || '0', 2)}$` }}</span>
+                            <span class="font-size-sm">{{ `${$t('glossaries.your_balance')}: ${moneyFormatFast($store.state.balance || '0', 2)} ${$t('currencies.toman')}` }}</span>
                         </div>
                     </div>
                     {{ /* End social networks */ }}
@@ -656,17 +656,17 @@
                     {
                         icon: 'fab fa-facebook',
                         label: 'Facebook',
-                        to: 'https://www.facebook.com/gametour_official',
+                        to: 'https://www.facebook.com/karzar_official',
                     },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',
-                        to: 'https://www.instagram.com/gametour.co',
+                        to: 'https://www.instagram.com/karzar.co',
                     },
                     {
                         icon: 'fab fa-telegram',
                         label: 'Telegram',
-                        to: 'https://t.me/gametour_official',
+                        to: 'https://t.me/karzar_official',
                     },
                 ]
             }

@@ -36,7 +36,7 @@
             <li>
                 <a :href="`/${$route.params.lang}`"
                    class="py-20 d-flex align-items-center">
-                    <icon-gametour/> &nbsp;
+                    <icon-karzar/> &nbsp;
                     {{ $t('app.name') }}
                 </a>
             </li>
@@ -69,7 +69,7 @@
         components: {
             'icon-chat': () => import('../../../components/icons/IconChat.vue'),
             'icon-down-money': () => import('../../../components/icons/IconDownMoney.vue'),
-            'icon-gametour': () => import('../../../components/icons/IconGametour.vue'),
+            'icon-karzar': () => import('../../../components/icons/IconGametour.vue'),
             'icon-invoice': () => import('../../../components/icons/IconInvoice.vue'),
             'icon-money-bag': () => import('../../../components/icons/IconMoneyBag.vue'),
             'icon-multiple-users': () => import('../../../components/icons/IconMultipleUsers.vue'),

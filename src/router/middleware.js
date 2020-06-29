@@ -32,14 +32,14 @@ export function beforeEachCreator(i18n, store) {
                     // Set site locale (site language)
                     i18n.locale = to.params.lang;
                     break;
-                case 'af':
+                case 'fa':
                     // Set site locale (site language)
                     i18n.locale = to.params.lang;
                     break;
 
                 // Redirect to fix language part of path route
                 default:
-                    return next(`/af${path}`);
+                    return next(`/fa${path}`);
             }
 
             // </editor-fold>

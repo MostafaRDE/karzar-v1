@@ -15,8 +15,8 @@ class Actions {
             tutorialsModel.fetch_all('*', whereKey, whereValue, undefined, undefined, page, size, 'id DESC').then(async data => {
 
                 for (let i = 0; i < data.total; i++) {
-                    data.result[i].title = await getTranslates(data.result[i].glossary_key_title);
-                    data.result[i].text = await getTranslates(data.result[i].glossary_key_text);
+                    data.result[i].title = await getTranslates(data.result[i].gk_title);
+                    data.result[i].text = await getTranslates(data.result[i].gk_text);
                     data.result[i].image = await mediaGetFile(data.result[i].image_media_id);
                 }
 
@@ -34,7 +34,7 @@ class Actions {
             let tutorialsModel = new TutorialsModel();
             const translateKeyTitle = `tutorials_title_${microtime()}`;
             const translateKeyText = `tutorials_text_${microtime()}`;
-            tutorialsModel.insertSync(['glossary_key_title', 'glossary_key_text', 'youtube_link', 'image_media_id', 'user_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId, userId]).then(async response => {
+            tutorialsModel.insertSync(['gk_title', 'gk_text', 'youtube_link', 'image_media_id', 'user_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId, userId]).then(async response => {
 
                 try {
                     let languages = Object.keys(title);
@@ -67,15 +67,15 @@ class Actions {
                 keys.push('image_media_id');
                 values.push(imageId);
             }
-            tutorialsModel.update(keys, values, ['id'], [id],undefined, 'id, glossary_key_title, glossary_key_text').then(async data => {
+            tutorialsModel.update(keys, values, ['id'], [id],undefined, 'id, gk_title, gk_text').then(async data => {
 
                 try {
                     let languages = Object.keys(title);
                     for (let i = 0; i < languages.length; i++)
-                        await translateUpdate(data.glossary_key_title, title[languages[i]], languages[i]);
+                        await translateUpdate(data.gk_title, title[languages[i]], languages[i]);
                     languages = Object.keys(text);
                     for (let i = 0; i < languages.length; i++)
-                        await translateUpdate(data.glossary_key_text, text[languages[i]], languages[i]);
+                        await translateUpdate(data.gk_text, text[languages[i]], languages[i]);
 
                     resolve({status: true})
                 } catch (e) {

@@ -102,8 +102,8 @@ const numberFormats = {
 };
 
 const index = new VueI18n({
-    locale: "en",
-    fallbackLocale: "en",
+    locale: "fa",
+    fallbackLocale: "fa",
     messages,
     dateTimeFormats,
     numberFormats

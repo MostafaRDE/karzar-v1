@@ -10,7 +10,7 @@
             <div class="row justify-content-center">
                 <div class="col-10">
                     <h2 class="text-center w-100 text-white">{{ $t('glossaries.counter_strike_1_6') }}</h2>
-                    <h4 class="text-center w-100 text-white">{{ $t('glossaries.online_gametour_server') }}</h4>
+                    <h4 class="text-center w-100 text-white">{{ $t('glossaries.online_karzar_server') }}</h4>
                     <title-span class="mb-60 mt-20 w-100 d-block text-center"/>
 
                     <counter-strike-tournament/>

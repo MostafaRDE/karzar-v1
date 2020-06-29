@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "IconGametour",
+        name: "IconKarzar",
 
         props: {
             fill: {

@@ -21,7 +21,7 @@ class SliderItemActions {
                 const translateKeyDescription = `sliders_${sliderId}_description_${microtime()}`;
                 const translateKeyLinkText = `sliders_${sliderId}_link_text_${microtime()}`;
 
-                await slider.insertSync(['link', 'glossary_key_title', 'glossary_key_description', 'glossary_key_link_text', 'media_id', 'slider_id'], [link, translateKeyTitle, translateKeyDescription, translateKeyLinkText, mediaId, sliderId]);
+                await slider.insertSync(['link', 'gk_title', 'gk_description', 'gk_link_text', 'media_id', 'slider_id'], [link, translateKeyTitle, translateKeyDescription, translateKeyLinkText, mediaId, sliderId]);
 
                 let languages = Object.keys(titles);
                 for (let i = 0; i < languages.length; i++) {

@@ -1,16 +1,22 @@
 {
 	"public": {
-		"about_home": "Game Tour is a professional multi-player online games tournament website. All matches on the website are fully live and broadcast to give the player the confidence that there will be no fakes. If you have any ideas for the tournament and your comments, let us know by following the form below.",
-		"about_sidebar": "Game Tour is a professional multi-player online games tournament website",
-		"copyright_gametour": "Copyright Gametour"
+		"about_home": "Karzar is a professional multi-player online games tournament website. All matches on the website are fully live and broadcast to give the player the confidence that there will be no fakes. If you have any ideas for the tournament and your comments, let us know by following the form below.",
+		"about_sidebar": "Karzar is a professional multi-player online games tournament website",
+		"copyright_karzar": "Copyright Karzar"
 	},
 	"app": {
-		"name": "Gametour"
+		"name": "Karzar"
 	},
 	"currencies": {
 		"dollar": "Dollar",
 		"euro": "Euro",
-		"krone": "Krone"
+		"krone": "Krone",
+		"norwegian_krone": "کرون نروژ",
+		"pound_sterling": "پوند انگلستان",
+		"swedish_krona": "کرون سوئد",
+		"swiss_franc": "فرانک سوییس",
+		"toman": "Toman",
+		"turkish_lira": "Lyr"
 	},
 	"currencies_short": {},
 	"glossaries": {
@@ -104,12 +110,13 @@
 		"nothing_tournaments": "Nothing Tournaments",
 		"nothing_transactions": "Nothing Transactions",
 		"online": "Online",
-		"online_gametour_server": "Online Gametour Server",
+		"online_karzar_server": "Online Karzar Server",
 		"open_orders": "Open orders",
 		"orders": "Orders",
 		"pair": "Pair",
 		"password": "Password",
 		"password_update": "Password Update",
+		"persian": "Persian",
 		"player_id": "Player Id",
 		"player_name": "Player Name",
 		"players": "Players",
@@ -234,7 +241,7 @@
 	"pages": {
 		"home": {
 			"main": {
-				"title": "Gametour | Online Games Tournament, PUBG Games Tournament, Fortnite Tournament, Counter Strike Server, Clash Of The Clans Tournament, League Of Legends Tournament",
+				"title": "Karzar | Online Games Tournament, PUBG Games Tournament, Fortnite Tournament, Counter Strike Server, Clash Of The Clans Tournament, League Of Legends Tournament",
 				"reservation_panel": {
 					"pubg_users_modal": {
 						"title": "You can find your place at the start of the tournament here (You must be in place to participate in the tournament)"

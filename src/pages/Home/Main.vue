@@ -233,7 +233,7 @@
 <!--                    </span>-->
 
                     <span class="d-block mt-30 text-white">
-                        <a href="mailto:info@gametour.co"><span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@gametour.co</a>
+                        <a href="mailto:info@karzar.pro"><span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@karzar.pro</a>
                     </span>
                 </div>
 

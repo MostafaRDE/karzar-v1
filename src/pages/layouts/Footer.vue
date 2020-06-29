@@ -55,17 +55,17 @@
                     {
                         icon: 'fab fa-facebook',
                         label: 'Facebook',
-                        to: 'https://www.facebook.com/gametour_official',
+                        to: 'https://www.facebook.com/karzar_official',
                     },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',
-                        to: 'https://www.instagram.com/gametour.co',
+                        to: 'https://www.instagram.com/karzar.pro',
                     },
                     {
                         icon: 'fab fa-telegram',
                         label: 'Telegram',
-                        to: 'https://t.me/gametour_official',
+                        to: 'https://t.me/karzar_official',
                     },
                 ]
             }
