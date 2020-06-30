@@ -39,11 +39,11 @@
 
                     <div>
                         <rs-input class="mt-20"
-                                  :label="$t('glossaries.whatsapp_number')"
-                                  name="whatsapp_number"
-                                  v-model="fields.profile.whatsappNumber"
-                                  :rules="fields.profile.rules.whatsappNumber"/>
-                        <span class="text-danger">{{ getInputError('whatsapp_number', 'PROFILE') }}</span>
+                                  :label="$t('glossaries.mobile_number')"
+                                  name="mobile_number"
+                                  v-model="fields.profile.mobileNumber"
+                                  :rules="fields.profile.rules.mobileNumber"/>
+                        <span class="text-danger">{{ getInputError('mobile_number', 'PROFILE') }}</span>
                     </div>
 
                     <rs-button type="submit" class="mt-30" :loading="updatingProfile" solid glow>{{ $t('glossaries.update') }}</rs-button>
@@ -114,11 +114,11 @@
             fields: {
                 profile: {
                     name: '',
-                    whatsappNumber: '',
+                    mobileNumber: '',
 
                     rules: {
                         name: 'required|string',
-                        whatsappNumber: 'required|string:digits',
+                        mobileNumber: 'required|string:digits',
                     }
                 },
                 password: {
@@ -175,7 +175,7 @@
                     this.formErrorsProfile = {};
 
                     this.updatingProfile = true;
-                    updateProfile(this.fields.profile.name, this.fields.profile.whatsappNumber)
+                    updateProfile(this.fields.profile.name, this.fields.profile.mobileNumber)
                         .then(response => {
                             this.$toast.success({
                                 title: i18n.t('glossaries.profile_update'),
@@ -225,7 +225,7 @@
                 deep: true,
                 handler(profile) {
                     this.fields.profile.name = profile.name;
-                    this.fields.profile.whatsappNumber = profile.whatsapp_number
+                    this.fields.profile.mobileNumber = profile.mobile_number
                 }
             }
         },
@@ -233,7 +233,7 @@
         mounted() {
             if (this.$store.state.profile) {
                 this.fields.profile.name = this.$store.state.profile.name;
-                this.fields.profile.whatsappNumber = this.$store.state.profile.whatsapp_number;
+                this.fields.profile.mobileNumber = this.$store.state.profile.mobile_number;
             }
 
             this.handleResize();

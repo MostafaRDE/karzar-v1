@@ -22,7 +22,7 @@ module.exports = (app) => {
 
     passport.deserializeUser((id, done) => {
         let userModel = new UserModel();
-        userModel.fetch_one('id , email , name , whatsapp_number' , ['id'] , [id])
+        userModel.fetch_one('id , email , name , mobile_number' , ['id'] , [id])
         .then(data => {
             if (data) {
                 return done(null, data);

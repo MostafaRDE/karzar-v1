@@ -23,7 +23,7 @@
                     {{ /* Start social networks */ }}
                     <div class="d-flex justify-content-center align-items-center" id="main--navbar--social-links">
                         <div class="ms-25">
-                            <span class="font-size-sm">{{ `${$t('glossaries.your_balance')}: ${moneyFormatFast($store.state.balance || '0', 2)} ${$t('currencies.toman')}` }}</span>
+                            <span class="font-size-sm">{{ `${$t('glossaries.your_balance')}: ${moneyFormatFast($store.state.balance || '0')} ${$t('currencies.toman')}` }}</span>
                         </div>
                     </div>
                     {{ /* End social networks */ }}

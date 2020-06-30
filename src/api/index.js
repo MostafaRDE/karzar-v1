@@ -27,10 +27,10 @@ export function getProfile() {
     })
 }
 
-export function updateProfile(name, whatsapp_number) {
+export function updateProfile(name, mobile_number) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        let data = {name, whatsapp_number};
+        let data = {name, mobile_number};
         axios.put(`/users/update-profile?lang=${lang()}`, data).then(resolve).catch(reject)
     })
 }
@@ -68,10 +68,10 @@ export function login(email, password) {
 }
 
 // Register api
-export function register(email, password, whatsapp_number, player_id, player_name, refer_code) {
+export function register(email, password, mobile_number, player_id, player_name, refer_code) {
     // Create requested data as object
     const data = {
-        email, password, whatsapp_number, player_id, player_name, refer_code,
+        email, password, mobile_number, player_id, player_name, refer_code,
     };
 
     // Create request as "Promise" and returned it

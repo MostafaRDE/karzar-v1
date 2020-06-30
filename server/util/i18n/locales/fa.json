@@ -1,5 +1,40 @@
 {
+	"gateways": {
+		"errors": {
+			"callback_url_is_invalid__start_with_http_or_https__": "{callbackUrl} نامعتبر می باشد. (شروع با http و یا https)",
+			"error_registering_payment__please_contact_support": "خطا در ثبت پرداخت. لطفا با پشتیبانی تماس بگیرید.",
+			"merchant_disabled": "{merchant} غیرفعال.",
+			"merchant_invalid": "{merchant} نامعتبر.",
+			"merchant_not_found": "{merchant} یافت نشد.",
+			"the_amount_must_be_larger_than_1000_rials": "{amount} بایستی بزرگتر از 1,000 ریال باشد",
+			"the_amount_of_internet_payment_per_day_is_too_much": "مبلغ پرداخت اینترنتی روزانه بیش از حد مجاز می باشد",
+			"the_number_of_online_payments_per_day_is_too_high": "تعداد پرداخت اینترنتی روزانه بیش از حد مجاز می باشد",
+			"the_payment_gateway_is_unclear": "درگاه پرداخت نامشخص است",
+			"your_payment_was_unsuccessful": "پرداخت شما ناموفق بود"
+		},
+		"successes": {
+			"payment_was_successful": "پرداخت با موفقیت انجام شد"
+		}
+	},
 	"messages": {
+		"errors": {
+			"switch_error": "خطای سوییچ",
+			"the_account_balance_is_not_enough": "موجودی حساب کافی نمی باشد",
+			"the_card_is_not_available": "کارت قابل دسترسی نمی باشد",
+			"the_card_number_is_invalid": "شماره کارت نامعتبر می باشد",
+			"the_issuer_of_the_card_is_invalid": "صادر کننده ی کارت نامعتبر می باشد",
+			"the_number_of_requests_is_too_large": "تعداد درخواست ها بیش از حد مجاز می باشد",
+			"the_password_entered_is_incorrect": "رمز وارد شده اشتباه می باشد"
+		},
+		"infos": {
+			"awaiting_payment": "در انتظار پرداخت",
+			"internal_error": "خطای داخلی",
+			"previously_confirmed": "قبلا تایید شده",
+			"unsubscribed_by_the_user": "لغو شده توسط کاربر"
+		},
+		"successes": {
+			"successfully_approved": "با موفقیت تایید شد"
+		},
 		"err_empty_required_filed": "لطفا فیلد های اجباری را وارد نمایید",
 		"err_email_filed": "لطفا ایمیل را به صورت صحیح وارد نمایید",
 		"rate_limit_login": "تعداد در خواست های شما بیشتر از حد مجاز میباشد لطفا 5 دقیقه دیگر تلاش کنید ",

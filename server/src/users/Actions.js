@@ -21,7 +21,7 @@ class Actions {
     loginToAccount(email, password) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
-            userModel.fetch_one('id , email , name , password , email_verified_at , whatsapp_number', ['email'], [email])
+            userModel.fetch_one('id , email , name , password , email_verified_at , mobile_number', ['email'], [email])
                 .then(data => {
                     if (data) {
                         bcrypt.compare(password, data.password, function (err, check) {
@@ -42,14 +42,14 @@ class Actions {
      * This is a add account
      * @param email
      * @param password
-     * @param whatsapp_number
+     * @param mobile_number
      * @param refer_code
      * @param character_id
      * @param character_name
      * @param lang
      * @returns {Promise<any>}
      */
-    addAccount({email, password, whatsapp_number, refer_code, character_id, character_name, lang}) {
+    addAccount({email, password, mobile_number, refer_code, character_id, character_name, lang}) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
             userModel.fetch_one('id , email', ['email'], [email])
@@ -61,7 +61,7 @@ class Actions {
                         /* ایمیل تایید سازی ایمیل برای کاربر ارسال شود */
                         bcrypt.genSalt(10, function (err, salt) {
                             bcrypt.hash(password, salt, function (err, pass_hash) {
-                                userModel.insert(['email', 'whatsapp_number', 'password', 'refer_code'], [email, whatsapp_number, pass_hash, refer_code]);
+                                userModel.insert(['email', 'mobile_number', 'password', 'refer_code'], [email, mobile_number, pass_hash, refer_code]);
                                 userModel.on('insert', async data => {
 
                                     let walletModel = new WalletModel();
@@ -139,7 +139,7 @@ class Actions {
     FindUserDeviceForForgetPassword(username) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
-            userModel.fetch_one('id , email , email_verified_at , whatsapp_number', ['email'], [username])
+            userModel.fetch_one('id , email , email_verified_at , mobile_number', ['email'], [username])
                 .then(data => {
                     if (data) {
                         if (!data.email_verified_at) {

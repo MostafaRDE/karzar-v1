@@ -19,8 +19,8 @@ class Actions {
                 if (!isNaN(search))
                     amount = ` OR wallets.amount = '${search}' `;
 
-                searchQuery = ` AND (users.name ILIKE '%${search}%' OR users.email ILIKE '%${search}%' OR users.whatsapp_number ILIKE '%${search}%' ${amount}) `;
-                searchQueryFirst = `WHERE users.name ILIKE '%${search}%' OR users.email ILIKE '%${search}%' OR users.whatsapp_number ILIKE '%${search}%' ${amount} `;
+                searchQuery = ` AND (users.name ILIKE '%${search}%' OR users.email ILIKE '%${search}%' OR users.mobile_number ILIKE '%${search}%' ${amount}) `;
+                searchQueryFirst = `WHERE users.name ILIKE '%${search}%' OR users.email ILIKE '%${search}%' OR users.mobile_number ILIKE '%${search}%' ${amount} `;
             }
 
             switch (filter) {
@@ -58,13 +58,13 @@ class Actions {
         })
     }
 
-    store(name, email, whatsapp_number, password) {
+    store(name, email, mobile_number, password) {
         return new Promise(async (resolve, reject) => {
             let model = new UserModel();
 
             bcrypt.genSalt(10, function (err, salt) {
                 bcrypt.hash(password, salt, function (err, pass_hash) {
-                    model.insert(['name', 'email', 'whatsapp_number', 'password'], [name, email, whatsapp_number, pass_hash]);
+                    model.insert(['name', 'email', 'mobile_number', 'password'], [name, email, mobile_number, pass_hash]);
                     model.on('insert', async data => {
                         let walletModel = new WalletModel();
                         await walletModel.insertSync(['amount', 'user_id'], [0, data.id])
@@ -89,10 +89,10 @@ class Actions {
         })
     }
 
-    update(id, name, email, whatsapp_number, media_id = null) {
+    update(id, name, email, mobile_number, media_id = null) {
         return new Promise(async (resolve, reject) => {
             let model = new UserModel();
-            model.update(media_id ? ['name', 'email', 'whatsapp_number', 'media_id'] : ['name', 'email', 'whatsapp_number'], media_id ? [name, email, whatsapp_number, media_id] : [name, email, whatsapp_number], ['id'], [id]).then(data => {
+            model.update(media_id ? ['name', 'email', 'mobile_number', 'media_id'] : ['name', 'email', 'mobile_number'], media_id ? [name, email, mobile_number, media_id] : [name, email, mobile_number], ['id'], [id]).then(data => {
                 return resolve({status: true});
             }).catch(error => {
                 reject({status: false})

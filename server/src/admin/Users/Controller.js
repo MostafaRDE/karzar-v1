@@ -23,7 +23,7 @@ module.exports = {
             actions.store(
                 request.body.name,
                 request.body.email,
-                request.body.whatsapp_number,
+                request.body.mobile_number,
                 request.body.password
             ).then(res => response.json(res)).catch(err => response.send(err))
         } else {
@@ -47,7 +47,7 @@ module.exports = {
             let actions = new Actions(),
                 name = request.body.name,
                 email = request.body.email,
-                whatsapp_number = request.body.whatsapp_number,
+                mobile_number = request.body.mobile_number,
                 image = request.files[0];
 
             if (image) {
@@ -59,7 +59,7 @@ module.exports = {
                                 request.params.id,
                                 name,
                                 email,
-                                whatsapp_number,
+                                mobile_number,
                                 media.id
                             ).then(res => response.json(res)).catch(err => response.send(err))
                         }).catch(err => response.send(err));
@@ -69,7 +69,7 @@ module.exports = {
                     request.params.id,
                     request.body.name,
                     request.body.email,
-                    request.body.whatsapp_number
+                    request.body.mobile_number
                 ).then(res => response.json(res)).catch(err => response.send(err))
             }
         } else {
