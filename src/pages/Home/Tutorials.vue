@@ -27,7 +27,7 @@
                         <a :href="tutorial.youtubeLink" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
                     </title-box-animated>
 
-                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date | moment(`${$route.params.lang === 'fa' ? 'YYYY/MM/DD' : 'jYYYY/jMM/jDD'} HH:mm:ss`) }}</span>
+                    <span class="font-size-xs mt-10 text-white">{{ tutorial.date | moment(`${$route.params.lang !== 'fa' ? 'YYYY/MM/DD' : 'jYYYY/jMM/jDD'} HH:mm:ss`) }}</span>
 
                     <p class="mt-20 text-white">{{ tutorial.text }}</p>
 

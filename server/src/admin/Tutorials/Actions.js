@@ -34,7 +34,7 @@ class Actions {
             let tutorialsModel = new TutorialsModel();
             const translateKeyTitle = `tutorials_title_${microtime()}`;
             const translateKeyText = `tutorials_text_${microtime()}`;
-            tutorialsModel.insertSync(['gk_title', 'gk_text', 'youtube_link', 'image_media_id', 'user_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId, userId]).then(async response => {
+            tutorialsModel.insertSync(['gk_title', 'gk_text', 'link', 'image_media_id', 'user_id'], [translateKeyTitle, translateKeyText, youtubeLink, imageId, userId]).then(async response => {
 
                 try {
                     let languages = Object.keys(title);
@@ -49,10 +49,12 @@ class Actions {
 
                     resolve({status: true})
                 } catch (e) {
+                    console.error(error);
                     reject({status: false})
                 }
 
             }).catch(error => {
+                console.error(error);
                 reject({status: false})
             })
         })
@@ -61,7 +63,7 @@ class Actions {
     update(id, title, text, youtubeLink, imageId, userId) {
         return new Promise((resolve, reject) => {
             let tutorialsModel = new TutorialsModel();
-            let keys = ['youtube_link'],
+            let keys = ['link'],
                 values = [youtubeLink];
             if (imageId) {
                 keys.push('image_media_id');

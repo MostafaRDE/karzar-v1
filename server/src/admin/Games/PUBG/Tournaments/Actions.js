@@ -77,7 +77,7 @@ class PubgTournamentsActions {
                 const translateKeyTitle = `pubg_tournaments_title_${microtime()}`,
                     translateKeyDescription = `pubg_tournaments_description_${microtime()}`;
                 await pubgTournamentModel.insertSync(
-                    ['gk_title', 'gk_description', 'capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity'],
+                    ['gk_title', 'gk_description', 'capacity', 'start_date', 'reward_value', 'fee', 'status', 'link', 'map_id', 'group_capacity'],
                     [translateKeyTitle, translateKeyDescription, capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity]
                 );
 
@@ -123,17 +123,8 @@ class PubgTournamentsActions {
             let pubgTournamentModel = new PubgTournamentModel();
 
             let tournament = await this.show(id);
-            console.log(capacity)
-            console.log(startDate)
-            console.log(rewardValue)
-            console.log(fee)
-            console.log(status)
-            console.log(youtubeLink)
-            console.log(mapId)
-            console.log(groupCapacity)
-            console.log(username, password)
             pubgTournamentModel.update(
-                ['capacity', 'start_date', 'reward_value', 'fee', 'status', 'youtube_link', 'map_id', 'group_capacity', 'username', 'password'],
+                ['capacity', 'start_date', 'reward_value', 'fee', 'status', 'link', 'map_id', 'group_capacity', 'username', 'password'],
                 [capacity, startDate, rewardValue, fee, status, youtubeLink, mapId, groupCapacity, username, password],
                 ['id'], [id]).then(async data => {
                 try {

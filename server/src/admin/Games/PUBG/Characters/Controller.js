@@ -12,7 +12,7 @@ module.exports = {
 
     updateStatus(req, res) {
         let actions = new Actions();
-        actions.updateStatus(req.params.id, req.body.status).then(data => {
+        actions.updateStatus(req.params.id, req.body.status, req.body.status_reason).then(data => {
             res.json(data)
         }).catch(error => {
             res.send(error)
