@@ -5,28 +5,28 @@
                 <rs-form class="px-10" :submit="updateProfile" @errors="setFormErrors($event, 'PROFILE')">
                     <h5>{{ $t('glossaries.base_information') }}</h5>
 
-                    <div class="mt-30">
-                        <div v-if="imgSrc">
-                            <vue-cropper ref="cropper"
-                                         :src="imgSrc"
-                                         :aspect-ratio="1/1"
-                                         alt="Source Image"/>
-                        </div>
-                        <div v-else class="d-flex">
-                            <rs-button class="p-0 position-relative" type="button">
-                                <transition name="fade">
-                                    <div v-if="imgSrc"
-                                         class="position-absolute rounded-circle pxw-10 pxh-10 top-0 left-0"
-                                         style="background-color: #f00; transform: translateX(-50%) translateY(-50%)"></div>
-                                </transition>
-                                <label class="cursor-pointer" style="padding: 13px 44px">
-                                    <input type="file" class="d-none"/>
-                                    <span class="me-20">+</span>
-                                    {{ $t('glossaries.select_profile_image') }}
-                                </label>
-                            </rs-button>
-                        </div>
-                    </div>
+<!--                    <div class="mt-30">-->
+<!--                        <div v-if="imgSrc">-->
+<!--                            <vue-cropper ref="cropper"-->
+<!--                                         :src="imgSrc"-->
+<!--                                         :aspect-ratio="1/1"-->
+<!--                                         alt="Source Image"/>-->
+<!--                        </div>-->
+<!--                        <div v-else class="d-flex">-->
+<!--                            <rs-button class="p-0 position-relative" type="button">-->
+<!--                                <transition name="fade">-->
+<!--                                    <div v-if="imgSrc"-->
+<!--                                         class="position-absolute rounded-circle pxw-10 pxh-10 top-0 left-0"-->
+<!--                                         style="background-color: #f00; transform: translateX(-50%) translateY(-50%)"></div>-->
+<!--                                </transition>-->
+<!--                                <label class="cursor-pointer" style="padding: 13px 44px">-->
+<!--                                    <input type="file" class="d-none"/>-->
+<!--                                    <span class="me-20">+</span>-->
+<!--                                    {{ $t('glossaries.select_profile_image') }}-->
+<!--                                </label>-->
+<!--                            </rs-button>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <div>
                         <rs-input class="mt-30"
@@ -67,10 +67,10 @@
                     <div class="mt-15">
                         <rs-input type="password"
                                   :label="$t('glossaries.new_password')"
-                                  name="newPassword"
-                                  v-model="fields.password.newPassword"
-                                  :rules="fields.password.rules.newPassword"/>
-                        <span class="text-danger">{{ getInputError('newPassword', 'PASSWORD') }}</span>
+                                  name="password"
+                                  v-model="fields.password.password"
+                                  :rules="fields.password.rules.password"/>
+                        <span class="text-danger">{{ getInputError('password', 'PASSWORD') }}</span>
                     </div>
 
                     <div class="mt-20">
@@ -123,12 +123,12 @@
                 },
                 password: {
                     currentPassword: '',
-                    newPassword: '',
+                    password: '',
                     retypePassword: '',
 
                     rules: {
                         currentPassword: 'required|string',
-                        newPassword: 'required|password|min:8',
+                        password: 'required|password|min:8',
                         retypePassword: 'required|confirm_password',
                     }
                 }
@@ -200,12 +200,15 @@
                     this.formErrorsPassword = {};
 
                     this.updatingPassword = true;
-                    updatePassword(this.fields.password.currentPassword, this.fields.password.newPassword)
+                    updatePassword(this.fields.password.currentPassword, this.fields.password.password)
                         .then(response => {
                             this.$toast.success({
                                 title: i18n.t('glossaries.password_update'),
                                 message: i18n.t('messages.successes.the_password_was_successfully_updated'),
                             });
+                            this.fields.password.currentPassword = '';
+                            this.fields.password.password = '';
+                            this.fields.password.retypePassword = '';
                         })
                         .catch(error => {
                             this.$toast.error({

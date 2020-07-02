@@ -47,7 +47,7 @@
                         })
                     } else {
                         this.storing = true;
-                        addTransaction(this.amount, this.selectedAccount, 'ACCOUNT_CHARGING', 'INPUT', null)
+                        addTransaction(this.amount * 10, 1, 'ACCOUNT_CHARGING', 'INPUT', null)
                             .then(response => {
                                 this.$toast.success({
                                     title: i18n.t('glossaries.account_charging'),

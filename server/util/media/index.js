@@ -83,12 +83,15 @@ module.exports.saveFile = function (file, description = null) {
                 let widths = thumbs.split(',').map(x => parseInt(x));
                 for (let i = 0; i < widths.length; i++) {
                     let options = { width: widths[i], responseType: 'buffer' };
+                    // console.log("DIRNAME => ", __dirname)
+                    // console.log("UPLOAD_PATH => ", path.join(__dirname, filePath))
                     fs.writeFile(
                         `${process.env.UPLOADS_DIR}/${date.format('YYYY')}/${date.format('MM')}/${date.format('DD')}/${basenameWithoutExtname}_thumb_${widths[i]}${extname}`,
                         await imageThumbnail(filePath, options),
                         function(err) {
                         if (err) {
                             console.error(err);
+                            reject(err)
                         }
                     });
                 }
@@ -97,9 +100,11 @@ module.exports.saveFile = function (file, description = null) {
 
             } catch (err) {
                 console.error(err);
+                reject(err)
             }
 
-        }).catch(error => {
+        }).catch(err => {
+            console.error(err);
             reject({
                 status: false,
                 msg: __('messages').internal_server_error

@@ -152,6 +152,20 @@ export default function getPaths(store) {
                 // </editor-fold>
                 // <-- / Parent of dashboard-pages -->
 
+                // <editor-fold desc="Callbacks">
+                {
+                    path: 'callback',
+                    component: () => import('../pages/Callback.vue'),
+
+                    // <editor-fold desc="Callback-pages">
+                    children: [
+                        {path: 'zibal/error/:target?', component: () => import('../pages/Callback/Error.vue')},
+                        {path: 'zibal/success/:target?', component: () => import('../pages/Callback/Success.vue')},
+                    ]
+                    // </editor-fold>
+                },
+                // </editor-fold>
+
                 // <-- Parent of home-pages -->
                 // <editor-fold desc="Parent of home-pages">
                 {

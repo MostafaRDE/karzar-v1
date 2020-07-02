@@ -30,7 +30,7 @@
                 height: '360px',
                 backgroundAttachment: 'fixed',
                 backgroundImage: "url('/public/images/public/backgrounds/bg-title-shop.jpg')",
-                backgroundPosition: 'center 0',
+                backgroundPosition: 'center center',
                 backgroundSize: 'cover',
                 boxShadow: '#0005 15px 15px 21px 0',
             },
@@ -39,7 +39,7 @@
         methods: {
             handleScroll() {
                 this.scrollY = window.scrollY;
-                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 300}px`
+                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 50}px`
             },
         },
 

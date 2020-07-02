@@ -23,7 +23,7 @@ module.exports = {
                 if (err)
                     response.status(500).end("Something went wrong:(");
                 mediaSaveFile(attachment, null).then(media => {
-                    actions.store(req.user.id, req.connection.remoteAddress, body.amount, body.description, body.gateway_id, body.in_order_to, body.type, media.id, body.data).then(res => {
+                    actions.store(req.query.lang, req.user.id, req.connection.remoteAddress, body.amount, body.description, body.gateway_id, body.in_order_to, body.type, media.id, body.data).then(res => {
                         response.json(res)
                     }).catch(error => {
                         response.status(500).send(error)
@@ -31,7 +31,7 @@ module.exports = {
                 })
             })
         } else {
-            actions.store(req.user.id, req.connection.remoteAddress, body.amount, body.description, body.gateway_id, body.in_order_to, body.type, undefined, body.data).then(res => {
+            actions.store(req.query.lang, req.user.id, req.connection.remoteAddress, body.amount, body.description, body.gateway_id, body.in_order_to, body.type, undefined, body.data).then(res => {
                 response.json(res)
             }).catch(error => {
                 response.status(500).send(error)

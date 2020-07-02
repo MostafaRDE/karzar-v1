@@ -229,7 +229,7 @@ export function gateways(type) {
     })
 }
 
-export function addTransaction(amount, gateway_id, in_order_to, type, file = null, data) {
+export function addTransaction(amount, gateway_id, in_order_to, type, data, file = null) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let url = `lang=${lang()}`;

@@ -7,7 +7,7 @@ class Actions {
             const transactionModel = new TransactionModel();
             const walletModel = new WalletModel();
             walletModel.fetch_one('*', ['user_id'], [userId]).then(wallet => {
-                transactionModel.update(['paid_at'], ['now()'], ['track_id'], [trackId]).then(result => {
+                transactionModel.update(['paid_at', 'status'], ['now()', '1'], ['track_id'], [trackId]).then(result => {
                     walletModel.update(['amount'], [parseInt(wallet.amount) + parseInt(amount)], ['user_id'], [userId]).then(response => {
                         resolve({status: true})
                     }).catch(error => {

@@ -48,24 +48,19 @@
 
                 socialNetworks: [
                     {
-                        icon: 'fab fa-youtube',
-                        label: 'Youtube',
-                        to: 'https://www.youtube.com/channel/UCZLw2PdXDnSHr85CDWIBZIw',
-                    },
-                    {
                         icon: 'fab fa-facebook',
                         label: 'Facebook',
-                        to: 'https://www.facebook.com/karzar_official',
+                        to: 'https://www.facebook.com/karzar_pro',
                     },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',
-                        to: 'https://www.instagram.com/karzar.pro',
+                        to: 'https://www.instagram.com/karzar.pro/',
                     },
                     {
                         icon: 'fab fa-telegram',
                         label: 'Telegram',
-                        to: 'https://t.me/karzar_official',
+                        to: 'https://t.me/karzar_pro',
                     },
                 ]
             }
