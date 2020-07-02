@@ -102,6 +102,7 @@
                                                           v-model="fields.player1">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 v-if="data.status === 0 || data.status === 1"
                                                                                  :key="`join-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
@@ -159,6 +160,7 @@
                                                           v-model="fields.player1">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
+                                                                                 v-if="data.status === 0 || data.status === 1"
                                                                                  :key="`join-team-1-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
@@ -180,6 +182,7 @@
                                                           v-model="fields.player2">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player2CharactersList"
+                                                                                 v-if="data.status === 0 || data.status === 1"
                                                                                  :key="`join-team-2-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player2CharactersList.length - 1 ? 'border-bottom' : ''"
@@ -201,6 +204,7 @@
                                                           v-model="fields.player3">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player3CharactersList"
+                                                                                 v-if="data.status === 0 || data.status === 1"
                                                                                  :key="`join-team-3-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player3CharactersList.length - 1 ? 'border-bottom' : ''"
@@ -222,6 +226,7 @@
                                                           v-model="fields.player4">
                                                     <template slot="source-item">
                                                         <character-input-adapter v-for="(data, index) of fields.player4CharactersList"
+                                                                                 v-if="data.status === 0 || data.status === 1"
                                                                                  :key="`join-team-4-${index}`"
                                                                                  :data="data"
                                                                                  :class="index < fields.player4CharactersList.length - 1 ? 'border-bottom' : ''"
@@ -447,10 +452,12 @@
             },
 
             updateCharacter(id, data) {
-                this.fields[`player${id}`] = data.name;
-                this.fields[`player${id}Id`] = data.id;
+                if (data.status === 1) {
+                    this.fields[`player${id}`] = data.name;
+                    this.fields[`player${id}Id`] = data.id;
 
-                this.filterListCharacters();
+                    this.filterListCharacters();
+                }
             },
 
             filterListCharacters() {
