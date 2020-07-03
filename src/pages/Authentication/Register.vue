@@ -75,9 +75,9 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('mobileNumber') }}</span>
 
+                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_30') }}</span>
                     {{ /* Player ID input */ }}
                     <rs-input type="text"
-                              class="mt-20"
                               inputClass="font-size-md"
                               :label="$t('glossaries.player_id')"
                               name="playerId"
