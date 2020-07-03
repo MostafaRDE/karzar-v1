@@ -69,6 +69,7 @@
                               inputClass="font-size-md"
                               :label="$t('glossaries.mobile_number')"
                               name="mobileNumber"
+                              maxlength="11"
                               v-model="fields.mobileNumber"
                               :rules="fields.rules.mobileNumber"/>
                     {{ /* Email form error */ }}
@@ -234,7 +235,7 @@
                 this.registering = true;
 
                 // Call "register" api method
-                register(this.fields.email, this.fields.password, this.fields.mobileNumber, this.fields.playerId, this.fields.playerName, this.fields.referCode)
+                register(this.fields.email.trim(), this.fields.password, this.fields.mobileNumber.trim(), this.fields.playerId.trim(), this.fields.playerName.trim(), this.fields.referCode.trim())
                 // If api is successful
                     .then(response => {
                         // Show toast successful

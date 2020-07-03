@@ -18,7 +18,7 @@ export default class Email {
      * @return boolean
      */
     passes(value) {
-        return Regex.EMAIL.test(value)
+        return Regex.EMAIL.test(value.trim())
     }
 
     /**

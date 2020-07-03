@@ -152,7 +152,7 @@
                 this.logging = true;
 
                 // Call "login" api method
-                login(this.fields.email, this.fields.password)
+                login(this.fields.email.trim(), this.fields.password)
                 // If api is successful
                     .then(response => {
                         // Show toast successful
