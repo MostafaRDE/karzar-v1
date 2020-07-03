@@ -51,16 +51,17 @@
                                   :rules="modals.character.fields.rules.name"/>
                         <span class="text-danger">{{ getInputError('name') }}</span>
                     </div>
-<!--                    <div class="col-sm pe-0 ps-0 ps-sm-10">-->
-<!--                        <rs-input inputLang="en"-->
-<!--                                  type="number"-->
-<!--                                  :label="$t('glossaries.id')"-->
-<!--                                  inputClass="text-center"-->
-<!--                                  name="id"-->
-<!--                                  v-model="modals.character.fields.id"-->
-<!--                                  :rules="modals.character.fields.rules.id"/>-->
-<!--                        <span class="text-danger">{{ getInputError('id') }}</span>-->
-<!--                    </div>-->
+                    <div v-if="modals.character.showId"
+                         class="col-sm pe-0 ps-0 ps-sm-10">
+                        <rs-input inputLang="en"
+                                  type="number"
+                                  :label="$t('glossaries.id')"
+                                  inputClass="text-center"
+                                  name="id"
+                                  v-model="modals.character.fields.id"
+                                  :rules="modals.character.fields.rules.id"/>
+                        <span class="text-danger">{{ getInputError('id') }}</span>
+                    </div>
                 </div>
 
                 <rs-button type="submit" glow solid :loading="modals.character.updating">{{ $t('glossaries.update') }}</rs-button>
@@ -78,6 +79,7 @@
                                 v-for="(item, index) of items"
                                 :key="`character-${index}`"
                                 :data="item"
+                                :index="index"
                                 :editAction="showUpdateModal"
                                 class="d-block"
                                 :class="{'border-bottom': index < items.length - 1}"/>
@@ -122,9 +124,10 @@
                     updating: false,
                     id: 0,
                     formErrors: {},
+                    showId: false,
 
                     fields: {
-                        // id: 0,
+                        id: undefined,
                         name: '',
 
                         rules: {
@@ -193,10 +196,11 @@
                 }
             },
 
-            showUpdateModal(data) {
+            showUpdateModal(data, index) {
                 this.modals.character.formErrors = {};
                 this.modals.character.id = data.id;
-                // this.modals.character.fields.id = data.id;
+                this.modals.character.showId = this.items[index].status === 0;
+                this.modals.character.fields.id = undefined;
                 this.modals.character.fields.name = data.name;
                 this.modals.character.visibility = true;
             },
@@ -205,14 +209,14 @@
                 if (!this.modals.character.updating) {
                     this.modals.character.updating = true;
                     this.modals.character.formErrors = {};
-                    updateCharacter({id: this.modals.character.id, name: this.modals.character.fields.name})
+                    updateCharacter({id: this.modals.character.id, newId: this.modals.character.fields.id, name: this.modals.character.fields.name})
                         .then(res => {
                             this.$toast.success({
                                 title: i18n.t('glossaries.update_character'),
                                 message: i18n.t('messages.successes.the_character_was_successfully_updated'),
                             });
                             this.modals.character.id = 0;
-                            // this.modals.character.fields.id = 0;
+                            this.modals.character.fields.id = undefined;
                             this.modals.character.fields.name = '';
                             this.modals.character.visibility = false;
                             this.getItems();

@@ -66,7 +66,7 @@ module.exports = {
 
     updateCharacter(request, response) {
         const actions = new Actions();
-        actions.updateCharacter(request.params.id, request.body.name, request.user.id).then(data => {
+        actions.updateCharacter(request.params.id, request.body.name, request.user.id, request.body.id).then(data => {
             response.send(data)
         }).catch(error => {
             response.status(500).send(error)

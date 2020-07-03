@@ -20,7 +20,7 @@
                     <span :class="statusColor(data.status)">{{ statusText(data.status) }}</span>
                 </div>
                 <div class="text-center text-sm-end d-flex align-items-center justify-content-flex-end mt-5">
-                    <a v-if="editAction" href="javascript:void(0)" class="d-flex" @click="editAction(data)">
+                    <a v-if="editAction" href="javascript:void(0)" class="d-flex" @click="editAction(data, index)">
                         <mdi-lead-pencil fill="#fff" size="18px" :class="[width > 767 ? 'pxw-30' : 'pxw-25']"/>
                     </a>
                     <span v-if="width > 400" class="font-weight-900 text-white d-flex" :class="[width > 767 ? 'me-5 ms-10' : 'mx-5']" :style="{fontSize: width > 767 ? '18px' : '14px'}">{{ data.killed_total }}</span>
@@ -39,7 +39,7 @@
             'mdi-lead-pencil': () => import('../icons/MaterialDesignIcons/MdiLeadPencil.vue'),
         },
 
-        props: ['data', 'editAction'],
+        props: ['data', 'index', 'editAction'],
 
         data: () => ({
             width: 0,

@@ -213,10 +213,19 @@ class Actions {
         })
     }
 
-    updateCharacter(id, name, user_id) {
+    updateCharacter(id, name, user_id, newId) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
-            pubgCharacterModel.update(['name', 'status'], [name, '0'], ['id', 'user_id'], [id, user_id])
+
+            let keys = ['name'], values = [name];
+            if (newId) {
+                keys.push('status');
+                values.push('0');
+                keys.push('id');
+                values.push(newId);
+            }
+
+            pubgCharacterModel.update(keys, values, ['id', 'user_id'], [id, user_id])
                 .then(res => {
                     resolve({status: true})
                 })

@@ -140,14 +140,18 @@ export function tournamentPlayers(id) {
     })
 }
 
-export function characters(character) {
+export function characters(character, cancelToken) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
+        let options = {};
+        if (cancelToken) {
+            options['cancelToken'] = cancelToken
+        }
         let query = `?lang=${lang()}`;
         if (character)
             query += `&character=${character}`;
 
-        axios.get(`tournaments/pubg/characters${query}`).then(resolve).catch(reject)
+        axios.get(`tournaments/pubg/characters${query}`, options).then(resolve).catch(reject)
     })
 }
 
@@ -161,11 +165,11 @@ export function storeCharacter(id, name) {
     })
 }
 
-export function updateCharacter({id, name}) {
+export function updateCharacter({id, name, newId}) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let query = `?lang=${lang()}`,
-            data = {name};
+            data = {name, id: newId};
 
         axios.put(`tournaments/pubg/characters/${id}${query}`, data).then(resolve).catch(reject)
     })

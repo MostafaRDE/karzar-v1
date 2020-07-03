@@ -174,7 +174,7 @@
                                                 <rs-check-box v-model="actives.player2"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
-                                                          :label="$t('glossaries.character_name')"
+                                                          :label="$t('glossaries.character_id')"
                                                           :disabled="!actives.player2"
                                                           :source="fields.player2CharactersList"
                                                           :sourceLoading="fields.player2CharactersListLoading"
@@ -196,7 +196,7 @@
                                                 <rs-check-box v-model="actives.player3"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
-                                                          :label="$t('glossaries.character_name')"
+                                                          :label="$t('glossaries.character_id')"
                                                           :disabled="!actives.player3"
                                                           :source="fields.player3CharactersList"
                                                           :sourceLoading="fields.player3CharactersListLoading"
@@ -218,7 +218,7 @@
                                                 <rs-check-box v-model="actives.player4"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
-                                                          :label="$t('glossaries.character_name')"
+                                                          :label="$t('glossaries.character_id')"
                                                           :disabled="!actives.player4"
                                                           :source="fields.player4CharactersList"
                                                           :sourceLoading="fields.player4CharactersListLoading"
@@ -315,6 +315,7 @@
 </template>
 
 <script>
+    import axios from 'axios'
     import moment from 'moment'
     import {characters, enterToTheTournament, tournamentPlayers} from "../../api";
     import i18n from '../../i18n'
@@ -365,6 +366,7 @@
                 player4: false,
             },
             characters: [],
+            characterRequest: null,
             fields: {
                 player1: '',
                 player1Id: null,
@@ -502,6 +504,11 @@
             },
 
             getCharacters(id, character) {
+                if (this.characterRequest) {
+                    this.characterRequest.cancel();
+                    this.characterRequest = null;
+                    this.fields[`player${id}CharactersListLoading`] = false
+                }
                 if (this.fields[`player${id}Id`] && this.fields[`player${id}Id`] !== '') {
                     this.fields[`player${id}`] = '';
                     this.fields[`player${id}Id`] = '';
@@ -511,38 +518,44 @@
                 if (id) {
                     if (isNaN(character)) {
 
-                    } else if (character && character !== '') {
+                    } else if (id > 1 && character && character !== '') {
                         if (!this.fields[`player${id}CharactersListLoading`]) {
                             this.fields[`player${id}CharactersListLoading`] = true;
-                            characters(character)
+                            this.characterRequest = axios.CancelToken.source();
+                            characters(character, this.characterRequest.token)
                                 .then(res => {
                                     this.fields[`player${id}CharactersList`] = res.data.result
                                 })
                                 .catch(err => {})
                                 .finally(() => {
-                                    this.fields[`player${id}CharactersListLoading`] = false
+                                    this.fields[`player${id}CharactersListLoading`] = false;
+                                    this.characterRequest = null;
                                 })
                         }
                     } else {
-
+                        this.fillInputCharactersList(id, character)
                     }
                 } else {
-                    characters(character)
-                        .then(res => {
-                            let data = JSON.stringify(res.data.result);
-                            this.characters = JSON.parse(data);
-                            this.fields[`player1CharactersList`] = JSON.parse(data);
-                            this.fields[`player2CharactersList`] = JSON.parse(data);
-                            this.fields[`player3CharactersList`] = JSON.parse(data);
-                            this.fields[`player4CharactersList`] = JSON.parse(data);
-                        })
-                        .catch(err => {
-
-                        })
-                        .finally(() => {
-                            this.fields[`player${id}CharactersListLoading`] = false
-                        })
+                    this.fillInputCharactersList(id, character)
                 }
+            },
+
+            fillInputCharactersList(id, character) {
+                characters(character)
+                    .then(res => {
+                        let data = JSON.stringify(res.data.result);
+                        this.characters = JSON.parse(data);
+                        this.fields[`player1CharactersList`] = JSON.parse(data);
+                        this.fields[`player2CharactersList`] = JSON.parse(data);
+                        this.fields[`player3CharactersList`] = JSON.parse(data);
+                        this.fields[`player4CharactersList`] = JSON.parse(data);
+                    })
+                    .catch(err => {
+
+                    })
+                    .finally(() => {
+                        this.fields[`player${id}CharactersListLoading`] = false
+                    })
             },
 
             getPlayers() {
