@@ -58,6 +58,7 @@
                     <div class="col m-0 text-center">
                         <h2>{{ $t('glossaries.running_tournaments') }}</h2>
                         <span class="mt-5 d-block font-size-xl">{{ $t('glossaries.ready_for_a_great_battle') }}</span>
+                        <span class="mt-5 d-block font-size-xl text-warning">{{ $t('glossaries.for_mobile') }}</span>
                     </div>
                 </div>
 
@@ -118,7 +119,7 @@
 
         <div class="container mt-40 py-50 px-20" id="top10">
             <h2 class="text-center text-white">{{ $t('glossaries.top_10_players') }}</h2>
-            <span class="text-center w-100 mt-5 d-block font-size-xl text-white">{{ $t('glossaries.special_award_for_having_the_best_website_players_every_month') }}</span>
+            <span class="text-center w-100 mt-5 d-block font-size-xl text-white" v-html="$t('glossaries.each_month_a_special_prize_of_500000_tomans_for_the_best_player')"></span>
 
             <title-span class="mt-20 w-100 d-block text-center"/>
 
