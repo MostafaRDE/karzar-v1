@@ -69,7 +69,7 @@
                                     </div>
 
                                     <div v-if="width >= 1400" class="flex-grow-1 d-flex justify-content-flex-end">
-                                        <img src="/public/images/public/backgrounds/bg-title-counter-strike.jpg"
+                                        <img src="/public/images/public/backgrounds/bg-counter-strike-tournament.jpg"
                                              alt=""
                                              style="height: 150px" :style="{transform: $store.state.dir === 'ltr' ? 'scaleX(-1)' : 'scaleX(1)'}">
                                     </div>
