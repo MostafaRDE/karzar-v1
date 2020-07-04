@@ -127,11 +127,11 @@ class Actions {
                     }
 
                     data.result[i].map = {};
-                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_gk_name, lang) : await getTranslates(data.result[i].maps_gk_name);
                     data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
 
-                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
-                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_gk_title, lang) : await getTranslates(data.result[i].tournaments_gk_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_gk_description, lang) : await getTranslates(data.result[i].tournaments_gk_description);
                 }
 
                 resolve(data)
@@ -569,11 +569,11 @@ class Actions {
 
                 for (let i = 0; i < data.result.length; i++) {
                     data.result[i].map = {};
-                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_glossary_key_name, lang) : await getTranslates(data.result[i].maps_glossary_key_name);
+                    data.result[i].map['name'] = lang ? await translate(data.result[i].maps_gk_name, lang) : await getTranslates(data.result[i].maps_gk_name);
                     data.result[i].map['image'] = await mediaGetFile(data.result[i].maps_image_media_id);
 
-                    data.result[i].title = lang ? await translate(data.result[i].tournaments_glossary_key_title, lang) : await getTranslates(data.result[i].tournaments_glossary_key_title);
-                    data.result[i].description = lang ? await translate(data.result[i].tournaments_glossary_key_description, lang) : await getTranslates(data.result[i].tournaments_glossary_key_description);
+                    data.result[i].title = lang ? await translate(data.result[i].tournaments_gk_title, lang) : await getTranslates(data.result[i].tournaments_gk_title);
+                    data.result[i].description = lang ? await translate(data.result[i].tournaments_gk_description, lang) : await getTranslates(data.result[i].tournaments_gk_description);
 
                     result.push(data.result[i])
                 }
