@@ -227,47 +227,49 @@
 
             // Submit form after form validation (If is successful)
             submit() {
-                // Clear form errors
-                this.setFormErrors({});
-                // Remove message server error
-                this.registrationError = {};
-                // Set "true" flag's loading in submit button & show it
-                this.registering = true;
+                if (!this.registering) {
+                    // Clear form errors
+                    this.setFormErrors({});
+                    // Remove message server error
+                    this.registrationError = {};
+                    // Set "true" flag's loading in submit button & show it
+                    this.registering = true;
 
-                // Call "register" api method
-                register(this.fields.email.trim(), this.fields.password, this.fields.mobileNumber.trim(), this.fields.playerId.trim(), this.fields.playerName.trim(), this.fields.referCode.trim())
-                // If api is successful
-                    .then(response => {
-                        // Show toast successful
-                        this.$toast.success({
-                            title: i18n.t('glossaries.register'),
-                            message: i18n.t('messages.successes.registration_successful'),
-                        });
+                    // Call "register" api method
+                    register(this.fields.email.trim(), this.fields.password, this.fields.mobileNumber.trim(), this.fields.playerId.trim(), this.fields.playerName.trim(), this.fields.referCode.trim())
+                        // If api is successful
+                        .then(response => {
+                            // Show toast successful
+                            this.$toast.success({
+                                title: i18n.t('glossaries.register'),
+                                message: i18n.t('messages.successes.registration_successful'),
+                            });
 
-                        // Store data in authentication module store of vuex
-                        this.$store.commit('authentication/setVerifyEmail', true);
-                        // Goto verify email page
-                        this.$router.push({name: 'verifyEmailAddress'});
-                    })
-                    // Else if api is failed
-                    .catch(error => {
-                        // Show message server error
-                        this.registrationError = {
-                            code: Math.abs(error.response.data.error),
-                            message: error.response.data.msg,
-                        };
-
-                        // Show toast failed
-                        this.$toast.error({
-                            title: i18n.t('glossaries.register'),
-                            message: i18n.t('messages.errors.registration_failed'),
+                            // Store data in authentication module store of vuex
+                            this.$store.commit('authentication/setVerifyEmail', true);
+                            // Goto verify email page
+                            this.$router.push({name: 'verifyEmailAddress'});
                         })
-                    })
-                    // Default actions after api execute
-                    .finally(() => {
-                        // Set "false" flag's loading in submit button & hide it
-                        this.registering = false
-                    })
+                        // Else if api is failed
+                        .catch(error => {
+                            // Show message server error
+                            this.registrationError = {
+                                code: Math.abs(error.response.data.error),
+                                message: error.response.data.msg,
+                            };
+
+                            // Show toast failed
+                            this.$toast.error({
+                                title: i18n.t('glossaries.register'),
+                                message: i18n.t('messages.errors.registration_failed'),
+                            })
+                        })
+                        // Default actions after api execute
+                        .finally(() => {
+                            // Set "false" flag's loading in submit button & hide it
+                            this.registering = false
+                        })
+                }
             }
         },
 

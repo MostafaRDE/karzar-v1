@@ -106,47 +106,49 @@
         methods: {
             // Submit form after form validation (If is successful)
             sendRequestForForgot(id, index) {
-                // Set "int" flag's loading in device button & show loading it
-                this.sendingRequestForForgot = index;
-                // Set "true" processing flag; because process requesting to server start
-                this.processing = true;
-                // Remove message server error
-                this.serverError = {};
+                if (!this.processing) {
+                    // Set "int" flag's loading in device button & show loading it
+                    this.sendingRequestForForgot = index;
+                    // Set "true" processing flag; because process requesting to server start
+                    this.processing = true;
+                    // Remove message server error
+                    this.serverError = {};
 
-                send_request_for_forgot(id)
-                    .then(response => {
-                        // Show toast successful
-                        this.$toast.success({
-                            title: i18n.t('pages.authentication.send_reset_password_link_to.content.send_reset_password_link'),
-                            message: i18n.t('messages.successes.send_reset_password_link_to_sent'),
-                        });
+                    send_request_for_forgot(id)
+                        .then(response => {
+                            // Show toast successful
+                            this.$toast.success({
+                                title: i18n.t('pages.authentication.send_reset_password_link_to.content.send_reset_password_link'),
+                                message: i18n.t('messages.successes.send_reset_password_link_to_sent'),
+                            });
 
-                        // Remove data in authentication module store of vuex
-                        this.$store.commit('authentication/storeDevicesForSendRequestForForgot', null);
-                        // Store data in authentication module store of vuex
-                        this.$store.commit('authentication/setMessagePasswordResetLinkSent', true);
-                        // Goto password-reset-link-sent page
-                        this.$router.push({name: 'passwordResetLinkSent'});
-                    })
-                    .catch(error => {
-                        // Show message server error
-                        this.serverError = {
-                            code: Math.abs(error.response.data.error),
-                            message: error.response.data.msg,
-                        };
-
-                        // Show toast failed
-                        this.$toast.error({
-                            title: i18n.t('pages.authentication.send_reset_password_link_to.content.send_reset_password_link'),
-                            message: i18n.t('messages.errors.send_reset_password_link_to_failed'),
+                            // Remove data in authentication module store of vuex
+                            this.$store.commit('authentication/storeDevicesForSendRequestForForgot', null);
+                            // Store data in authentication module store of vuex
+                            this.$store.commit('authentication/setMessagePasswordResetLinkSent', true);
+                            // Goto password-reset-link-sent page
+                            this.$router.push({name: 'passwordResetLinkSent'});
                         })
-                    })
-                    .finally(() => {
-                        // Set "false" processing flag; because process requesting to server end
-                        this.processing = false;
-                        // Set "int" flag's loading in device button & hide loading it
-                        this.sendingRequestForForgot = -1
-                    });
+                        .catch(error => {
+                            // Show message server error
+                            this.serverError = {
+                                code: Math.abs(error.response.data.error),
+                                message: error.response.data.msg,
+                            };
+
+                            // Show toast failed
+                            this.$toast.error({
+                                title: i18n.t('pages.authentication.send_reset_password_link_to.content.send_reset_password_link'),
+                                message: i18n.t('messages.errors.send_reset_password_link_to_failed'),
+                            })
+                        })
+                        .finally(() => {
+                            // Set "false" processing flag; because process requesting to server end
+                            this.processing = false;
+                            // Set "int" flag's loading in device button & hide loading it
+                            this.sendingRequestForForgot = -1
+                        });
+                }
             }
         },
     }

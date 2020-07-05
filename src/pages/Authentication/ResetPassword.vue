@@ -119,42 +119,45 @@
 
             // Submit form after form validation (If is successful)
             submit() {
-                // Clear form errors
-                this.setFormErrors({});
-                // Remove message server error
-                this.resettingPasswordError = {};
-                // Set "true" flag's loading in submit button & show it
-                this.resettingPassword = true;
+                if (!this.resettingPassword) {
+                    // Clear form errors
+                    this.setFormErrors({});
+                    // Remove message server error
+                    this.resettingPasswordError = {};
+                    // Set "true" flag's loading in submit button & show it
+                    this.resettingPassword = true;
 
-                // Call "get_devices_user" api method
-                get_devices_user(this.fields.email)
-                // If api is successful
-                    .then(response => {
-                        // Store data in authentication module store of vuex
-                        this.$store.commit('authentication/storeDevicesForSendRequestForForgot', response.data.data);
+                    // Call "get_devices_user" api method
+                    get_devices_user(this.fields.email)
+                        // If api is successful
+                        .then(response => {
+                            // Store data in authentication module store of vuex
+                            this.$store.commit('authentication/storeDevicesForSendRequestForForgot', response.data.data);
 
-                        // Goto Device-selecting for send-request-for-forgot page
-                        this.$router.push({name: 'deviceSelectingForSendRequestForForgot'});
-                    })
-                    // Else if api is failed
-                    .catch(error => {
-                        // Show message server error
-                        this.resettingPasswordError = {
-                            code: Math.abs(error.response.data.error),
-                            message: error.response.data.msg,
-                        };
-
-                        // Show toast failed
-                        this.$toast.error({
-                            title: i18n.t('glossaries.reset_password'),
-                            message: i18n.t('messages.errors.reset_password_failed'),
+                            // Goto Device-selecting for send-request-for-forgot page
+                            this.$router.push({name: 'deviceSelectingForSendRequestForForgot'});
                         })
-                    })
-                    // Default actions after api execute
-                    .finally(() => {
-                        // Set "false" flag's loading in submit button & hide it
-                        this.resettingPassword = false
-                    })
+                        // Else if api is failed
+                        .catch(error => {
+                            // Show message server error
+                            this.resettingPasswordError = {
+                                code: Math.abs(error.response.data.error),
+                                message: error.response.data.msg,
+                            };
+
+                            // Show toast failed
+                            this.$toast.error({
+                                title: i18n.t('glossaries.reset_password'),
+                                message: i18n.t('messages.errors.reset_password_failed'),
+                            })
+                        })
+                        // Default actions after api execute
+                        .finally(() => {
+                            // Set "false" flag's loading in submit button & hide it
+                            this.resettingPassword = false
+                        })
+
+                }
             },
         },
     }

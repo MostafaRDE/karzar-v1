@@ -144,45 +144,47 @@
 
             // Submit form after form validation (If is successful)
             submit() {
-                // Clear form errors
-                this.setFormErrors({});
-                // Remove message server error
-                this.signInError = {};
-                // Set "true" flag's loading in submit button & show it
-                this.logging = true;
+                if (!this.logging) {
+                    // Clear form errors
+                    this.setFormErrors({});
+                    // Remove message server error
+                    this.signInError = {};
+                    // Set "true" flag's loading in submit button & show it
+                    this.logging = true;
 
-                // Call "login" api method
-                login(this.fields.email.trim(), this.fields.password)
-                // If api is successful
-                    .then(response => {
-                        // Show toast successful
-                        this.$toast.success({
-                            title: i18n.t('glossaries.log_in'),
-                            message: i18n.t('messages.successes.log_in_successful'),
-                        });
+                    // Call "login" api method
+                    login(this.fields.email.trim(), this.fields.password)
+                        // If api is successful
+                        .then(response => {
+                            // Show toast successful
+                            this.$toast.success({
+                                title: i18n.t('glossaries.log_in'),
+                                message: i18n.t('messages.successes.log_in_successful'),
+                            });
 
-                        // Goto verify email page
-                        window.location.replace(`/${this.$route.params.lang}/dashboard/tournaments`);
-                    })
-                    // Else if api is failed
-                    .catch(error => {
-                        // Show message server error
-                        this.signInError = {
-                            code: Math.abs(error.response.data.error),
-                            message: error.response.data.msg,
-                        };
-
-                        // Show toast failed
-                        this.$toast.error({
-                            title: i18n.t('glossaries.log_in'),
-                            message: i18n.t('messages.errors.log_in_failed'),
+                            // Goto verify email page
+                            window.location.replace(`/${this.$route.params.lang}/dashboard/tournaments`);
                         })
-                    })
-                    // Default actions after api execute
-                    .finally(() => {
-                        // Set "false" flag's loading in submit button & hide it
-                        this.logging = false
-                    })
+                        // Else if api is failed
+                        .catch(error => {
+                            // Show message server error
+                            this.signInError = {
+                                code: Math.abs(error.response.data.error),
+                                message: error.response.data.msg,
+                            };
+
+                            // Show toast failed
+                            this.$toast.error({
+                                title: i18n.t('glossaries.log_in'),
+                                message: i18n.t('messages.errors.log_in_failed'),
+                            })
+                        })
+                        // Default actions after api execute
+                        .finally(() => {
+                            // Set "false" flag's loading in submit button & hide it
+                            this.logging = false
+                        })
+                }
             },
         },
     }
