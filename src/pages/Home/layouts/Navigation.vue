@@ -104,6 +104,11 @@
                         </div>
                         <div class="z-index-1">
                             <ul class="d-flex">
+                                <li class="mx-10 d-flex align-items-center">
+                                    <a href="https://www.aparat.com/karzar.pro" class="d-flex" target="_blank" rel="nofollow" title="Aparat">
+                                        <icon-aparat size="16px"/>
+                                    </a>
+                                </li>
                                 <li v-for="item of socialNetworks" class="mx-10">
                                     <a :href="item.to" target="_blank" rel="nofollow" :title="item.label"><i
                                             :class="item.icon"></i></a>
@@ -592,6 +597,7 @@
         props: ['isActiveMainSideMenu'],
 
         components: {
+            'icon-aparat': () => import('../../../components/icons/IconAparat.vue'),
             'icon-search': () => import('../../../components/icons/IconSearch.vue'),
             'icon-side-area-opener': () => import('../../../components/icons/IconSideAreaOpener.vue'),
             'mdi-arrow-left': () => import ('../../../components/icons/MaterialDesignIcons/MdiArrowLeft.vue'),
@@ -648,11 +654,11 @@
                 },
 
                 socialNetworks: [
-                    {
-                        icon: 'fab fa-facebook',
-                        label: 'Facebook',
-                        to: 'https://www.facebook.com/karzar_pro',
-                    },
+                    // {
+                    //     icon: 'fab fa-youtube',
+                    //     label: 'Facebook',
+                    //     to: 'https://www.facebook.com/karzar_pro',
+                    // },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',

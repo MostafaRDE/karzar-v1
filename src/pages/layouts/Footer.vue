@@ -18,6 +18,9 @@
                     <div class="mt-20"></div>
 
                     <div class="mt-20 d-flex justify-content-center">
+                        <a href="https://www.aparat.com/karzar.pro" class="d-flex align-items-center mx-10 z-index-3" target="_blank" rel="nofollow" title="Aparat">
+                            <icon-aparat size="16px"/>
+                        </a>
                         <a v-for="socialLink of socialNetworks" :href="socialLink.to" rel="nofollow" target="_blank" class="mx-10 z-index-3" style="font-size: 13px">
                             <i :class="socialLink.icon"></i>
                         </a>
@@ -36,6 +39,10 @@
     export default {
         name: "Footer",
 
+        components: {
+            'icon-aparat': () => import('../../components/icons/IconAparat.vue'),
+        },
+
         data() {
             return {
                 menu: [
@@ -47,11 +54,11 @@
                 ],
 
                 socialNetworks: [
-                    {
-                        icon: 'fab fa-facebook',
-                        label: 'Facebook',
-                        to: 'https://www.facebook.com/karzar_pro',
-                    },
+                    // {
+                    //     icon: 'fab fa-facebook',
+                    //     label: 'Facebook',
+                    //     to: 'https://www.facebook.com/karzar_pro',
+                    // },
                     {
                         icon: 'fab fa-instagram',
                         label: 'Instagram',

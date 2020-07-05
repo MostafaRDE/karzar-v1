@@ -205,7 +205,7 @@
                         <h1 class="text-white">{{ $t('app.name') }}</h1>
 
                         <button class="btn text-uppercase glow solid w-fit-content mt-30 p-0">
-                            <a href="https://www.aparat.com/karzar" target="_blank" class="d-flex" rel="nofollow" style="padding: 13px 44px">
+                            <a href="https://www.aparat.com/karzar.pro" target="_blank" class="d-flex" rel="nofollow" style="padding: 13px 44px">
                                 <span class="btn-text d-flex justify-content-center align-items-center text-white">{{ $t('glossaries.aparat_channel') }}</span>
                             </a>
                         </button>

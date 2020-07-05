@@ -23,6 +23,9 @@
 
         <div class="main-side-menu-social-networks-bottom">
             <div class="mb-45 text-center">
+                <a href="https://www.aparat.com/karzar.pro" class="d-inline-flex align-items-center" style="margin: 0 12px;" target="_blank" rel="nofollow" title="Aparat">
+                    <icon-aparat size="16px"/>
+                </a>
                 <a v-for="socialLink of socialLinks" :href="socialLink.to" rel="nofollow" target="_blank" style="font-size: 13px;margin: 0 12px;">
                     <i :class="socialLink.icon"></i>
                 </a>
@@ -46,17 +49,18 @@
         },
 
         components: {
+            'icon-aparat': () => import('../icons/IconAparat.vue'),
             'icon-close': () => import('../icons/IconClose.vue'),
         },
 
         data: () => ({
             logoUrl: '/public/images/public/logos/logo.svg',
             socialLinks: [
-                {
-                    icon: 'fab fa-facebook',
-                    label: 'Facebook',
-                    to: 'https://www.facebook.com/karzar_pro',
-                },
+                // {
+                //     icon: 'fab fa-facebook',
+                //     label: 'Facebook',
+                //     to: 'https://www.facebook.com/karzar_pro',
+                // },
                 {
                     icon: 'fab fa-instagram',
                     label: 'Instagram',
