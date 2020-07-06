@@ -1,2 +1,6 @@
-Disallow: *
-Noindex: *
+User-Agent: *
+Disallow:
+Allow: /fa
+Allow: /en
+Disallow: /fa/dashboard
+Disallow: /en/dashboard
