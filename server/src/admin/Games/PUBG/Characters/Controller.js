@@ -3,7 +3,7 @@ const Actions = require('./Actions');
 module.exports = {
     index(req, res) {
         let actions = new Actions();
-        actions.index(req.query.page, req.query.size, req.query.pending || false).then(data => {
+        actions.index(req.query.page, req.query.size, req.query.status).then(data => {
             res.json(data)
         }).catch(error => {
             res.send(error)

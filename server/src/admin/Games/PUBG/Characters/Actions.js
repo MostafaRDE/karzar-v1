@@ -1,17 +1,31 @@
 const {PubgCharacterModel} = require('./../../../../../Models/PubgModel');
 
 class CharacterActions {
-    index(page, size, justPending = false) {
+    index(page, size, status = undefined) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
             let where = undefined, whereValue = undefined;
-            if (justPending) {
+            if (status) {
                 where = ['status'];
-                whereValue = ['0'];
+                whereValue = [];
+
+                switch (status) {
+                    case 'ACCEPTED':
+                        whereValue.push(1);
+                        break;
+
+                    case 'REJECTED':
+                        whereValue.push(2);
+                        break;
+
+                    case 'PENDING':
+                    default:
+                        whereValue.push(0);
+                }
             }
             pubgCharacterModel.fetch_all('characters.*, users.name as owner_name, users.email', where, whereValue, undefined, [
                 {type: 'INNER', alias: 'users', parent: 'user_id', child: 'id'}
-            ], page, size, 'updated_at DESC').then(data => {
+            ], page, size, 'id DESC, status').then(data => {
                 resolve(data)
             }).catch(reject)
         })
