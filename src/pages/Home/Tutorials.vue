@@ -16,7 +16,7 @@
                            :background="tutorial.backgroundImage"
                            class="pt-100 col-sm-4 mb-0 d-flex flex-direction-column"
                            :style="{minHeight: `${width / 4.8}px`}"
-                           :href="tutorial.youtubeLink"
+                           :href="tutorial.link"
                            target="_blank"
                            @mouseover.native="tutorial.hover = true"
                            @mouseleave.native="tutorial.hover = false">
@@ -92,7 +92,7 @@
                                 date: tutorial.created_at,
                                 tag: 'sports',
                                 text: tutorial.text,
-                                youtubeLink: tutorial.youtube_link,
+                                link: tutorial.link,
                                 backgroundImage: `/api/v1/uploads?id=${tutorial.image_media_id}`
                             }))
                         })

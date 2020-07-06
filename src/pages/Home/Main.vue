@@ -167,7 +167,7 @@
                            :background="tutorial.backgroundImage"
                            class="pt-100 col-sm-4 mb-0 d-flex flex-direction-column"
                            :style="{minHeight: `${width / 4.8}px`}"
-                           :href="tutorial.youtubeLink"
+                           :href="tutorial.link"
                            target="_blank"
                            @mouseover.native="tutorial.hover = true"
                            @mouseleave.native="tutorial.hover = false">
@@ -175,7 +175,7 @@
                     <span class="tag text-white">{{ tutorial.tag }}</span>
 
                     <title-box-animated class="text-white mt-10" :active="tutorial.hover" @click.native="">
-                        <a :href="tutorial.youtubeLink" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
+                        <a :href="tutorial.link" target="_blank" class="font-size-xl font-weight-900">{{ tutorial.title }}</a>
                     </title-box-animated>
 
                     <span class="font-size-xs mt-10 text-white">{{ tutorial.date | moment(`${$route.params.lang === 'fa' ? 'jYYYY/jMM/jDD': 'YYYY/MM/DD'} HH:mm:ss`) }}</span>
@@ -518,7 +518,7 @@
                                 date: tutorial.created_at,
                                 tag: 'sports',
                                 text: tutorial.text,
-                                youtubeLink: tutorial.youtube_link,
+                                link: tutorial.link,
                                 backgroundImage: tutorial.image.url_static,
                             }))
                         })
