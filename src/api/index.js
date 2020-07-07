@@ -55,10 +55,10 @@ export function getMainSliderItems() {
 // <editor-fold desc="Authentication apis">
 
 // Login api
-export function login(email, password) {
+export function login(email, password, g_recaptcha_response) {
     // Create requested data as object
     const data = {
-        email, password,
+        email, password, 'g-recaptcha-response': g_recaptcha_response,
     };
 
     // Create request as "Promise" and returned it
@@ -68,10 +68,10 @@ export function login(email, password) {
 }
 
 // Register api
-export function register(email, password, mobile_number, player_id, player_name, refer_code) {
+export function register(email, password, mobile_number, player_id, player_name, refer_code, g_recaptcha_response) {
     // Create requested data as object
     const data = {
-        email, password, mobile_number, player_id, player_name, refer_code,
+        email, password, mobile_number, player_id, player_name, refer_code, 'g-recaptcha-response': g_recaptcha_response,
     };
 
     // Create request as "Promise" and returned it
@@ -83,10 +83,10 @@ export function register(email, password, mobile_number, player_id, player_name,
 // <editor-fold desc="Resetting Password apis">
 
 // GetDevicesUser api
-export function get_devices_user(username) {
+export function get_devices_user(username, g_recaptcha_response) {
     // Create requested data as object
     const data = {
-        username,
+        username, 'g-recaptcha-response': g_recaptcha_response,
     };
 
     // Create request as "Promise" and returned it
@@ -260,11 +260,11 @@ export function tutorials(page, size = itemsPerPage) {
     })
 }
 
-export function sendContactMessage(name, email, message) {
+export function sendContactMessage(name, email, message, g_recaptcha_response) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let url = `lang=${lang()}`;
-        let data = {name, email, message};
+        let data = {name, email, message, 'g-recaptcha-response': g_recaptcha_response};
         axios.post(`public/contact?${url}`, data).then(resolve).catch(reject)
     })
 }

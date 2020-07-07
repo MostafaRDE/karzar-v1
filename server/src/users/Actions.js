@@ -142,20 +142,20 @@ class Actions {
             userModel.fetch_one('id , email , email_verified_at , mobile_number', ['email'], [username])
                 .then(data => {
                     if (data) {
-                        if (!data.email_verified_at) {
-                            return resolve({status: false, msg: __('messages').email_or_mobile_not_approve});
-                        }
-
                         let engine = encrypter(process.env.APP_SECRET, {ttl: true});
 
-                        let valid_devices_access = [];
-                        if (data.email_verified_at) {
-                            let email_split = data.email.split('@');
-                            let email_send = email_split[0].substr(0, 3) + '******' + email_split[0].substr(email_split[0].length - 2, 2);
-                            let email_detail = {user: data.id, type: 'email'};
-                            let hash_email = engine.encrypt(email_detail, 180000);
-                            valid_devices_access = [{id: hash_email, value: email_send + '@' + email_split[1]}];
-                        }
+                        // if (!data.email_verified_at) {
+                        //     return resolve({status: false, msg: __('messages').email_or_mobile_not_approve});
+                        // }
+
+                        // let valid_devices_access = [];
+                        // if (data.email_verified_at) {
+                        let email_split = data.email.split('@');
+                        let email_send = email_split[0].substr(0, 3) + '******' + email_split[0].substr(email_split[0].length - 2, 2);
+                        let email_detail = {user: data.id, type: 'email'};
+                        let hash_email = engine.encrypt(email_detail, 180000);
+                        let valid_devices_access = [{id: hash_email, value: email_send + '@' + email_split[1]}];
+                        // }
 
                         return resolve({status: true, values: valid_devices_access});
 

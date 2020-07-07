@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const base = require('./webpack.base.config');
 const SWPrecachePlugin = require('sw-precache-webpack-plugin');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const config = merge(base, {
     entry: {
@@ -20,6 +21,7 @@ const config = merge(base, {
             'process.env.VUE_ENV': '"client"'
         }),
         new VueSSRClientPlugin(),
+        new Dotenv(),
     ],
     optimization: {
         runtimeChunk: 'single',

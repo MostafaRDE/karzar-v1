@@ -4,6 +4,7 @@ const User = require('./UserController');
 const rateLimit = require("express-rate-limit");
 const passport = require("passport");
 const UsersMiddleware = require("../../middleware/UsersMiddelware");
+const {checkGoogleRecaptcha} = require("../../middleware/RecaptchaMiddleware");
 
 let LoginRateLimit = rateLimit({
     windowMs: 5 * 60 * 1000, // 1 minute window
@@ -11,8 +12,8 @@ let LoginRateLimit = rateLimit({
 });
 
 
-router.post('/register', User.register_user);
-router.post('/login', LoginRateLimit, User.loginToAccount, passport.authenticate('local'), (req, res) => {
+router.post('/register', checkGoogleRecaptcha, User.register_user);
+router.post('/login', LoginRateLimit, checkGoogleRecaptcha, User.loginToAccount, passport.authenticate('local'), (req, res) => {
     res.json({status : true});
 } );
 router.get('/logout', (req, res) => {
@@ -26,7 +27,7 @@ router.get('/email-validate/:token', User.check_and_validate_email);
 router.get('/balance', UsersMiddleware.check_login_user, User.getBalance);
 
 /* FORGET PASSWORD */
-router.post('/forget/find', User.fetchUserForForgetPassword);
+router.post('/forget/find', checkGoogleRecaptcha, User.fetchUserForForgetPassword);
 router.post('/forget/send', User.checkTokenDeviceAndSendLinkForgetPassword);
 router.get('/forget-password-check-link/:token', User.check_and_validate_link_forget_password);
 router.put('/password/change', User.change_password_with_token);

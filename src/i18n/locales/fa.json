@@ -77,6 +77,7 @@
 		"error_code": "کد خطا",
 		"error_code_with_colons": "کد خطا:",
 		"exchange": "ترید",
+		"executed_tournaments": "تورنومنت های اجرا شده",
 		"favorites": "موردعلاقه",
 		"fee": "هزینه",
 		"filled": "پر شده",
@@ -134,6 +135,7 @@
 		"profile": "پروفایل",
 		"profile_update": "بروزرسانی پروفایل",
 		"ready_for_a_great_battle": "برای یک نبرد عالی آماده ای؟",
+		"recaptcha_approval": "تایید کپچا",
 		"receiver_name": "نام دریافت کننده",
 		"refer_code": "کد معرف",
 		"refer_code_optional": "کد معرف (اختیاری)",
@@ -194,6 +196,7 @@
 		"your_name": "نام شما",
 		"your_pubg_account_level_must_be_at_least_30": "لول حساب پابجی شما حداقل باید ۳۰ باشد",
 		"your_team_bonus_of_this_game": "جایزه تیم شما از این بازی",
+		"your_tournaments": "تورنومنت های شما",
 		"youtube_channel": "کانال یوتیوب",
 		"youtuber_name": "نام یوتیوبر"
 	},
@@ -201,6 +204,7 @@
 		"err_empty_required_filed": "فیلد های اجباری را پر کنید",
 		"errors": {
 			"log_in_failed": "ورود با شکست مواجه شد.مجدد امتحان کنید",
+			"please_confirm_that_you_are_not_a_robot_first": "لطفا ابتدا ربات نبودن خود را تایید کنید",
 			"registration_failed": "ثبت نام با شکست مواجه شد.مجدد امتحان کنید",
 			"reset_password_failed": "تغییر پسورد با شکست مواجه شد.مجدد امتحان کنید",
 			"the_minimum_allowed_charge_is_the_price_tomans": "حداقل شارژ مجاز {amount} تومان می باشد",
@@ -242,7 +246,8 @@
 			"successfully_joined_to_the_tournament": "عضویت در تورنومنت با موفقیت انجام شد",
 			"the_character_was_successfully_updated": "کاراکتر با موفقیت بروزرسانی شد",
 			"the_password_was_successfully_updated": "پسورد با موفقیت بروزرسانی شد",
-			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد"
+			"the_profile_was_successfully_updated": "پروفایل با موفقیت بروزرسانی شد",
+			"your_message_has_been_successfully_sent": "پیام شما با موفقیت ارسال شد"
 		}
 	},
 	"names": {},

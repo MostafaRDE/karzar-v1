@@ -18,13 +18,15 @@
 	},
 	"messages": {
 		"errors": {
+			"please_confirm_that_you_are_not_a_robot_first": "لطفا ابتدا ربات نبودن خود را تایید کنید",
 			"switch_error": "خطای سوییچ",
 			"the_account_balance_is_not_enough": "موجودی حساب کافی نمی باشد",
 			"the_card_is_not_available": "کارت قابل دسترسی نمی باشد",
 			"the_card_number_is_invalid": "شماره کارت نامعتبر می باشد",
 			"the_issuer_of_the_card_is_invalid": "صادر کننده ی کارت نامعتبر می باشد",
 			"the_number_of_requests_is_too_large": "تعداد درخواست ها بیش از حد مجاز می باشد",
-			"the_password_entered_is_incorrect": "رمز وارد شده اشتباه می باشد"
+			"the_password_entered_is_incorrect": "رمز وارد شده اشتباه می باشد",
+			"your_input_character_is_not_verified": "کاراکتر ورودی شما تایید نشده است"
 		},
 		"infos": {
 			"awaiting_payment": "در انتظار پرداخت",

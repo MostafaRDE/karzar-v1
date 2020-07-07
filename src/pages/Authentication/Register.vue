@@ -131,6 +131,10 @@
                         </span>
                     </div>
 
+                    <div class="mb-30 mt-10 d-flex justify-content-center">
+                        <vue-grecaptcha v-model="captcha"/>
+                    </div>
+
                     {{ /* Register(Submit) button */ }}
                     <div class="text-center">
                         <rs-button type="submit"
@@ -185,6 +189,8 @@
             // Form errors that back from "rs-form"-component
             formErrors: {},
 
+            captcha: null,
+
             // Fields of page
             fields: {
                 email: '',
@@ -225,8 +231,18 @@
                 return (this.formErrors.hasOwnProperty(key)) ? this.formErrors[key][0] : ''
             },
 
+            captcha: null,
+
             // Submit form after form validation (If is successful)
             submit() {
+                if (!this.captcha) {
+                    this.$toast.error({
+                        title: i18n.t('glossaries.recaptcha_approval'),
+                        message: i18n.t('messages.errors.please_confirm_that_you_are_not_a_robot_first'),
+                    });
+                    return;
+                }
+
                 if (!this.registering) {
                     // Clear form errors
                     this.setFormErrors({});
@@ -236,7 +252,7 @@
                     this.registering = true;
 
                     // Call "register" api method
-                    register(this.fields.email.trim(), this.fields.password, this.fields.mobileNumber.trim(), this.fields.playerId.trim(), this.fields.playerName.trim(), this.fields.referCode.trim())
+                    register(this.fields.email.trim(), this.fields.password, this.fields.mobileNumber.trim(), this.fields.playerId.trim(), this.fields.playerName.trim(), this.fields.referCode.trim(), this.captcha)
                         // If api is successful
                         .then(response => {
                             // Show toast successful
@@ -267,7 +283,8 @@
                         // Default actions after api execute
                         .finally(() => {
                             // Set "false" flag's loading in submit button & hide it
-                            this.registering = false
+                            this.registering = false;
+                            grecaptcha.reset();
                         })
                 }
             }

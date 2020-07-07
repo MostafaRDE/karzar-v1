@@ -39,6 +39,10 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger w-100 text-start d-block">{{ getInputError('email') }}</span>
 
+                    <div class="mb-30 mt-10 d-flex justify-content-center">
+                        <vue-grecaptcha v-model="captcha"/>
+                    </div>
+
                     {{ /* Login page link */ }}
                     <router-link :to="{name: 'login'}" class="text-info text-center mt-15 d-inline-block font-size-xs">
                         {{
@@ -95,6 +99,8 @@
             // Form errors that back from "rs-form"-component
             formErrors: {},
 
+            captcha: null,
+
             // Fields of page
             fields: {
                 email: '',
@@ -119,6 +125,14 @@
 
             // Submit form after form validation (If is successful)
             submit() {
+                if (!this.captcha) {
+                    this.$toast.error({
+                        title: i18n.t('glossaries.recaptcha_approval'),
+                        message: i18n.t('messages.errors.please_confirm_that_you_are_not_a_robot_first'),
+                    });
+                    return;
+                }
+
                 if (!this.resettingPassword) {
                     // Clear form errors
                     this.setFormErrors({});
@@ -128,7 +142,7 @@
                     this.resettingPassword = true;
 
                     // Call "get_devices_user" api method
-                    get_devices_user(this.fields.email)
+                    get_devices_user(this.fields.email, this.captcha)
                         // If api is successful
                         .then(response => {
                             // Store data in authentication module store of vuex
@@ -154,7 +168,8 @@
                         // Default actions after api execute
                         .finally(() => {
                             // Set "false" flag's loading in submit button & hide it
-                            this.resettingPassword = false
+                            this.resettingPassword = false;
+                            grecaptcha.reset();
                         })
 
                 }

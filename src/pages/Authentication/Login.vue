@@ -67,6 +67,10 @@
 
                     </div>
 
+                    <div class="mb-30 mt-10 d-flex justify-content-center">
+                        <vue-grecaptcha v-model="captcha"/>
+                    </div>
+
                     {{ /* Submit button */ }}
                     <div class="text-center">
                         <rs-button type="submit"
@@ -118,6 +122,8 @@
             // Form errors that back from "rs-form"-component
             formErrors: {},
 
+            captcha: null,
+
             // Fields of page
             fields: {
                 email: '',
@@ -144,6 +150,14 @@
 
             // Submit form after form validation (If is successful)
             submit() {
+                if (!this.captcha) {
+                    this.$toast.error({
+                        title: i18n.t('glossaries.recaptcha_approval'),
+                        message: i18n.t('messages.errors.please_confirm_that_you_are_not_a_robot_first'),
+                    });
+                    return;
+                }
+
                 if (!this.logging) {
                     // Clear form errors
                     this.setFormErrors({});
@@ -153,7 +167,7 @@
                     this.logging = true;
 
                     // Call "login" api method
-                    login(this.fields.email.trim(), this.fields.password)
+                    login(this.fields.email.trim(), this.fields.password, this.captcha)
                         // If api is successful
                         .then(response => {
                             // Show toast successful
@@ -182,7 +196,8 @@
                         // Default actions after api execute
                         .finally(() => {
                             // Set "false" flag's loading in submit button & hide it
-                            this.logging = false
+                            this.logging = false;
+                            grecaptcha.reset();
                         })
                 }
             },

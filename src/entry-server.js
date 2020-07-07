@@ -2,7 +2,7 @@ import {createApp} from "./app";
 
 export default context => {
     return new Promise((resolve, reject) => {
-        const { app , router , store } = createApp();
+        const { app , router , store , i18n } = createApp();
 
 
         store.state.user_auth = context.is_auth;
@@ -21,6 +21,8 @@ export default context => {
             context.lang = store.state.route.params.lang || 'fa';
             if (context.lang !== 'en' && context.lang !== 'fa')
                 context.lang = 'fa';
+
+            i18n.locale = context.lang;
 
             switch (context.lang) {
                 case 'af':

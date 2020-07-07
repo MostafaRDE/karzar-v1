@@ -40,5 +40,5 @@ export function createApp() {
         render : h => h(App)
     });
 
-    return {app , store , router};
+    return {app , store , router , i18n};
 }

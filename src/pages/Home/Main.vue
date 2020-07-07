@@ -255,7 +255,11 @@
                                       required></textarea>
                         </div>
 
-                        <div class="mt-10">
+                        <div class="my-10 d-flex justify-content-center">
+                            <vue-grecaptcha v-model="captcha"/>
+                        </div>
+
+                        <div>
                             <rs-button :loading="sendingContactMessage" class="text-uppercase w-100" solid glow>{{
                                 $t('glossaries.submit') }}
                             </rs-button>
@@ -366,6 +370,7 @@
             loadingTutorials: false,
             tutorials: [],
 
+            captcha: null,
             sendingContactMessage: false,
             contactFields: {
                 name: '',
@@ -378,10 +383,10 @@
             tabs () {
                 return [
                     {
-                        label: i18n.t('glossaries.games_played'),
+                        label: i18n.t('glossaries.executed_tournaments'),
                     },
                     {
-                        label: i18n.t('glossaries.your_games'),
+                        label: i18n.t('glossaries.your_tournaments'),
                         visibility: this.$store.state.user_auth,
                     },
                 ]
@@ -485,24 +490,33 @@
             },
 
             sendContactMessage() {
+                if (!this.captcha) {
+                    this.$toast.error({
+                        title: i18n.t('glossaries.recaptcha_approval'),
+                        message: i18n.t('messages.errors.please_confirm_that_you_are_not_a_robot_first'),
+                    });
+                    return;
+                }
+
                 if (!this.sendingContactMessage) {
                     this.sendingContactMessage = true;
-                    sendContactMessage(this.contactFields.name, this.contactFields.email, this.contactFields.content)
+                    sendContactMessage(this.contactFields.name, this.contactFields.email, this.contactFields.content, this.captcha)
                         .then(response => {
                             this.contactFields = {name: '', email: '', content: ''};
                             this.$toast.success({
-                                title: '',
-                                message: '',
+                                title: i18n.t('glossaries.contact_us'),
+                                message: i18n.t('glossaries.your_message_has_been_successfully_sent'),
                             })
                         })
                         .catch(error => {
                             this.$toast.error({
-                                title: '',
+                                title: i18n.t('glossaries.contact_us'),
                                 message: error.response.data.msg,
                             })
                         })
                         .finally(() => {
                             this.sendingContactMessage = false;
+                            grecaptcha.reset();
                         })
                 }
             },

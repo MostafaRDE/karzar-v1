@@ -78,6 +78,7 @@
 		"error_code": "Error code",
 		"error_code_with_colons": "Error code:",
 		"exchange": "Exchange",
+		"executed_tournaments": "Executed Tournaments",
 		"favorites": "Favorites",
 		"fee": "Fee",
 		"free": "Free",
@@ -135,6 +136,7 @@
 		"profile": "Profile",
 		"profile_update": "Profile Update",
 		"ready_for_a_great_battle": "Ready for a great battle?",
+		"recaptcha_approval": "Recaptcha Approval",
 		"receiver_name": "Receiver Name",
 		"refer_code": "Referral id",
 		"refer_code_optional": "Referral id (Optional)",
@@ -195,6 +197,7 @@
 		"your_name": "Your Name",
 		"your_pubg_account_level_must_be_at_least_30": "Your PUBG account level must be at least 30",
 		"your_team_bonus_of_this_game": "Your team bonus of this game",
+		"your_tournaments": "Your Tournaments",
 		"youtube_channel": "Youtube Channel",
 		"youtuber_name": "Youtuber name"
 	},
@@ -202,6 +205,7 @@
 		"err_empty_required_filed": "",
 		"errors": {
 			"log_in_failed": "Log In failed.",
+			"please_confirm_that_you_are_not_a_robot_first": "Please confirm that you are not a robot first",
 			"registration_failed": "Registration failed.",
 			"reset_password_failed": "Reset Password failed.",
 			"send_reset_password_link_to_failed": "Failed to send reset password link.",
@@ -245,7 +249,8 @@
 			"successfully_joined_to_the_tournament": "Successfully joined to the tournament",
 			"the_character_was_successfully_updated": "The character was successfully updated",
 			"the_password_was_successfully_updated": "The password was successfully updated",
-			"the_profile_was_successfully_updated": "The profile was successfully updated"
+			"the_profile_was_successfully_updated": "The profile was successfully updated",
+			"your_message_has_been_successfully_sent": "Your message has been successfully sent"
 		}
 	},
 	"names": {},

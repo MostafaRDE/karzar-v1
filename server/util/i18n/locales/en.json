@@ -18,13 +18,15 @@
 	},
 	"messages": {
 		"errors": {
+			"please_confirm_that_you_are_not_a_robot_first": "Please confirm that you are not a robot first",
 			"switch_error": "Switch Error",
 			"the_account_balance_is_not_enough": "The account balance is not enough",
 			"the_card_is_not_available": "The card is not available",
 			"the_card_number_is_invalid": "The card number is invalid",
 			"the_issuer_of_the_card_is_invalid": "The issuer of the card is invalid",
 			"the_number_of_requests_is_too_large": "The number of requests is too large",
-			"the_password_entered_is_incorrect": "The password entered is incorrect"
+			"the_password_entered_is_incorrect": "The password entered is incorrect",
+			"your_input_character_is_not_verified": "Your input character is not verified"
 		},
 		"infos": {
 			"awaiting_payment": "Awaiting Payment",

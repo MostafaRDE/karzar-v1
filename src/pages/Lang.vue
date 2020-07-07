@@ -8,20 +8,7 @@
 
         mounted() {
             const lang = this.$route.params.lang;
-
             document.querySelector("html").setAttribute('lang', lang);
-
-            if (lang === 'fa') {
-                this.$store.commit('setDirection', 'rtl')
-            } else {
-                this.$store.commit('setDirection', 'ltr')
-            }
-
-            switch (lang) {
-                case 'en':
-                case 'fa':
-                    this.$i18n.locale = lang;
-            }
         },
     }
 </script>

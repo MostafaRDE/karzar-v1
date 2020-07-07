@@ -73,7 +73,7 @@
                                 <img :src="player.image ? player.image.url_static : '/public/images/public/pubg-default-profile.svg'"
                                      alt=""
                                      class="w-100"/>
-                                <span class="position-absolute font-size-xxs"
+                                <span class="position-absolute font-size-xxs text-nowrap"
                                       style="padding: 0 4px; background: #000B; bottom: 1px; left: 1px; right: 1px;">{{ player.name }}</span>
                             </div>
                         </div>
@@ -111,7 +111,9 @@
                 pubgTournamentUsers: {
                     visibility: false,
                     stylesModal: {
-                        backgroundImage: 'linear-gradient(315deg, #292c2d 0%, #46545F 70%, #556978 100%)'
+                        backgroundImage: 'linear-gradient(315deg, #292c2d 0%, #46545F 70%, #556978 100%)',
+                        maxHeight: 'calc(100vh - 40px)',
+                        overflowY: 'scroll',
                     },
                     teams: [],
                 },

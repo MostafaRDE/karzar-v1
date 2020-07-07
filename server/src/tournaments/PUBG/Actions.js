@@ -242,7 +242,7 @@ class Actions {
     top10(days) {
         return new Promise((resolve, reject) => {
             let pubgCharacterModel = new PubgCharacterModel();
-            let query = `SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE pubg.characters.updated_at > NOW() - INTERVAL '${days} days'` : ''} ORDER BY killed_total DESC, pubg.characters.id ASC`;
+            let query = `SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) ${days ? `WHERE pubg.characters.updated_at > NOW() - INTERVAL '${days} days'` : ''} AND pubg.characters.status = '1' ORDER BY killed_total DESC, pubg.characters.id ASC`;
             pubgCharacterModel.fetch_all_custom(query, 1, 10)
                 .then(async res => {
                     for (let i = 0; i < res.result.length; i++) {
@@ -261,12 +261,17 @@ class Actions {
 
     enter(lang, id, userId, characterId) {
         return new Promise(async (resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
             let pubgTournamentModel = new PubgTournamentModel();
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
             let walletModel = new WalletModel();
             let walletTransactionModel = new WalletTransactionsModel();
             try {
-                pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_tournament_players WHERE tournament_id = '${id}'`).then(dt => {
+                pubgCharacterModel.fetch_one('status', ['id'], [characterId]).then(res => {
+
+                    if (res.status === 1) {
+
+                        pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_tournament_players WHERE tournament_id = '${id}'`).then(dt => {
 
                     if (dt.total > 0) {
                         if (dt.result[0].players.split(',').includes(`${userId}`)) {
@@ -412,6 +417,21 @@ class Actions {
                         msg: __('messages').internal_server_error
                     })
                 });
+
+                    } else {
+                        reject({
+                            status: false,
+                            msg: __('messages').errors.your_input_character_is_not_verified
+                        })
+                    }
+
+                }).catch(err => {
+                    console.error(err);
+                    reject({
+                        status: false,
+                        msg: __('messages').internal_server_error
+                    })
+                });
             } catch (e) {
                 console.error(e);
                 reject({
@@ -424,6 +444,7 @@ class Actions {
 
     enterMultiPlayer(lang, id, userId, characterIds) {
         return new Promise(async (resolve, reject) => {
+            let pubgCharacterModel = new PubgCharacterModel();
             let pubgTournamentModel = new PubgTournamentModel();
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
             let walletModel = new WalletModel();
@@ -431,7 +452,23 @@ class Actions {
             try {
 
                 let tempCharacterIds = [];
-                characterIds.forEach(characterName => tempCharacterIds.push(characterName));
+                characterIds.forEach(characterId => tempCharacterIds.push(characterId));
+
+                for (let i = 0; i < tempCharacterIds.length; i++) {
+                    try {
+                        pubgCharacterModel.fetch_one('status', ['id'], [tempCharacterIds[i]]).then(res => {
+                            let index = characterIds.indexOf(tempCharacterIds[i]);
+                            if (res.status !== 1) {
+                                characterIds.splice(index, 1)
+                            }
+                        });
+                    } catch (e) {
+                        console.error(e)
+                    }
+                }
+
+                tempCharacterIds = [];
+                characterIds.forEach(characterId => tempCharacterIds.push(characterId));
 
                 for (let i = 0; i < tempCharacterIds.length; i++) {
                     try {
@@ -443,7 +480,7 @@ class Actions {
                             }
                         }
                     } catch (e) {
-                        console.log(e)
+                        console.error(e)
                     }
                 }
 
