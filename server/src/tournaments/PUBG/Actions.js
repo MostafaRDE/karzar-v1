@@ -284,7 +284,6 @@ class Actions {
                     }
 
                     pubgTournamentPlayerModel.fetch_one('*', ['character_id', 'tournament_id'], [characterId, id]).then(async response => {
-
                         if (!response) {
                             let tour = await pubgTournamentModel.fetch_one('*', ['id'], [id]);
                             let wallet = await walletModel.fetch_one('*', ['user_id'], [userId]);
@@ -492,7 +491,7 @@ class Actions {
                     if (tour.group_capacity >= characterIds.length) {
 
                         // In below calculate capacity for registering
-                        pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_players_registered_count').then(data => {
+                        pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_players_registered_count WHERE tournament_id = '${id}'`).then(data => {
                             let playersRegisteredCount = undefined;
                             if (data.total)
                                 playersRegisteredCount = data.result[0].players_count;
@@ -518,7 +517,7 @@ class Actions {
                                             // In below calculate group player and other options of new players of the tournament
 
                                             if (playersRegisteredCount) {
-                                                pubgTournamentPlayerModel.fetch_all_custom('SELECT * FROM pubg.v_groups_count ORDER BY count DESC, group_number').then(data => {
+                                                pubgTournamentPlayerModel.fetch_all_custom(`SELECT * FROM pubg.v_groups_count WHERE tournament_id = '${id}' ORDER BY count DESC, group_number`).then(data => {
 
                                                     // get max group number created to now
                                                     let groupNumber = Math.max.apply(Math, data.result.map(group => group.group_number)),

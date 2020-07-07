@@ -283,9 +283,9 @@
                     <span>{{ $t('glossaries.no_players_found') }}</span>
                 </div>
 
-                <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10">
+                <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10 ltr">
                     <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
-                        <div class="team-title d-flex">
+                        <div class="team-title d-flex ltr">
                             <div class="d-flex">
                                 <span class="font-size-xs text-nowrap"
                                       style="padding: 2px 20px 1px 8px"
@@ -590,8 +590,8 @@
             storePlayers() {
                 if (this.isRunning) {
                     // console.log(this.model)
-                    // window.open(this.model.link, '_blank');
-                    window.open('https://www.instagram.com/karzar.pro', '_blank');
+                    window.open(this.model.link, '_blank');
+                    // window.open('https://www.instagram.com/karzar.pro', '_blank');
                     return;
                 }
 

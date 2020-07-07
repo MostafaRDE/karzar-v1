@@ -33,7 +33,7 @@
                 </span>
             </div>
             <div class="text-center text-xs-end">
-                <a class="w-fit-content" target="_blank" rel="nofollow" href="https://www.instagram.com/karzar.pro">
+                <a class="w-fit-content" target="_blank" rel="nofollow" :href="data.link">
                     {{ !isRunning ? $t('glossaries.watch') : $t('glossaries.live_preview') }}
                     &nbsp;<span class="d-inline-flex"><icon-play fill="#BBBBBB" width="16px" /></span>
                 </a>
@@ -57,9 +57,9 @@
                 <span>{{ $t('glossaries.no_players_found') }}</span>
             </div>
 
-            <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10">
+            <div v-if="!loadingPlayers && modals.pubgTournamentUsers.teams.length" class="row mt-20 px-10 ltr">
                 <div class="col-sm-6" v-for="(team, index) of modals.pubgTournamentUsers.teams">
-                    <div class="team-title d-flex">
+                    <div class="team-title d-flex ltr">
                         <div class="d-flex">
                                 <span class="font-size-xs text-nowrap"
                                       style="padding: 2px 20px 1px 8px; background: #ffffff0f">{{ `${$t('glossaries.team')} ${index + 1}` }}</span>
