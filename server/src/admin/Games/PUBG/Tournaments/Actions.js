@@ -1,4 +1,5 @@
 const {PubgCharacterModel, PubgMapModel, PubgTournamentModel, PubgTournamentPlayerModel, PubgTournamentWinnerModel} = require('./../../../../../Models/PubgModel');
+const {WalletModel, WalletTransactionsModel} = require("../../../../../Models/WalletModel");
 const mediaGetFile = require('../../../../../util/media').getFile;
 const getTranslates = require('../../../../../util/glossary').getTranslates;
 const translate = require('../../../../../util/glossary').translate;
@@ -146,14 +147,48 @@ class PubgTournamentsActions {
 
     setWinnerTeam(id, groupNumber) {
         return new Promise(async (resolve, reject) => {
+            let walletModel = new WalletModel();
+            let walletTransactionsModel = new WalletTransactionsModel();
+            let pubgTournamentModel = new PubgTournamentModel();
             let pubgTournamentWinnerModel = new PubgTournamentWinnerModel();
-
+            let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
+            pubgTournamentModel.fetch_one('reward_value_type, reward_value').then(({reward_value_type, reward_value}) => {
+                if (reward_value_type === 0) {
+                    reward_value = parseFloat(reward_value);
+                    pubgTournamentPlayerModel.fetch_all('user_id', ['tournament_id', 'group_number'], [id, groupNumber]).then(async res => {
+                        reward_value = Math.floor(reward_value / res.result.length);
+                        try {
+                            for (let i = 0; i < res.result.length; i++) {
+                                let user_id = res.result[i].user_id;
+                                let resWallet = await walletModel.fetch_one('id, amount', ['user_id'], [1]);
+                                await walletModel.update(['amount'], [resWallet.amount + reward_value], ['id'], [1])
+                                await walletTransactionsModel.insertSync(['amount', 'type', 'in_order_to', 'wallet_id'], [reward_value, 'INCREASE', 'REWARD_FOR_TO_TAKE_IN_TOURNAMENT', 1])
+                            }
+                            resolve({status: true})
+                        } catch (e) {
+                            console.error(e);
+                            reject({status: false})
+                        }
+                    }).catch(err => {
+                        console.error(err)
+                        reject({status: false})
+                    });
+                }
+            }).catch(err => {
+                console.error(err)
+                reject({status: false})
+            });
+            return
             pubgTournamentWinnerModel.fetch_one('*', ['tournament_id'], [id]).then(data => {
                 if (!data) {
                     pubgTournamentWinnerModel.insertSync(
                         ['tournament_id', 'group_number'],
                         [id, groupNumber], 'tournament_id, group_number').then(async data => {
-                        resolve({status: true})
+                        pubgTournamentPlayerModel.fetch_all('character_id', ['tournament_id', 'group_number'], [id, groupNumber]).then(res => {
+                            console.log(res)
+                        }).catch(error => {
+                            reject({status: false})
+                        });
                     }).catch(error => {
                         reject({status: false})
                     });

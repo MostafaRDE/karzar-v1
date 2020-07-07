@@ -360,6 +360,7 @@
 		"transactions": {
 			"account_charging": "شارژ حساب",
 			"join_to_tournament": "عضویت در تورنومنت",
+			"reward_for_to_take_in_tournament": "جایزه برای شرکت در مسابقه",
 			"withdraw_from_account": "برداشت از حساب"
 		}
 	},

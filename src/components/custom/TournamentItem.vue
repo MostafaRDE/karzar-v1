@@ -33,7 +33,7 @@
                 </span>
             </div>
             <div class="text-center text-xs-end">
-                <a class="w-fit-content" target="_blank" :href="data.youtube_link">
+                <a class="w-fit-content" target="_blank" rel="nofollow" href="https://www.instagram.com/karzar.pro">
                     {{ !isRunning ? $t('glossaries.watch') : $t('glossaries.live_preview') }}
                     &nbsp;<span class="d-inline-flex"><icon-play fill="#BBBBBB" width="16px"/></span>
                 </a>

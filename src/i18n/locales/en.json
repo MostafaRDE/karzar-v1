@@ -366,6 +366,7 @@
 		"transactions": {
 			"account_charging": "Account charging",
 			"join_to_tournament": "Join to tournament",
+			"reward_for_to_take_in_tournament": "Reward for to take in tournament",
 			"withdraw_from_account": "Withdraw from account"
 		}
 	},
