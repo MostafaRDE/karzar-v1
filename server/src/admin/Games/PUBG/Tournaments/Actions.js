@@ -160,9 +160,9 @@ class PubgTournamentsActions {
                         try {
                             for (let i = 0; i < res.result.length; i++) {
                                 let user_id = res.result[i].user_id;
-                                let resWallet = await walletModel.fetch_one('id, amount', ['user_id'], [1]);
-                                await walletModel.update(['amount'], [resWallet.amount + reward_value], ['id'], [1])
-                                await walletTransactionsModel.insertSync(['amount', 'type', 'in_order_to', 'wallet_id'], [reward_value, 'INCREASE', 'REWARD_FOR_TO_TAKE_IN_TOURNAMENT', 1])
+                                let resWallet = await walletModel.fetch_one('id, amount', ['user_id'], [user_id]);
+                                await walletModel.update(['amount'], [resWallet.amount + reward_value], ['id'], [resWallet.id])
+                                await walletTransactionsModel.insertSync(['amount', 'type', 'in_order_to', 'wallet_id'], [reward_value, 'INCREASE', 'REWARD_FOR_TO_TAKE_IN_TOURNAMENT', resWallet.id])
                             }
                             resolve({status: true})
                         } catch (e) {
