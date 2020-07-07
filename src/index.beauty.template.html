@@ -8,21 +8,45 @@
         <link rel="icon" href="/public/favicon.ico" />
         <link rel="alternate" hreflang="x-default" href="https://www.karzar.pro/fa" />
         <link rel="alternate" hreflang="en-US" href="https://www.karzar.pro/en" />
+
         <meta name="google-site-verification" content="sPN9UC5b5UNB7APGOLik_WozCRJIQm2-MaiLyDdu_70" />
         <link rel="stylesheet" href="/public/css/index.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap" />
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163312526-2"></script>
-        <script>window.dataLayer = window.dataLayer || [];
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+            function gtag() {
+                dataLayer.push(arguments);
+            }
 
-        gtag('js', new Date());
-        gtag('config', 'UA-163312526-2');</script>
+            gtag('js', new Date());
+            gtag('config', 'UA-163312526-2');
+        </script>
+
         <script src="https://www.google.com/recaptcha/api.js?render=explicit&hl={{lang}}" async defer></script>
+
+        <!--BEGIN RAYCHAT CODE-->
+        <script type="text/javascript">
+            !function () {
+                function t() {
+                    var t = document.createElement("script");
+                    t.type = "text/javascript", t.async = !0, localStorage.getItem("rayToken") ? t.src = "https://app.raychat.io/scripts/js/" + o + "?rid=" + localStorage.getItem("rayToken") + "&href=" + window.location.href : t.src = "https://app.raychat.io/scripts/js/" + o;
+                    var e = document.getElementsByTagName("script")[0];
+                    e.parentNode.insertBefore(t, e)
+                }
+
+                var e = document, a = window, o = "8d4d6742-0f02-4817-b8c4-fe94fb5941c3";
+                "complete" == e.readyState ? t() : a.attachEvent ? a.attachEvent("onload", t) : a.addEventListener("load", t, !1)
+            }();
+        </script>
+        <!--END RAYCHAT CODE-->
     </head>
-    <body><!--vue-ssr-outlet--></body>
+
+    <body>
+        <!--vue-ssr-outlet-->
+    </body>
 </html>
