@@ -184,7 +184,10 @@ class PubgTournamentsActions {
                             }
                         }).catch(err => {
                             console.error(err);
-                            reject({status: false})
+                            reject({
+                                status: false,
+                                msg: 'خطا در تقسیم جایزه'
+                            })
                         });
                     }).catch(error => {
                         reject({status: false})

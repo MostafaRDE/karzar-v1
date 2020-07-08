@@ -7,7 +7,7 @@
 
         <div class="col-xs-6 col-md-5 mt-20 mt-md-0 m-0 d-flex flex-direction-column justify-content-space-between align-items-flex-start">
             <div class="w-100 text-center text-xs-start">
-                <span>{{ $t('glossaries.your_team_bonus_of_this_game') }}: <span class="text-white">{{ data.reward_value }}{{ rewardValueType(data.reward_value_type) }}</span></span>
+                <span>{{ $t('glossaries.your_team_bonus_of_this_game') }}: <span class="text-white">{{ data.reward_value }} {{ rewardValueType(data.reward_value_type) }}</span></span>
             </div>
             <div class="w-100 text-center text-xs-start">
                 <h3 class="text-white">{{ data.title }}</h3>
@@ -133,7 +133,7 @@
                 switch (type) {
                     // Dollar currency
                     case 0:
-                        return '$';
+                        return 'تومان';
 
                     // String
                     case 1:
