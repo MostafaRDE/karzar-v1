@@ -18,6 +18,11 @@
 
                     <div class="mt-10">
                         <ul>
+                            <li class="d-inline-flex align-items-center me-20">
+                                <a href="https://www.aparat.com/karzar.pro" class="d-inline-flex" target="_blank" rel="nofollow" title="Aparat">
+                                    <icon-aparat size="16px"/>
+                                </a>
+                            </li>
                             <li v-for="(item, index) of socialNetworks" class="d-inline-flex" :class="[index + 1 < socialNetworks.length ? 'me-25' : '']">
                                 <a :href="item.to" target="_blank" rel="nofollow" :title="item.label"><i
                                         :class="item.icon"/></a>
@@ -43,6 +48,7 @@
         title: () => i18n.t('glossaries.about'),
 
         components: {
+            'icon-aparat': () => import('../../components/icons/IconAparat.vue'),
             'title-span': () => import('../../components/svg/TitleSpan.vue'),
         },
 
@@ -57,11 +63,11 @@
                 boxShadow: '#0005 15px 15px 21px 0',
             },
             socialNetworks: [
-                {
-                    icon: 'fab fa-facebook',
-                    label: 'Facebook',
-                    to: 'https://www.facebook.com/karzar_pro',
-                },
+                // {
+                //     icon: 'fab fa-facebook',
+                //     label: 'Facebook',
+                //     to: 'https://www.facebook.com/karzar_pro',
+                // },
                 {
                     icon: 'fab fa-instagram',
                     label: 'Instagram',

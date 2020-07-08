@@ -72,6 +72,7 @@
 		"email_address": "Email Address",
 		"english": "English",
 		"enter_the_tournament": "Enter the Tournament",
+		"enter_the_tournament_telegram_group": "Enter the tournament telegram group",
 		"enter_your_country_for_withdrawal_from_your_currency_account": "Enter your country for withdrawal from your currency account",
 		"enter_your_country_to_recharge_your_currency_account": "Enter your country to recharge your currency account",
 		"enter_your_id": "Enter your id",
@@ -169,6 +170,7 @@
 		"top_10_players": "Top 10 Players",
 		"total": "Total",
 		"tournament_players": "Tournament Players",
+		"tournament_telegram_group": "Tournament Telegram Group",
 		"tournaments": "Tournaments",
 		"tournaments_executor": "Tournaments Executor",
 		"trade": "Trade",
@@ -217,7 +219,13 @@
 		"infos": {
 			"after_downloading_the_counter_strike_unzip_it_then_open_the_anti_chit_software_and_then_enter_the_game_counter_strike": "After downloading the Counter-Strike, unzip it, then open the anti-chit software and then enter the game Counter-Strike.",
 			"enter_the_find_server_section_and_click_the_favorites_button_then_click_add_server_at_the_bottom_of_the_page_then_enter_our_server_ip_and_click_ok_and_enter_the_server": "Enter the Find Server section and click the Favorites button, then click Add Server at the bottom of the page. Then enter our server IP and click OK and enter the server.",
-			"first_download_counter_strike_1_6_via_the_link_below": "First, download Counter-Strike 1.6 via the link below"
+			"first_download_counter_strike_1_6_via_the_link_below": "First, download Counter-Strike 1.6 via the link below",
+			"i_am_now_a_member_of_the_tournament_s_telegram_group": "I am now a member of the tournament's Telegram group"
+		},
+		"modals": {
+			"tournaments": {
+				"group_joining": "After participating in the tournament, the participants of the tournament must enter our telegram group through the link that we put on the tournament membership page for them so that we can have more coordination during the start of the tournament.\nFriends who are not members of the group, we have no responsibility to keep them out of the tournament."
+			}
 		},
 		"no_orders": "No orders",
 		"no_orders_registered_in_the_last_24_hours": "No orders registered in the last 24 hours",

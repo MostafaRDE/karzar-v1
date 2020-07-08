@@ -111,19 +111,25 @@
                                                 </rs-input>
                                             </div>
                                             <div class="mt-20 d-flex align-items-center">
-                                                <span class="d-inline-flex cursor-pointer pe-10"
-                                                      @click="showPlayersModal">
-                                                    <icon-multiple-users fill="#BBBBBB" width="35px"/>
-                                                </span>
-                                                <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ps-15 border-start">
-                                                    <template v-if="$store.state.user_auth">
-                                                        <span>{{ $t('glossaries.room') }}: {{ room }}</span>
-                                                        <span>{{ $t('glossaries.password') }}: {{ password }}</span>
-                                                    </template>
-                                                    <template v-else>
-                                                        <span>{{ $t('glossaries.room') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
-                                                        <span>{{ $t('glossaries.password') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
-                                                    </template>
+                                                <div class="row">
+                                                    <div class="col-sm mb-10 mb-sm-10 pe-0 ps-0 d-inline-flex align-items-center">
+
+                                                        <span class="d-inline-flex cursor-pointer pe-10"
+                                                              @click="showPlayersModal">
+                                                            <icon-multiple-users fill="#BBBBBB" width="35px"/>
+                                                        </span>
+                                                        <div v-if="!model.is_joined && !isRunning" class="d-inline-flex flex-direction-column ps-15 border-start">
+                                                            <template v-if="$store.state.user_auth">
+                                                                <span>{{ $t('glossaries.room') }}: {{ room }}</span>
+                                                                <span>{{ $t('glossaries.password') }}: {{ password }}</span>
+                                                            </template>
+                                                            <template v-else>
+                                                                <span>{{ $t('glossaries.room') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                                <span>{{ $t('glossaries.password') }}: <router-link :to="{name: 'login', params: {lang: $route.params.lang}}">{{ $t('glossaries.login') }}</router-link></span>
+                                                            </template>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div v-if="model.is_joined || isRunning" class="d-inline-flex flex-direction-column mt-20">
@@ -241,7 +247,28 @@
                             {{ /* End tournament multiple form */ }}
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
-                                <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 || (width >= 1024 && (!model.is_joined && !isRunning)) ? 'w-fit-content' : 'w-100', {'flex-direction-column': width <= 425}]">
+                                <rs-button v-if="model.is_joined && width < 1024"
+                                           transparent glow
+                                           class="text-nowrap w-100"
+                                           @click.native="gotoTelegramGroup">
+                                    {{ $t('glossaries.enter_the_tournament_telegram_group') }}
+                                </rs-button>
+                                <div class="flex-grow-1 d-flex ms-auto border-top" :class="[width >= 1024 || (width >= 1024 && (!model.is_joined && !isRunning)) ? 'w-fit-content' : 'w-100', {'flex-direction-column': width <= 425}]">
+                                    <rs-button v-if="model.is_joined && width >= 1024 && width < 1200"
+                                               transparent glow
+                                               class="text-nowrap font-size-sm px-20"
+                                               @click.native="gotoTelegramGroup">
+                                        <span class="d-flex" style="font-size: 20px;">
+                                            <i class="fab fa-telegram"></i>
+                                        </span>
+                                    </rs-button>
+                                    <rs-button v-if="model.is_joined && width >= 1200"
+                                               transparent glow
+                                               class="text-nowrap font-size-sm"
+                                               :class="width < 1400 ? 'px-10' : 'px-30'"
+                                               @click.native="gotoTelegramGroup">
+                                        <span :style="{fontSize: width < 1400 ? '12px' : '14px'}">{{ $t('glossaries.enter_the_tournament_telegram_group') }}</span>
+                                    </rs-button>
                                     <rs-button v-if="!model.is_joined && !isRunning"
                                                transparent glow
                                                class="text-nowrap"
@@ -310,6 +337,19 @@
             </rs-modal>
             {{ /* End tournament reservation panel */ }}
 
+            <rs-modal classModel="p-20 text-center text-white"
+                      v-model="modals.groupJoining.visibility">
+                <h4 class="mb-20 text-center">{{ $t('glossaries.tournament_telegram_group') }}</h4>
+                <p class="text-justify mb-30">{{ $t('messages.modals.tournaments.group_joining') }}</p>
+
+                <rs-button glow solid @click.native="gotoTelegramGroup">
+                    <span v-if="width >= 680" class="d-inline-flex me-10">
+                        <i class="fab fa-telegram"></i>
+                    </span>
+                    <span>{{ $t('messages.infos.i_am_now_a_member_of_the_tournament_s_telegram_group') }}</span>
+                </rs-button>
+            </rs-modal>
+
         </div>
     </div>
 </template>
@@ -358,6 +398,9 @@
                     },
                     teams: [],
                 },
+                groupJoining: {
+                    visibility: false,
+                }
             },
 
 
@@ -444,6 +487,10 @@
                     case 2:
                         return ' UC';
                 }
+            },
+
+            gotoTelegramGroup() {
+                window.open(this.model.group_link, '_blank')
             },
 
             isMyTeam(team) {
@@ -658,7 +705,8 @@
 
                                 this.reservationType = 'SINGLE';
                                 this.$store.dispatch('getBalance');
-                                this.$emit('refresh', true)
+                                this.$emit('refresh', true);
+                                this.modals.groupJoining.visibility = true
                             })
                             .catch(error => {
                                 this.$toast.error({
