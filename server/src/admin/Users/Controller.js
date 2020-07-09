@@ -42,6 +42,30 @@ module.exports = {
             response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
         }
     },
+    getBalance(request, response) {
+        if (authorize('users.show', request.user_data)) {
+            let actions = new Actions();
+            actions.getBalance(request.params.id).then(data => {
+                response.json(data)
+            }).catch(error => {
+                response.send(error)
+            })
+        } else {
+            response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
+        }
+    },
+    getCharacters(request, response) {
+        if (authorize('users.show', request.user_data)) {
+            let actions = new Actions();
+            actions.getCharacters(request.params.id, request.query.page, request.query.size).then(data => {
+                response.json(data)
+            }).catch(error => {
+                response.send(error)
+            })
+        } else {
+            response.status(403).json({status: false, msg: __('messages').you_have_not_access_to_this_section})
+        }
+    },
     update(request, response) {
         if (authorize('users.update', request.user_data)) {
             let actions = new Actions(),
@@ -67,9 +91,7 @@ module.exports = {
             } else {
                 actions.update(
                     request.params.id,
-                    request.body.name,
-                    request.body.email,
-                    request.body.mobile_number
+                    request.body
                 ).then(res => response.json(res)).catch(err => response.send(err))
             }
         } else {

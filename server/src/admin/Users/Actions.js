@@ -1,3 +1,4 @@
+const {PubgCharacterModel} = require('../../../Models/PubgModel.js');
 const {UserModel} = require('../../../Models/UserModel.js');
 const {WalletModel} = require('../../../Models/WalletModel.js');
 const bcrypt = require("bcrypt");
@@ -84,17 +85,107 @@ class Actions {
             let model = new UserModel();
             model.fetch_one('*', ['id'], [id]).then(async data => {
                 data.password = undefined;
+
+                if (data.media_id)
+                    data['profile_image'] = await mediaGetFile(data.media_id);
+
                 resolve(data)
-            }).catch(reject)
+            }).catch(e => {
+                console.error(e);
+                reject(e)
+            })
         })
     }
 
-    update(id, name, email, mobile_number, media_id = null) {
+    getBalance(id) {
+        return new Promise((resolve, reject) => {
+            let model = new WalletModel();
+            model.fetch_one('*', ['user_id'], [id]).then(data => {
+                data = {
+                    amount: data.amount,
+                };
+                resolve(data)
+            }).catch(e => {
+                console.error(e);
+                reject(e)
+            })
+        })
+    }
+
+    getCharacters(id, page, itemsPerPage) {
+        return new Promise((resolve, reject) => {
+            let model = new PubgCharacterModel();
+            model.fetch_all('*', ['user_id'], [id], undefined, undefined, page, itemsPerPage, 'id DESC').then(data => {
+                resolve(data)
+            }).catch(e => {
+                console.error(e);
+                reject(e)
+            })
+        })
+    }
+
+    update(id, {name, description, email, email_verified_at, mobile_number, mobile_number_verified_at, blocked_at, media_id}) {
         return new Promise(async (resolve, reject) => {
             let model = new UserModel();
-            model.update(media_id ? ['name', 'email', 'mobile_number', 'media_id'] : ['name', 'email', 'mobile_number'], media_id ? [name, email, mobile_number, media_id] : [name, email, mobile_number], ['id'], [id]).then(data => {
+            let keys = [], values = [];
+            if (name) {
+                keys.push('name');
+                values.push(name);
+            }
+            if (typeof description !== 'undefined') {
+                if (description !== '') {
+                    keys.push('description');
+                    values.push(description);
+                } else {
+                    keys.push('description');
+                    values.push(null);
+                }
+            }
+            if (email) {
+                keys.push('email');
+                values.push(email);
+            }
+            if (typeof email_verified_at !== 'undefined') {
+                if (email_verified_at === 'true') {
+                    keys.push('email_verified_at');
+                    values.push('now()');
+                } else {
+                    keys.push('email_verified_at');
+                    values.push(null);
+                }
+            }
+            if (mobile_number) {
+                keys.push('mobile_number');
+                values.push(mobile_number);
+            }
+            if (typeof mobile_number_verified_at !== 'undefined') {
+                if (mobile_number_verified_at === 'true') {
+                    keys.push('mobile_number_verified_at');
+                    values.push('now()');
+                } else {
+                    keys.push('mobile_number_verified_at');
+                    values.push(null);
+                }
+            }
+            if (typeof blocked_at !== 'undefined') {
+                if (blocked_at === 'true') {
+                    keys.push('blocked_at');
+                    values.push('now()');
+                } else {
+                    keys.push('blocked_at');
+                    values.push(null);
+                }
+            }
+            if (media_id) {
+                keys.push('media_id');
+                values.push(media_id);
+            }
+
+            console.log(keys, values)
+            model.update(keys, values, ['id'], [id]).then(data => {
                 return resolve({status: true});
             }).catch(error => {
+                console.error(error);
                 reject({status: false})
             })
         });

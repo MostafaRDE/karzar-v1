@@ -35,6 +35,8 @@ const UsersController = require('./Users/Controller');
 router.get('/users', adminMiddleware.check_jwt, UsersController.index);
 router.post('/users', adminMiddleware.check_jwt, UsersController.store);
 router.get('/users/:id', adminMiddleware.check_jwt, UsersController.show);
+router.get('/users/:id/balance', adminMiddleware.check_jwt, UsersController.getBalance);
+router.get('/users/:id/characters', adminMiddleware.check_jwt, UsersController.getCharacters);
 router.put('/users/:id', adminMiddleware.check_jwt, Storage.array('image'), UsersController.update);
 router.delete('/users/:id/block', adminMiddleware.check_jwt, UsersController.block);
 router.post('/users/:id/unblock', adminMiddleware.check_jwt, UsersController.unblock);
@@ -125,6 +127,13 @@ router.get('/tutorials', adminMiddleware.check_jwt, adminMiddleware.check_roles(
 router.post('/tutorials', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), TutorialsController.store);
 router.put('/tutorials/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), Storage.array('image'), TutorialsController.update);
 router.delete('/tutorials/:id', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), TutorialsController.destroy);
+
+// </editor-fold>
+
+// <editor-fold desc="ContactUs">
+
+const ContactUsController = require('./ContactUs/Controller');
+router.get('/contact-us', adminMiddleware.check_jwt, adminMiddleware.check_roles(['SUPER_ADMIN', 'EXECUTOR']), ContactUsController.index);
 
 // </editor-fold>
 

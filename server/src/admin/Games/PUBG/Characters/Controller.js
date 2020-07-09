@@ -6,7 +6,7 @@ module.exports = {
         actions.index(req.query.page, req.query.size, req.query.status).then(data => {
             res.json(data)
         }).catch(error => {
-            res.send(error)
+            res.status(500).send(error)
         })
     },
 
@@ -15,7 +15,7 @@ module.exports = {
         actions.updateStatus(req.params.id, req.body.status, req.body.status_reason).then(data => {
             res.json(data)
         }).catch(error => {
-            res.send(error)
+            res.status(500).send(error)
         })
     }
 };

@@ -22,11 +22,11 @@ module.exports = (app) => {
 
     passport.deserializeUser((id, done) => {
         let userModel = new UserModel();
-        userModel.fetch_one('id , email , name , mobile_number' , ['id'] , [id])
+        userModel.fetch_one('id , email , name , mobile_number , blocked_at' , ['id'] , [id])
         .then(data => {
-            if (data) {
+            if (data && !data.blocked_at) {
                 return done(null, data);
-            }else {
+            } else {
                 return done(null, false)
             }
         })

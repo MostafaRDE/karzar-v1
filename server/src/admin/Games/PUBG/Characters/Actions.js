@@ -25,7 +25,7 @@ class CharacterActions {
             }
             pubgCharacterModel.fetch_all('characters.*, users.name as owner_name, users.email', where, whereValue, undefined, [
                 {type: 'INNER', alias: 'users', parent: 'user_id', child: 'id'}
-            ], page, size, 'id DESC, status').then(data => {
+            ], page, size, 'created_at DESC, status').then(data => {
                 resolve(data)
             }).catch(reject)
         })

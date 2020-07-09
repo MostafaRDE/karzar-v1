@@ -21,16 +21,20 @@ class Actions {
     loginToAccount(email, password) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
-            userModel.fetch_one('id , email , name , password , email_verified_at , mobile_number', ['email'], [email])
+            userModel.fetch_one('id , email , name , password , email_verified_at , mobile_number , blocked_at', ['email'], [email])
                 .then(data => {
                     if (data) {
-                        bcrypt.compare(password, data.password, function (err, check) {
-                            if (check) {
-                                return resolve({status: true, data: {id: data.id}})
-                            } else {
-                                return resolve({status: false, msg: __('messages').err_email_or_password_invalid});
-                            }
-                        })
+                        if (data.blocked_at) {
+                            return resolve({status: false, msg: __('messages').your_account_is_blocked});
+                        } else {
+                            bcrypt.compare(password, data.password, function (err, check) {
+                                if (check) {
+                                    return resolve({status: true, data: {id: data.id}})
+                                } else {
+                                    return resolve({status: false, msg: __('messages').err_email_or_password_invalid});
+                                }
+                            })
+                        }
                     } else {
                         return resolve({status: false, msg: __('messages').err_email_or_password_invalid});
                     }
@@ -381,8 +385,13 @@ class Actions {
     removeAccount() {
         return new Promise(async (resolve, reject) => {
             let userModel = new UserModel();
-            await userModel.delete([{name: 'id', type: '>', sample: '%s'}], [0]);
-            resolve();
+            try {
+                await userModel.delete([{name: 'id', type: '>', sample: '%s'}], [0]);
+                resolve();
+            } catch (e) {
+                console.error(e);
+                reject();
+            }
         });
     }
 

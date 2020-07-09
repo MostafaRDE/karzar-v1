@@ -48,11 +48,11 @@ module.exports = {
                         return res.status(200).json({status: true});
                     }
                 } else {
-                    return res.status(422).json({error: -422, msg: data.msg})
+                    return res.status(422).json({error: 422, msg: data.msg})
                 }
             })
             .catch(() => {
-                return res.status(500).json({error: -500})
+                return res.status(500).json({error: 500})
             });
     },
 
@@ -87,7 +87,7 @@ module.exports = {
                 }
             })
             .catch(() => {
-                return res.status(500).json({error: -500, msg: "Internal Server Error"});
+                return res.status(500).json({error: 500, msg: "Internal Server Error"});
             });
     },
 
@@ -101,11 +101,11 @@ module.exports = {
      */
     async loginToAccount(request, response, next) {
         if (!request.body.email || !request.body.password) {
-            return response.status(400).json({error: -400, msg: __('messages').err_empty_required_filed});
+            return response.status(400).json({error: 400, msg: __('messages').err_empty_required_filed});
         }
 
         if (!validator.isEmail(request.body.email)) {
-            return response.status(400).json({error: -400, msg: __('messages').err_email_filed});
+            return response.status(400).json({error: 400, msg: __('messages').err_email_filed});
         }
 
         let {email, password} = request.body;
@@ -136,12 +136,12 @@ module.exports = {
                     next();
 
                 } else {
-                    return response.status(422).json({error: -422, msg: data.msg});
+                    return response.status(422).json({error: 422, msg: data.msg});
                 }
             })
             .catch(err => {
                 console.log('error', err);
-                return response.status(500).json({error: -500, msg: "Internal Server Error"});
+                return response.status(500).json({error: 500, msg: "Internal Server Error"});
             });
     },
 
