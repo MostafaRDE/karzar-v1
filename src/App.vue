@@ -5,10 +5,10 @@
         <div>
             <audio src="/public/musics/pubg-theme-song-2scratch-trap-remix.mp3" loop hidden preload="metadata" ref="bgAudio"></audio>
 
-            <rs-button class="position-fixed start-0 z-index-100 p-0" styleInner="background: #fff" id="bg-main-audio-button">
+            <rs-button class="position-fixed end-0 z-index-100 p-0" styleInner="background: #fff" id="bg-main-audio-button">
                 <i @click="toggleAudio" class="fas p-15" :class="[`fa-${audioStatus === 'PAUSE' ? 'play' : 'pause'}`]"></i>
             </rs-button>
-            <rs-button class="position-fixed start-0 z-index-100 p-0" id="bg-main-telegram-button">
+            <rs-button class="position-fixed end-0 z-index-100 p-0" id="bg-main-telegram-button">
                 <a target="_blank" href="https://t.me/karzar_official" rel="nofollow" class="text-white d-flex">
                     <icon-telegram style="margin: 10px"/>
                 </a>

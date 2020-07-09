@@ -51,7 +51,7 @@
                     <span class="text-danger">{{ getInputError('password') }}</span>
 
 
-                    <div class="mb-30 mt-10 d-flex">
+                    <div class="my-30 d-flex flex-direction-column align-items-center">
 
                         {{ /* Link for goto "ResetPassword"-page for user lost it password */ }}
                         <router-link :to="{name: 'resetPassword'}" class="text-info font-size-xs">{{
@@ -59,7 +59,7 @@
                         </router-link>
 
                         {{ /* Link for goto "Register"-page for user not on the site */ }}
-                        <span class="font-size-xs ms-auto">
+                        <span class="font-size-xs mt-10">
                             {{ $t('questions.not_on_the_site_yet', { site_name: siteName }) }} <router-link
                                     :to="{name: 'register'}"
                                     class="text-info font-size-xs">{{ $t('glossaries.register') }}</router-link>

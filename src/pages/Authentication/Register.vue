@@ -138,7 +138,7 @@
                     {{ /* Register(Submit) button */ }}
                     <div class="text-center">
                         <rs-button type="submit"
-                                   class="btn m-0 w-40"
+                                   class="btn m-0 w-40 text-nowrap"
                                    solid
                                    glow
                                    :loading="registering">
