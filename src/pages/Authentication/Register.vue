@@ -41,9 +41,9 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('email') }}</span>
 
+                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.enter_your_desired_password__no_need_for_a_gmail_password') }}</span>
                     {{ /* Password input */ }}
                     <rs-input type="password"
-                              class="mt-20"
                               inputClass="font-size-md"
                               :label="$t('glossaries.password')"
                               name="password"
