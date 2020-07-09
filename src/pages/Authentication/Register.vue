@@ -75,7 +75,7 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('mobileNumber') }}</span>
 
-                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>
+                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>
                     {{ /* Player ID input */ }}
                     <rs-input type="text"
                               inputClass="font-size-md"
@@ -86,10 +86,9 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('playerId') }}</span>
 
-                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct') }}</span>
+                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct') }}</span>
                     {{ /* Player Name input */ }}
                     <rs-input type="text"
-                              class="mt-20"
                               inputClass="font-size-md"
                               :label="$t('glossaries.player_name')"
                               name="playerName"
