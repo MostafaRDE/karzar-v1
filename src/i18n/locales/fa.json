@@ -196,6 +196,7 @@
 		"your_games": "بازی های شما",
 		"your_message": "پیام شما",
 		"your_name": "نام شما",
+		"your_pubg_account_level_must_be_at_least_20": "لول حساب پابجی شما حداقل باید ۲۰ باشد",
 		"your_pubg_account_level_must_be_at_least_30": "لول حساب پابجی شما حداقل باید ۳۰ باشد",
 		"your_team_bonus_of_this_game": "جایزه تیم شما از این بازی",
 		"your_tournaments": "تورنومنت های شما",
@@ -218,7 +219,8 @@
 			"after_downloading_the_counter_strike_unzip_it_then_open_the_anti_chit_software_and_then_enter_the_game_counter_strike": "پس از دانلود کانتر از حالت فشرده خارج کنید سپس نرم افزار آنتی چیت را باز کرده و سپس وارد بازی کانتر استریک شوید.",
 			"enter_the_find_server_section_and_click_the_favorites_button_then_click_add_server_at_the_bottom_of_the_page_then_enter_our_server_ip_and_click_ok_and_enter_the_server": "وارد قسمت سرور (Find Server) شوید و بر روی دکمه Favorites کلیک کنید و سپس در پایین همان صفحه، بر روی Add Server کلیک کنید. سپس آیپی سرور ما را وارد کنید و OK را بزنید و وارد سرور شوید.",
 			"first_download_counter_strike_1_6_via_the_link_below": "ابتدا بازی کانتر استریک ۱.۶ را از طریق لینک زیر دانلود کنید",
-			"i_am_now_a_member_of_the_tournament_s_telegram_group": "الان عضو گروه تلگرامی تورنومنت میشم"
+			"i_am_now_a_member_of_the_tournament_s_telegram_group": "الان عضو گروه تلگرامی تورنومنت میشم",
+			"your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct": "آی دی و نام کاراکتر شما حداکثر تا ۲ ساعت آینده بررسی می شود. لطفا از صحت آنان اطمینان حاصل کنید"
 		},
 		"modals": {
 			"tournaments": {

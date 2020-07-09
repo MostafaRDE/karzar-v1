@@ -505,7 +505,7 @@
                             this.contactFields = {name: '', email: '', content: ''};
                             this.$toast.success({
                                 title: i18n.t('glossaries.contact_us'),
-                                message: i18n.t('glossaries.your_message_has_been_successfully_sent'),
+                                message: i18n.t('messages.successes.your_message_has_been_successfully_sent'),
                             })
                         })
                         .catch(error => {

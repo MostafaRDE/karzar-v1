@@ -197,6 +197,7 @@
 		"your_games": "Your Games",
 		"your_message": "Your Message",
 		"your_name": "Your Name",
+		"your_pubg_account_level_must_be_at_least_20": "Your PUBG account level must be at least 20",
 		"your_pubg_account_level_must_be_at_least_30": "Your PUBG account level must be at least 30",
 		"your_team_bonus_of_this_game": "Your team bonus of this game",
 		"your_tournaments": "Your Tournaments",
@@ -220,7 +221,8 @@
 			"after_downloading_the_counter_strike_unzip_it_then_open_the_anti_chit_software_and_then_enter_the_game_counter_strike": "After downloading the Counter-Strike, unzip it, then open the anti-chit software and then enter the game Counter-Strike.",
 			"enter_the_find_server_section_and_click_the_favorites_button_then_click_add_server_at_the_bottom_of_the_page_then_enter_our_server_ip_and_click_ok_and_enter_the_server": "Enter the Find Server section and click the Favorites button, then click Add Server at the bottom of the page. Then enter our server IP and click OK and enter the server.",
 			"first_download_counter_strike_1_6_via_the_link_below": "First, download Counter-Strike 1.6 via the link below",
-			"i_am_now_a_member_of_the_tournament_s_telegram_group": "I am now a member of the tournament's Telegram group"
+			"i_am_now_a_member_of_the_tournament_s_telegram_group": "I am now a member of the tournament's Telegram group",
+			"your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct": "Your character's ID and name will be reviewed within the next 2 hours. Please make sure they are correct"
 		},
 		"modals": {
 			"tournaments": {

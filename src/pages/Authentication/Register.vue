@@ -3,7 +3,7 @@
         <div class="bottom-0 left-0 right-0 top-0 position-absolute" style="background: #252326e0"></div>
 
         {{ /* Main parent register content panel */ }}
-        <div class="w-90 mx-auto z-index-1" style="max-width: 500px">
+        <div class="w-90 mx-auto z-index-1" style="max-width: 500px; max-height: calc(100vh - 40px); overflow-y: overlay;">
 
             {{ /* Main register content panel */ }}
             <div class="p-20 text-start position-relative" style="background: #0009">
@@ -75,7 +75,7 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('mobileNumber') }}</span>
 
-                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_30') }}</span>
+                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>
                     {{ /* Player ID input */ }}
                     <rs-input type="text"
                               inputClass="font-size-md"
@@ -86,6 +86,7 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('playerId') }}</span>
 
+                    <span class="font-size-xs font-weight-700 text-center w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct') }}</span>
                     {{ /* Player Name input */ }}
                     <rs-input type="text"
                               class="mt-20"
