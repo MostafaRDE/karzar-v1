@@ -315,7 +315,7 @@
 			},
 			"register": {
 				"content": {
-					"accepting_text_term_of_use": "I confirm that I have read, accepted and agreed to all Terms of Use, I am of legal age and I am not US person.",
+					"accepting_text_term_of_use": "I confirm that I have read, accepted and agreed to all Terms of Use.",
 					"the_site_s_term_of_use": "{site_name}'s Term of Use"
 				},
 				"header": "Create a free account",

@@ -110,13 +110,13 @@
 
                     {{ /* "Term of Use" check-box button accepting */ }}
                     <div class="mb-15 mt-10" v-if="height >= 660">
-                        <rs-check-box :label="$t('pages.authentication.register.content.accepting_text_term_of_use')"
-                                      labelClass="font-size-xs"
-                                      name="is_accepted_term_of_use"
-                                      v-model="fields.isAcceptTermOfUse"
-                                      :rules="fields.rules.isAcceptTermOfUse"/>
-                        {{ /* "Term of Use" form error */ }}
-                        <span class="text-danger">{{ getInputError('is_accepted_term_of_use') }}</span><br/>
+<!--                        <rs-check-box :label="$t('pages.authentication.register.content.accepting_text_term_of_use')"-->
+<!--                                      labelClass="font-size-xs"-->
+<!--                                      name="is_accepted_term_of_use"-->
+<!--                                      v-model="fields.isAcceptTermOfUse"-->
+<!--                                      :rules="fields.rules.isAcceptTermOfUse"/>-->
+<!--                        {{ /* "Term of Use" form error */ }}-->
+<!--                        <span class="text-danger">{{ getInputError('is_accepted_term_of_use') }}</span><br/>-->
                         {{ /* "Term of Use" link */ }}
                         <a href="#" class="text-info font-size-xs" target="_blank">{{
                             $t('pages.authentication.register.content.the_site_s_term_of_use', { site_name: siteName })
@@ -126,8 +126,8 @@
                     {{ /* "Already registered? Login" text */ }}
                     <div class="mb-30 mt-10 d-flex">
                         <span class="font-size-xs">
-                            {{ $t('questions.already_registered') }} <router-link :to="{name: 'login'}"
-                                                                                  class="text-info font-size-xs">{{ $t('glossaries.login') }}</router-link>
+                            {{ $t('questions.already_registered') }}
+                            <router-link :to="{name: 'login'}" class="text-info font-size-xs">{{ $t('glossaries.login') }}</router-link>
                         </span>
                     </div>
 

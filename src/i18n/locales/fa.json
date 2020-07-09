@@ -312,7 +312,7 @@
 			},
 			"register": {
 				"content": {
-					"accepting_text_term_of_use": "تأیید می کنم که من همه شرایط استفاده را خوانده ام، پذیرفته ام و من در سن قانونی هستم.",
+					"accepting_text_term_of_use": "تأیید می کنم که من همه شرایط استفاده را خوانده ام، پذیرفته ام.",
 					"the_site_s_term_of_use": "شرایط استفاده از {site_name}"
 				},
 				"header": "ثبت نام",
