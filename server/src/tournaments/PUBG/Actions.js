@@ -102,16 +102,30 @@ class Actions {
     runningTournaments(lang, isLogged = false, userId) {
         return new Promise((resolve, reject) => {
             let pubgTournamentModel = new PubgTournamentModel();
+            let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
 
             pubgTournamentModel.fetch_all_custom('SELECT * FROM pubg.v_tournaments WHERE finished_at is null ORDER BY v_tournaments.id DESC', 1, 1).then(async data => {
                 for (let i = 0; i < data.result.length; i++) {
                     if (isLogged && data.result[i].players) {
                         data.result[i].is_joined = data.result[i].players.split(',').includes(`${userId}`);
                         if (data.result[i].is_joined) {
-                            let authInfo = await pubgTournamentModel.fetch_one('username, password', ['id'], [data.result[i].id]);
-                            if (authInfo) {
-                                data.result[i].username = authInfo.username;
-                                data.result[i].password = authInfo.password;
+                            let characters = await pubgTournamentPlayerModel.fetch_all('is_authentication_room_get', ['user_id', 'tournament_id'], [userId, data.result[i].id]);
+                            let hasAuth = false;
+                            for (let i = 0; i < characters.result.length; i++)
+                                if (characters.result[i].is_authentication_room_get) {
+                                    hasAuth = true;
+                                    break;
+                                }
+
+                            if (hasAuth) {
+                                let authInfo = await pubgTournamentModel.fetch_one('username, password', ['id'], [data.result[i].id]);
+                                if (authInfo) {
+                                    data.result[i].username = authInfo.username;
+                                    data.result[i].password = authInfo.password;
+                                } else {
+                                    data.result[i].username = null;
+                                    data.result[i].password = null;
+                                }
                             } else {
                                 data.result[i].username = null;
                                 data.result[i].password = null;
