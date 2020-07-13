@@ -376,7 +376,7 @@ class pg_methods {
         if (relations && Array.isArray(relations)) {
             relations.forEach((key) => {
                 let child = key.child || 'id';
-                query += ` ${key.type} JOIN ${key.alias || key.table} ON ${table}.${key.parent} = ${key.alias}.${child} `
+                query += ` ${key.type} JOIN ${key.alias || key.table} ON ${table}.${key.parent} = ${key.alias || key.table}.${child} `
             })
         }
         return query;

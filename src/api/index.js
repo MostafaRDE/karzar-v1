@@ -140,7 +140,7 @@ export function tournamentPlayers(id) {
     })
 }
 
-export function characters(character, cancelToken) {
+export function characters(character, cancelToken, tournament_id) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
         let options = {};
@@ -150,6 +150,8 @@ export function characters(character, cancelToken) {
         let query = `?lang=${lang()}`;
         if (character)
             query += `&character=${character}`;
+        if (tournament_id)
+            query += `&tournament_id=${tournament_id}`;
 
         axios.get(`tournaments/pubg/characters${query}`, options).then(resolve).catch(reject)
     })

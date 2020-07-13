@@ -181,26 +181,48 @@ class Actions {
         })
     }
 
-    characters(character, user_id) {
+    characters(character, user_id, tournament_id) {
         return new Promise((resolve, reject) => {
             if (user_id) {
+                let pubgCharacterModel = new PubgCharacterModel();
                 let characterId = null;
                 if (!isNaN(character))
                     characterId = parseInt(character);
-                let pubgCharacterModel = new PubgCharacterModel();
-                pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE ${characterId ? `pubg.characters.id = '${characterId}'` : `pubg.characters.user_id =  '${user_id}'`} ORDER BY pubg.characters.name`)
-                    .then(async res => {
-                        for (let i = 0; i < res.result.length; i++) {
-                            if (res.result[i].media_id)
-                                res.result[i].profile_image_id = await mediaGetFile(data.result[i].profile_image_id);
-                            else
-                                res.result[i].profile_image = null;
+                if (characterId && tournament_id) {
+                    let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
+                    pubgTournamentPlayerModel.fetch_all('character_id', ['tournament_id'], [tournament_id]).then(res => {
+                        let result = res.result.find(item => item.character_id === `${characterId}`);
+                        if (result) {
+                            resolve({
+                                result: [],
+                                total: 0,
+                            })
+                        } else {
+                            pubgCharacterModel.fetch_one('pubg.characters.*', ['pubg.characters.id'], [characterId], undefined, undefined, [
+                                {type: 'INNER', table: 'users', parent: 'user_id'},
+                            ]).then(res => {
+                                resolve({
+                                    result: [res],
+                                    total: 1,
+                                })
+                            })
                         }
-                        resolve(res)
-                    }).catch(err => {
-                    console.error(err);
-                    reject({status: false})
-                })
+                    })
+                } else {
+                    pubgCharacterModel.fetch_all_custom(`SELECT pubg.characters.*, users.media_id as profile_image_id FROM pubg.characters INNER JOIN users ON (pubg.characters.user_id = users.id) WHERE ${characterId ? `pubg.characters.id = '${characterId}'` : `pubg.characters.user_id =  '${user_id}'`} ORDER BY pubg.characters.name`)
+                        .then(async res => {
+                            for (let i = 0; i < res.result.length; i++) {
+                                if (res.result[i].media_id)
+                                    res.result[i].profile_image_id = await mediaGetFile(data.result[i].profile_image_id);
+                                else
+                                    res.result[i].profile_image = null;
+                            }
+                            resolve(res)
+                        }).catch(err => {
+                        console.error(err);
+                        reject({status: false})
+                    })
+                }
             } else {
                 resolve({
                     status: true,

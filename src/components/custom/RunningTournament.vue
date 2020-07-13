@@ -93,23 +93,23 @@
                                     {{ /* Start getting user registration data */ }}
                                     <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                         <div class="d-flex flex-direction-column px-lg-20 pe-xl-40">
-                                            <div v-if="!model.is_joined && !isRunning">
-                                                <rs-input type="text"
-                                                          :label="$t('glossaries.character_name')"
-                                                          :source="fields.player1CharactersList"
-                                                          :sourceLoading="fields.player1CharactersListLoading"
-                                                          @input="getCharacters(1, $event)"
-                                                          v-model="fields.player1">
-                                                    <template slot="source-item">
-                                                        <character-input-adapter v-for="(data, index) of fields.player1CharactersList"
-                                                                                 v-if="data.status === 0 || data.status === 1"
-                                                                                 :key="`join-${index}`"
-                                                                                 :data="data"
-                                                                                 :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"
-                                                                                 @click.native="updateCharacter(1, data)"/>
-                                                    </template>
-                                                </rs-input>
-                                            </div>
+<!--                                            <div v-if="!model.is_joined && !isRunning">-->
+<!--                                                <rs-input type="text"-->
+<!--                                                          :label="$t('glossaries.character_name')"-->
+<!--                                                          :source="fields.player1CharactersList"-->
+<!--                                                          :sourceLoading="fields.player1CharactersListLoading"-->
+<!--                                                          @input="getCharacters(1, $event)"-->
+<!--                                                          v-model="fields.player1">-->
+<!--                                                    <template slot="source-item">-->
+<!--                                                        <character-input-adapter v-for="(data, index) of fields.player1CharactersList"-->
+<!--                                                                                 v-if="data.status === 0 || data.status === 1"-->
+<!--                                                                                 :key="`join-${index}`"-->
+<!--                                                                                 :data="data"-->
+<!--                                                                                 :class="index < fields.player1CharactersList.length - 1 ? 'border-bottom' : ''"-->
+<!--                                                                                 @click.native="updateCharacter(1, data)"/>-->
+<!--                                                    </template>-->
+<!--                                                </rs-input>-->
+<!--                                            </div>-->
                                             <div class="mt-20 d-flex align-items-center">
                                                 <div class="row">
                                                     <div class="col-sm mb-10 mb-sm-10 pe-0 ps-0 d-inline-flex align-items-center">
@@ -177,7 +177,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10 mt-lg-0">
                                             <div class="d-flex align-items-center">
-                                                <rs-check-box v-model="actives.player2"/>
+                                                <rs-check-box :value="actives.player2"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_id')"
@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10">
                                             <div class="d-flex align-items-center">
-                                                <rs-check-box v-model="actives.player3"/>
+                                                <rs-check-box :value="actives.player3"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_id')"
@@ -221,7 +221,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-0 mt-10">
                                             <div class="d-flex align-items-center">
-                                                <rs-check-box v-model="actives.player4"/>
+                                                <rs-check-box :value="actives.player4"/>
                                                 <rs-input type="text"
                                                           class="flex-grow-1"
                                                           :label="$t('glossaries.character_id')"
@@ -406,9 +406,9 @@
 
             joining: false,
             actives: {
-                player2: false,
-                player3: false,
-                player4: false,
+                player2: true,
+                player3: true,
+                player4: true,
             },
             characters: [],
             characterRequest: null,
@@ -503,11 +503,26 @@
             },
 
             updateCharacter(id, data) {
-                if (data.status === 1) {
+                if (
+                    data.status === 1 &&
+                    !(
+                        this.fields[`player1Id`] === data.id ||
+                        this.fields[`player2Id`] === data.id ||
+                        this.fields[`player3Id`] === data.id ||
+                        this.fields[`player4Id`] === data.id
+                    )
+                ) {
                     this.fields[`player${id}`] = data.name;
                     this.fields[`player${id}Id`] = data.id;
 
                     this.filterListCharacters();
+                } else {
+                    this.fields[`player${id}`] = '';
+                    this.fields[`player${id}CharactersList`] = [];
+                    this.$toast.error({
+                        title: i18n.t('glossaries.character_selection'),
+                        message: i18n.t('messages.errors.this_character_has_already_been_selected'),
+                    })
                 }
             },
 
@@ -571,7 +586,7 @@
                         if (!this.fields[`player${id}CharactersListLoading`]) {
                             this.fields[`player${id}CharactersListLoading`] = true;
                             this.characterRequest = axios.CancelToken.source();
-                            characters(character, this.characterRequest.token)
+                            characters(character, this.characterRequest.token, this.model.id)
                                 .then(res => {
                                     this.fields[`player${id}CharactersList`] = res.data.result
                                 })
@@ -590,7 +605,7 @@
             },
 
             fillInputCharactersList(id, character) {
-                characters(character)
+                characters(character, undefined, this.model.id)
                     .then(res => {
                         let data = JSON.stringify(res.data.result);
                         this.characters = JSON.parse(data);

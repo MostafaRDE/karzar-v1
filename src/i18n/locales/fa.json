@@ -44,6 +44,7 @@
 		"character": "کاراکتر",
 		"character_id": "آی دی کاراکتر",
 		"character_name": "نام کاراکتر",
+		"character_selection": "انتخاب کاراکتر",
 		"characters": "کاراکتر ها",
 		"charging_via": "شارژ از طریق",
 		"code": "کد",
@@ -212,6 +213,7 @@
 			"reset_password_failed": "تغییر پسورد با شکست مواجه شد.مجدد امتحان کنید",
 			"the_minimum_allowed_charge_is_the_price_tomans": "حداقل شارژ مجاز {amount} تومان می باشد",
 			"the_payment_was_unsuccessful": "پرداخت نا موفق بود",
+			"this_character_has_already_been_selected": "این کاراکتر از قبل انتخاب شده است",
 			"transaction_amount_must_be_over_2_dollar": "مبلغ تراکنش باید برابر یا بیش از ۵ دلار باشد",
 			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد"
 		},
