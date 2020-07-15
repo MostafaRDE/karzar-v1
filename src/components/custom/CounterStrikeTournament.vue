@@ -81,20 +81,25 @@
 
                             <div class="overflow-x-overlay overflow-y-hidden border-top">
                                 <div class="flex-grow-1 d-flex ms-auto" :class="[width >= 1024 ? 'w-fit-content' : 'w-100', {'flex-direction-column': width <= 600 || width > 680 && width < 768}]">
-                                    <rs-button transparent glow
+                                    <rs-button v-if="ip"
+                                               transparent glow
                                                class="text-nowrap"
                                                :class="{'flex-grow-1': width < 1024}">
-<!--                                        {{ $t('glossaries.coming_soon') }}-->
+                                        {{ ip }}
                                     </rs-button>
                                     <rs-button solid
                                                glow
-                                               disabled
+                                               :disabled="!ip"
                                                :trapezeStart="width >= 1024"
                                                class="text-white text-nowrap"
                                                :class="[{'px-80': width >= 1024}, {'flex-grow-1': width < 1024}]"
                                                @click.native="copyIP">
-<!--                                        {{ $t('glossaries.copy_server_ip')}}-->
-                                        {{ $t('glossaries.coming_soon') }}
+                                        <template v-if="ip">
+                                            {{ $t('glossaries.copy_server_ip') }}
+                                        </template>
+                                        <template v-else>
+                                            {{ $t('glossaries.coming_soon') }}
+                                        </template>
                                     </rs-button>
                                 </div>
                             </div>
@@ -121,6 +126,7 @@
 
         props: {
             tournament: {},
+            ip: {},
         },
 
         data: () => ({
@@ -133,7 +139,7 @@
             },
 
             copyIP() {
-                if (this.copyText('192.168.23.253'))
+                if (this.copyText(this.ip))
                     this.$toast.success({
                         title: i18n.t('glossaries.copy'),
                         message: i18n.t('glossaries.copied'),

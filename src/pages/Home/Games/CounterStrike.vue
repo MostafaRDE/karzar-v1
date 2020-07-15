@@ -13,7 +13,7 @@
                     <h4 class="text-center w-100 text-white">{{ $t('glossaries.online_karzar_server') }}</h4>
                     <title-span class="mb-60 mt-20 w-100 d-block text-center"/>
 
-                    <counter-strike-tournament/>
+                    <counter-strike-tournament ip="P1.TGCS.IR:27003"/>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@
         methods: {
             handleScroll() {
                 this.scrollY = window.scrollY;
-                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) + 64}px`
+                this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 64}px`
             },
             updateSelectedTab(tab) {
                 this.selectedTab = tab
