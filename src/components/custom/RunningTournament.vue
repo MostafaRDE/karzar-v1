@@ -484,7 +484,7 @@
                         return null;
 
                     // UC pubg currency
-                    case 2:
+                    case 100:
                         return ' UC';
                 }
             },
@@ -703,7 +703,7 @@
                 if (errors > 0) {
                     this.$toast.error({
                         title: i18n.t('glossaries.join_to_tournament'),
-                        message: i18n.t(`glossaries.please_enter_the_name_of_your_character${this.reservationType === 'SINGLE' ? '' : 's'}`),
+                        message: i18n.t(`glossaries.please_enter_the_id_of_your_character${this.reservationType === 'SINGLE' ? '' : 's'}`),
                     });
                 } else {
                     let price = this.model.fee * characterNames.split(',').length;

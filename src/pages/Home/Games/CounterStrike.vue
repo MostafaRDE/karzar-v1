@@ -37,7 +37,7 @@
                                         <span class="flex-grow-1">{{ $t('messages.infos.first_download_counter_strike_1_6_via_the_link_below') }}</span>
                                     </div>
                                     <div class="col-lg-5">
-                                        <rs-button solid glow class="w-100">{{ $t('glossaries.download_counter_strike_1_6') }}</rs-button>
+                                        <rs-button solid glow class="w-100" @click.native="download(counterUrl)">{{ $t('glossaries.download_counter_strike_1_6') }}</rs-button>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                         <span class="flex-grow-1">{{ $t('glossaries.download_anti_chit_sxe_injected_17_2_software') }}</span>
                                     </div>
                                     <div class="col-lg-5">
-                                        <rs-button solid glow class="w-100">{{ $t('glossaries.download_anti_chit') }}</rs-button>
+                                        <rs-button solid glow class="w-100" @click.native="download(counterAntiChitUrl)">{{ $t('glossaries.download_anti_chit') }}</rs-button>
                                     </div>
                                 </div>
                             </div>
@@ -133,9 +133,15 @@
                 backgroundSize: 'cover',
                 boxShadow: '#0005 15px 15px 21px 0',
             },
+
+            counterUrl: 'http://dl.tehrangaming.com/Counter-Strike-1.6-Tehran-Gaming.zip',
+            counterAntiChitUrl: 'http://dl.tehrangaming.com/sXe-17.2-Tehran-Gaming.zip',
         }),
 
         methods: {
+            download(url) {
+                window.open(url)
+            },
             handleScroll() {
                 this.scrollY = window.scrollY;
                 this.titleStyles.backgroundPosition = `center ${(this.scrollY * -1 / 3) - 64}px`
