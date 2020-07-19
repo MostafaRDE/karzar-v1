@@ -758,14 +758,8 @@
                             letter-spacing .06em
                             text-transform uppercase
                             box-sizing border-box
-
-                            span
-                                position relative
-                                display block
-                                top 50%
-                                -webkit-transform translateY(-50%)
-                                -moz-transform translateY(-50%)
-                                transform translateY(-50%)
+                            display flex
+                            align-items center
 
                             &:after
                                 content ''

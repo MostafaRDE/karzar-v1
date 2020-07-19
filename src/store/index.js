@@ -28,6 +28,15 @@ export function createStore() {
 
         }),
 
+        getters: {
+            getProfileImage: (state) => {
+                if (state.profile && state.profile.profile_image)
+                    return state.profile.profile_image.url_static;
+                else
+                    return '/public/images/public/pubg-default-profile.svg';
+            },
+        },
+
         mutations : {
 
             // "setDirection" mutation-method for update "dir" variable in states

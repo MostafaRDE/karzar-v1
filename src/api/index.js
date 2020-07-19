@@ -27,11 +27,14 @@ export function getProfile() {
     })
 }
 
-export function updateProfile(name, mobile_number) {
+export function updateProfile(name, mobile_number, profile_image = null) {
     // Create request as "Promise" and returned it
     return new Promise((resolve, reject) => {
-        let data = {name, mobile_number};
-        axios.put(`/users/update-profile?lang=${lang()}`, data).then(resolve).catch(reject)
+        let formData = new FormData();
+        formData.append('name', name);
+        formData.append('mobile_number', mobile_number);
+        formData.append('profile_image', profile_image);
+        axios.put(`/users/update-profile?lang=${lang()}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(resolve).catch(reject)
     })
 }
 

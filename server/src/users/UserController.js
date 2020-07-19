@@ -3,6 +3,8 @@
 const validator = require("validator");
 const UserActions = require('./Actions');
 const {UserLoginHistory} = require("./UserMongo");
+const storage = require('../../util/multer/image-identity-storage');
+const mediaSaveFile = require('../../util/media').saveFile;
 
 module.exports = {
 
@@ -283,11 +285,32 @@ module.exports = {
     },
 
     updateProfile(req, res) {
-        UserActions.editUser(req.body, ['id'], [req.user.id]).then(response => {
-            res.json(response)
-        }).catch(error => {
-            res.status(422).send(error)
-        })
+        let body = req.body,
+            attachment = req.file,
+            userId = req.user.id;
+
+        delete body.profile_image;
+
+        if (attachment) {
+            storage.array('profile_image')(req, res, function (err) {
+                if (err)
+                    res.status(500).end("Something went wrong:(");
+                mediaSaveFile(attachment, null).then(media => {
+                    body.media_id = media.id;
+                    UserActions.editUser(body, ['id'], [userId]).then(response => {
+                        res.json(response)
+                    }).catch(error => {
+                        res.status(422).send(error)
+                    })
+                })
+            })
+        } else {
+            UserActions.editUser(body, ['id'], [userId]).then(response => {
+                res.json(response)
+            }).catch(error => {
+                res.status(422).send(error)
+            })
+        }
     },
 
     updatePassword(req, res) {

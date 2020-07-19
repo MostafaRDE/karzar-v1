@@ -3,7 +3,7 @@
         <div class="d-flex mb-50 mt-10">
 
             <div class="me-10" @click="goToProfile">
-                <img src="/public/images/public/pubg-default-profile.svg" alt=""/>
+                <img :src="$store.getters['getProfileImage']" alt=""/>
             </div>
 
             <div class="flex-grow-1 d-flex flex-direction-column justify-content-space-around">

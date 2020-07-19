@@ -4,6 +4,7 @@ const User = require('./UserController');
 const rateLimit = require("express-rate-limit");
 const passport = require("passport");
 const UsersMiddleware = require("../../middleware/UsersMiddelware");
+const Storage = require('./../../util/multer/image-identity-storage');
 const {checkGoogleRecaptcha} = require("../../middleware/RecaptchaMiddleware");
 
 let LoginRateLimit = rateLimit({
@@ -21,7 +22,7 @@ router.get('/logout', (req, res) => {
     res.redirect(`/${req.query.lang || ''}`);
 } );
 router.get('/get/me' , UsersMiddleware.check_login_user , User.get_user);
-router.put('/update-profile' , UsersMiddleware.check_login_user , User.updateProfile);
+router.put('/update-profile' , UsersMiddleware.check_login_user , Storage.single('profile_image') , User.updateProfile);
 router.put('/update-password' , UsersMiddleware.check_login_user , User.updatePassword);
 router.get('/email-validate/:token', User.check_and_validate_email);
 router.get('/balance', UsersMiddleware.check_login_user, User.getBalance);

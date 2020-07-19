@@ -11,7 +11,10 @@
                          style="width: 240px; height: 240px"
                          alt="Profile Image"/>
 
-            <rs-button class="mt-20 w-100" solid glow @click.native="cropNewProfileImage">{{ $t('glossaries.submit') }}</rs-button>
+            <div class="d-flex">
+                <rs-button class="mt-20 w-100" solid glow @click.native="cropNewProfileImage">{{ $t('glossaries.submit') }}</rs-button>
+                <rs-button class="mt-20 w-100" @click.native="cropNewProfileImage">{{ $t('glossaries.cancel') }}</rs-button>
+            </div>
         </rs-modal>
 
         <div class="row">
@@ -21,25 +24,42 @@
 
                     <div class="mt-30">
                         <div class="d-flex flex-direction-column">
-                            <div>
+                            <div class="overflow-hidden position-relative"
+                                 :style="getProfileImageCoverStyle">
                                 <img :src="getProfileImage"
                                      alt=""
-                                     style="width: 200px;"/>
+                                     class="w-100"/>
                             </div>
                         </div>
                         <div class="mt-20">
                             <rs-button class="p-0 position-relative" type="button">
-                                <label class="cursor-pointer" style="padding: 13px 44px">
-                                    <input type="file" class="d-none" @change="selectNewProfileImage"/>
+                                <label class="cursor-pointer" style="padding: 12.5px 20px">
+                                    <input type="file" ref="profileImageSelector" class="d-none" @change="selectNewProfileImage"/>
                                     <span class="me-20">+</span>
                                     {{ $t('glossaries.select_profile_image') }}
                                 </label>
+                            </rs-button>
+                            <rs-button class="position-relative ms-10"
+                                       solid glow
+                                       type="button"
+                                       @click.native="clearSelectedImage">
+                                {{ $t('glossaries.remove') }}
                             </rs-button>
                         </div>
                     </div>
 
                     <div>
                         <rs-input class="mt-30"
+                                  :label="$t('glossaries.email')"
+                                  name="email"
+                                  disabled
+                                  v-model="fields.profile.email"
+                                  :rules="fields.profile.rules.email"/>
+                        <span class="text-danger">{{ getInputError('email', 'PROFILE') }}</span>
+                    </div>
+
+                    <div>
+                        <rs-input class="mt-20"
                                   :label="$t('glossaries.name')"
                                   name="name"
                                   v-model="fields.profile.name"
@@ -130,13 +150,16 @@
             fields: {
                 profile: {
                     imgCrop: null,
+                    imgBlob: null,
 
                     name: '',
                     mobileNumber: '',
+                    email: '',
 
                     rules: {
                         name: 'required|string',
                         mobileNumber: 'required|string:digits',
+                        email: 'required|string',
                     }
                 },
                 password: {
@@ -160,11 +183,15 @@
             getProfileImage() {
                 if (this.fields.profile.imgCrop)
                     return this.fields.profile.imgCrop;
-                else if (this.getProfile && this.profile.profile_image) {
-                    return ''
+                else
+                    return this.$store.getters['getProfileImage'];
+            },
+            getProfileImageCoverStyle() {
+                if (this.fields.profile.imgCrop || this.getProfile && this.getProfile.profile_image) {
+                    return 'padding: 4px; width: 100%; max-width: 200px; background: url(/public/images/public/pubg-default-profile-border.svg) no-repeat; background-size: contain';
                 }
                 else
-                    return '/public/images/public/pubg-default-profile.svg';
+                    return 'width: 100%; max-width: 200px;';
             },
         },
 
@@ -201,11 +228,16 @@
                 this.modals.imageProfile.imgSrc = URL.createObjectURL(e.target.files[0]);
                 this.modals.imageProfile.visibility = true
             },
-            cropNewProfileImage(e) {
+            cropNewProfileImage() {
                 this.fields.profile.imgCrop = this.$refs.cropper.getCroppedCanvas().toDataURL();
-                console.log(this.$refs.cropper.getCroppedCanvas().toBlob((a) => {
-                    console.log(a)
-                }))
+                this.$refs.cropper.getCroppedCanvas().toBlob((blob) => {
+                    this.fields.profile.imgBlob = new File([blob], `profile_image${this.extNameFromMimeType(blob.type)}`, { type: blob.type, lastModified:new Date() })
+                });
+                this.modals.imageProfile.visibility = false;
+            },
+            clearSelectedImage() {
+                this.fields.profile.imgCrop = null;
+                this.fields.profile.imgBlob = null;
             },
 
             updateProfile() {
@@ -213,7 +245,7 @@
                     this.formErrorsProfile = {};
 
                     this.updatingProfile = true;
-                    updateProfile(this.fields.profile.name, this.fields.profile.mobileNumber)
+                    updateProfile(this.fields.profile.name, this.fields.profile.mobileNumber, this.fields.profile.imgBlob)
                         .then(response => {
                             this.$toast.success({
                                 title: i18n.t('glossaries.profile_update'),
@@ -266,7 +298,14 @@
                 deep: true,
                 handler(profile) {
                     this.fields.profile.name = profile.name;
+                    this.fields.profile.email = profile.email;
                     this.fields.profile.mobileNumber = profile.mobile_number
+                }
+            },
+            'modals.imageProfile.visibility'(val) {
+                if (!val) {
+                    this.modals.imageProfile.imgSrc = null;
+                    this.$refs.profileImageSelector.value = null;
                 }
             }
         },
@@ -274,6 +313,7 @@
         mounted() {
             if (this.$store.state.profile) {
                 this.fields.profile.name = this.$store.state.profile.name;
+                this.fields.profile.email = this.$store.state.profile.email;
                 this.fields.profile.mobileNumber = this.$store.state.profile.mobile_number;
             }
 

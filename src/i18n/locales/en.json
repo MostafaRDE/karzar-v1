@@ -146,6 +146,7 @@
 		"refer_code": "Referral id",
 		"refer_code_optional": "Referral id (Optional)",
 		"register": "Register",
+		"remove": "Remove",
 		"resend_verification_email": "Resend activation link",
 		"reset_password": "Reset Password",
 		"retype_new_password": "Retype new password",
