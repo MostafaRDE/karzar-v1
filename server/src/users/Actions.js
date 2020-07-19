@@ -2,6 +2,7 @@ const {PubgCharacterModel} = require('../../Models/PubgModel');
 const {UserModel} = require('../../Models/UserModel');
 const {WalletModel} = require('../../Models/WalletModel');
 const bcrypt = require("bcrypt");
+const mediaGetFile = require('../../util/media').getFile;
 const moment = require("moment");
 const mailer = require("../../util/mails");
 const {UserTokens, UserOperationRequest} = require("./UserMongo");
@@ -393,6 +394,23 @@ class Actions {
                 reject();
             }
         });
+    }
+
+    getUser(id) {
+        return new Promise((resolve, reject) => {
+            let model = new UserModel();
+            model.fetch_one('*', ['id'], [id]).then(async data => {
+                data.password = undefined;
+
+                if (data.media_id)
+                    data['profile_image'] = await mediaGetFile(data.media_id);
+
+                resolve(data)
+            }).catch(e => {
+                console.error(e);
+                reject({status: false})
+            })
+        })
     }
 
     static getBalance(userId) {

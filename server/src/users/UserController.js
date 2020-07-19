@@ -274,7 +274,12 @@ module.exports = {
     },
 
     get_user(req, res) {
-        res.json(req.user)
+        let actions = new UserActions();
+        actions.getUser(req.user.id).then(data => {
+            res.json(data)
+        }).catch(err => {
+            res.status(500).send(err)
+        })
     },
 
     updateProfile(req, res) {

@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div v-if="model" class="modal-parent" @click.self="model = false">
-            <div class="modal" :class="classModel" :style="styleModal">
+            <div class="modal" :class="classModal" :style="styleModal">
                 <slot name="header"/>
                 <slot/>
                 <slot name="footer"/>
@@ -20,7 +20,7 @@
         },
 
         props: {
-            classModel: {
+            classModal: {
                 default: '',
                 required: false
             },

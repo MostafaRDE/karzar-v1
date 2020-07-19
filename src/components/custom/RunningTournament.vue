@@ -337,7 +337,7 @@
             </rs-modal>
             {{ /* End tournament reservation panel */ }}
 
-            <rs-modal classModel="p-20 text-center text-white"
+            <rs-modal classModal="p-20 text-center text-white"
                       v-model="modals.groupJoining.visibility">
                 <h4 class="mb-20 text-center">{{ $t('glossaries.tournament_telegram_group') }}</h4>
                 <p class="text-justify mb-30">{{ $t('messages.modals.tournaments.group_joining') }}</p>

@@ -1,32 +1,42 @@
 <template>
     <div class="py-20 px-20">
+        <rs-modal classModal="p-20"
+                  styleModal="width: 280px"
+                  v-model="modals.imageProfile.visibility">
+            <h5 class="text-white text-center mb-20">{{ $t('glossaries.change_profile_image') }}</h5>
+
+            <vue-cropper ref="cropper"
+                         :src="modals.imageProfile.imgSrc"
+                         :aspect-ratio="1/1"
+                         style="width: 240px; height: 240px"
+                         alt="Profile Image"/>
+
+            <rs-button class="mt-20 w-100" solid glow @click.native="cropNewProfileImage">{{ $t('glossaries.submit') }}</rs-button>
+        </rs-modal>
+
         <div class="row">
             <div class="col-sm-6" :class="responsiveObject.sizes.sm > width ? 'border-bottom pb-20' : 'border-end'">
                 <rs-form class="px-10" :submit="updateProfile" @errors="setFormErrors($event, 'PROFILE')">
                     <h5>{{ $t('glossaries.base_information') }}</h5>
 
-<!--                    <div class="mt-30">-->
-<!--                        <div v-if="imgSrc">-->
-<!--                            <vue-cropper ref="cropper"-->
-<!--                                         :src="imgSrc"-->
-<!--                                         :aspect-ratio="1/1"-->
-<!--                                         alt="Source Image"/>-->
-<!--                        </div>-->
-<!--                        <div v-else class="d-flex">-->
-<!--                            <rs-button class="p-0 position-relative" type="button">-->
-<!--                                <transition name="fade">-->
-<!--                                    <div v-if="imgSrc"-->
-<!--                                         class="position-absolute rounded-circle pxw-10 pxh-10 top-0 left-0"-->
-<!--                                         style="background-color: #f00; transform: translateX(-50%) translateY(-50%)"></div>-->
-<!--                                </transition>-->
-<!--                                <label class="cursor-pointer" style="padding: 13px 44px">-->
-<!--                                    <input type="file" class="d-none"/>-->
-<!--                                    <span class="me-20">+</span>-->
-<!--                                    {{ $t('glossaries.select_profile_image') }}-->
-<!--                                </label>-->
-<!--                            </rs-button>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="mt-30">
+                        <div class="d-flex flex-direction-column">
+                            <div>
+                                <img :src="getProfileImage"
+                                     alt=""
+                                     style="width: 200px;"/>
+                            </div>
+                        </div>
+                        <div class="mt-20">
+                            <rs-button class="p-0 position-relative" type="button">
+                                <label class="cursor-pointer" style="padding: 13px 44px">
+                                    <input type="file" class="d-none" @change="selectNewProfileImage"/>
+                                    <span class="me-20">+</span>
+                                    {{ $t('glossaries.select_profile_image') }}
+                                </label>
+                            </rs-button>
+                        </div>
+                    </div>
 
                     <div>
                         <rs-input class="mt-30"
@@ -109,10 +119,18 @@
 
             updatingProfile: false,
             updatingPassword: false,
-            imgSrc: null,
+
+            modals: {
+                imageProfile: {
+                    visibility: false,
+                    imgSrc: null,
+                },
+            },
 
             fields: {
                 profile: {
+                    imgCrop: null,
+
                     name: '',
                     mobileNumber: '',
 
@@ -138,7 +156,16 @@
         computed: {
             getProfile() {
                 return this.$store.state.profile
-            }
+            },
+            getProfileImage() {
+                if (this.fields.profile.imgCrop)
+                    return this.fields.profile.imgCrop;
+                else if (this.getProfile && this.profile.profile_image) {
+                    return ''
+                }
+                else
+                    return '/public/images/public/pubg-default-profile.svg';
+            },
         },
 
         methods: {
@@ -168,6 +195,17 @@
                     case 'PASSWORD':
                         return (this.formErrorsPassword.hasOwnProperty(key)) ? this.formErrorsPassword[key][0] : '';
                 }
+            },
+
+            selectNewProfileImage(e) {
+                this.modals.imageProfile.imgSrc = URL.createObjectURL(e.target.files[0]);
+                this.modals.imageProfile.visibility = true
+            },
+            cropNewProfileImage(e) {
+                this.fields.profile.imgCrop = this.$refs.cropper.getCroppedCanvas().toDataURL();
+                console.log(this.$refs.cropper.getCroppedCanvas().toBlob((a) => {
+                    console.log(a)
+                }))
             },
 
             updateProfile() {

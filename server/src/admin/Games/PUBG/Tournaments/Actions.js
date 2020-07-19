@@ -208,7 +208,7 @@ class PubgTournamentsActions {
     players(id) {
         return new Promise(async (resolve, reject) => {
             let pubgTournamentPlayerModel = new PubgTournamentPlayerModel();
-            pubgTournamentPlayerModel.fetch_all_custom(`SELECT *, pubg.tournament_players.id as player_id, pubg.characters.name as character_name FROM pubg.tournament_players INNER JOIN pubg.characters ON (pubg.characters.id = pubg.tournament_players.character_id) INNER JOIN users ON (pubg.tournament_players.user_id = users.id) WHERE tournament_players.tournament_id = ${id}`).then(data => {
+            pubgTournamentPlayerModel.fetch_all_custom(`SELECT *, pubg.tournament_players.id as player_id, pubg.characters.name as character_name FROM pubg.tournament_players INNER JOIN pubg.characters ON (pubg.characters.id = pubg.tournament_players.character_id) INNER JOIN users ON (pubg.tournament_players.user_id = users.id) WHERE tournament_players.tournament_id = ${id} ORDER BY SUBSTRING(group_number FROM '([0-9]+)')::BIGINT`).then(data => {
                 resolve(data)
             }).catch(reject)
         });

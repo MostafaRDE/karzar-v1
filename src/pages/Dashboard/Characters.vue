@@ -39,7 +39,7 @@
         <hr style="border: none; border-top: solid 1px #fff3">
 
         <rs-form :submit="updateCharacter" @errors="setFormErrors($event, 'character')">
-            <rs-modal classModel="p-30 text-center" v-model="modals.character.visibility">
+            <rs-modal classModal="p-30 text-center" v-model="modals.character.visibility">
                 <h4 class="mb-20">{{ $t('glossaries.update_character')}}</h4>
                 <div class="row">
                     <div class="col-sm pe-0 pe-sm-10 ps-0">
