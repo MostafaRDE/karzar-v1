@@ -35,6 +35,12 @@ class PubgTournamentsActions {
                     data.result[i].description = await getTranslates(data.result[i].tournaments_gk_description);
                     data.result[i].map = map;
 
+                    let authInfo = await pubgTournamentModel.fetch_one('username, password', ['id'], [data.result[i].id]);
+                    if (authInfo) {
+                        data.result[i].username = authInfo.username;
+                        data.result[i].password = authInfo.password;
+                    }
+
                     if (search) {
                         let status = false;
 
