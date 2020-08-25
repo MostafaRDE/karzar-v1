@@ -221,10 +221,12 @@
 			"the_payment_was_unsuccessful": "The payment was unsuccessful",
 			"this_character_has_already_been_selected": "This character has already been selected",
 			"transaction_amount_must_be_over_2_dollar": "Transaction amount equal to or must be over $2",
-			"transaction_amount_must_be_over_20_dollar": "Transaction amount equal to or must be over $20"
+			"transaction_amount_must_be_over_20_dollar": "Transaction amount equal to or must be over $20",
+			"please_charge_your_wallet" : "Please Charge Your Wallet"
 		},
 		"infos": {
 			"after_downloading_the_counter_strike_unzip_it_then_open_the_anti_chit_software_and_then_enter_the_game_counter_strike": "After downloading the Counter-Strike, unzip it, then open the anti-chit software and then enter the game Counter-Strike.",
+			"click_on__Group_Booking__to_join_the_tournament": "Click on \"Group Booking\" to join the tournament",
 			"enter_the_find_server_section_and_click_the_favorites_button_then_click_add_server_at_the_bottom_of_the_page_then_enter_our_server_ip_and_click_ok_and_enter_the_server": "Enter the Find Server section and click the Favorites button, then click Add Server at the bottom of the page. Then enter our server IP and click OK and enter the server.",
 			"enter_your_desired_password__no_need_for_a_gmail_password": "Enter your desired password - no need for a Gmail password",
 			"first_download_counter_strike_1_6_via_the_link_below": "First, download Counter-Strike 1.6 via the link below",

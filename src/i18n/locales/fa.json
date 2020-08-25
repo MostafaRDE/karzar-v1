@@ -219,10 +219,12 @@
 			"the_payment_was_unsuccessful": "پرداخت نا موفق بود",
 			"this_character_has_already_been_selected": "این کاراکتر از قبل انتخاب شده است",
 			"transaction_amount_must_be_over_2_dollar": "مبلغ تراکنش باید برابر یا بیش از ۵ دلار باشد",
-			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد"
+			"transaction_amount_must_be_over_20_dollar": "مبلغ تراکنش باید برابر یا بیش از ۲۰ دلار باشد",
+			"please_charge_your_wallet": "لطفا کیف پول خود را شارژ کنید"
 		},
 		"infos": {
 			"after_downloading_the_counter_strike_unzip_it_then_open_the_anti_chit_software_and_then_enter_the_game_counter_strike": "پس از دانلود کانتر از حالت فشرده خارج کنید سپس نرم افزار آنتی چیت را باز کرده و سپس وارد بازی کانتر استریک شوید.",
+			"click_on__Group_Booking__to_join_the_tournament": "جهت عضویت در تورنومنت، روی \"رزرو گروهی\" کلیلک کنید",
 			"enter_the_find_server_section_and_click_the_favorites_button_then_click_add_server_at_the_bottom_of_the_page_then_enter_our_server_ip_and_click_ok_and_enter_the_server": "وارد قسمت سرور (Find Server) شوید و بر روی دکمه Favorites کلیک کنید و سپس در پایین همان صفحه، بر روی Add Server کلیک کنید. سپس آیپی سرور ما را وارد کنید و OK را بزنید و وارد سرور شوید.",
 			"enter_your_desired_password__no_need_for_a_gmail_password": "رمز عبور دلخواه خود را وارد کنید - نیازی به رمز جیمیل نیست",
 			"first_download_counter_strike_1_6_via_the_link_below": "ابتدا بازی کانتر استریک ۱.۶ را از طریق لینک زیر دانلود کنید",

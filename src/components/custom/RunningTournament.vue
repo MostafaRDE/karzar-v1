@@ -670,6 +670,15 @@
                 if (this.joining)
                     return;
 
+                if (reservationType !== 'GROUP') {
+                    this.$toast.warn({
+                        title: i18n.t('glossaries.join_to_tournament'),
+                        message: i18n.t('messages.infos.click_on__Group_Booking__to_join_the_tournament'),
+                    })
+                    return;
+                }
+
+
                 // Check selected players if exists or not
                 let errors = 0,
                     characterNames = '';
@@ -732,8 +741,12 @@
                             .finally(() => {
                                 this.joining = false
                             })
-                    } else {
-
+                    }
+                    else {
+                        this.$toast.error({
+                            title: i18n.t('glossaries.join_to_tournament'),
+                            message: i18n.t('messages.errors.please_charge_your_wallet'),
+                        })
                     }
                 }
             }
