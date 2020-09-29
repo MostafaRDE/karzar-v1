@@ -356,8 +356,8 @@
 			},
 			"verify_email_address": {
 				"content": {
-					"active_account_first": "لطفا ابتدا حساب خود را فعال نمایید.",
-					"created_email_and_sent_verifier_email": "حساب شما در {site_name} ساخته و یک پیام حاوی لینک فعال سازی به ایمیل شما ارسال شد."
+					"active_account_first": "لطفا به حساب کاربری خود وارد شوید.",
+					"created_email_and_sent_verifier_email": "حساب شما در {site_name} ساخته شد."
 				},
 				"header": "فعال سازی حساب کاربری",
 				"title": "فعال سازی حساب کاربری | کارزار"
