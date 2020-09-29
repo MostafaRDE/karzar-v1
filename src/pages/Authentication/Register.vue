@@ -9,7 +9,7 @@
             <div class="p-20 text-start position-relative" style="background: #0009">
 
                 <div class="position-absolute">
-                    <span @click="$router.go(-1)"
+                    <span @click="$router.push({name: 'home', params: {lang: 'fa'}})"
                           class="text-white d-flex cursor-pointer"
                           :style="{transform: $store.state.dir === 'rtl' ? 'scaleX(-1)' : 'scaleX(1)'}">
                         <icon-arrow-left/>
@@ -75,7 +75,7 @@
                     {{ /* Email form error */ }}
                     <span class="text-danger">{{ getInputError('mobileNumber') }}</span>
 
-                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>
+<!--                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>-->
                     {{ /* Player ID input */ }}
 <!--                    <rs-input type="text"-->
 <!--                              inputClass="font-size-md"-->

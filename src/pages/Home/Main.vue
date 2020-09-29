@@ -231,6 +231,10 @@
 <!--                    </span>-->
 
                     <span class="d-block mt-30 text-white">
+                        <a href="tel:09151596854"><span class="me-10 d-inline-flex"><i class="fa fa-phone"/></span>09151596854</a>
+                    </span>
+
+                    <span class="d-block mt-15 text-white">
                         <a href="mailto:info@karzar.pro"><span class="me-10 d-inline-flex"><i class="fa fa-envelope"/></span>info@karzar.pro</a>
                     </span>
                 </div>
