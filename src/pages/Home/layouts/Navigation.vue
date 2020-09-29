@@ -621,7 +621,7 @@
                             to: {name: 'home', params: {lang: this.$route.params.lang}},
                         },
                         {
-                            label: i18n.t('glossaries.account'),
+                            label: {name: this.$store.state.user_auth ? i18n.t('glossaries.account') : `${i18n.t('glossaries.login')} - ${ i18n.t('glossaries.register') }`, params: {lang: this.$route.params.lang}},
                             rel: this.$store.state.user_auth ? 'nofollow' : '',
                             to: {name: this.$store.state.user_auth ? 'dashboardTournaments' : 'login', params: {lang: this.$route.params.lang}},
                         },
