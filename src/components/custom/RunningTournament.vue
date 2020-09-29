@@ -670,7 +670,7 @@
                 if (this.joining)
                     return;
 
-                if (reservationType !== 'GROUP') {
+                if (this.reservationType !== 'GROUP') {
                     this.$toast.warn({
                         title: i18n.t('glossaries.join_to_tournament'),
                         message: i18n.t('messages.infos.click_on__Group_Booking__to_join_the_tournament'),
