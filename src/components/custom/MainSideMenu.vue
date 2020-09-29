@@ -7,7 +7,7 @@
 
         <div>
             <div class="text-center mb-55">
-                <a href="https://playerx.edge-themes.com/">
+                <a href="https://www.karzar.pro/">
                     <img :src="logoUrl" alt="a" style="max-width: 84px; height: auto;">
                 </a>
             </div>
