@@ -23,8 +23,8 @@ module.exports = {
         let password = req.body.password;
         let mobile_number = req.body.mobile_number;
         let refer_code = req.body.refer_code;
-        let character_id = req.body.player_id;
-        let character_name = req.body.player_name;
+        // let character_id = req.body.player_id;
+        // let character_name = req.body.player_name;
 
         if (!email || !password || !mobile_number) {
             return res.status(400).json({error: -400, msg: __('messages').err_empty_required_filed})
@@ -43,7 +43,8 @@ module.exports = {
         }
 
         let userActions = new UserActions();
-        userActions.addAccount({email, password, mobile_number, refer_code, character_id, character_name, lang: req.query.lang})
+        // userActions.addAccount({email, password, mobile_number, refer_code, character_id, character_name, lang: req.query.lang})
+        userActions.addAccount({email, password, mobile_number, refer_code, lang: req.query.lang})
             .then(data => {
                 if (data.status) {
                     if (data.is_email_send) {

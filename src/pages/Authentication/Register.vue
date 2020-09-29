@@ -77,25 +77,25 @@
 
                     <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('glossaries.your_pubg_account_level_must_be_at_least_20') }}</span>
                     {{ /* Player ID input */ }}
-                    <rs-input type="text"
-                              inputClass="font-size-md"
-                              :label="$t('glossaries.player_id')"
-                              name="playerId"
-                              v-model="fields.playerId"
-                              :rules="fields.rules.playerId"/>
-                    {{ /* Email form error */ }}
-                    <span class="text-danger">{{ getInputError('playerId') }}</span>
+<!--                    <rs-input type="text"-->
+<!--                              inputClass="font-size-md"-->
+<!--                              :label="$t('glossaries.player_id')"-->
+<!--                              name="playerId"-->
+<!--                              v-model="fields.playerId"-->
+<!--                              :rules="fields.rules.playerId"/>-->
+<!--                    {{ /* Email form error */ }}-->
+<!--                    <span class="text-danger">{{ getInputError('playerId') }}</span>-->
 
-                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct') }}</span>
-                    {{ /* Player Name input */ }}
-                    <rs-input type="text"
-                              inputClass="font-size-md"
-                              :label="$t('glossaries.player_name')"
-                              name="playerName"
-                              v-model="fields.playerName"
-                              :rules="fields.rules.playerName"/>
-                    {{ /* Email form error */ }}
-                    <span class="text-danger">{{ getInputError('playerName') }}</span>
+<!--                    <span class="font-size-xs font-weight-700 w-100 d-flex mb-5 mt-15 text-warning">{{ $t('messages.infos.your_character_s_id_and_name_will_be_reviewed_within_the_next_2_hours__please_make_sure_they_are_correct') }}</span>-->
+<!--                    {{ /* Player Name input */ }}-->
+<!--                    <rs-input type="text"-->
+<!--                              inputClass="font-size-md"-->
+<!--                              :label="$t('glossaries.player_name')"-->
+<!--                              name="playerName"-->
+<!--                              v-model="fields.playerName"-->
+<!--                              :rules="fields.rules.playerName"/>-->
+<!--                    {{ /* Email form error */ }}-->
+<!--                    <span class="text-danger">{{ getInputError('playerName') }}</span>-->
 
                     {{ /* Refer-code input */ }}
 <!--                    <rs-input type="number"-->
@@ -109,19 +109,19 @@
 <!--                    <span class="text-danger">{{ getInputError('refer_code') }}</span>-->
 
                     {{ /* "Term of Use" check-box button accepting */ }}
-                    <div class="mb-15 mt-10" v-if="height >= 660">
-<!--                        <rs-check-box :label="$t('pages.authentication.register.content.accepting_text_term_of_use')"-->
-<!--                                      labelClass="font-size-xs"-->
-<!--                                      name="is_accepted_term_of_use"-->
-<!--                                      v-model="fields.isAcceptTermOfUse"-->
-<!--                                      :rules="fields.rules.isAcceptTermOfUse"/>-->
-<!--                        {{ /* "Term of Use" form error */ }}-->
-<!--                        <span class="text-danger">{{ getInputError('is_accepted_term_of_use') }}</span><br/>-->
-                        {{ /* "Term of Use" link */ }}
-                        <a href="#" class="text-info font-size-xs" target="_blank">{{
-                            $t('pages.authentication.register.content.the_site_s_term_of_use', { site_name: siteName })
-                            }}</a>
-                    </div>
+<!--                    <div class="mb-15 mt-10" v-if="height >= 660">-->
+<!--&lt;!&ndash;                        <rs-check-box :label="$t('pages.authentication.register.content.accepting_text_term_of_use')"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      labelClass="font-size-xs"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      name="is_accepted_term_of_use"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      v-model="fields.isAcceptTermOfUse"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      :rules="fields.rules.isAcceptTermOfUse"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        {{ /* "Term of Use" form error */ }}&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="text-danger">{{ getInputError('is_accepted_term_of_use') }}</span><br/>&ndash;&gt;-->
+<!--                        {{ /* "Term of Use" link */ }}-->
+<!--                        <a href="#" class="text-info font-size-xs" target="_blank">{{-->
+<!--                            $t('pages.authentication.register.content.the_site_s_term_of_use', { site_name: siteName })-->
+<!--                            }}</a>-->
+<!--                    </div>-->
 
                     {{ /* "Already registered? Login" text */ }}
                     <div class="mb-30 mt-10 d-flex">

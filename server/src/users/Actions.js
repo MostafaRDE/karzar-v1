@@ -54,7 +54,8 @@ class Actions {
      * @param lang
      * @returns {Promise<any>}
      */
-    addAccount({email, password, mobile_number, refer_code, character_id, character_name, lang}) {
+    // addAccount({email, password, mobile_number, refer_code, character_id, character_name, lang}) {
+    addAccount({email, password, mobile_number, refer_code, lang}) {
         return new Promise((resolve, reject) => {
             let userModel = new UserModel();
             userModel.fetch_one('id , email', ['email'], [email])
@@ -72,8 +73,8 @@ class Actions {
                                     let walletModel = new WalletModel();
                                     await walletModel.insertSync(['user_id'], [data.id]);
 
-                                    let pubgCharacterModel = new PubgCharacterModel();
-                                    await pubgCharacterModel.insertSync(['user_id', 'name', 'id', 'updated_at'], [data.id, character_name, character_id, 'NOW()']);
+                                    // let pubgCharacterModel = new PubgCharacterModel();
+                                    // await pubgCharacterModel.insertSync(['user_id', 'name', 'id', 'updated_at'], [data.id, character_name, character_id, 'NOW()']);
 
                                     // TODO :: SEND EMAIL APPROVE
                                     await mailer.send_valid_email_address(data.id, email, lang);
